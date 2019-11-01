@@ -1,0 +1,129 @@
+.TH "dtsQueue" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsQueue \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <dts.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBname\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBsrc\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBdest\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBdeliveryDir\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "char \fBdeliveryCmd\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBdeliverAs\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBtransfer\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "int \fBtype\fP"
+.br
+.ti -1c
+.RI "int \fBnode\fP"
+.br
+.ti -1c
+.RI "int \fBmode\fP"
+.br
+.ti -1c
+.RI "int \fBmethod\fP"
+.br
+.ti -1c
+.RI "int \fBnthreads\fP"
+.br
+.ti -1c
+.RI "int \fBport\fP"
+.br
+.ti -1c
+.RI "int \fBkeepalive\fP"
+.br
+.ti -1c
+.RI "int \fBdeliveryPolicy\fP"
+.br
+.ti -1c
+.RI "int \fBauto_purge\fP"
+.br
+.ti -1c
+.RI "int \fBchecksumPolicy\fP"
+.br
+.ti -1c
+.RI "int \fBactiveSem\fP"
+.br
+.ti -1c
+.RI "int \fBcountSem\fP"
+.br
+.ti -1c
+.RI "pthread_t \fBqm_tid\fP"
+.br
+.ti -1c
+.RI "int \fBstatus\fP"
+.br
+.ti -1c
+.RI "int \fBudt_rate\fP"
+.br
+.ti -1c
+.RI "time_t \fBinterval\fP"
+.br
+.ti -1c
+.RI "time_t \fBstime\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBinit_time\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBend_time\fP"
+.br
+.ti -1c
+.RI "char \fBinfile\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "char \fBoutfile\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "\fBxferContext\fP \fBcontext\fP"
+.br
+.ti -1c
+.RI "\fBqueueStat\fP \fBstats\fP"
+.br
+.ti -1c
+.RI "Control \fBctrl\fP"
+.br
+.ti -1c
+.RI "int \fBnerrs\fP"
+.br
+.ti -1c
+.RI "char * \fBemsgs\fP [MAX_EMSGS]"
+.br
+.ti -1c
+.RI "pthread_mutex_t \fBmutex\fP"
+.br
+.ti -1c
+.RI "void * \fBdts\fP"
+.br
+.ti -1c
+.RI "\fBshmQueueStat\fP * \fBqstat\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Main queue descriptor. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

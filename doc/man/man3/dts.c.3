@@ -1,0 +1,229 @@
+.TH "dts.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dts.c \- \fBDTS\fP interface procedures,.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <netdb.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <netinet/in.h>\fP
+.br
+\fC#include <arpa/inet.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsdb.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_DTS_SRC_\fP   1"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdtsInit\fP (char *config, int port, char *host, char *sroot, int initialize)"
+.br
+.RI "\fIInitialize the \fBDTS\fP daemon structure. \fP"
+.ti -1c
+.RI "void \fBdts_initCopyMode\fP (\fBDTS\fP *dts, char *host, int port)"
+.br
+.ti -1c
+.RI "void \fBdts_initServerRoot\fP (\fBDTS\fP *dts)"
+.br
+.ti -1c
+.RI "void \fBdtsFree\fP (\fBDTS\fP *dts)"
+.br
+.RI "\fIFree the \fBDTS\fP daemon structure. \fP"
+.ti -1c
+.RI "void \fBdts_connectToMonitor\fP (\fBDTS\fP *dts)"
+.br
+.RI "\fIConnoct to the logging monitor and/open log file. \fP"
+.ti -1c
+.RI "void \fBdtsErrorExit\fP (char *msg)"
+.br
+.RI "\fIConnect to the logging monitor and/open log file. \fP"
+.ti -1c
+.RI "void \fBdtsErrorWarn\fP (char *msg)"
+.br
+.RI "\fIConnect to the logging monitor and/open log file. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBqueue_delay\fP = 0"
+.br
+.ti -1c
+.RI "int \fBfirst_write\fP = 1"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP interface procedures,. 
+
+DTS.C -- \fBDTS\fP interface procedures,
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "void dts_connectToMonitor (\fBDTS\fP * dts)"
+.PP
+Connoct to the logging monitor and/open log file. 
+.PP
+DTS_CONNECTTOMONITOR -- Connect to the logging monitor and/open log file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dtsDaemonize().
+.SS "void dts_initCopyMode (\fBDTS\fP * dts, char * host, int port)"
+.PP
+DTS_INITCOPYMODR -- Initialize the server for copy mode. 
+.PP
+References dts_getLocalIP(), and dts_localCwd().
+.PP
+Referenced by dtsInit().
+.SS "void dts_initServerRoot (\fBDTS\fP * dts)"
+.PP
+DTS_INITSERVERROOT -- Initialize the server root directory. 
+.PP
+References dts_queueSetCurrent().
+.PP
+Referenced by dts_SetRoot().
+.SS "void dtsErrorExit (char * msg)"
+.PP
+Connect to the logging monitor and/open log file. 
+.PP
+DTSERROREXIT -- Print an error message and exit.
+.PP
+\fBParameters:\fP
+.RS 4
+\fImsg\fP Error message 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "void dtsErrorWarn (char * msg)"
+.PP
+Connect to the logging monitor and/open log file. 
+.PP
+DTSERRORWARN -- Print a warning message.
+.PP
+\fBParameters:\fP
+.RS 4
+\fImsg\fP Warning message 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "void dtsFree (\fBDTS\fP * dts)"
+.PP
+Free the \fBDTS\fP daemon structure. 
+.PP
+DTSFREE -- Free the \fBDTS\fP daemon structure.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.SS "\fBDTS\fP * dtsInit (char * config, int port, char * host, char * root, int initialize)"
+.PP
+Initialize the \fBDTS\fP daemon structure. 
+.PP
+DTSINIT -- Initialize the \fBDTS\fP daemon structure.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIconfig\fP \fBDTS\fP config file 
+.br
+\fIport\fP \fBDTS\fP server port number 
+.br
+\fIhost\fP \fBDTS\fP server host name 
+.br
+\fIroot\fP \fBDTS\fP root directory 
+.br
+\fIinitialize\fP initialize root directory? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+pointer to \fBDTS\fP structure 
+.RE
+.PP
+
+.PP
+References dts_cfgPath(), dts_initCopyMode(), dts_isDir(), dts_loadConfigDir(), and dts_loadConfigFile().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

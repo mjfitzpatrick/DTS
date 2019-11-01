@@ -1,0 +1,360 @@
+.TH "dtsSockUtil.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsSockUtil.c \- \fBDTS\fP socket utilities.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <pthread.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <netdb.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <sys/select.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <sys/errno.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <netinet/in.h>\fP
+.br
+\fC#include <arpa/inet.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsUDT.h'\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+\fC#include 'udtc.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   0"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdts_setNonBlock\fP (int sock)"
+.br
+.ti -1c
+.RI "void \fBdts_setBlock\fP (int sock)"
+.br
+.ti -1c
+.RI "int \fBdts_openServerSocket\fP (int port)"
+.br
+.RI "\fIOpen a socket to be used on the 'server' side. \fP"
+.ti -1c
+.RI "int \fBdts_testServerSocket\fP (int port)"
+.br
+.RI "\fITest whether a server socket is in use. \fP"
+.ti -1c
+.RI "int \fBdts_getOpenPort\fP (int port, int maxTries)"
+.br
+.RI "\fIGet an open server port. \fP"
+.ti -1c
+.RI "int \fBdts_openClientSocket\fP (char *host, int port, int retry)"
+.br
+.RI "\fIOpen a socket to be used on the 'client' side. \fP"
+.ti -1c
+.RI "int \fBdts_openUDTServerSocket\fP (int port, int rate)"
+.br
+.ti -1c
+.RI "int \fBdts_openUDTClientSocket\fP (char *host, int port, int retry)"
+.br
+.RI "\fIOpen a socket to be used on the 'client' side. \fP"
+.ti -1c
+.RI "int \fBdts_sockRead\fP (int fd, void *vptr, int nbytes)"
+.br
+.RI "\fIRecv exactly 'n' bytes from a socket descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_sockWrite\fP (int fd, void *vptr, int nbytes)"
+.br
+.RI "\fISend exactly 'n' bytes to a socket descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_udtRead\fP (int fd, void *vptr, long nbytes, int flags)"
+.br
+.RI "\fIRecv exactly 'n' bytes from a UDT socket descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_udtWrite\fP (int fd, void *vptr, long nbytes, int flags)"
+.br
+.RI "\fISend exactly 'n' bytes to a UDT socket descriptor. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "pthread_mutex_t \fBcs_mut\fP = PTHREAD_MUTEX_INITIALIZER"
+.br
+.ti -1c
+.RI "pthread_mutex_t \fBss_mut\fP = PTHREAD_MUTEX_INITIALIZER"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP socket utilities. 
+
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_getOpenPort (int port, int maxTries)"
+.PP
+Get an open server port. 
+.PP
+dts_getOpenPort -- Get an open server port. The input port is a high value, if not immediately open we decrement the port up to the max number of attempts.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIport\fP initial port number to open (high value) 
+.br
+\fImaxTries\fP max ports to test 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+open port number 
+.RE
+.PP
+
+.PP
+References dts_testServerSocket().
+.SS "int dts_openClientSocket (char * host, int port, int retry)"
+.PP
+Open a socket to be used on the 'client' side. 
+.PP
+dts_openClientSocket -- Open a socket to be used on the 'client' side.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host name 
+.br
+\fIport\fP port number to open 
+.br
+\fIretry\fP attempt to reconnect? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+socket descriptor 
+.RE
+.PP
+
+.PP
+References dts_getHostByName(), and dts_getLocalIP().
+.PP
+Referenced by dts_hostContact(), psReceiveFile(), and psSendFile().
+.SS "int dts_openServerSocket (int port)"
+.PP
+Open a socket to be used on the 'server' side. 
+.PP
+dts_openServerSocket -- Open a socket to be used on the 'server' side.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIport\fP port number to open 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+socket descriptor 
+.RE
+.PP
+
+.PP
+References dts_getLocalIP(), and dtsErrLog().
+.PP
+Referenced by psReceiveFile(), and psSendFile().
+.SS "int dts_openUDTClientSocket (char * host, int port, int retry)"
+.PP
+Open a socket to be used on the 'client' side. 
+.PP
+dts_openUDTClientSocket -- Open a socket to be used on the 'client' side.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host name 
+.br
+\fIport\fP port number to open 
+.br
+\fIretry\fP attempt to reconnect? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+socket descriptor 
+.RE
+.PP
+
+.PP
+References dts_getHostByName(), and dts_getLocalIP().
+.PP
+Referenced by udtReceiveFile(), and udtSendFile().
+.SS "void dts_setBlock (int sock)"
+.PP
+DTS_SETBLOCK -- Set a blocking mode on the descriptor. 
+.SS "void dts_setNonBlock (int sock)"
+.PP
+DTS_SETNONBLOCK -- Set a non-blocking mode on the descriptor. 
+.PP
+Referenced by dts_fileWrite(), dts_sockRead(), dts_sockWrite(), and dts_udtWrite().
+.SS "int dts_sockRead (int fd, void * vptr, int nbytes)"
+.PP
+Recv exactly 'n' bytes from a socket descriptor. 
+.PP
+DTS_SOCKREAD -- Read exactly 'n' bytes from a socket descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIvptr\fP data buffer to be written 
+.br
+\fInbytes\fP number of bytes to write 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written 
+.RE
+.PP
+
+.PP
+References dts_setNonBlock(), dtsErrLog(), and psock_checksum_policy.
+.PP
+Referenced by psReceiveStripe(), and psSendStripe().
+.SS "int dts_sockWrite (int fd, void * vptr, int nbytes)"
+.PP
+Send exactly 'n' bytes to a socket descriptor. 
+.PP
+DTS_SOCKWRITE -- Write exactly 'n' bytes to a socket descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIvptr\fP data buffer to be written 
+.br
+\fInbytes\fP number of bytes to write 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written 
+.RE
+.PP
+
+.PP
+References dts_setNonBlock(), dtsErrLog(), and psock_checksum_policy.
+.PP
+Referenced by psReceiveStripe(), and psSendStripe().
+.SS "int dts_testServerSocket (int port)"
+.PP
+Test whether a server socket is in use. 
+.PP
+dts_testServerSocket -- Test whether a server socket is in use.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIport\fP port number to open 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status (0=free, 1=in-use) 
+.RE
+.PP
+
+.PP
+Referenced by dts_getOpenPort().
+.SS "int dts_udtRead (int fd, void * vptr, long nbytes, int flags)"
+.PP
+Recv exactly 'n' bytes from a UDT socket descriptor. 
+.PP
+DTS_UDTREAD -- Read exactly 'n' bytes from a UDT socket descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIvptr\fP data buffer to be written 
+.br
+\fInbytes\fP number of bytes to write 
+.br
+\fIflags\fP option flags 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written 
+.RE
+.PP
+
+.PP
+References dtsErrLog(), and udt_checksum_policy.
+.PP
+Referenced by udtReceiveStripe().
+.SS "int dts_udtWrite (int fd, void * vptr, long nbytes, int flags)"
+.PP
+Send exactly 'n' bytes to a UDT socket descriptor. 
+.PP
+DTS_UDTWRITE -- Write exactly 'n' bytes to a UDT socket descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIvptr\fP data buffer to be written 
+.br
+\fInbytes\fP number of bytes to write 
+.br
+\fIflags\fP option flags 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written 
+.RE
+.PP
+
+.PP
+References dts_setNonBlock(), dtsErrLog(), and udt_checksum_policy.
+.PP
+Referenced by udtSendStripe().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

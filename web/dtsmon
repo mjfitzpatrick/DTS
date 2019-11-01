@@ -1,0 +1,139 @@
+#!/bin/csh -f
+#
+# Break up the query string into a set of keyword-value strings.
+
+setenv HOME  /var/www/
+setenv PATH  /usr/local/bin:${PATH}
+
+chdir /tmp
+  
+# Begin page output.
+echo "Content-type: text/html"
+echo ""
+
+if (! -e /iraf/web/dts/_sf) then
+    set filt = "."
+else
+    set f = `cat /iraf/web/dts/_sf`
+    if ("$f" == "none") then
+        set filt = "."
+    else
+        set filt = "\ "$f"]"
+    endif
+endif
+
+
+# Begin page output.
+echo "<html>"
+echo "<body bgcolor='#333333' >"
+#echo "<META HTTP-EQUIV='REFRESH' CONTENT='3'>"
+echo "<META HTTP-EQUIV='REFRESH' CONTENT='12'>"
+
+echo "<table bgcolor='#111111' border='0' width='100%'><tr>"
+echo "<td align='left' valign='bottom'>"
+
+echo "<td align='left' valign='middle'>"
+echo "  <table border='0' cellspacing='0' cellpadding='0'><tr>"
+echo "    <td><font color='#fff' size='+2'>Status:&nbsp;&nbsp;</font></td>"
+
+#foreach n ( | dts-ct dts-ls dts-ncsa dts-fermi dts-tuc | tucana denali elqui crux | )
+foreach n (dts-ct dts-ls dts-tuc dts-ncsa dts-fermi)
+  set c = "#F00"
+  set w = "80"
+  /usr/local/bin/dtsh -p -q -c /usr/local/lib/dts_config -a $n	>& /dev/null
+  if ($status == 0) then
+    set c = "#0F0"
+    set act = "Stop"
+  else
+    set act = "Start"
+  endif
+  if ("$n" == "|") then
+    set w = "5"
+    set c = "#FF0"
+  endif
+  echo "<td align='center' width='"$w"'><font color='"$c"' size='+1'>"
+  echo $n"</font>"
+
+
+  if ("$n" != "|") then
+
+    if ($?REMOTE_ADDR) then
+      set r = `echo $REMOTE_ADDR | cut -c1-7`
+      if ("$r" == "140.252") then
+        echo "<br><table border='0' bgcolor='#000'><tr><td>"
+        if ("$act" == "Start") then
+          echo "<a href='http://iraf.noao.edu/scripts/dtstart?n="$n"'>"
+          echo "    <font color='#0F0'>Start</font></a>"
+        else
+          echo "<a href='http://iraf.noao.edu/scripts/dtstop?n="$n"'>"
+          echo "    <font color='#F00'>Stop</font></a>"
+        endif
+        echo "</td></tr></table>"
+      endif
+    endif
+  endif
+  echo "</td>"
+
+end
+echo "  </tr></table>"
+echo "</td>"
+
+
+echo "<td align='left' valign='middle'>"
+echo " <table border='1' cellspacing='0' cellpadding='0'><tr>"
+echo " <form action='http://iraf.noao.edu/scripts/dtsmon.sf' method='get'>"
+echo " <font color='#FFF' size='+2'><b>Filter:&nbsp;</b></font>"
+echo " <select name='filt'"
+echo "  OnChange='location.href=this.options[this.selectedIndex].value'>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=none'>Select</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=none'>None</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=dts-ct'>dts-ct</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=dts-ls'>dts-ls</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=dts-tuc'>dts-tuc</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=desar'>dts-ncsa</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=fermi'>dts-fermi</option>"
+echo " </select></form>"
+echo " </tr></table>"
+echo "</td>"
+
+
+echo "<td align='right' valign='middle'>"
+echo "<font size='+1' color='#FFFFFF'><b>"`date`"</font>"
+echo "</td></tr>"
+
+echo "<tr><td bgcolor='#333333' colspan='4' valign='top'>"
+echo "<pre>"
+echo "<font color='#dddd99'>"
+
+egrep "dts-"  /iraf/web/dts/dtsmon.out | \
+  egrep -v "pid\(" | \
+  tail -28 | \
+  sed -e 's:XFER:<b><font color=#dddd99>XFER</font></b>:g' | \
+  sed -e 's:IGST:<b><font color=#dddd99>IGST</font></b>:g' | \
+  sed -e 's:DLVR:<b><font color=#dddd99>DLVR</font></b>:g' | \
+  sed -e 's:PURG:<b><font color=#dddd99>PURG</font></b>:g' | \
+  sed -e 's:completed [a-z0-9\/\.]*:<b><font color=#00DD00>&</font></b>:g' | \
+  sed -e 's:dts-ct\]:<font color=#00ccff>dts-ct</font>\]:g' | \
+  sed -e 's:dts-ls\]:<font color=#00ffcc>dts-ls</font>\]:g' | \
+  sed -e 's:dts-tuc\]:<font color=#00cffc>dts-tuc</font>\]:g' | \
+  sed -e 's:dts-ferm\]:<font color=#cc00cc>dts-ferm</font>\]:g' | \
+  sed -e 's:desar\]:<font color=#ccee00>dts-desar</font>\]:g' | \
+  sed -e 's:test-tuc\]:<font color=#ffccff>test-tuc</font>\]:g' | \
+#  sed -e 's:tucana\]:<font color=#fc0fcf>tucana</font>\]:g' | \
+#  sed -e 's:denali\]:<font color=#f0ffcc>denali</font>\]:g' | \
+#  sed -e 's:elqui\]:<font color=#f0cfcf>elqui</font>\]:g' | \
+  sed -e 's:time=[0-9\.]* sec:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:[0-9\.]* Mbs:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:[0-9\.]* MBs:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:[0-9\.]* Mb/s:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:[0-9\.]* MB/s:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:status=OK  --------------:<font color=#00ff00>status=OK  --------------</font>:g' | \
+  sed -e 's:status=ERR  --------------:<font color=#ff0000>status=ERR  --------------</font>:g'
+
+echo "</font>"
+echo "</pre>"
+
+echo "</td></tr></table>"
+
+
+echo "</body></html>"

@@ -1,0 +1,214 @@
+#
+#  DTS pODI  Deployment Configuration
+#
+#  Revision History
+#
+#    Created:    6/15/12   MJF
+#    Modified:   9/06/12   Added podi-dev/podi-test queues and machines
+#
+
+
+verbose   0
+debug     0
+monitor	  tucana.tuc.noao.edu:3004	# pODI system monitor
+
+
+########################################
+# SDM cache system in Tucson
+########################################
+
+dts
+    name      dts-tu-podi
+    host      dts-tu-podi.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3099
+    root      /net/podi/DTS/
+    contact   3001
+    network   wiyn
+    dbfile    /net/podi/DTS/msg.db
+    logfile   /net/podi/DTS/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+
+    queue 				# entry point from domes
+	name	      	podi		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        give		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+        port	      	3010		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge		yes		# auto-purge working dir
+        dest            dts-iu-podi    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+        #deliveryCmd     /home/dts/dts-podi-deliver.csh $D $SP $Q
+        #deliveryCmd     /bin/tar -C /net/podi/podi.incoming/raw/$Q/ -xf $D
+        deliveryCmd     /home/dts/deliver $Q $D
+#	deliveryCmd     /usr/bin/openssl md5 $D
+
+    queue 				# entry point from domes
+	name	      	podi-dev	# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        give		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+        port	      	3040		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge		yes		# auto-purge working dir
+        dest            dts-iu-podi-dev
+	deliveryDir   	spool		# spool or /path/to/copy
+        #deliveryCmd     /home/dts/dts-podi-deliver.csh $D $SP $Q
+        deliveryCmd     /bin/tar -C /net/podi/podi.incoming/raw/$Q/ -xf $D
+
+    queue 				# entry point from domes
+	name	      	podi-test	# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        give		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+        port	      	3070		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge		yes		# auto-purge working dir
+        dest            dts-iu-podi-test
+	deliveryDir   	spool		# spool or /path/to/copy
+        #deliveryCmd     /home/dts/dts-podi-deliver.csh $D $SP $Q
+        #deliveryCmd     /bin/tar -C /net/podi/podi.incoming/raw/$Q/ -xf $D
+
+    queue 				# entry point from domes
+	name	      	podi-red	# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+        port	      	3060		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge		yes		# auto-purge working dir
+        dest            dts-iu-podi-test
+	deliveryDir   	spool		# spool or /path/to/copy
+
+
+
+########################################
+# DTS/pODI Production system at Indiana
+########################################
+
+dts
+    name      dts-iu-podi
+    host      incoming2.odi.iu.edu
+    port      3000
+    loPort    3005
+    hiPort    3099
+    root      /usr/local/var/spool/dts/
+    contact   3001
+    network   wiyn
+    dbfile    /usr/local/var/spool/dts/msg.db
+    logfile   /usr/local/var/spool/dts/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+
+    queue 				# entry point from domes
+	name	      	podi		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+	nthreads      	20		# No. of outbound threads
+        port	      	3010		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             dts-tu-podi
+        purge		yes		# auto-purge working dir
+	deliveryDir   	/usr/local/ODI_incoming_raw/
+        deliveryCmd     /usr/local/bin/incoming_msg $D
+
+
+
+#########################################
+# DTS/pODI Development system at Indiana
+#########################################
+
+dts
+    name      dts-iu-podi-dev
+    host      incoming-dev.odi.iu.edu
+    port      3000
+    loPort    3005
+    hiPort    3099
+    root      /usr/local/var/spool/dts/
+    contact   3001
+    dbfile    /usr/local/var/spool/dts/msg.db
+    logfile   /usr/local/var/spool/dts/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+
+    queue 				# entry point from domes
+	name	      	podi-dev	# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	40		# No. of outbound threads
+        port	      	3010		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             dts-tu-podi
+	deliveryDir   	/usr/local/ODI_incoming_raw/
+        deliveryCmd     /usr/local/incoming_msg $D
+
+
+
+#########################################
+# DTS/pODI Test system at Indiana
+#########################################
+
+dts
+    name      dts-iu-podi-test
+    host      incoming-test2.odi.iu.edu
+    port      3000
+    loPort    3005
+    hiPort    3099
+    root      /usr/local/var/spool/dts/
+    contact   3001
+    network   wiyn
+    dbfile    /usr/local/var/spool/dts/msg.db
+    logfile   /usr/local/var/spool/dts/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+
+    queue 				# entry point from domes
+	name	      	podi-test	# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3010		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             dts-tu-podi
+	deliveryDir   	/usr/local/ODI_incoming_raw/
+        deliveryCmd     /usr/local/incoming_msg $D
+
+    queue                               # entry point from domes
+        name            podi-red        # queue name
+        node            endpoint        # ingest, transfer, or endpoint
+        type            normal          # normal, scheduled, priority
+        mode            push            # push or give
+        method          dts             # dts or ????
+        nthreads        5               # No. of outbound threads
+        port            3060            # base transfer port
+        purge           yes             # auto-purge working dir
+        keepalive       yes             # keep connection open?          [NYI]
+        deliveryDir     /usr/local/ODI_incoming_reduced/
+        deliveryCmd     /usr/local/bin/incoming_msg_reduced $D
+

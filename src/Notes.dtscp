@@ -1,0 +1,104 @@
+
+DTSCP  -- Direct copy to a DTS node
+
+
+  USAGE:
+        dtscp [options] <src> <dest>
+  
+  DESCRIPTION:
+
+    The DTSCP task is used to transfer files and/or directories between
+    hosts in a DTS network.  The <src> or <dest> arguments are of the form
+
+		[ <node> ':' ] <file_template>
+
+    where a <node> name, if present, indicates the fully qualified domain
+    name (or IP address) of a machine running a DTSD (DTS Daemon) that
+    will serve as the source or destination machine.  The <file_template>
+    may contain metacharacters (e.g. a '*') that will be expanded on the
+    source machine to create a list of files to transfer.  Arguments may
+    be either the names of files or directories; Directories may be
+    transferred recursively if the '-r' flag is present, otherwise only
+    the toplevel contents of a directory will be transferred.
+
+    When copying a source file to a target file which already exists, DTSCP
+    will replace the contents of the target file.
+
+		:
+		:	
+		:
+		:
+
+
+    The support options are as follows:
+
+        -h			      print help
+        -v			      verbose output flag
+        -q			      quiet flag
+        -version		      print build version
+  
+        -a <alias>		      set contact alias
+        -c [fname]		      set config file
+        -f <file>		      transfer files listed in <file>
+        -n			      no-op flag
+        -p			      use PUSH/PULL mode for transfer
+	-q <qname>		      deliver to specified queue
+        -r			      recursive transfer (of directories)
+        -t [name]		      command target host name
+        -u			      use UDT transfer mode
+  
+        -H <port>		      set hi transfer port
+        -L <port>		      set low transfer port
+        -N <N>		      	      set number of threads
+        -P <port>		      set (RPC) command port
+        -R <rate>		      set UDT transfer rate (Mbps)
+        -T 		      	      print transfer time information
+  
+        +d			      debug flag
+
+
+
+  CONFIGURATION FILES:
+
+	.....discussion about the DTSD config file options required.
+	.....are all these options available as cmdline options?
+	.....how to specify 3rd party transfers
+			:
+			:
+
+
+  TRANSPORT METHODS:
+
+	.....discussion about TCP parallel sockets vs UDT, rate control, 
+	     client vs server sockets, firewall rules, etc.
+			:
+			:
+
+
+  EXAMPLES:
+
+    1)  Transfer all FITS files to the DTS running on machine 'fred.edu'
+
+	   % dtscp *.fits fred.edu:		# to the DTS default dir
+	   % dtscp *.fits fred.edu:/data	# to the system /data dir
+	or
+	   % ls *.fits > xfer.list
+	   % dtscp -f xfer.list fred.edu:
+	or
+	   % dtscp -c dts.cfg *.fits fred.edu:	# custom config file
+	or
+	   % dtscp -u -R 100 *.fits fred.edu:	# UDT rate of 100 Mbps
+	or
+	   % dtscp -N 20 *.fits fred.edu:	# TCP over 20 sockets
+
+
+    2)  Retrieve FITS files on machine 'fred.edu' to the current directory:
+
+	   % dtscp fred.edu:data/*.fits .	# DTS sandbox path
+	   % dtscp fred.edu:/data/*.fits .	# system absolute path
+
+    3)  Transfer all files in the /data directory to a remote node:
+
+	   % dtscp /data fred.edu:		# preserve 'data' directory
+        or
+	   % dtscp -r /data fred.edu:		# recursive transfer

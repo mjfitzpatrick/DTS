@@ -1,0 +1,131 @@
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of DTSQ</TITLE>
+</HEAD><BODY>
+<H1>DTSQ</H1>
+Section: User Commands  (1)<BR>Updated: June 2012<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+dtsq_config - configuration file description for the DTSQ task
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<DL COMPACT>
+<DT><I>$HOME/.dtsq_config</I><DD>
+<I>/&lt;path&gt;/&lt;config_file&gt;</I>
+<P>
+</DL>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The <I>dtsq</I> task ......
+<P>
+
+More descriptions .....
+<P>
+<P>
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>CONFIGURATION PARAMETERS</H2>
+
+<P>
+
+The configuration file is a series of entries of the form
+<PRE>
+
+        queue
+                &lt;param&gt;         &lt;value&gt;
+                &lt;param&gt;         &lt;value&gt;
+                   :               :
+
+</PRE>
+
+The <I>queue</I> keyword begins a new entry, blank lines and those beginning
+with a '#' are treated as comments and ignored.  There is no limit to the
+number of queues that may be defined in a config file.
+<P>
+
+The <I>dtsq_config</I> &lt;param&gt; values allowed are:
+<P>
+<DL COMPACT>
+<DT>name<DD>
+The name of the queue to which we will submit the data.
+<DT>host<DD>
+The host name (or IP number) of the machine hosting the named queue.
+<DT>method<DD>
+The method of transferring the data to the remote DTS daemon.  Valid options
+are <I>give</I> to indicate that the DTSQ application will open the server
+transport sockets, and <I>push</I> to indicate that the remote DTS daemon will
+open the server transport sockets.
+<DT>nthreads<DD>
+The number of transport threads used to submit the data to the remote
+machine.  In general, we expect good throughput to the remote machine so
+this number is usually low (e.g. 4 or less), more threads may be required
+for desired performance if the remote machine is connected over a slow
+or high-latency network.
+<DT>serverPort<DD>
+The XML-RPC server port to be used by DTSQ.
+<DT><B>port</B> or <B>loPort</B><DD>
+The lower transfer port.
+<DT>hiPort<DD>
+The upper transfer port.
+<DT>dir<DD>
+The DTSQ working directory.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+<P>
+
+Define an entry for a queue named 'test' on the machine 'dts.noao.edu'
+<P>
+<PRE>
+    queue 
+           name        test
+           host        dts.noao.edu
+           dir         default
+           method      give
+           port        2025
+           nthreads    4
+</PRE>
+
+<P>
+
+In this entry, 4 transfer threads starting at port 2025 on the local 
+machine will be used to submit the data.  If the 'push' method had been
+used, ports 2025-2028 on the machine dts.noao.edu would be opened and
+the local machine will connect as a client.  The default $HOME/.dtsq
+will be used as the DTSQ working directory.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>REVISIONS</H2>
+
+June 2012 - First public release
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="http://localhost/cgi-bin/man/man2html?1+dtsd">dtsd</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtscp">dtscp</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsh">dtsh</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsq">dtsq</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsmon">dtsmon</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsstat">dtsstat</A>(1)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">CONFIGURATION PARAMETERS</A><DD>
+<DT><A HREF="#lbAF">EXAMPLES</A><DD>
+<DT><A HREF="#lbAG">REVISIONS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 20:38:18 GMT, March 07, 2013
+</BODY>
+</HTML>

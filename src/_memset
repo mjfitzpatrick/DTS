@@ -1,0 +1,166 @@
+		    //memset (&src_files, 0, SZ_LINE);
+		    memset (buf, 0, SZ_LINE);
+		    memset (buf, 0, SZ_LINE);
+		    memset (buf, 0, SZ_LINE);
+		memset (buf, 0, SZ_LINE);
+		memset (buf, 0, SZ_LINE);
+		memset (buf, 0, SZ_LINE);
+		memset (buf, 0, SZ_LINE);
+		memset (dhost, 0, SZ_FNAME); strcpy (dhost, sres);
+		memset (dhost, 0, SZ_FNAME); strcpy (dhost, sres);
+		memset (dtsq->outfile, 0, SZ_PATH);
+		memset (shost, 0, SZ_FNAME); strcpy (shost, dhost);
+		memset (shost, 0, SZ_FNAME); strcpy (shost, dhost);
+		memset (temp_fromPath, 0, SZ_LINE);
+	        	memset (msg, 0, SZ_PATH);
+	        memset (msg, 0, SZ_PATH);
+	        memset (msg, 0, SZ_PATH);
+	    memset (buf, 0, SZ_LINE);
+	    memset (buf, 0, SZ_LINE);
+	    memset (buf, 0, SZ_LINE);
+	    memset (cmdline, 0, SZ_LINE);	/* reset                     */
+	    memset (cmdline, 0, SZ_LINE);	/* reset                     */
+	    memset (host, 0, SZ_FNAME);
+	    memset (host, 0, SZ_FNAME);
+	    memset (line, 0, SZ_LINE);
+	    memset (msg, 0, SZ_PATH);
+	    memset (passwd, 0, SZ_FNAME);
+	    memset (value, 0, SZ_FNAME);
+	memset (&nstat, 0, sizeof(nstat));
+	memset (&nstat, 0, sizeof(nstat));
+	memset (buf, 0, 1025);
+	memset (buf, 0, SZ_LINE);
+	memset (buf, 0, SZ_LINE); 		/* pull out the token 	*/
+	memset (cpath,    0, SZ_PATH);		/* current directory	*/
+	memset (ctrlpath, 0, SZ_PATH);		/* control file		*/
+	memset (curfil,   0, SZ_PATH);		/* current file		*/
+	memset (dhost, 0, SZ_FNAME); strcpy (dhost, sres);
+	memset (dhost, 0, SZ_FNAME); strcpy (dhost, sres);
+	memset (dtsq->outfile, 0, SZ_PATH);
+	memset (extension, 0, SZ_LINE);
+	memset (host, 0, SZ_LINE);
+	memset (lfpath,   0, SZ_PATH);		/* lock file path	*/
+	memset (logpath,  0, SZ_PATH);		/* log file		*/
+	memset (lpath,    0, SZ_PATH);		/* local file path	*/
+	memset (msg, 0, SZ_LOGMSG);
+	memset (path, 0, SZ_PATH);
+	memset (poke_host, 0, SZ_FNAME);
+	memset (ppath,    0, SZ_PATH);		/* previous directory	*/
+	memset (qhost, 0, SZ_PATH);
+	memset (qpath, 0, SZ_PATH);
+	memset (shost, 0, SZ_FNAME); strcpy (shost, host);
+	memset (shost, 0, SZ_FNAME); strcpy (shost, host);
+	memset (spath,    0, SZ_PATH);		/* spool directory	*/
+	memset (stat, 0, SZ_PATH);
+	memset (str, 0, SZ_LINE);
+	memset (str, 0, SZ_LINE);
+	memset( (shmQstat+i)->infile, 0, SZ_LINE);
+	memset( (shmQstat+i)->outfile, 0, SZ_LINE);
+    	    memset (fname, 0, SZ_PATH);
+    	    memset (lockfil, 0, SZ_PATH);
+    	memset (dir, 0, SZ_PATH);
+    	memset (fname, 0, SZ_PATH); 		/* Get the filename        */
+            memset (cpath,    0, SZ_PATH);
+            memset (ctrlpath, 0, SZ_PATH);
+            memset (curfil,   0, SZ_PATH);
+            memset (curfil,  0, SZ_PATH);
+            memset (lpath,    0, SZ_PATH);
+            memset (nextfil, 0, SZ_PATH);
+        memset (line, 0, SZ_LINE);
+        memset (lockfil, 0, SZ_PATH);
+        memset (msg, 0, SZ_LINE);
+        memset (msg, 0, SZ_LINE);
+        memset (msg, 0, SZ_LINE);
+        memset (msg, 0, SZ_LINE);
+        memset (root, 0, SZ_PATH);              /* get root path        */
+    memset (&control, 0, sizeof(Control));
+    memset (argv, 0, MAX_ARGS);
+    memset (argv, 0, MAX_ARGS);
+    memset (buf,      0, SZ_PATH);
+    memset (buf, 0, 1024);
+    memset (buf, 0, SZ_PATH);
+    memset (buf, 0, SZ_PATH);	/* get current working directory  */
+    memset (buf, 0, SZ_PATH);	/* get current working directory  */
+    memset (cfgpath, 0, SZ_PATH);
+    memset (clientUrl, 0, SZ_FNAME);
+    memset (clientUrl, 0, SZ_FNAME);
+    memset (cmd, 0, 4096);
+    memset (cmd, 0, SZ_CMD);
+    memset (cmd, 0, SZ_CMD);			/* clear strings	*/
+    memset (cmd, 0, SZ_CMD);			/* clear strings	*/
+    memset (cmdbuf, 0, SZ_SBUF);
+    memset (cmdbuf, 0, SZ_SBUF);
+    memset (cmdline, 0, SZ_LINE);
+    memset (config,   0, SZ_PATH);
+    memset (cpath, 0, SZ_PATH);
+    memset (ctrlpath, 0, SZ_PATH);
+    memset (curfil, 0, SZ_PATH);
+    memset (curfil, 0, SZ_PATH);
+    memset (curfil, 0, SZ_PATH);
+    memset (cwd, 0, SZ_LINE);
+    memset (dest, 0, SZ_LINE);
+    memset (execBuf, 0, SZ_LINE);
+    memset (execCmd, 0, SZ_LINE);
+    memset (fhost, 0, SZ_PATH);
+    memset (fname,    0, SZ_PATH);
+    memset (fqueue, 0, SZ_PATH);
+    memset (from, 0, SZ_LINE);
+    memset (fromHost, 0, SZ_LINE);
+    memset (fromPath, 0, SZ_LINE);
+    memset (host, 0, SZ_FNAME);
+    memset (host, 0, SZ_FNAME);
+    memset (key, 0, SZ_FNAME);
+    memset (line,    0, SZ_LOGMSG);
+    memset (line, 0, SZ_LINE);
+    memset (line, 0, SZ_LINE);
+    memset (localIP,  0, SZ_PATH);
+    memset (localIP, 0, SZ_PATH);
+    memset (log_file, 0, SZ_PATH);
+    memset (log_msg, 0, SZ_LINE);
+    memset (lpath, 0, SZ_PATH);
+    memset (method, 0, SZ_CMD);
+    memset (method, 0, SZ_CMD);
+    memset (method, 0, SZ_CMD);
+    memset (mon_url, 0, SZ_FNAME);
+    memset (monitor, 0, SZ_FNAME);
+    memset (msg,     0, SZ_LOGMSG);
+    memset (msg, 0, SZ_LINE);
+    memset (nextfil, 0, SZ_PATH);
+    memset (nextfil, 0, SZ_PATH);
+    memset (opath, 0, SZ_PATH);
+    memset (opath, 0, SZ_PATH);
+    memset (path, 0, SZ_PATH);
+    memset (path, 0, SZ_PATH);
+    memset (path, 0, SZ_PATH);
+    memset (path, 0, SZ_PATH);			/* default queue dir  	*/
+    memset (pend, 0, SZ_PATH);
+    memset (pending_file, 0, SZ_PATH);
+    memset (qdir,     0, SZ_PATH);
+    memset (qdir, 0, SZ_PATH);
+    memset (qhost,    0, SZ_LINE);
+    memset (qmethod,  0, SZ_LINE);
+    memset (qroot,    0, SZ_PATH);
+    memset (queuePath, 0, SZ_LINE);
+    memset (queuePath, 0, SZ_LINE); 		/*  initialize  	*/
+    memset (rdir,     0, SZ_PATH);
+    memset (rdir, 0, SZ_PATH);
+    memset (s, 0, 1024); strcpy (s, p1);
+    memset (s, 0, 1024); strcpy (s, p2);
+    memset (src, 0, SZ_LINE);
+    memset (tdir,     0, SZ_PATH);
+    memset (tdir, 0, SZ_PATH);
+    memset (thost, 0, SZ_LINE);
+    memset (tmpr, 0, SZ_LINE);
+    memset (to, 0, SZ_LINE);
+    memset (toHost, 0, SZ_LINE);
+    memset (toPath, 0, SZ_LINE);
+    memset (tpath, 0, SZ_PATH);
+    memset (tpath, 0, SZ_PATH);
+    memset (tpath, 0, SZ_PATH);
+    memset (tpath, 0, SZ_PATH);			/* token-file path	*/
+    memset (tstr, 0, 128);
+    memset (val, 0, SZ_LINE);
+    memset(cmdbuf, 0, SZ_SBUF);
+    memset(cmdline, 0, SZ_LINE);
+    memset(localIP, 0, SZ_PATH);
+    memset(msg, 0, SZ_LINE);

@@ -1,0 +1,217 @@
+\hypertarget{dtsXfer_8c}{
+\section{dtsXfer.c File Reference}
+\label{dtsXfer_8c}\index{dtsXfer.c@{dtsXfer.c}}
+}
+Client-callable \hyperlink{structDTS}{DTS} commands to transfer files TO a remote host machine..  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsXfer_8c_bdcf165381649c2da64f6762fe0c2404}{dts\_\-hostTo} (char $\ast$host, int port, int method, int rate, int loPort, int hiPort, int threads, int mode, int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, \hyperlink{structxferStat}{xferStat} $\ast$xfs)
+\begin{CompactList}\small\item\em Push a file to a remote host. \item\end{CompactList}\item 
+int \hyperlink{dtsXfer_8c_6a2d87ed4280780f66e83234ffd05c9e}{dts\_\-hostFrom} (char $\ast$host, int port, int method, int rate, int loPort, int hiPort, int threads, int mode, int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, \hyperlink{structxferStat}{xferStat} $\ast$xfs)
+\begin{CompactList}\small\item\em Pull a file from a remote host. \item\end{CompactList}\item 
+int \hyperlink{dtsXfer_8c_dc8e8c2ce7340c40af7a6a1c01e691b7}{dts\_\-xferDirTo} (char $\ast$host, char $\ast$func, int method, int rate, char $\ast$path, char $\ast$root, char $\ast$prefix, \hyperlink{structxferStat}{xferStat} $\ast$xs)
+\begin{CompactList}\small\item\em Recursively transfer a directory between hosts. \item\end{CompactList}\item 
+int \hyperlink{dtsXfer_8c_357c31d5dbe3458da649ffcf88d77d0b}{dts\_\-xferDirFrom} (char $\ast$srcHost, char $\ast$dstHost, int dstLocal, char $\ast$func, int method, int rate, char $\ast$path, char $\ast$root, char $\ast$prefix, \hyperlink{structxferStat}{xferStat} $\ast$xs)
+\begin{CompactList}\small\item\em Recursively transfer a directory between hosts. \item\end{CompactList}\item 
+int \hyperlink{dtsXfer_8c_9f64044d8cc9e4b32c55cd78ee938ca3}{dts\_\-xferFile} (char $\ast$host, char $\ast$func, int method, int rate, char $\ast$path, int fsize, mode\_\-t fmode, \hyperlink{structxferStat}{xferStat} $\ast$xs)
+\begin{CompactList}\small\item\em Transfer a single file between hosts. \item\end{CompactList}\item 
+int \hyperlink{dtsXfer_8c_4a62be8a33f79734a514dc764d33c9ed}{dts\_\-xferParseArgs} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, int $\ast$nthreads, int $\ast$port, int $\ast$verbose, char $\ast$$\ast$path\_\-A, char $\ast$$\ast$path\_\-B)
+\begin{CompactList}\small\item\em Parse arguments used by the transfer commands. \item\end{CompactList}\item 
+int \hyperlink{dtsXfer_8c_2a52937e6d9d8cf78a99351bba900925}{dts\_\-xferParsePaths} (char $\ast$host, char $\ast$$\ast$path\_\-A, char $\ast$$\ast$path\_\-B, int $\ast$srcLocal, int $\ast$dstLocal, char $\ast$$\ast$src\_\-host, char $\ast$$\ast$dest\_\-host, char $\ast$$\ast$msg\_\-host, char $\ast$$\ast$path)
+\begin{CompactList}\small\item\em Parse the paths used by the transfer commands. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsXfer_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsXfer_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsXfer_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsXfer_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+Client-callable \hyperlink{structDTS}{DTS} commands to transfer files TO a remote host machine.. 
+
+DTSHOTTO.C -- Client-callable \hyperlink{structDTS}{DTS} commands to transfer files TO a remote host machine..
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsXfer_8c_6a2d87ed4280780f66e83234ffd05c9e}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-hostFrom@{dts\_\-hostFrom}}
+\index{dts\_\-hostFrom@{dts\_\-hostFrom}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-hostFrom}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostFrom (char $\ast$ {\em host}, \/  int {\em port}, \/  int {\em method}, \/  int {\em rate}, \/  int {\em loPort}, \/  int {\em hiPort}, \/  int {\em threads}, \/  int {\em mode}, \/  int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]}, \/  {\bf xferStat} $\ast$ {\em xfs})}}
+\label{dtsXfer_8c_6a2d87ed4280780f66e83234ffd05c9e}
+
+
+Pull a file from a remote host. 
+
+DTS\_\-HOSTFROM -- Pull a file from A to B.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em port}]local \hyperlink{structDTS}{DTS} command port \item[{\em method}]transport method \item[{\em rate}]transport rate (Mbps) \item[{\em loPort}]low \hyperlink{structDTS}{DTS} transfer port \item[{\em hiPort}]high \hyperlink{structDTS}{DTS} transfer port \item[{\em threads}]number of transfer threads \item[{\em mode}]transfer mode \item[{\em argc}]argument counter \item[{\em argv}]argument vector \item[{\em xfs}]transfer stats \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} succeeds. \end{Desc}
+
+
+References dts\_\-cmdInit(), dts\_\-getLocalIP(), dts\_\-hostAccess(), dts\_\-hostFMode(), dts\_\-hostFSize(), dts\_\-hostIsDir(), dts\_\-hostMkdir(), dts\_\-localMkdir(), dts\_\-pathDir(), dts\_\-pathFname(), dts\_\-queueFromPath(), dts\_\-resolveHost(), dts\_\-xferDirFrom(), dts\_\-xferFile(), dts\_\-xferParseArgs(), and dtsLog().\hypertarget{dtsXfer_8c_bdcf165381649c2da64f6762fe0c2404}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-hostTo@{dts\_\-hostTo}}
+\index{dts\_\-hostTo@{dts\_\-hostTo}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-hostTo}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostTo (char $\ast$ {\em host}, \/  int {\em port}, \/  int {\em method}, \/  int {\em rate}, \/  int {\em loPort}, \/  int {\em hiPort}, \/  int {\em threads}, \/  int {\em mode}, \/  int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]}, \/  {\bf xferStat} $\ast$ {\em xfs})}}
+\label{dtsXfer_8c_bdcf165381649c2da64f6762fe0c2404}
+
+
+Push a file to a remote host. 
+
+DTS\_\-HOSTTO -- Move a file from A 'to' B (i.e. a \char`\"{}push\char`\"{} or \char`\"{}give\char`\"{}).
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em port}]local \hyperlink{structDTS}{DTS} command port \item[{\em method}]transport method \item[{\em rate}]transfer rate (Mbps) \item[{\em loPort}]low \hyperlink{structDTS}{DTS} transfer port \item[{\em hiPort}]high \hyperlink{structDTS}{DTS} transfer port \item[{\em threads}]number of transfer threads \item[{\em mode}]transfer mode \item[{\em argc}]argument counter \item[{\em argv}]argument vector \item[{\em xfs}]transfer stats \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} succeeds. \end{Desc}
+
+
+References dts\_\-cmdInit(), dts\_\-du(), dts\_\-getLocalIP(), dts\_\-hostMkdir(), dts\_\-isDir(), dts\_\-pathDir(), dts\_\-pathFname(), dts\_\-queueFromPath(), dts\_\-xferDirTo(), dts\_\-xferFile(), dts\_\-xferParseArgs(), dts\_\-xferParsePaths(), and dtsLog().
+
+Referenced by dts\_\-queueProcess().\hypertarget{dtsXfer_8c_357c31d5dbe3458da649ffcf88d77d0b}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-xferDirFrom@{dts\_\-xferDirFrom}}
+\index{dts\_\-xferDirFrom@{dts\_\-xferDirFrom}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-xferDirFrom}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferDirFrom (char $\ast$ {\em srcHost}, \/  char $\ast$ {\em dstHost}, \/  int {\em dstLocal}, \/  char $\ast$ {\em func}, \/  int {\em method}, \/  int {\em rate}, \/  char $\ast$ {\em path}, \/  char $\ast$ {\em root}, \/  char $\ast$ {\em prefix}, \/  {\bf xferStat} $\ast$ {\em xs})}}
+\label{dtsXfer_8c_357c31d5dbe3458da649ffcf88d77d0b}
+
+
+Recursively transfer a directory between hosts. 
+
+DTS\_\-XFERDIRFROM -- Recursively transfer a directory between hosts.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em srcHost}]source host \item[{\em dstHost}]destination host \item[{\em dstLocal}]is dest the local machine? \item[{\em func}]RPC method to call \item[{\em method}]transport method \item[{\em rate}]transfer rate \item[{\em path}]path to file \item[{\em root}]destination root \item[{\em prefix}]destination path prefix \item[{\em xfs}]transfer stats \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} succeeds. \end{Desc}
+
+
+References dts\_\-hostDir(), dts\_\-hostFMode(), dts\_\-hostFSize(), dts\_\-pathDir(), dts\_\-pathFname(), dts\_\-xferFile(), and dtsErrLog().
+
+Referenced by dts\_\-hostFrom().\hypertarget{dtsXfer_8c_dc8e8c2ce7340c40af7a6a1c01e691b7}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-xferDirTo@{dts\_\-xferDirTo}}
+\index{dts\_\-xferDirTo@{dts\_\-xferDirTo}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-xferDirTo}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferDirTo (char $\ast$ {\em host}, \/  char $\ast$ {\em func}, \/  int {\em method}, \/  int {\em rate}, \/  char $\ast$ {\em path}, \/  char $\ast$ {\em root}, \/  char $\ast$ {\em prefix}, \/  {\bf xferStat} $\ast$ {\em xs})}}
+\label{dtsXfer_8c_dc8e8c2ce7340c40af7a6a1c01e691b7}
+
+
+Recursively transfer a directory between hosts. 
+
+DTS\_\-XFERDIRTO -- Recursively transfer a directory between hosts.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host to call \item[{\em func}]RPC method to call \item[{\em method}]transport method \item[{\em rate}]transfer rate \item[{\em path}]path to file \item[{\em root}]destination root \item[{\em prefix}]source prefix dir \item[{\em xfs}]transfer stats \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} succeeds. \end{Desc}
+
+
+References dts\_\-hostChmod(), dts\_\-hostMkdir(), dts\_\-isDir(), dts\_\-nameMode(), dts\_\-nameSize(), dts\_\-pathDir(), dts\_\-pathFname(), dts\_\-xferFile(), and dtsErrLog().
+
+Referenced by dts\_\-hostTo().\hypertarget{dtsXfer_8c_9f64044d8cc9e4b32c55cd78ee938ca3}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-xferFile@{dts\_\-xferFile}}
+\index{dts\_\-xferFile@{dts\_\-xferFile}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-xferFile}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferFile (char $\ast$ {\em host}, \/  char $\ast$ {\em func}, \/  int {\em method}, \/  int {\em rate}, \/  char $\ast$ {\em path}, \/  int {\em fsize}, \/  mode\_\-t {\em fmode}, \/  {\bf xferStat} $\ast$ {\em xs})}}
+\label{dtsXfer_8c_9f64044d8cc9e4b32c55cd78ee938ca3}
+
+
+Transfer a single file between hosts. 
+
+DTS\_\-XFERFILE -- Transfer a single file between hosts.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]client host \item[{\em func}]RPC method to call \item[{\em method}]transport method \item[{\em rate}]transfer rate (Mbps) \item[{\em path}]path to file \item[{\em fsize}]file size \item[{\em fmode}]file protection mode \item[{\em xfs}]transfer stats \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} succeeds. \end{Desc}
+
+
+References dts\_\-cfgQMethodStr(), dts\_\-closeClient(), dts\_\-getClient(), dts\_\-hostChmod(), dts\_\-hostIsDir(), dts\_\-hostMkdir(), dts\_\-hostTouch(), dts\_\-isDir(), dts\_\-localMkdir(), dts\_\-localTouch(), dts\_\-nameMode(), dtsErrLog(), transferMB(), and transferMb().
+
+Referenced by dts\_\-hostFrom(), dts\_\-hostTo(), dts\_\-xferDirFrom(), and dts\_\-xferDirTo().\hypertarget{dtsXfer_8c_4a62be8a33f79734a514dc764d33c9ed}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-xferParseArgs@{dts\_\-xferParseArgs}}
+\index{dts\_\-xferParseArgs@{dts\_\-xferParseArgs}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-xferParseArgs}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferParseArgs (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]}, \/  int $\ast$ {\em nthreads}, \/  int $\ast$ {\em port}, \/  int $\ast$ {\em verbose}, \/  char $\ast$$\ast$ {\em path\_\-A}, \/  char $\ast$$\ast$ {\em path\_\-B})}}
+\label{dtsXfer_8c_4a62be8a33f79734a514dc764d33c9ed}
+
+
+Parse arguments used by the transfer commands. 
+
+DTS\_\-XFERPARSEARGS -- Parse the arguments used in the push/pull and give/take commands.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em argc}]arg count \item[{\em argv}]arg vector \item[{\em nthreads}]number of processing threads \item[{\em verbose}]verbose flag \item[{\em port}]base transfer port \item[{\em path\_\-A}]src path specification \item[{\em path\_\-B}]dest path specification \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+Referenced by dts\_\-hostFrom(), and dts\_\-hostTo().\hypertarget{dtsXfer_8c_2a52937e6d9d8cf78a99351bba900925}{
+\index{dtsXfer.c@{dtsXfer.c}!dts\_\-xferParsePaths@{dts\_\-xferParsePaths}}
+\index{dts\_\-xferParsePaths@{dts\_\-xferParsePaths}!dtsXfer.c@{dtsXfer.c}}
+\subsubsection[{dts\_\-xferParsePaths}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferParsePaths (char $\ast$ {\em host}, \/  char $\ast$$\ast$ {\em path\_\-A}, \/  char $\ast$$\ast$ {\em path\_\-B}, \/  int $\ast$ {\em srcLocal}, \/  int $\ast$ {\em dstLocal}, \/  char $\ast$$\ast$ {\em src\_\-host}, \/  char $\ast$$\ast$ {\em dest\_\-host}, \/  char $\ast$$\ast$ {\em msg\_\-host}, \/  char $\ast$$\ast$ {\em path})}}
+\label{dtsXfer_8c_2a52937e6d9d8cf78a99351bba900925}
+
+
+Parse the paths used by the transfer commands. 
+
+DTS\_\-XFERPARSEPATHS -- Parse the paths used in the transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host name \item[{\em path\_\-A}]src path specification \item[{\em path\_\-B}]dest path specification \item[{\em srcLocal}]is src local machine? \item[{\em dstLocal}]is dest local machine? \item[{\em srcHost}]source host name \item[{\em dstHost}]dest host name \item[{\em msgHost}]message host name \item[{\em path}]path name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+References dts\_\-getLocalIP(), and dts\_\-resolveHost().
+
+Referenced by dts\_\-hostTo().

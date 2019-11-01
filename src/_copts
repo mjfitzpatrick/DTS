@@ -1,0 +1,60 @@
+
+		/* DTS Common Options.
+		 */
+                case 'c':   strcpy (config, argv[++argno]);		break;
+                case 'q':   queue = argv[++argno];			break;
+                case 'w':   strcpy (qroot, argv[++argno]);		break;
+
+                case 'P':   port     = atoi (argv[++argno]); 		break;
+                case 'L':   loPort   = atoi (argv[++argno]); 		break;
+                case 'H':   hiPort   = atoi (argv[++argno]); 		break;
+                case 'N':   nThreads = atoi (argv[++argno]); 		break;
+                case 't':   strcpy (qhost, argv[++argno]);		break;
+
+                case '-':   
+	    	    len = strlen (argv[argno]);
+            	    for (j=2; j < len; j++) {
+                	switch ( argv[argno][j] ) {
+			case 'd':  debug++; 	   j=len;		break;
+			case 'h':  dts_qUsage();   j=len;		break;
+			case 'n':  noop++; 	   j=len;		break;
+			case 'v':
+		    	    if (strcmp (&(argv[argno][j+1]), "ersion") == 0) {
+				printf ("Build Version: %s\n", build_date);
+				return (0);
+		    	    } else
+			        verbose++; 					
+			    j=len;
+			    break;
+			default:
+			    fprintf (stderr, "Invalid option '%s'\n",
+				argv[argno]);
+			    exit (1);
+			}
+            	    }
+		    break;
+		   
+                case 'v':   
+		    if (strcmp (&(argv[argno][j+1]), "ersion") == 0) {
+			printf ("Build Version: %s\n", build_date);
+			return (0);
+		    } else
+			verbose++; 					
+		    break;
+
+		default:
+		    fprintf (stderr, "Unknown option '%c'\n", argv[argno][j]);
+		    break;
+		}
+	    }
+
+        } else if ((argv[argno][0] == '+')) {	/* inverse toggles	*/
+	    len = strlen (argv[argno]);
+            for (j=1; j < len; j++) {
+                switch ( argv[argno][j] ) {
+                case 'd':   debug++; 					break;
+                case 'v':   verbose++; 					break;
+		default:						break;
+		}
+	    }
+

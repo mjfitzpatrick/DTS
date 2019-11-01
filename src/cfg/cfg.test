@@ -1,0 +1,162 @@
+#
+#  DTS Test Configuration
+#
+
+
+verbose   0
+debug     0
+monitor	  tucana.tuc.noao.edu:2999
+semId	  1024
+hb_time	  5
+
+password  dtsPass			# test password
+
+
+########################################
+# DTS dev/test systems
+########################################
+
+dts
+    name      tucana			# Required fields
+    host      tucana.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.tuc/
+    contact   3001
+    network   dev
+
+    dbfile    /tmp/dts.tuc/msg.db	# Optional field
+    logfile   /tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	4007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge   	yes		# purge complete spool
+        #src		crux		# 
+        src		tucana2		# 
+	#deliverAs   	$D
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+	#deliveryCmd	/tmp/dlog $F $D test
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+    queue 				# entry point from domes
+	name	      	udt		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	udt		# dts or ????
+	nthreads      	1		# No. of outbound threads
+        port	      	3007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge   	yes		# purge complete spool
+        src		tucana2		# 
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      tucana2			# Required fields
+    host      tucana2.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.tuc2/
+    contact   3001
+    network   dev
+
+    dbfile    /tmp/dts.tuc2/msg.db	# Optional field
+    logfile   /tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	4007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge   	yes		# purge complete spool
+        dest		tucana		# 
+	#deliverAs   	$D
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+	#deliveryCmd	/tmp/dlog $F $D test
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+    queue 				# entry point from domes
+	name	      	udt		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	udt		# dts or ????
+	nthreads      	1		# No. of outbound threads
+        port	      	3007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge   	yes		# purge complete spool
+        src		denali		# 
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      crux
+    host      crux.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.crux/
+    contact   3001
+    network   dev2
+
+    dbfile    /tmp/dts.crux/msg.db
+    logfile   /tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        give		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3037		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        src		denali		# 
+        dest            tucana    	#
+	deliverAs   	$F		# use original filename
+	deliveryDir   	/tmp/foo.crux	# spool or /path/to/copy
+	#deliveryCmd	/tmp/dtest $F $D $S $Q $E $sum32 $crc32 $md5 $ON $OP $DN $DP $SP $OH $FULL
+
+    queue 				# entry point from domes
+	name	      	test2		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src		denali		# 
+        dest            tucana    	#
+	deliveryDir   	/tmp/foo.crux	# spool or /path/to/copy
+
+
+

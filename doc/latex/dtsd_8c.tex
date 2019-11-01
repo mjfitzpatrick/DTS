@@ -1,0 +1,294 @@
+\hypertarget{dtsd_8c}{
+\section{dtsd.c File Reference}
+\label{dtsd_8c}\index{dtsd.c@{dtsd.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/sem.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+{\tt \#include \char`\"{}build.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \textbf{qmArg}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsd_8c_17ba00ca77763582777e3252d148dc77}{
+\#define \textbf{\_\-DTS\_\-SRC\_\-}}
+\label{dtsd_8c_17ba00ca77763582777e3252d148dc77}
+
+\item 
+\hypertarget{dtsd_8c_d058945657462717a987d91db0883803}{
+\#define \textbf{DTSD\_\-PAUSE}~5}
+\label{dtsd_8c_d058945657462717a987d91db0883803}
+
+\item 
+\hypertarget{dtsd_8c_a90a98de46b91e732de9baf756382845}{
+\#define \textbf{DTSD\_\-COPYLO}~3005}
+\label{dtsd_8c_a90a98de46b91e732de9baf756382845}
+
+\item 
+\hypertarget{dtsd_8c_ece7d64b9033b9837f2d03f79e669f75}{
+\#define \textbf{DTSD\_\-COPYHI}~3099}
+\label{dtsd_8c_ece7d64b9033b9837f2d03f79e669f75}
+
+\item 
+\hypertarget{dtsd_8c_82ce07ff4d715db7572cbaebaa76fc57}{
+\#define \textbf{DTSD\_\-SEMKEY}~1114}
+\label{dtsd_8c_82ce07ff4d715db7572cbaebaa76fc57}
+
+\item 
+\hypertarget{dtsd_8c_6085e3a8a64f86e21a4e97d814a6aa70}{
+\#define \textbf{CLEANUP\_\-NOTCALLED}~0}
+\label{dtsd_8c_6085e3a8a64f86e21a4e97d814a6aa70}
+
+\item 
+\hypertarget{dtsd_8c_28cd6cb84ba5da40fe150996bdabad8e}{
+\#define \textbf{CLEANUP\_\-CALLED}~1}
+\label{dtsd_8c_28cd6cb84ba5da40fe150996bdabad8e}
+
+\item 
+\hypertarget{dtsd_8c_023c32dedd5015febfa0c1985a193057}{
+\#define \textbf{DBG\_\-QUEUE}~(getenv(\char`\"{}QUEUE\_\-DBG\char`\"{})!=NULL$|$$|$access(\char`\"{}/tmp/QUEUE\_\-DBG\char`\"{},F\_\-OK)==0)}
+\label{dtsd_8c_023c32dedd5015febfa0c1985a193057}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsd_8c_0292fd97e712b50174f114fbbb73dfcd}{
+typedef struct qmArg $\ast$ \textbf{qmArgP}}
+\label{dtsd_8c_0292fd97e712b50174f114fbbb73dfcd}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsd_8c_3822ef5a194bb6cca513932325c40ca7}{
+int \textbf{dts\_\-initServerMethods} (DTS $\ast$dts)}
+\label{dtsd_8c_3822ef5a194bb6cca513932325c40ca7}
+
+\item 
+\hypertarget{dtsd_8c_1dbf238e3e6d752f6f7358381969c41a}{
+int \textbf{dts\_\-initQueueManagers} (DTS $\ast$dts)}
+\label{dtsd_8c_1dbf238e3e6d752f6f7358381969c41a}
+
+\item 
+\hypertarget{dtsd_8c_3222c8d9fd42997d574517cd9389b87e}{
+void \textbf{dts\_\-launchQueueManager} (void $\ast$data)}
+\label{dtsd_8c_3222c8d9fd42997d574517cd9389b87e}
+
+\item 
+\hypertarget{dtsd_8c_88e293270dc50d7dc1972f60d518c235}{
+void \textbf{dts\_\-normalQueueManager} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dtsd_8c_88e293270dc50d7dc1972f60d518c235}
+
+\item 
+\hypertarget{dtsd_8c_d2c3d9da6f683aed5e9e4bdd9a547928}{
+void \textbf{dts\_\-scheduledQueueManager} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dtsd_8c_d2c3d9da6f683aed5e9e4bdd9a547928}
+
+\item 
+\hypertarget{dtsd_8c_3969b0f8387b91498ebec519976ca133}{
+void \textbf{dts\_\-priorityQueueManager} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dtsd_8c_3969b0f8387b91498ebec519976ca133}
+
+\item 
+\hypertarget{dtsd_8c_0b9bcf9915be5291bf7dad63bbfb0b94}{
+int \textbf{dts\_\-respawnQueueManager} (DTS $\ast$dts, int index)}
+\label{dtsd_8c_0b9bcf9915be5291bf7dad63bbfb0b94}
+
+\item 
+\hypertarget{dtsd_8c_cddc98edcee3f42843d061f04c9369c0}{
+int \textbf{dts\_\-queueRestart} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dtsd_8c_cddc98edcee3f42843d061f04c9369c0}
+
+\item 
+\hypertarget{dtsd_8c_9a7e1012477bc22535fb14613ac499b6}{
+int \textbf{dts\_\-queueObjXfer} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dtsd_8c_9a7e1012477bc22535fb14613ac499b6}
+
+\item 
+\hypertarget{dtsd_8c_ba68b41282f5e475ce1501e4d1c7a870}{
+void \textbf{dts\_\-threadCleanup} (void $\ast$flag)}
+\label{dtsd_8c_ba68b41282f5e475ce1501e4d1c7a870}
+
+\item 
+\hypertarget{dtsd_8c_7c96688ee94058fd13b2f37915f0f552}{
+void \textbf{dts\_\-statTimer} (void $\ast$data)}
+\label{dtsd_8c_7c96688ee94058fd13b2f37915f0f552}
+
+\item 
+\hypertarget{dtsd_8c_cfa0f846c73bff50c4e4e478c54fc001}{
+void \textbf{dts\_\-startTimerStats} (DTS $\ast$dts)}
+\label{dtsd_8c_cfa0f846c73bff50c4e4e478c54fc001}
+
+\item 
+\hypertarget{dtsd_8c_38d44488cce40f286141f26b4fcf1eb4}{
+void \textbf{dts\_\-cmdLoop} (DTS $\ast$dts)}
+\label{dtsd_8c_38d44488cce40f286141f26b4fcf1eb4}
+
+\item 
+\hypertarget{dtsd_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}{
+void \textbf{dtsFree} (DTS $\ast$dts)}
+\label{dtsd_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}
+
+\item 
+\hypertarget{dtsd_8c_32a1821895a6cd70532c6ecbb3371b3f}{
+void \textbf{dtsOnExit} (int stat, void $\ast$data)}
+\label{dtsd_8c_32a1821895a6cd70532c6ecbb3371b3f}
+
+\item 
+\hypertarget{dtsd_8c_0c8c6434914e129aafa1255fe04e3082}{
+time\_\-t \textbf{dts\_\-schedTime} (dtsQueue $\ast$dtsq, time\_\-t last)}
+\label{dtsd_8c_0c8c6434914e129aafa1255fe04e3082}
+
+\item 
+int \hyperlink{dtsd_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+\hypertarget{dtsd_8c_9b6fb452b55d304d3a4945b5ed59a6c2}{
+int \textbf{dts\_\-queueNext} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dtsd_8c_9b6fb452b55d304d3a4945b5ed59a6c2}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsd_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dtsd_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsd_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = 0}
+\label{dtsd_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtsd_8c_87aa9502a5ba32b171f08eebf78d2c25}{
+int \textbf{trace} = 0}
+\label{dtsd_8c_87aa9502a5ba32b171f08eebf78d2c25}
+
+\item 
+\hypertarget{dtsd_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = 0}
+\label{dtsd_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtsd_8c_a2339b21f98abccd12533a54d5f9d712}{
+int \textbf{daemonize} = 0}
+\label{dtsd_8c_a2339b21f98abccd12533a54d5f9d712}
+
+\item 
+\hypertarget{dtsd_8c_eb39d5d8ddd4957f1b01720fa0e37e36}{
+int \textbf{interactive} = 0}
+\label{dtsd_8c_eb39d5d8ddd4957f1b01720fa0e37e36}
+
+\item 
+\hypertarget{dtsd_8c_795ea50921b36311ffd5e7baa2ef1f7e}{
+int \textbf{init} = 0}
+\label{dtsd_8c_795ea50921b36311ffd5e7baa2ef1f7e}
+
+\item 
+\hypertarget{dtsd_8c_e2f665ba32ea303b801d60905f852dc0}{
+int \textbf{dts\_\-singleton} = 1}
+\label{dtsd_8c_e2f665ba32ea303b801d60905f852dc0}
+
+\item 
+\hypertarget{dtsd_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor} = -1}
+\label{dtsd_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\item 
+\hypertarget{dtsd_8c_9363356bf2974c3226de88c86d7674da}{
+int \textbf{normal\_\-exit} = 0}
+\label{dtsd_8c_9363356bf2974c3226de88c86d7674da}
+
+\item 
+\hypertarget{dtsd_8c_528111f67cfbcd3be8fb4137918d5e20}{
+int \textbf{stat\_\-semid} = 0}
+\label{dtsd_8c_528111f67cfbcd3be8fb4137918d5e20}
+
+\item 
+\hypertarget{dtsd_8c_61046fae865835e9f8ea6400402c9bd1}{
+int \textbf{copyMode} = 0}
+\label{dtsd_8c_61046fae865835e9f8ea6400402c9bd1}
+
+\item 
+\hypertarget{dtsd_8c_3472d03b105c7ceb4c6707b2073331a7}{
+int \textbf{copyLoPort} = DTSD\_\-COPYLO}
+\label{dtsd_8c_3472d03b105c7ceb4c6707b2073331a7}
+
+\item 
+\hypertarget{dtsd_8c_b9fe6036652a0092dde6efaf0aac0d31}{
+int \textbf{copyHiPort} = DTSD\_\-COPYHI}
+\label{dtsd_8c_b9fe6036652a0092dde6efaf0aac0d31}
+
+\item 
+\hypertarget{dtsd_8c_0d9f509da3e98f7f48c823d5c66763e3}{
+char $\ast$ \textbf{copyDir} = NULL}
+\label{dtsd_8c_0d9f509da3e98f7f48c823d5c66763e3}
+
+\item 
+\hypertarget{dtsd_8c_72088a2ade5c6acade6b4338ef0b61bc}{
+char $\ast$ \textbf{copyCwd} = NULL}
+\label{dtsd_8c_72088a2ade5c6acade6b4338ef0b61bc}
+
+\item 
+\hypertarget{dtsd_8c_d35334debd5526123299ecc18c8aee85}{
+int \textbf{\_\-queue\_\-pause\_\-time\_\-} = 3}
+\label{dtsd_8c_d35334debd5526123299ecc18c8aee85}
+
+\item 
+\hypertarget{dtsd_8c_cf14b9435fdc5aca54a75f4a3e30247e}{
+xr\_\-dtsstat \textbf{mystat} = \{ 0 , 0 \}}
+\label{dtsd_8c_cf14b9435fdc5aca54a75f4a3e30247e}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTSD -- Entry point for the Data Transfer system.
+
+Usage: dtsd \mbox{[}options\mbox{]}
+
+Options: -h print help
+
+-c $<$cfg$>$ specify the config file to use -d run as a daemon -i run interactively -m allow multiple DTSD on the same machine -p $<$port$>$ specify server port -t trace -r $<$path$>$ specify server root dir -v verbose
+
+--copy enable for CopyMode to \$cwd --loPort set lower transport socket number --hiPort set upper transport socket number
+
+-H $<$host$>$ specify the host name to simulate -I initialize DTSD working directory -P set queue pause time
+
++d increment debug level +v increment verbose level
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsd_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dtsd.c@{dtsd.c}!main@{main}}
+\index{main@{main}!dtsd.c@{dtsd.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dtsd_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+DTS Daemon Entry point. 

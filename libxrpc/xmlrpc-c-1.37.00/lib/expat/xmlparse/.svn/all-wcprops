@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/expat/xmlparse
+END
+xmlparse.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/expat/xmlparse/xmlparse.h
+END
+xmlparse.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/expat/xmlparse/xmlparse.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/expat/xmlparse/Makefile
+END

@@ -1,0 +1,190 @@
+\hypertarget{xrHandles_8c}{
+\section{xrHandles.c File Reference}
+\label{xrHandles_8c}\index{xrHandles.c@{xrHandles.c}}
+}
+Utility methods to convert client pointers to user handles.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$xmlrpc-c/base.h$>$}\par
+{\tt \#include $<$xmlrpc-c/client.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server\_\-abyss.h$>$}\par
+{\tt \#include \char`\"{}xrpcP.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrHandles_8c_23ed8e629c0a28eab14f92c888c8d7ef}{
+\#define \textbf{MAX\_\-HANDLES}~8192}
+\label{xrHandles_8c_23ed8e629c0a28eab14f92c888c8d7ef}
+
+\item 
+\hypertarget{xrHandles_8c_f7548ecbd85514cad9facc9624b886d8}{
+\#define \textbf{HANDLE\_\-DEBUG}~0}
+\label{xrHandles_8c_f7548ecbd85514cad9facc9624b886d8}
+
+\item 
+\hypertarget{xrHandles_8c_1058100632311537afc73cb42353a3c7}{
+\#define \textbf{START\_\-H}~3}
+\label{xrHandles_8c_1058100632311537afc73cb42353a3c7}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{xrHandles_8c_29e4836d105a81b9a3a4d355fd04e9ec}{xr\_\-initHandles} (void)
+\begin{CompactList}\small\item\em Initialize the handles structure. \item\end{CompactList}\item 
+void \hyperlink{xrHandles_8c_5676cee85dc76dcbb730a11846bd5698}{xr\_\-cleanupHandles} (void)
+\begin{CompactList}\small\item\em Cleanup the handles structure. \item\end{CompactList}\item 
+handle\_\-t \hyperlink{xrHandles_8c_6f5b493073bd66d3a30329c99251b855}{xr\_\-setHandle} (int handle, void $\ast$ptr)
+\begin{CompactList}\small\item\em Set the handle manually. \item\end{CompactList}\item 
+handle\_\-t \hyperlink{xrHandles_8c_4a8c6a563f27f6f93c2da4762f6aa67b}{xr\_\-newHandle} (void $\ast$ptr)
+\begin{CompactList}\small\item\em Get an unused object handle. \item\end{CompactList}\item 
+void \hyperlink{xrHandles_8c_7f4c8a299992b275eacd99d9a3d60dd0}{xr\_\-freeHandle} (handle\_\-t handle)
+\begin{CompactList}\small\item\em Free the handle for later re-use. \item\end{CompactList}\item 
+handle\_\-t \hyperlink{xrHandles_8c_dce81f181a77d0eff2d6aff4f6be35f5}{xr\_\-P2H} (void $\ast$ptr)
+\begin{CompactList}\small\item\em Convert a pointer to a handle. \item\end{CompactList}\item 
+\hypertarget{xrHandles_8c_9635d1bb19238fcff5412669a36dfd93}{
+void $\ast$ \textbf{xr\_\-H2P} (handle\_\-t handle)}
+\label{xrHandles_8c_9635d1bb19238fcff5412669a36dfd93}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrHandles_8c_9a957f02249f49d8f65cfd72aab6f4cc}{
+int \textbf{numXrHandles} = START\_\-H}
+\label{xrHandles_8c_9a957f02249f49d8f65cfd72aab6f4cc}
+
+\item 
+\hypertarget{xrHandles_8c_9157f649aa17e7801e86e4ff3c7b92ed}{
+handle\_\-t \textbf{xrHandles} \mbox{[}MAX\_\-HANDLES\mbox{]}}
+\label{xrHandles_8c_9157f649aa17e7801e86e4ff3c7b92ed}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+Utility methods to convert client pointers to user handles. 
+
+XRHANDLE.C -- Utility methods to convert client pointers to user handles.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick \end{Desc}
+\begin{Desc}
+\item[Date:]April 2014 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{xrHandles_8c_5676cee85dc76dcbb730a11846bd5698}{
+\index{xrHandles.c@{xrHandles.c}!xr\_\-cleanupHandles@{xr\_\-cleanupHandles}}
+\index{xr\_\-cleanupHandles@{xr\_\-cleanupHandles}!xrHandles.c@{xrHandles.c}}
+\subsubsection[{xr\_\-cleanupHandles}]{\setlength{\rightskip}{0pt plus 5cm}void xr\_\-cleanupHandles (void)}}
+\label{xrHandles_8c_5676cee85dc76dcbb730a11846bd5698}
+
+
+Cleanup the handles structure. 
+
+XR\_\-CLEANUPHANDLES -- Cleanup the handles structure.
+
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+\hypertarget{xrHandles_8c_7f4c8a299992b275eacd99d9a3d60dd0}{
+\index{xrHandles.c@{xrHandles.c}!xr\_\-freeHandle@{xr\_\-freeHandle}}
+\index{xr\_\-freeHandle@{xr\_\-freeHandle}!xrHandles.c@{xrHandles.c}}
+\subsubsection[{xr\_\-freeHandle}]{\setlength{\rightskip}{0pt plus 5cm}xr\_\-freeHandle (handle\_\-t {\em handle})}}
+\label{xrHandles_8c_7f4c8a299992b275eacd99d9a3d60dd0}
+
+
+Free the handle for later re-use. 
+
+XR\_\-FREEHANDLE -- Free the handle for later re-use.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em handle}]object handle \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+\hypertarget{xrHandles_8c_29e4836d105a81b9a3a4d355fd04e9ec}{
+\index{xrHandles.c@{xrHandles.c}!xr\_\-initHandles@{xr\_\-initHandles}}
+\index{xr\_\-initHandles@{xr\_\-initHandles}!xrHandles.c@{xrHandles.c}}
+\subsubsection[{xr\_\-initHandles}]{\setlength{\rightskip}{0pt plus 5cm}void xr\_\-initHandles (void)}}
+\label{xrHandles_8c_29e4836d105a81b9a3a4d355fd04e9ec}
+
+
+Initialize the handles structure. 
+
+XR\_\-INITHANDLES -- Initialize the handles structure.
+
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by xr\_\-newHandle(), and xr\_\-setHandle().\hypertarget{xrHandles_8c_4a8c6a563f27f6f93c2da4762f6aa67b}{
+\index{xrHandles.c@{xrHandles.c}!xr\_\-newHandle@{xr\_\-newHandle}}
+\index{xr\_\-newHandle@{xr\_\-newHandle}!xrHandles.c@{xrHandles.c}}
+\subsubsection[{xr\_\-newHandle}]{\setlength{\rightskip}{0pt plus 5cm}handle\_\-t xr\_\-newHandle (void $\ast$ {\em ptr})}}
+\label{xrHandles_8c_4a8c6a563f27f6f93c2da4762f6aa67b}
+
+
+Get an unused object handle. 
+
+XR\_\-NEWHANDLE -- Get an unused object handle.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ptr}]pointer to object to be stored \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]new object handle \end{Desc}
+
+
+References xr\_\-initHandles().\hypertarget{xrHandles_8c_dce81f181a77d0eff2d6aff4f6be35f5}{
+\index{xrHandles.c@{xrHandles.c}!xr\_\-P2H@{xr\_\-P2H}}
+\index{xr\_\-P2H@{xr\_\-P2H}!xrHandles.c@{xrHandles.c}}
+\subsubsection[{xr\_\-P2H}]{\setlength{\rightskip}{0pt plus 5cm}handle\_\-t xr\_\-P2H (void $\ast$ {\em ptr})}}
+\label{xrHandles_8c_dce81f181a77d0eff2d6aff4f6be35f5}
+
+
+Convert a pointer to a handle. 
+
+XR\_\-P2H -- Convert a pointer to a handle
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ptr}]pointer to object \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]handle to object, $<$ 0 on error \end{Desc}
+\hypertarget{xrHandles_8c_6f5b493073bd66d3a30329c99251b855}{
+\index{xrHandles.c@{xrHandles.c}!xr\_\-setHandle@{xr\_\-setHandle}}
+\index{xr\_\-setHandle@{xr\_\-setHandle}!xrHandles.c@{xrHandles.c}}
+\subsubsection[{xr\_\-setHandle}]{\setlength{\rightskip}{0pt plus 5cm}handle\_\-t xr\_\-setHandle (int {\em handle}, \/  void $\ast$ {\em ptr})}}
+\label{xrHandles_8c_6f5b493073bd66d3a30329c99251b855}
+
+
+Set the handle manually. 
+
+XR\_\-SETHANDLE -- Set the handle manually.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em handle}]handle to be used \item[{\em ptr}]pointer to object to be stored \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]new object handle \end{Desc}
+
+
+References xr\_\-initHandles().

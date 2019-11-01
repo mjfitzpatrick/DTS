@@ -1,0 +1,113 @@
+#
+#  DTS Development Configuration
+#
+#  Revision History
+#
+#      Created   5/13/09   MJF
+
+
+verbose   0
+debug     0
+monitor	  tucana.tuc.noao.edu:3002
+semId	  1024
+
+password  dtsPass			# test password
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      ltuc1			# Required fields
+    host      tucana.tuc.noao.edu
+    port      5001
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.tuc1/
+    contact   3001
+
+    dbfile    /tmp/dts.tuc1/msg.db	# Optional field
+    logfile   /tmp/dts.log1
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	ltest		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3010		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        dest		ltuc2		# 
+	deliveryDir   	/tmp/foo.tuc1	# spool or /path/to/copy
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      ltuc2			# Required fields
+    host      tucana.tuc.noao.edu
+    port      5002
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.tuc2/
+    contact   3002
+
+    dbfile    /tmp/dts.tuc2/msg.db	# Optional field
+    logfile   /tmp/dts.log2
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	ltest		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3020		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        src		ltuc1		# 
+        dest		ltuc3		# 
+	deliveryDir   	/tmp/foo.tuc2	# spool or /path/to/copy
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      ltuc3			# Required fields
+    host      tucana.tuc.noao.edu
+    port      5003
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.tuc3/
+    contact   3003
+
+    dbfile    /tmp/dts.tuc3/msg.db	# Optional field
+    logfile   /tmp/dts.log3
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	ltest		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3030		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        src		ltuc2		# 
+	deliveryDir   	/tmp/foo.tuc3	# spool or /path/to/copy
+	deliveryCmd	dts.null
+
+

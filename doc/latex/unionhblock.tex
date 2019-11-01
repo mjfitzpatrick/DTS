@@ -1,0 +1,32 @@
+\hypertarget{unionhblock}{
+\section{hblock Union Reference}
+\label{unionhblock}\index{hblock@{hblock}}
+}
+{\tt \#include $<$dtsTar.h$>$}
+
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \textbf{header}
+\end{CompactItemize}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\hypertarget{unionhblock_5a0ac2dbb502fb4affcf97a747ff729c}{
+char \textbf{dummy} \mbox{[}TBLOCK\mbox{]}}
+\label{unionhblock_5a0ac2dbb502fb4affcf97a747ff729c}
+
+\item 
+\hypertarget{unionhblock_4fb666c7c94df451bc5429b7837df1b5}{
+struct hblock::header \textbf{dbuf}}
+\label{unionhblock_4fb666c7c94df451bc5429b7837df1b5}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+File header structure. One of these precedes each file on the tape. Each file occupies an integral number of TBLOCK size logical blocks on the tape. The number of logical blocks per physical block is variable, with at most NBLOCK logical blocks per physical tape block. Two zero blocks mark the end of the tar file. 
+
+The documentation for this union was generated from the following file:\begin{CompactItemize}
+\item 
+\hyperlink{dtsTar_8h}{dtsTar.h}\end{CompactItemize}

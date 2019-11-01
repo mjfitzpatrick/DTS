@@ -1,0 +1,381 @@
+\hypertarget{dtstat_8c}{
+\section{dtstat.c File Reference}
+\label{dtstat_8c}\index{dtstat.c@{dtstat.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+{\tt \#include \char`\"{}build.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \textbf{qmArg}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtstat_8c_17ba00ca77763582777e3252d148dc77}{
+\#define \textbf{\_\-DTS\_\-SRC\_\-}}
+\label{dtstat_8c_17ba00ca77763582777e3252d148dc77}
+
+\item 
+\hypertarget{dtstat_8c_d058945657462717a987d91db0883803}{
+\#define \textbf{DTSD\_\-PAUSE}~5}
+\label{dtstat_8c_d058945657462717a987d91db0883803}
+
+\item 
+\hypertarget{dtstat_8c_e1d26469efe51b7fb5416b36d2e31797}{
+\#define \textbf{fG}~30}
+\label{dtstat_8c_e1d26469efe51b7fb5416b36d2e31797}
+
+\item 
+\hypertarget{dtstat_8c_b05cfd0a3a5e9ed76d38482e2cd26f9f}{
+\#define \textbf{BG}~0}
+\label{dtstat_8c_b05cfd0a3a5e9ed76d38482e2cd26f9f}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtstat_8c_0292fd97e712b50174f114fbbb73dfcd}{
+typedef struct qmArg $\ast$ \textbf{qmArgP}}
+\label{dtstat_8c_0292fd97e712b50174f114fbbb73dfcd}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtstat_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}{
+void \textbf{dtsFree} (DTS $\ast$dts)}
+\label{dtstat_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}
+
+\item 
+int \hyperlink{dtstat_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+\hypertarget{dtstat_8c_5f4cc5a46ea8d93ae0d5b14b497e3df8}{
+void \textbf{origin} (void)}
+\label{dtstat_8c_5f4cc5a46ea8d93ae0d5b14b497e3df8}
+
+\item 
+\hypertarget{dtstat_8c_fb61325cd4874b4a3bcbf6a65ee0ab9d}{
+void \textbf{erase} (void)}
+\label{dtstat_8c_fb61325cd4874b4a3bcbf6a65ee0ab9d}
+
+\item 
+\hypertarget{dtstat_8c_99ae9a19f9673e47e828743866509548}{
+void \textbf{label} (int v)}
+\label{dtstat_8c_99ae9a19f9673e47e828743866509548}
+
+\item 
+\hypertarget{dtstat_8c_9c052ad8b3c0356d5d995d0e0ec98b8e}{
+void \textbf{bold} (int v)}
+\label{dtstat_8c_9c052ad8b3c0356d5d995d0e0ec98b8e}
+
+\item 
+\hypertarget{dtstat_8c_85af07172713bdf39703521c843ef877}{
+void \textbf{underline} (int v)}
+\label{dtstat_8c_85af07172713bdf39703521c843ef877}
+
+\item 
+\hypertarget{dtstat_8c_cd0c0e8caf8ea3c85886f1b923a985d5}{
+void \textbf{blink} (int v)}
+\label{dtstat_8c_cd0c0e8caf8ea3c85886f1b923a985d5}
+
+\item 
+\hypertarget{dtstat_8c_c7684817ac804072c0343f77621d1c2d}{
+void \textbf{reverse} (int v)}
+\label{dtstat_8c_c7684817ac804072c0343f77621d1c2d}
+
+\item 
+\hypertarget{dtstat_8c_69037d70bf969baf3c97d7c6892fdd16}{
+void \textbf{concealed} (int v)}
+\label{dtstat_8c_69037d70bf969baf3c97d7c6892fdd16}
+
+\item 
+\hypertarget{dtstat_8c_8b36a29b5ca5dca1a01a39b315940fe2}{
+void \textbf{black} (int v)}
+\label{dtstat_8c_8b36a29b5ca5dca1a01a39b315940fe2}
+
+\item 
+\hypertarget{dtstat_8c_7444b7b0b0321413b06aae369043d2c1}{
+void \textbf{red} (int v)}
+\label{dtstat_8c_7444b7b0b0321413b06aae369043d2c1}
+
+\item 
+\hypertarget{dtstat_8c_65f6da03ecd8c1cb6118487240a35781}{
+void \textbf{green} (int v)}
+\label{dtstat_8c_65f6da03ecd8c1cb6118487240a35781}
+
+\item 
+\hypertarget{dtstat_8c_872e213f83756b79e96e88b5ceeb35ad}{
+void \textbf{yellow} (int v)}
+\label{dtstat_8c_872e213f83756b79e96e88b5ceeb35ad}
+
+\item 
+\hypertarget{dtstat_8c_3f6524e942859b4cb2006b9289e1a7a6}{
+void \textbf{blue} (int v)}
+\label{dtstat_8c_3f6524e942859b4cb2006b9289e1a7a6}
+
+\item 
+\hypertarget{dtstat_8c_3cac220b7f01289012622033997990b9}{
+void \textbf{magenta} (int v)}
+\label{dtstat_8c_3cac220b7f01289012622033997990b9}
+
+\item 
+\hypertarget{dtstat_8c_227d65aa51297891273eab01282c7add}{
+void \textbf{cyan} (int v)}
+\label{dtstat_8c_227d65aa51297891273eab01282c7add}
+
+\item 
+\hypertarget{dtstat_8c_b6ca19394d59df1b19b2759337003ff6}{
+void \textbf{white} (int v)}
+\label{dtstat_8c_b6ca19394d59df1b19b2759337003ff6}
+
+\item 
+\hypertarget{dtstat_8c_6acf28bdb4141f41562c838ce1e8a1e7}{
+void \textbf{bblack} (int v)}
+\label{dtstat_8c_6acf28bdb4141f41562c838ce1e8a1e7}
+
+\item 
+\hypertarget{dtstat_8c_0e320381fcb9a9c56ea14b1e0ddf5227}{
+void \textbf{bred} (int v)}
+\label{dtstat_8c_0e320381fcb9a9c56ea14b1e0ddf5227}
+
+\item 
+\hypertarget{dtstat_8c_0fdaa945706121c80b6781ef90f18c56}{
+void \textbf{bgreen} (int v)}
+\label{dtstat_8c_0fdaa945706121c80b6781ef90f18c56}
+
+\item 
+\hypertarget{dtstat_8c_089206523091f1b98a0e70cdae962c38}{
+void \textbf{byellow} (int v)}
+\label{dtstat_8c_089206523091f1b98a0e70cdae962c38}
+
+\item 
+\hypertarget{dtstat_8c_380b62845b96f528579e8ef32d4167f8}{
+void \textbf{bblue} (int v)}
+\label{dtstat_8c_380b62845b96f528579e8ef32d4167f8}
+
+\item 
+\hypertarget{dtstat_8c_978f22998541b58fc566aec016d40d7b}{
+void \textbf{bmagenta} (int v)}
+\label{dtstat_8c_978f22998541b58fc566aec016d40d7b}
+
+\item 
+\hypertarget{dtstat_8c_07d6a62dc8b8a9c942f2b7d6b9bf44d9}{
+void \textbf{bcyan} (int v)}
+\label{dtstat_8c_07d6a62dc8b8a9c942f2b7d6b9bf44d9}
+
+\item 
+\hypertarget{dtstat_8c_a41f259f39414597a9771c139fc7d25b}{
+void \textbf{bwhite} (int v)}
+\label{dtstat_8c_a41f259f39414597a9771c139fc7d25b}
+
+\item 
+\hypertarget{dtstat_8c_91cfc34753f7c7d96bae3f32f874fb49}{
+void \textbf{rblack} (int v)}
+\label{dtstat_8c_91cfc34753f7c7d96bae3f32f874fb49}
+
+\item 
+\hypertarget{dtstat_8c_fbacfac34ed15e5adc09a033de047d50}{
+void \textbf{rred} (int v)}
+\label{dtstat_8c_fbacfac34ed15e5adc09a033de047d50}
+
+\item 
+\hypertarget{dtstat_8c_bcb1e53a193198cf57e7a9f7ab6709f5}{
+void \textbf{rgreen} (int v)}
+\label{dtstat_8c_bcb1e53a193198cf57e7a9f7ab6709f5}
+
+\item 
+\hypertarget{dtstat_8c_266f3428dbcf240ec2c28161aa9df0d7}{
+void \textbf{ryellow} (int v)}
+\label{dtstat_8c_266f3428dbcf240ec2c28161aa9df0d7}
+
+\item 
+\hypertarget{dtstat_8c_ee57c4262b134e36aed2189adb2d7a0d}{
+void \textbf{rblue} (int v)}
+\label{dtstat_8c_ee57c4262b134e36aed2189adb2d7a0d}
+
+\item 
+\hypertarget{dtstat_8c_051ca5897604aadfe101ae2ab88ce022}{
+void \textbf{rmagenta} (int v)}
+\label{dtstat_8c_051ca5897604aadfe101ae2ab88ce022}
+
+\item 
+\hypertarget{dtstat_8c_c88e053593f818bcb724a5d4870f08e3}{
+void \textbf{rcyan} (int v)}
+\label{dtstat_8c_c88e053593f818bcb724a5d4870f08e3}
+
+\item 
+\hypertarget{dtstat_8c_e490e4176fd60d6956cc4f62c51ea226}{
+void \textbf{rwhite} (int v)}
+\label{dtstat_8c_e490e4176fd60d6956cc4f62c51ea226}
+
+\item 
+\hypertarget{dtstat_8c_8e81175c7841c33cc0786f5a768b58fb}{
+void \textbf{ublack} (int v)}
+\label{dtstat_8c_8e81175c7841c33cc0786f5a768b58fb}
+
+\item 
+\hypertarget{dtstat_8c_140261470f372fa260593c7b85676e81}{
+void \textbf{ured} (int v)}
+\label{dtstat_8c_140261470f372fa260593c7b85676e81}
+
+\item 
+\hypertarget{dtstat_8c_c6d35649e5212be648fb460442585f44}{
+void \textbf{ugreen} (int v)}
+\label{dtstat_8c_c6d35649e5212be648fb460442585f44}
+
+\item 
+\hypertarget{dtstat_8c_622471467730a8b3dc72d2e844c3166b}{
+void \textbf{uyellow} (int v)}
+\label{dtstat_8c_622471467730a8b3dc72d2e844c3166b}
+
+\item 
+\hypertarget{dtstat_8c_d97a620d17955260bae204ed4c81b5f9}{
+void \textbf{ublue} (int v)}
+\label{dtstat_8c_d97a620d17955260bae204ed4c81b5f9}
+
+\item 
+\hypertarget{dtstat_8c_fb93ad8fb94d2750f24c23b1b08ac357}{
+void \textbf{umagenta} (int v)}
+\label{dtstat_8c_fb93ad8fb94d2750f24c23b1b08ac357}
+
+\item 
+\hypertarget{dtstat_8c_3f34caa58a11b585aa7251b2d6dab880}{
+void \textbf{ucyan} (int v)}
+\label{dtstat_8c_3f34caa58a11b585aa7251b2d6dab880}
+
+\item 
+\hypertarget{dtstat_8c_b4e53e0aafe9d393a67368ab0972f17f}{
+void \textbf{uwhite} (int v)}
+\label{dtstat_8c_b4e53e0aafe9d393a67368ab0972f17f}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtstat_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dtstat_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtstat_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = 0}
+\label{dtstat_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtstat_8c_87aa9502a5ba32b171f08eebf78d2c25}{
+int \textbf{trace} = 0}
+\label{dtstat_8c_87aa9502a5ba32b171f08eebf78d2c25}
+
+\item 
+\hypertarget{dtstat_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = 0}
+\label{dtstat_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtstat_8c_8917660df42c2649f12fdb1eebe0a477}{
+int \textbf{errs} = 0}
+\label{dtstat_8c_8917660df42c2649f12fdb1eebe0a477}
+
+\item 
+\hypertarget{dtstat_8c_795ea50921b36311ffd5e7baa2ef1f7e}{
+int \textbf{init} = 0}
+\label{dtstat_8c_795ea50921b36311ffd5e7baa2ef1f7e}
+
+\item 
+\hypertarget{dtstat_8c_37722a150250e2a5a98e5e0d11e53449}{
+int \textbf{start} = 0}
+\label{dtstat_8c_37722a150250e2a5a98e5e0d11e53449}
+
+\item 
+\hypertarget{dtstat_8c_f983608eaad77853e6283a63910341d7}{
+int \textbf{colors} = 1}
+\label{dtstat_8c_f983608eaad77853e6283a63910341d7}
+
+\item 
+\hypertarget{dtstat_8c_d667f040f2932c8097435492fbd10d76}{
+int \textbf{loop} = 0}
+\label{dtstat_8c_d667f040f2932c8097435492fbd10d76}
+
+\item 
+\hypertarget{dtstat_8c_1b89d9ee01e33efd8e2634eb2ee2e6d7}{
+int \textbf{refresh} = 5}
+\label{dtstat_8c_1b89d9ee01e33efd8e2634eb2ee2e6d7}
+
+\item 
+\hypertarget{dtstat_8c_e95627c8e380cde2566b48f2a3574dc0}{
+int \textbf{summary} = 0}
+\label{dtstat_8c_e95627c8e380cde2566b48f2a3574dc0}
+
+\item 
+\hypertarget{dtstat_8c_894c7cfacb440506254cb3de08303206}{
+int \textbf{web} = 0}
+\label{dtstat_8c_894c7cfacb440506254cb3de08303206}
+
+\item 
+\hypertarget{dtstat_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor} = -1}
+\label{dtstat_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\item 
+\hypertarget{dtstat_8c_9363356bf2974c3226de88c86d7674da}{
+int \textbf{normal\_\-exit} = 0}
+\label{dtstat_8c_9363356bf2974c3226de88c86d7674da}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTSTAT -- Print a status summary of the DTS network.
+
+Usage: dtstat \mbox{[}options\mbox{]}
+
+Options: -h print help
+
+-c $<$cfg$>$ specify the config file to use -p $<$port$>$ specify server port
+
+-e \mbox{[}$<$N$>$\mbox{]} number of errors to print -q $<$name$>$ queue name -s print one-line summary only -t target machine
+
+-v verbose
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010\end{Desc}
+DTSTAT -- Print a status summary of the DTS network.
+
+Usage: dtstat \mbox{[}options\mbox{]}
+
+Options: -h print help
+
+-c $<$cfg$>$ specify the config file to use -p $<$port$>$ specify server port
+
+-t trace -v verbose
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtstat_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dtstat.c@{dtstat.c}!main@{main}}
+\index{main@{main}!dtstat.c@{dtstat.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dtstat_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+DTSTAT Entry point. 

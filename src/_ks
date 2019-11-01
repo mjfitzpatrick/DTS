@@ -1,0 +1,18 @@
+#!/bin/csh -x
+
+if (`hostname` == "tucana.tuc.noao.edu") then
+    ipcrm -s 17367042
+    ipcrm -s 17399811
+    ipcrm -s 17432580
+    ipcrm -s 17465349
+    ipcrm -s 17498118
+    ipcrm -s 17530887
+
+else
+    ipcrm -s 32769
+    ipcrm -s 65538
+    ipcrm -s 98307
+    ipcrm -s 131076
+    ipcrm -s 163845
+
+endif

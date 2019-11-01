@@ -1,0 +1,40 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/tools/interop-server
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2005-04-18T22:25:03.000000Z
+343
+giraffedata
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+interop-cgi.c
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+54d1485665734324fbd0eb932fa6a58d
+2005-04-18T22:25:03.000000Z
+343
+giraffedata
+

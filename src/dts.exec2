@@ -1,0 +1,45 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+clear
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+echo "Initializing DTS ...."		# initialize DTSQ directory
+/bin/rm -rf ~/.dtsq/* 					>& /dev/null
+#/bin/rm -rf /tmp/dts.tuc /tmp/foo.tuc
+#scp ~/.dts_config tucana2:
+#scp ~/.dts_config denali:
+scp  cfg.cross tucana2:
+#scp  cfg.cross denali:
+scp  cfg.cross tucana:
+
+set d = "140.252.1.86:4.0"
+#set d = "140.252.4.126:0.0"
+#set d = "140.252.90.57:0.0"
+
+echo "Starting tucana2 ...."
+csh -fc "(ssh -XY tucana2 xgterm -display $d -fg wheat3 -bg black -T tucana2 -fn 6x13 -geom 80x17+0+00 -e /home/fitz/dts.cross ) &"    >&  /tmp/_j
+
+#echo "Starting denali ...."
+#csh -fc "(ssh -XY denali  xgterm -display $d -fg wheat3 -bg black -T denali  -fn 6x13 -geom 80x17+0+255 -e /Users/fitz/dts.cross ) &"   >>& /tmp/_j
+
+echo "Starting tucana ...."
+sleep 10
+csh -fc "(               xgterm -display $d -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x17+0+530 -e /home/fitz/dts.cross ) &"   >>& /tmp/_j
+
+#echo "Starting tucana test ...."
+#csh -fc "(chdir zzdata ; xgterm -display $d -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x10+50+790) &" 				  >& /tmp/_j2
+
+
+echo "Waiting ...."
+set junk = "$<"
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t tucana2 shutdown dtsPass
+#    /home/fitz/dts/src/dtsh -t denali    shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana  shutdown dtsPass
+#    kill -9 `cat /tmp/_j2 |& awk '{print ($2)}'`
+    /bin/rm -rf /tmp/_j /tmp/_j2

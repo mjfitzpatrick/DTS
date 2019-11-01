@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<script type="text/javascript" src="mimic.js"></script>
+		<title>Random Image</title>
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+			function getRandomImage() {
+			   var request = new XmlRpcRequest("http://localhost:8080/XMLRPC_Server/xmlrpc", "ImageRender.getRandomImage");
+			   var response = request.call();
+			   var image_base64 = response.parseXML();
+			   var src = "data:image/jpeg;base64," + image_base64.bytes;
+			   document.getElementById("image").src = src;
+			}
+		</script>
+
+		<center>
+			<img id="image" src="">
+			<br/>		
+			<input type="button"  onclick="getRandomImage()" value="Get Random Image"/>
+		</center>
+
+	</body>
+</html>

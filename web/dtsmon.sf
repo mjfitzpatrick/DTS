@@ -1,0 +1,9 @@
+#!/bin/csh -f
+
+# disable filename globbing
+set noglob
+
+set o = `echo $QUERY_STRING | sed -e 's/opt=//g'`
+
+echo $o   > /iraf/web/dts/_sf
+exec /iraf/web/scripts/dtsmon

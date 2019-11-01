@@ -1,0 +1,293 @@
+\hypertarget{dtsPSock_8c}{
+\section{dtsPSock.c File Reference}
+\label{dtsPSock_8c}\index{dtsPSock.c@{dtsPSock.c}}
+}
+\hyperlink{structDTS}{DTS} parallel socket transfer routines.  
+
+
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$netinet/tcp.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{dtsPSock_8c_22e10c7b49ab319242b4ae093fb4dc2d}{dts\_\-printPHdr} (char $\ast$s, phdr $\ast$h)
+\item 
+int \hyperlink{dtsPSock_8c_7b8bfbc4d0af5e42cc3f688fc754a974}{psSpawnThreads} (void $\ast$worker, int nthreads, char $\ast$dir, char $\ast$fname, long fsize, int mode, int port, char $\ast$host, int verbose, pthread\_\-t $\ast$tids)
+\begin{CompactList}\small\item\em Spawn a worker thread for the transfer. \item\end{CompactList}\item 
+int $\ast$ \hyperlink{dtsPSock_8c_160295877b92430888f76329f60f813e}{psCollectThreads} (int nthreads, pthread\_\-t $\ast$tids)
+\begin{CompactList}\small\item\em Collect worker threads for the transfer. \item\end{CompactList}\item 
+void \hyperlink{dtsPSock_8c_bfb767ce2c3944eca4a451bd95e9cbdc}{psSendFile} (void $\ast$data)
+\begin{CompactList}\small\item\em Send a file to a remote \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+void \hyperlink{dtsPSock_8c_7cb70ee251aba58b0803cb0cc1cb3323}{psReceiveFile} (void $\ast$data)
+\begin{CompactList}\small\item\em Read a file from a remote \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsPSock_8c_234716badb2257ccba58905bc7001c2c}{psSendStripe} (int sock, unsigned char $\ast$dbuf, long offset, int tnum, long maxbytes)
+\begin{CompactList}\small\item\em Do actual transfer of data stripe to the socket. \item\end{CompactList}\item 
+unsigned char $\ast$ \hyperlink{dtsPSock_8c_e819e3619a06be32cf0a12a113450bc4}{psReceiveStripe} (int sock, long offset, int tnum)
+\begin{CompactList}\small\item\em Read data stripe from the socket connection. \item\end{CompactList}\item 
+void \hyperlink{dtsPSock_8c_377827adf8f79dde8c5fa17c6174080f}{psComputeStripe} (long fsize, int nthreads, int tnum, long $\ast$chsize, long $\ast$start, long $\ast$end)
+\begin{CompactList}\small\item\em Compute the various parameters of a 'stripe'. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+pthread\_\-mutex\_\-t \hyperlink{dtsPSock_8c_aced9ab6c747ee655426565b1be52e8e}{svc\_\-mutex} = PTHREAD\_\-MUTEX\_\-INITIALIZER
+\item 
+int \hyperlink{dtsPSock_8c_51132e6b05a1239c31e59a31a4b7b46d}{psock\_\-checksum\_\-policy} = CS\_\-CHUNK
+\item 
+\hypertarget{dtsPSock_8c_954099a1bb9677f24d8598fb9e27a790}{
+int \textbf{err\_\-return} = -1}
+\label{dtsPSock_8c_954099a1bb9677f24d8598fb9e27a790}
+
+\item 
+\hypertarget{dtsPSock_8c_e9c89e7ff1fbfe74ed32f3bb6b69193f}{
+int \textbf{thread\_\-sem} = 0}
+\label{dtsPSock_8c_e9c89e7ff1fbfe74ed32f3bb6b69193f}
+
+\item 
+\hypertarget{dtsPSock_8c_bc3bb7a68b2cea3f7db95cb764bce904}{
+struct timeval \textbf{io\_\-tv}}
+\label{dtsPSock_8c_bc3bb7a68b2cea3f7db95cb764bce904}
+
+\item 
+\hypertarget{dtsPSock_8c_4e3d0548c599124f2df64c499a8b0ee6}{
+int \textbf{queue\_\-delay}}
+\label{dtsPSock_8c_4e3d0548c599124f2df64c499a8b0ee6}
+
+\item 
+\hypertarget{dtsPSock_8c_bfe1ab56be631e48e5edc9f0f1381486}{
+int \textbf{first\_\-write}}
+\label{dtsPSock_8c_bfe1ab56be631e48e5edc9f0f1381486}
+
+\item 
+\hypertarget{dtsPSock_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsPSock_8c_99390fcf722f24689439904d1b546dce}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} parallel socket transfer routines. 
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsPSock_8c_22e10c7b49ab319242b4ae093fb4dc2d}{
+\index{dtsPSock.c@{dtsPSock.c}!dts\_\-printPHdr@{dts\_\-printPHdr}}
+\index{dts\_\-printPHdr@{dts\_\-printPHdr}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{dts\_\-printPHdr}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-printPHdr (char $\ast$ {\em s}, \/  phdr $\ast$ {\em h})}}
+\label{dtsPSock_8c_22e10c7b49ab319242b4ae093fb4dc2d}
+
+
+DTS\_\-PRINTHDR -- Debug Utility. \hypertarget{dtsPSock_8c_160295877b92430888f76329f60f813e}{
+\index{dtsPSock.c@{dtsPSock.c}!psCollectThreads@{psCollectThreads}}
+\index{psCollectThreads@{psCollectThreads}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psCollectThreads}]{\setlength{\rightskip}{0pt plus 5cm}int psCollectThreads (int {\em nthreads}, \/  pthread\_\-t $\ast$ {\em tids})}}
+\label{dtsPSock_8c_160295877b92430888f76329f60f813e}
+
+
+Collect worker threads for the transfer. 
+
+PSCOLLECTTHREADS -- Collect the worker threads for the transfer. Our onl job here is start a thread to rejoin the previously createed threads.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em nthreads}]number of threads to create \item[{\em tids}]thread IDs \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+Referenced by dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), and dts\_\-xferSendFile().\hypertarget{dtsPSock_8c_377827adf8f79dde8c5fa17c6174080f}{
+\index{dtsPSock.c@{dtsPSock.c}!psComputeStripe@{psComputeStripe}}
+\index{psComputeStripe@{psComputeStripe}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psComputeStripe}]{\setlength{\rightskip}{0pt plus 5cm}psComputeStripe (long {\em fsize}, \/  int {\em nthreads}, \/  int {\em tnum}, \/  long $\ast$ {\em chsize}, \/  long $\ast$ {\em start}, \/  long $\ast$ {\em end})}}
+\label{dtsPSock_8c_377827adf8f79dde8c5fa17c6174080f}
+
+
+Compute the various parameters of a 'stripe'. 
+
+PSCOMPUTESTRIPE -- Compute the parameters of a data stripe given the file size and number of worker threads.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fsize}]file size \item[{\em nthreads}]numbers of threads being processed \item[{\em tnum}]this thread number \item[{\em chsize}]chunk size \item[{\em start}]starting byte number of stripe (output) \item[{\em end}]ending byte number of stripe (output)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing\end{Desc}
+UDTCOMPUTESTRIPE -- Compute the parameters of a data stripe given the file size and number of worker threads.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fsize}]file size \item[{\em nthreads}]numbers of threads being processed \item[{\em tnum}]this thread number \item[{\em chsize}]chunk size \item[{\em start}]starting byte number of stripe (output) \item[{\em end}]ending byte number of stripe (output)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dtsErrLog().
+
+Referenced by psSpawnThreads(), and udtSpawnThreads().\hypertarget{dtsPSock_8c_7cb70ee251aba58b0803cb0cc1cb3323}{
+\index{dtsPSock.c@{dtsPSock.c}!psReceiveFile@{psReceiveFile}}
+\index{psReceiveFile@{psReceiveFile}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psReceiveFile}]{\setlength{\rightskip}{0pt plus 5cm}psReceiveFile (void $\ast$ {\em data})}}
+\label{dtsPSock_8c_7cb70ee251aba58b0803cb0cc1cb3323}
+
+
+Read a file from a remote \hyperlink{structDTS}{DTS}. 
+
+psReceiveFile -- Receive a file from a remote \hyperlink{structDTS}{DTS}.
+
+This function can be called to read a portion of a file from a remote host. Arguments are passed in through a generic 'data' pointer to the psArg struct defined for this 'stripe' of the data.
+
+In this procedure, we act as a client in the connection, i.e. the transfer won't begin until we connect to a remote server sending the data.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller thread data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-fileOpen(), dts\_\-fileWrite(), dts\_\-makePath(), dts\_\-openClientSocket(), dts\_\-openServerSocket(), dts\_\-preAlloc(), dts\_\-sandboxPath(), dts\_\-semDecr(), dtsErrLog(), dtsLog(), dtsTimeLog(), psReceiveStripe(), and svc\_\-mutex.
+
+Referenced by dts\_\-xferPullFile(), and dts\_\-xferReceiveFile().\hypertarget{dtsPSock_8c_e819e3619a06be32cf0a12a113450bc4}{
+\index{dtsPSock.c@{dtsPSock.c}!psReceiveStripe@{psReceiveStripe}}
+\index{psReceiveStripe@{psReceiveStripe}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psReceiveStripe}]{\setlength{\rightskip}{0pt plus 5cm}uchar $\ast$ psReceiveStripe (int {\em sock}, \/  long {\em offset}, \/  int {\em tnum})}}
+\label{dtsPSock_8c_e819e3619a06be32cf0a12a113450bc4}
+
+
+Read data stripe from the socket connection. 
+
+psReceiveStripe -- Do the actual transfer of the data stripe to the client connection. A 'stripe' of data is actually transferred in much smaller 'chunks' which can be tuned to be optimal for the given connection. The checksum policy allows us to perform a checksum of the data either for the entire stripe, or for each individual chunk. The former is generally more efficient as it involves fewer round-trips to the client (i.e. send the checksum and wait for verification before sending next chunk). File-level checksum policy is enforced by our parent.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em sock}]socket descriptor \item[{\em offset}]file offset for this stripe \item[{\em tnum}]thread (i.e. stripe) number\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]a pointer to the data read \end{Desc}
+
+
+References dts\_\-debugLevel(), dts\_\-sockRead(), dts\_\-sockWrite(), dtsErrLog(), dtsTimeLog(), and psock\_\-checksum\_\-policy.
+
+Referenced by psReceiveFile().\hypertarget{dtsPSock_8c_bfb767ce2c3944eca4a451bd95e9cbdc}{
+\index{dtsPSock.c@{dtsPSock.c}!psSendFile@{psSendFile}}
+\index{psSendFile@{psSendFile}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psSendFile}]{\setlength{\rightskip}{0pt plus 5cm}psSendFile (void $\ast$ {\em data})}}
+\label{dtsPSock_8c_bfb767ce2c3944eca4a451bd95e9cbdc}
+
+
+Send a file to a remote \hyperlink{structDTS}{DTS}. 
+
+psSendFile -- Send a file to a remote \hyperlink{structDTS}{DTS}.
+
+This function can be called to send a portion of a file to a remote host. Arguments are passed in through a generic 'data' pointer to the psArg struct defined for this 'stripe' of the data.
+
+In this procedure, we act as a server, i.e. we open the specified tcp/ip socket and wait for a client connection before beginning any transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller thread data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-fileClose(), dts\_\-fileOpen(), dts\_\-fileRead(), dts\_\-makePath(), dts\_\-openClientSocket(), dts\_\-openServerSocket(), dts\_\-sandboxPath(), dts\_\-semDecr(), dtsErrLog(), dtsTimeLog(), psSendStripe(), and svc\_\-mutex.
+
+Referenced by dts\_\-xferPushFile(), and dts\_\-xferSendFile().\hypertarget{dtsPSock_8c_234716badb2257ccba58905bc7001c2c}{
+\index{dtsPSock.c@{dtsPSock.c}!psSendStripe@{psSendStripe}}
+\index{psSendStripe@{psSendStripe}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psSendStripe}]{\setlength{\rightskip}{0pt plus 5cm}int psSendStripe (int {\em sock}, \/  unsigned char $\ast$ {\em dbuf}, \/  long {\em offset}, \/  int {\em tnum}, \/  long {\em maxbytes})}}
+\label{dtsPSock_8c_234716badb2257ccba58905bc7001c2c}
+
+
+Do actual transfer of data stripe to the socket. 
+
+psSendStripe -- Do the actual transfer of the data stripe to the client connection. A 'stripe' of data is actually transferred in much smaller 'chunks' which can be tuned to be optimal for the given connection. The checksum policy allows us to perform a checksum of the data either for the entire stripe, or for each individual chunk. The former is generally more efficient as it involves fewer round-trips to the client (i.e. send the checksum and wait for verification before sending next chunk). File-level checksum policy is enforced by our parent.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em sock}]socket descriptor \item[{\em dbuf}]data buffer \item[{\em offset}]file offset for this stripe \item[{\em tnum}]thread number \item[{\em maxbytes}]max bytes to transfer\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of chunks sent \end{Desc}
+
+
+References dts\_\-debugLevel(), dts\_\-sockRead(), dts\_\-sockWrite(), dtsErrLog(), dtsTimeLog(), and psock\_\-checksum\_\-policy.
+
+Referenced by psSendFile().\hypertarget{dtsPSock_8c_7b8bfbc4d0af5e42cc3f688fc754a974}{
+\index{dtsPSock.c@{dtsPSock.c}!psSpawnThreads@{psSpawnThreads}}
+\index{psSpawnThreads@{psSpawnThreads}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psSpawnThreads}]{\setlength{\rightskip}{0pt plus 5cm}int psSpawnThreads (void $\ast$ {\em worker}, \/  int {\em nthreads}, \/  char $\ast$ {\em dir}, \/  char $\ast$ {\em fname}, \/  long {\em fsize}, \/  int {\em mode}, \/  int {\em port}, \/  char $\ast$ {\em host}, \/  int {\em verbose}, \/  pthread\_\-t $\ast$ {\em tids})}}
+\label{dtsPSock_8c_7b8bfbc4d0af5e42cc3f688fc754a974}
+
+
+Spawn a worker thread for the transfer. 
+
+PSSPAWNTHREADS -- Spawn a worker thread for the transfer. All we do here is start a thread to run the function passed in. This may be used to either read or write the data.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em worker}]worker function \item[{\em nthreads}]number of threads to create \item[{\em dir}]working directory \item[{\em fname}]file name \item[{\em fsize}]file size \item[{\em mode}]transfer mode (push or pull) \item[{\em port}]client base port number \item[{\em host}]client host name \item[{\em verbose}]verbose output flag \item[{\em tids}]thread id array\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+References dtsErrLog(), and psComputeStripe().
+
+Referenced by dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), and dts\_\-xferSendFile().
+
+\subsection{Variable Documentation}
+\hypertarget{dtsPSock_8c_51132e6b05a1239c31e59a31a4b7b46d}{
+\index{dtsPSock.c@{dtsPSock.c}!psock\_\-checksum\_\-policy@{psock\_\-checksum\_\-policy}}
+\index{psock\_\-checksum\_\-policy@{psock\_\-checksum\_\-policy}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{psock\_\-checksum\_\-policy}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf psock\_\-checksum\_\-policy} = CS\_\-CHUNK}}
+\label{dtsPSock_8c_51132e6b05a1239c31e59a31a4b7b46d}
+
+
+FIXME -- CS\_\-STRIPE and CS\_\-PACKET not working...... 
+
+Referenced by dts\_\-sockRead(), dts\_\-sockWrite(), psReceiveStripe(), and psSendStripe().\hypertarget{dtsPSock_8c_aced9ab6c747ee655426565b1be52e8e}{
+\index{dtsPSock.c@{dtsPSock.c}!svc\_\-mutex@{svc\_\-mutex}}
+\index{svc\_\-mutex@{svc\_\-mutex}!dtsPSock.c@{dtsPSock.c}}
+\subsubsection[{svc\_\-mutex}]{\setlength{\rightskip}{0pt plus 5cm}pthread\_\-mutex\_\-t {\bf svc\_\-mutex} = PTHREAD\_\-MUTEX\_\-INITIALIZER}}
+\label{dtsPSock_8c_aced9ab6c747ee655426565b1be52e8e}
+
+
+Mutex lock for thread startup to protect file I/O. 
+
+Referenced by psReceiveFile(), and psSendFile().

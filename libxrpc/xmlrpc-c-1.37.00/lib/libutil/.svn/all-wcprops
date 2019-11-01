@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil
+END
+time.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/time.c
+END
+lock_pthread.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/lock_pthread.c
+END
+lock_windows.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/lock_windows.c
+END
+lock_none.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/lock_none.c
+END
+sleep.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/sleep.c
+END
+make_printable.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/make_printable.c
+END
+string_number.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/string_number.c
+END
+select.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/select.c
+END
+base64.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/base64.c
+END
+utf8.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/utf8.c
+END
+asprintf.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/asprintf.c
+END
+memblock.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/memblock.c
+END
+error.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/error.c
+END
+lock_platform.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/lock_platform.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libutil/Makefile
+END

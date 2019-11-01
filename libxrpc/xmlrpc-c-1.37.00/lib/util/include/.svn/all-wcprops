@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include
+END
+linklist.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/linklist.h
+END
+casprintf.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/casprintf.h
+END
+assertx.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/assertx.hpp
+END
+int.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/int.h
+END
+girmath.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/girmath.h
+END
+bool.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/bool.h
+END
+unistdx.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/unistdx.h
+END
+girstring.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/girstring.h
+END
+stdargx.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/stdargx.h
+END
+inline.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/inline.h
+END
+c_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/c_util.h
+END
+mallocvar.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/mallocvar.h
+END
+string_parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/string_parser.h
+END
+cmdline_parser.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/cmdline_parser.hpp
+END
+cmdline_parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/util/include/cmdline_parser.h
+END

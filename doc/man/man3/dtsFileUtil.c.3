@@ -1,0 +1,676 @@
+.TH "dtsFileUtil.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsFileUtil.c \- \fBDTS\fP file utilities.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <dirent.h>\fP
+.br
+\fC#include <sys/errno.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <sys/statvfs.h>\fP
+.br
+\fC#include <sys/mman.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_GNU_SOURCE\fP"
+.br
+.ti -1c
+.RI "#define \fB_XOPEN_SOURCE\fP   600"
+.br
+.ti -1c
+.RI "#define \fBPATH_MAX\fP   4096"
+.br
+.ti -1c
+.RI "#define \fBDTS_ALLOC_SIZE\fP   4096000"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "FILE * \fBdts_fopen\fP (char *fname, char *mode)"
+.br
+.RI "\fIOpen the named file and return the file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_fclose\fP (FILE *fp)"
+.br
+.RI "\fIClose the file stream. \fP"
+.ti -1c
+.RI "int \fBdts_fileOpen\fP (char *fname, int flags)"
+.br
+.RI "\fIOpen the named file and return the file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_fileClose\fP (int fd)"
+.br
+.RI "\fIClose the file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_fileSync\fP (int fd)"
+.br
+.RI "\fISync the file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_preAlloc\fP (char *fname, long fsize)"
+.br
+.RI "\fIPre-allocate the space for a file. \fP"
+.ti -1c
+.RI "long \fBdts_fileSize\fP (int fd)"
+.br
+.RI "\fIReturn the size (in bytes) of the specified file descriptor. \fP"
+.ti -1c
+.RI "long \fBdts_fileMode\fP (int fd)"
+.br
+.RI "\fIReturn the protection mode of the specified file descriptor. \fP"
+.ti -1c
+.RI "long \fBdts_nameSize\fP (char *fname)"
+.br
+.RI "\fIReturn the size (in bytes) of the specified file descriptor. \fP"
+.ti -1c
+.RI "long \fBdts_nameMode\fP (char *fname)"
+.br
+.RI "\fIReturn the protection mode of the specified file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_getBuffer\fP (int fd, unsigned char **buf, long chunkSize, int tnum)"
+.br
+.RI "\fIGet a buffer of the specified size from the file. \fP"
+.ti -1c
+.RI "int \fBdts_fileRead\fP (int fd, void *vptr, int nbytes)"
+.br
+.RI "\fIRead exactly 'n' bytes from a file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_fileWrite\fP (int fd, void *vptr, int nbytes)"
+.br
+.RI "\fIWrite exactly 'n' bytes to a file descriptor. \fP"
+.ti -1c
+.RI "int \fBdts_fileCopy\fP (char *in, char *out)"
+.br
+.RI "\fICopy and input file to an output file. \fP"
+.ti -1c
+.RI "int \fBdts_isDir\fP (char *path)"
+.br
+.RI "\fICheck whether a path represents a directory. \fP"
+.ti -1c
+.RI "int \fBdts_isLink\fP (char *path)"
+.br
+.RI "\fICheck whether a path represents a symbolic link. \fP"
+.ti -1c
+.RI "char * \fBdts_readLink\fP (char *ipath)"
+.br
+.RI "\fIRead the target of a symlink. \fP"
+.ti -1c
+.RI "int \fBdts_makePath\fP (char *path, int isDir)"
+.br
+.RI "\fICreate the specified path, one directory at a time. \fP"
+.ti -1c
+.RI "char * \fBdts_pathDir\fP (char *path)"
+.br
+.RI "\fIReturn the directory portion of a file pathname. \fP"
+.ti -1c
+.RI "char * \fBdts_pathFname\fP (char *path)"
+.br
+.RI "\fIReturn the filename portion of a file pathname. \fP"
+.ti -1c
+.RI "long \fBdts_du\fP (char *filename)"
+.br
+.RI "\fIReturn the size of a file or directory path in bytes. \fP"
+.ti -1c
+.RI "int \fBdts_unlink\fP (char *dir, int recurse, char *template)"
+.br
+.RI "\fIRemove all matching file in a directory (tree). \fP"
+.ti -1c
+.RI "long \fBdts_dirSize\fP (char *dir, char *template)"
+.br
+.RI "\fIGet the cumulative size of all files in a directory tree. \fP"
+.ti -1c
+.RI "int \fBdts_dirCopy\fP (char *in, char *out)"
+.br
+.RI "\fIRecursively copy a directory to a new location. \fP"
+.ti -1c
+.RI "int \fBdts_statvfs\fP (char *dir, struct statvfs *fs)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP file utilities. 
+
+\fBDTS\fP File Utilities
+.PP
+dts_fileOpen (char *fname, int flags) dts_fileClose (int fd) dts_preAlloc (char *fname, long fsize) dts_fileSize (int fd) dts_fileMode (int fd) dts_nameSize (char *fname) dts_nameMode (char *fname) dts_getBuffer (int fd, unsigned char **buf, long chunkSize, int tnum) dts_fileRead (int fd, void *vptr, int nbytes) dts_fileWrite (int fd, void *vptr, int nbytes) dts_fileCopy (char *in, char *out) dts_isDir (char *path) dts_isLink (char *path) dts_makePath (char *path, int isDir) dts_pathDir (char *path) dts_pathFname (char *path) dts_du (char *filename) dts_unlink (char *dir, int recurse, char *template) dts_dirSize (char *dir, char *template) dts_dirCopy (char *in, char *out) dts_statfs (char *dir, struct statfs *fs)
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_dirCopy (char * in, char * out)"
+.PP
+Recursively copy a directory to a new location. 
+.PP
+DTS_DIRCOPY -- Recursively copy a directory to a new location, preserving symlinks and file permissions.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIin\fP input directory to copy 
+.br
+\fIout\fP output directory path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_fileCopy().
+.PP
+Referenced by dts_fileCopy().
+.SS "long dts_dirSize (char * dir, char * template)"
+.PP
+Get the cumulative size of all files in a directory tree. 
+.PP
+DTS_DIRSIZE -- Get the cumulative size of all files in a directory tree.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdir\fP directory to size 
+.br
+\fItemplate\fP file-matching template 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_patMatch().
+.SS "long dts_du (char * filename)"
+.PP
+Return the size of a file or directory path in bytes. 
+.PP
+DTS_DU -- A simple 'du' function for a file or directory tree.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP filename to be checked 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+size of file 
+.RE
+.PP
+
+.PP
+References dts_readLink().
+.PP
+Referenced by dts_FSize(), dts_hostInitTransfer(), dts_hostQueueAccept(), dts_hostTo(), and dts_queueInitControl().
+.SS "int dts_fclose (FILE * fp)"
+.PP
+Close the file stream. 
+.PP
+DTS_FCLOSE -- Close the file stream.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfp\fP file stream to close 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadControl(), dts_logControl(), dts_queueGetCurrent(), dts_queueGetNext(), dts_queueGetStats(), dts_queueSetCurrent(), dts_queueSetNext(), dts_queueSetStats(), and dts_saveControl().
+.SS "int dts_fileClose (int fd)"
+.PP
+Close the file descriptor. 
+.PP
+DTS_FILECLOSE -- Close the file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor to close 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by psSendFile(), and udtSendFile().
+.SS "int dts_fileCopy (char * in, char * out)"
+.PP
+Copy and input file to an output file. 
+.PP
+DTS_FILECOPY -- Copy and input file to an output file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIin\fP input file path 
+.br
+\fIout\fP output file path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written
+.RE
+.PP
+define DTS_MMAP_COPY 
+.PP
+References dts_dirCopy(), dts_fileSize(), and dts_isDir().
+.PP
+Referenced by dts_Deliver(), and dts_dirCopy().
+.SS "long dts_fileMode (int fd)"
+.PP
+Return the protection mode of the specified file descriptor. 
+.PP
+DTS_FILEMODE - Return the protection mode of the specified file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+file mode 
+.RE
+.PP
+
+.SS "int dts_fileOpen (char * fname, int flags)"
+.PP
+Open the named file and return the file descriptor. 
+.PP
+DTS_FILEOPEN -- Open the named file and return the file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP file name to open 
+.br
+\fIflags\fP file open flags
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+file descriptor 
+.RE
+.PP
+
+.PP
+Referenced by psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().
+.SS "int dts_fileRead (int fd, void * vptr, int nbytes)"
+.PP
+Read exactly 'n' bytes from a file descriptor. 
+.PP
+DTS_FILEREAD -- Read exactly 'n' bytes from a file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIvptr\fP data buffer to be written 
+.br
+\fInbytes\fP number of bytes to write 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written 
+.RE
+.PP
+
+.PP
+Referenced by dts_Cat(), dts_Read(), psSendFile(), and udtSendFile().
+.SS "long dts_fileSize (int fd)"
+.PP
+Return the size (in bytes) of the specified file descriptor. 
+.PP
+DTS_FILESIZE - Return the size (in bytes) of the specified file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+file size 
+.RE
+.PP
+
+.PP
+Referenced by dts_fileCopy(), and dts_loadControl().
+.SS "int dts_fileSync (int fd)"
+.PP
+Sync the file descriptor. 
+.PP
+DTS_FILESYNC -- Sync the file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor to sync to disk 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.SS "int dts_fileWrite (int fd, void * vptr, int nbytes)"
+.PP
+Write exactly 'n' bytes to a file descriptor. 
+.PP
+DTS_FILEWRITE -- Write exactly 'n' bytes to a file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIvptr\fP data buffer to be written 
+.br
+\fInbytes\fP number of bytes to write 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of bytes written 
+.RE
+.PP
+
+.PP
+References dts_setNonBlock().
+.PP
+Referenced by dts_hostFGet(), psReceiveFile(), and udtReceiveFile().
+.SS "FILE* dts_fopen (char * fname, char * mode)"
+.PP
+Open the named file and return the file descriptor. 
+.PP
+DTS_FOPEN -- Open the named file and return the file descriptor.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP file name to open 
+.br
+\fIflags\fP file open mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+FILE * descriptor 
+.RE
+.PP
+
+.PP
+References dtsErrLog().
+.PP
+Referenced by dts_loadControl(), dts_logControl(), dts_logXFerStats(), dts_queueGetCurrent(), dts_queueGetNext(), dts_queueGetStats(), dts_queueSetCurrent(), dts_queueSetNext(), dts_queueSetStats(), and dts_saveControl().
+.SS "int dts_getBuffer (int fd, unsigned char ** buf, long chunkSize, int tnum)"
+.PP
+Get a buffer of the specified size from the file. 
+.PP
+DTS_GETBUFFER -- Get a buffer of the specified size from the file. Return the number of characters read.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfd\fP file descriptor 
+.br
+\fIbuf\fP buffer to create 
+.br
+\fIchunkSize\fP size of transfer chunk (bytes) 
+.br
+\fItnum\fP thread number
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+file size 
+.RE
+.PP
+
+.SS "int dts_isDir (char * path)"
+.PP
+Check whether a path represents a directory. 
+.PP
+DTS_ISDIR -- Check whether a path represents a directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP pathname to be checked 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if path is a directory, 0 (zero) otherise 
+.RE
+.PP
+
+.PP
+Referenced by dts_CheckDir(), dts_Delete(), dts_fileCopy(), dts_hostTo(), dts_loadConfigDir(), dts_queueInitControl(), dts_sandboxPath(), dts_wtar(), dts_xferDirTo(), dts_xferFile(), and dtsInit().
+.SS "int dts_isLink (char * path)"
+.PP
+Check whether a path represents a symbolic link. 
+.PP
+DTS_ISLINK -- Check whether a path represents a symbolic link.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP pathname to be checked 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if path is a symbolic link, non-zero otherise 
+.RE
+.PP
+
+.PP
+Referenced by dts_Ingest(), and dts_sandboxPath().
+.SS "int dts_makePath (char * path, int isDir)"
+.PP
+Create the specified path, one directory at a time. 
+.PP
+DTS_MAKEPATH -- Create the specified path, one directory at a time.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP Path to create 
+.br
+\fIisDir\fP Is final element a directory? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if path can be created 
+.RE
+.PP
+
+.PP
+Referenced by psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().
+.SS "long dts_nameMode (char * fname)"
+.PP
+Return the protection mode of the specified file descriptor. 
+.PP
+DTS_NAMEMODE - Return the protection mode of the named file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP file name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+file mode 
+.RE
+.PP
+
+.PP
+Referenced by dts_Ingest(), dts_xferDirTo(), and dts_xferFile().
+.SS "long dts_nameSize (char * fname)"
+.PP
+Return the size (in bytes) of the specified file descriptor. 
+.PP
+DTS_NAMESIZE - Return the size (in bytes) of the named file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP file name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+file size 
+.RE
+.PP
+
+.PP
+Referenced by dts_Ingest(), and dts_xferDirTo().
+.SS "char* dts_pathDir (char * path)"
+.PP
+Return the directory portion of a file pathname. 
+.PP
+DTS_PATHDIR -- Return the directory portion of a file pathname.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP long path name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+parent directory 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostFrom(), dts_hostTo(), dts_queueInitControl(), dts_xferDirFrom(), and dts_xferDirTo().
+.SS "char* dts_pathFname (char * path)"
+.PP
+Return the filename portion of a file pathname. 
+.PP
+DTS_PATHFNAME -- Return the filename portion of a file pathname.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP long path name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+filename 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostFrom(), dts_hostTo(), dts_queueInitControl(), dts_queueProcess(), dts_xferDirFrom(), and dts_xferDirTo().
+.SS "int dts_preAlloc (char * fname, long fsize)"
+.PP
+Pre-allocate the space for a file. 
+.PP
+DTS_PREALLOC -- Pre-allocate the space for a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP file name to create 
+.br
+\fIfsize\fP size of the file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+Referenced by dts_localPrealloc(), dts_Prealloc(), psReceiveFile(), and udtReceiveFile().
+.SS "char* dts_readLink (char * ipath)"
+.PP
+Read the target of a symlink. 
+.PP
+DTS_READLINK -- Read the target of a symlink.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIipath\fP input pathname to link 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+path to target of symlink 
+.RE
+.PP
+
+.PP
+Referenced by dts_du(), dts_Ingest(), and dts_sandboxPath().
+.SS "int dts_unlink (char * dir, int recurse, char * template)"
+.PP
+Remove all matching file in a directory (tree). 
+.PP
+DTS_UNLINK -- Remove all matching files in a directory or directory tree. We chdir to each directory to minimize path searches.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdir\fP directory to remove 
+.br
+\fIrecurse\fP descend into subdirs? 
+.br
+\fItemplate\fP file-matching template 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_patMatch().
+.PP
+Referenced by dts_Delete(), dts_localDelete(), and dts_queueDelete().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

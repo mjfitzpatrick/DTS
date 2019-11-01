@@ -1,0 +1,362 @@
+.TH "dtsPSock.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsPSock.c \- \fBDTS\fP parallel socket transfer routines.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <pthread.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <netdb.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <sys/errno.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <netinet/in.h>\fP
+.br
+\fC#include <netinet/tcp.h>\fP
+.br
+\fC#include <arpa/inet.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdts_printPHdr\fP (char *s, phdr *h)"
+.br
+.ti -1c
+.RI "int \fBpsSpawnThreads\fP (void *worker, int nthreads, char *dir, char *fname, long fsize, int mode, int port, char *host, int verbose, pthread_t *tids)"
+.br
+.RI "\fISpawn a worker thread for the transfer. \fP"
+.ti -1c
+.RI "int * \fBpsCollectThreads\fP (int nthreads, pthread_t *tids)"
+.br
+.RI "\fICollect worker threads for the transfer. \fP"
+.ti -1c
+.RI "void \fBpsSendFile\fP (void *data)"
+.br
+.RI "\fISend a file to a remote \fBDTS\fP. \fP"
+.ti -1c
+.RI "void \fBpsReceiveFile\fP (void *data)"
+.br
+.RI "\fIRead a file from a remote \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBpsSendStripe\fP (int sock, unsigned char *dbuf, long offset, int tnum, long maxbytes)"
+.br
+.RI "\fIDo actual transfer of data stripe to the socket. \fP"
+.ti -1c
+.RI "unsigned char * \fBpsReceiveStripe\fP (int sock, long offset, int tnum)"
+.br
+.RI "\fIRead data stripe from the socket connection. \fP"
+.ti -1c
+.RI "void \fBpsComputeStripe\fP (long fsize, int nthreads, int tnum, long *chsize, long *start, long *end)"
+.br
+.RI "\fICompute the various parameters of a 'stripe'. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "pthread_mutex_t \fBsvc_mutex\fP = PTHREAD_MUTEX_INITIALIZER"
+.br
+.ti -1c
+.RI "int \fBpsock_checksum_policy\fP = CS_CHUNK"
+.br
+.ti -1c
+.RI "int \fBerr_return\fP = -1"
+.br
+.ti -1c
+.RI "int \fBthread_sem\fP = 0"
+.br
+.ti -1c
+.RI "struct timeval \fBio_tv\fP"
+.br
+.ti -1c
+.RI "int \fBqueue_delay\fP"
+.br
+.ti -1c
+.RI "int \fBfirst_write\fP"
+.br
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP parallel socket transfer routines. 
+
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "void dts_printPHdr (char * s, phdr * h)"
+.PP
+DTS_PRINTHDR -- Debug Utility. 
+.SS "int psCollectThreads (int nthreads, pthread_t * tids)"
+.PP
+Collect worker threads for the transfer. 
+.PP
+PSCOLLECTTHREADS -- Collect the worker threads for the transfer. Our onl job here is start a thread to rejoin the previously createed threads.
+.PP
+\fBParameters:\fP
+.RS 4
+\fInthreads\fP number of threads to create 
+.br
+\fItids\fP thread IDs 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+Referenced by dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SS "psComputeStripe (long fsize, int nthreads, int tnum, long * chsize, long * start, long * end)"
+.PP
+Compute the various parameters of a 'stripe'. 
+.PP
+PSCOMPUTESTRIPE -- Compute the parameters of a data stripe given the file size and number of worker threads.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfsize\fP file size 
+.br
+\fInthreads\fP numbers of threads being processed 
+.br
+\fItnum\fP this thread number 
+.br
+\fIchsize\fP chunk size 
+.br
+\fIstart\fP starting byte number of stripe (output) 
+.br
+\fIend\fP ending byte number of stripe (output)
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing
+.RE
+.PP
+UDTCOMPUTESTRIPE -- Compute the parameters of a data stripe given the file size and number of worker threads.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfsize\fP file size 
+.br
+\fInthreads\fP numbers of threads being processed 
+.br
+\fItnum\fP this thread number 
+.br
+\fIchsize\fP chunk size 
+.br
+\fIstart\fP starting byte number of stripe (output) 
+.br
+\fIend\fP ending byte number of stripe (output)
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dtsErrLog().
+.PP
+Referenced by psSpawnThreads(), and udtSpawnThreads().
+.SS "psReceiveFile (void * data)"
+.PP
+Read a file from a remote \fBDTS\fP. 
+.PP
+psReceiveFile -- Receive a file from a remote \fBDTS\fP.
+.PP
+This function can be called to read a portion of a file from a remote host. Arguments are passed in through a generic 'data' pointer to the psArg struct defined for this 'stripe' of the data.
+.PP
+In this procedure, we act as a client in the connection, i.e. the transfer won't begin until we connect to a remote server sending the data.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller thread data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fileOpen(), dts_fileWrite(), dts_makePath(), dts_openClientSocket(), dts_openServerSocket(), dts_preAlloc(), dts_sandboxPath(), dts_semDecr(), dtsErrLog(), dtsLog(), dtsTimeLog(), psReceiveStripe(), and svc_mutex.
+.PP
+Referenced by dts_xferPullFile(), and dts_xferReceiveFile().
+.SS "uchar * psReceiveStripe (int sock, long offset, int tnum)"
+.PP
+Read data stripe from the socket connection. 
+.PP
+psReceiveStripe -- Do the actual transfer of the data stripe to the client connection. A 'stripe' of data is actually transferred in much smaller 'chunks' which can be tuned to be optimal for the given connection. The checksum policy allows us to perform a checksum of the data either for the entire stripe, or for each individual chunk. The former is generally more efficient as it involves fewer round-trips to the client (i.e. send the checksum and wait for verification before sending next chunk). File-level checksum policy is enforced by our parent.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsock\fP socket descriptor 
+.br
+\fIoffset\fP file offset for this stripe 
+.br
+\fItnum\fP thread (i.e. stripe) number
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+a pointer to the data read 
+.RE
+.PP
+
+.PP
+References dts_debugLevel(), dts_sockRead(), dts_sockWrite(), dtsErrLog(), dtsTimeLog(), and psock_checksum_policy.
+.PP
+Referenced by psReceiveFile().
+.SS "psSendFile (void * data)"
+.PP
+Send a file to a remote \fBDTS\fP. 
+.PP
+psSendFile -- Send a file to a remote \fBDTS\fP.
+.PP
+This function can be called to send a portion of a file to a remote host. Arguments are passed in through a generic 'data' pointer to the psArg struct defined for this 'stripe' of the data.
+.PP
+In this procedure, we act as a server, i.e. we open the specified tcp/ip socket and wait for a client connection before beginning any transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller thread data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fileClose(), dts_fileOpen(), dts_fileRead(), dts_makePath(), dts_openClientSocket(), dts_openServerSocket(), dts_sandboxPath(), dts_semDecr(), dtsErrLog(), dtsTimeLog(), psSendStripe(), and svc_mutex.
+.PP
+Referenced by dts_xferPushFile(), and dts_xferSendFile().
+.SS "int psSendStripe (int sock, unsigned char * dbuf, long offset, int tnum, long maxbytes)"
+.PP
+Do actual transfer of data stripe to the socket. 
+.PP
+psSendStripe -- Do the actual transfer of the data stripe to the client connection. A 'stripe' of data is actually transferred in much smaller 'chunks' which can be tuned to be optimal for the given connection. The checksum policy allows us to perform a checksum of the data either for the entire stripe, or for each individual chunk. The former is generally more efficient as it involves fewer round-trips to the client (i.e. send the checksum and wait for verification before sending next chunk). File-level checksum policy is enforced by our parent.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsock\fP socket descriptor 
+.br
+\fIdbuf\fP data buffer 
+.br
+\fIoffset\fP file offset for this stripe 
+.br
+\fItnum\fP thread number 
+.br
+\fImaxbytes\fP max bytes to transfer
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of chunks sent 
+.RE
+.PP
+
+.PP
+References dts_debugLevel(), dts_sockRead(), dts_sockWrite(), dtsErrLog(), dtsTimeLog(), and psock_checksum_policy.
+.PP
+Referenced by psSendFile().
+.SS "int psSpawnThreads (void * worker, int nthreads, char * dir, char * fname, long fsize, int mode, int port, char * host, int verbose, pthread_t * tids)"
+.PP
+Spawn a worker thread for the transfer. 
+.PP
+PSSPAWNTHREADS -- Spawn a worker thread for the transfer. All we do here is start a thread to run the function passed in. This may be used to either read or write the data.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIworker\fP worker function 
+.br
+\fInthreads\fP number of threads to create 
+.br
+\fIdir\fP working directory 
+.br
+\fIfname\fP file name 
+.br
+\fIfsize\fP file size 
+.br
+\fImode\fP transfer mode (push or pull) 
+.br
+\fIport\fP client base port number 
+.br
+\fIhost\fP client host name 
+.br
+\fIverbose\fP verbose output flag 
+.br
+\fItids\fP thread id array
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+References dtsErrLog(), and psComputeStripe().
+.PP
+Referenced by dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SH "Variable Documentation"
+.PP 
+.SS "int \fBpsock_checksum_policy\fP = CS_CHUNK"
+.PP
+FIXME -- CS_STRIPE and CS_PACKET not working...... 
+.PP
+Referenced by dts_sockRead(), dts_sockWrite(), psReceiveStripe(), and psSendStripe().
+.SS "pthread_mutex_t \fBsvc_mutex\fP = PTHREAD_MUTEX_INITIALIZER"
+.PP
+Mutex lock for thread startup to protect file I/O. 
+.PP
+Referenced by psReceiveFile(), and psSendFile().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

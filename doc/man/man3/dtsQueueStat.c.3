@@ -1,0 +1,394 @@
+.TH "dtsQueueStat.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsQueueStat.c \- \fBDTS\fP queue statistics utilities.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   (dts&&dts->debug)"
+.br
+.ti -1c
+.RI "#define \fBQSTAT\fP   dtsq->qstat"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdts_qstatInit\fP (char *qname, char *fname, size_t size)"
+.br
+.RI "\fIInitialize the transfer stat struct. \fP"
+.ti -1c
+.RI "void \fBdts_qstatSetFName\fP (char *qname, char *fname)"
+.br
+.RI "\fISet the file name being transferred in a queue. \fP"
+.ti -1c
+.RI "void \fBdts_qstatSetSize\fP (char *qname, size_t size)"
+.br
+.RI "\fISet the fize of file being transferred in a queue. \fP"
+.ti -1c
+.RI "void \fBdts_qstatStart\fP (char *qname)"
+.br
+.RI "\fISet the start time of file being transferred in a queue. \fP"
+.ti -1c
+.RI "void \fBdts_qstatEnd\fP (char *qname)"
+.br
+.RI "\fISet the end time of file being transferred in a queue. \fP"
+.ti -1c
+.RI "void \fBdts_qstatNetStart\fP (char *qname)"
+.br
+.RI "\fISet the start time of network transfer time. \fP"
+.ti -1c
+.RI "void \fBdts_qstatNetEnd\fP (char *qname)"
+.br
+.RI "\fISet the end time of network transfer time. \fP"
+.ti -1c
+.RI "void \fBdts_qstatDiskStart\fP (char *qname)"
+.br
+.RI "\fISet the start time of network transfer time. \fP"
+.ti -1c
+.RI "void \fBdts_qstatDiskEnd\fP (char *qname)"
+.br
+.RI "\fISet the end time of network transfer time. \fP"
+.ti -1c
+.RI "void \fBdts_qstatDlvrStart\fP (char *qname)"
+.br
+.RI "\fISet the start time of network transfer time. \fP"
+.ti -1c
+.RI "void \fBdts_qstatDlvrEnd\fP (char *qname)"
+.br
+.RI "\fISet the end time of network transfer time. \fP"
+.ti -1c
+.RI "void \fBdts_qstatXferStat\fP (char *qname, int stat)"
+.br
+.RI "\fISet the transfer status code. \fP"
+.ti -1c
+.RI "void \fBdts_qstatNetStat\fP (char *qname, int stat)"
+.br
+.RI "\fISet the network transfer status code. \fP"
+.ti -1c
+.RI "void \fBdts_qstatDlvrStat\fP (char *qname, int stat)"
+.br
+.RI "\fISet the delivery status code. \fP"
+.ti -1c
+.RI "void \fBdts_qstatSummary\fP (\fBDTS\fP *dts, char *qname)"
+.br
+.RI "\fIPrint the transfer summary to the log. \fP"
+.ti -1c
+.RI "void \fBdts_qstatPrint\fP (char *qname)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP queue statistics utilities. 
+
+DTSQUEUESTAT.C -- \fBDTS\fP queue statistics utilities.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "void dts_qstatDiskEnd (char * qname)"
+.PP
+Set the end time of network transfer time. 
+.PP
+DTS_QSTATDISKEND -- Set the end time of network transfer time
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_qstatDiskStart (char * qname)"
+.PP
+Set the start time of network transfer time. 
+.PP
+DTS_QSTATDISKSTART -- Set the start time of network transfer time
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_qstatDlvrEnd (char * qname)"
+.PP
+Set the end time of network transfer time. 
+.PP
+DTS_QSTATDISKEND -- Set the end time of network transfer time
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_Deliver(), and dts_Ingest().
+.SS "void dts_qstatDlvrStart (char * qname)"
+.PP
+Set the start time of network transfer time. 
+.PP
+DTS_QSTATDISKSTART -- Set the start time of network transfer time
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_Deliver(), and dts_Ingest().
+.SS "void dts_qstatDlvrStat (char * qname, int stat)"
+.PP
+Set the delivery status code. 
+.PP
+DTS_QSTATDLVRSTAT -- Set the delivery status code.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.br
+\fIstat\fP OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_Deliver(), dts_endTransfer(), and dts_Ingest().
+.SS "void dts_qstatEnd (char * qname)"
+.PP
+Set the end time of file being transferred in a queue. 
+.PP
+DTS_QSTATEND -- Set the end time of file being transferred in a queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_qstatInit (char * qname, char * fname, size_t size)"
+.PP
+Initialize the transfer stat struct. 
+.PP
+DTS_QSTATINIT -- Initialize the transfer stat struct.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP name of the file 
+.br
+\fIqname\fP name of the queue 
+.br
+\fIsize\fP size of the file 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_initTransfer().
+.SS "void dts_qstatNetEnd (char * qname)"
+.PP
+Set the end time of network transfer time. 
+.PP
+DTS_QSTATNETEND -- Set the end time of network transfer time
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_xferPullFile(), and dts_xferReceiveFile().
+.SS "void dts_qstatNetStart (char * qname)"
+.PP
+Set the start time of network transfer time. 
+.PP
+DTS_QSTATNETSTART -- Set the start time of network transfer time
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_xferPullFile(), and dts_xferReceiveFile().
+.SS "void dts_qstatNetStat (char * qname, int stat)"
+.PP
+Set the network transfer status code. 
+.PP
+DTS_QSTATNETSTAT -- Set the network transfer status code.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.br
+\fIstat\fP OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "void dts_qstatSetFName (char * qname, char * fname)"
+.PP
+Set the file name being transferred in a queue. 
+.PP
+DTS_QSTATSETFNAME -- Set the file name being transferred in a queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP queue name 
+.br
+\fIfname\fP file name 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_qstatSetSize (char * qname, size_t size)"
+.PP
+Set the fize of file being transferred in a queue. 
+.PP
+DTS_QSTATSETSIZE -- Set the fize of file being transferred in a queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP queue name 
+.br
+\fIsize\fP size of the file 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "void dts_qstatStart (char * qname)"
+.PP
+Set the start time of file being transferred in a queue. 
+.PP
+DTS_QSTATSTART -- Set the start time of file being transferred in a queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.PP
+Referenced by dts_initTransfer().
+.SS "void dts_qstatSummary (\fBDTS\fP * dts, char * qname)"
+.PP
+Print the transfer summary to the log. 
+.PP
+DTS_QSTATSUMMARY -- Print the transfer summary to the log.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIqname\fP name of the queue 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_queueNameFmt(), and dtsLog().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_qstatXferStat (char * qname, int stat)"
+.PP
+Set the transfer status code. 
+.PP
+DTS_QSTATXFERSTAT -- Set the transfer status code.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.br
+\fIstat\fP OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

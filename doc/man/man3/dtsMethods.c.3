@@ -1,0 +1,1746 @@
+.TH "dtsMethods.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsMethods.c \- \fBDTS\fP Command Interface.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <dirent.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <utime.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/statvfs.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/file.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <xmlrpc-c/base.h>\fP
+.br
+\fC#include <xmlrpc-c/client.h>\fP
+.br
+\fC#include <xmlrpc-c/server.h>\fP
+.br
+\fC#include <xmlrpc-c/server_abyss.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsdb.h'\fP
+.br
+\fC#include 'dtsMethods.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_initDTS\fP (void *data)"
+.br
+.RI "\fIInitialize the \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBdts_shutdownDTS\fP (void *data)"
+.br
+.RI "\fIShut down the \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBdts_abortDTS\fP (void *data)"
+.br
+.RI "\fIImmediately exit the \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBdts_nodeStat\fP (void *data)"
+.br
+.RI "\fIReturn status information for the given node. \fP"
+.ti -1c
+.RI "int \fBdts_Access\fP (void *data)"
+.br
+.RI "\fICheck a file for an access mode. \fP"
+.ti -1c
+.RI "int \fBdts_Cat\fP (void *data)"
+.br
+.RI "\fICat a file. \fP"
+.ti -1c
+.RI "int \fBdts_Checksum\fP (void *data)"
+.br
+.RI "\fIChecksum a file. \fP"
+.ti -1c
+.RI "int \fBdts_Copy\fP (void *data)"
+.br
+.RI "\fICopy a file. \fP"
+.ti -1c
+.RI "int \fBdts_Cfg\fP (void *data)"
+.br
+.RI "\fIGet the current configuration table name. \fP"
+.ti -1c
+.RI "int \fBdts_Cwd\fP (void *data)"
+.br
+.RI "\fIGet the current working directory. \fP"
+.ti -1c
+.RI "int \fBdts_Delete\fP (void *data)"
+.br
+.RI "\fIDelete a file. \fP"
+.ti -1c
+.RI "int \fBdts_Dir\fP (void *data)"
+.br
+.RI "\fIGet a directory listing. \fP"
+.ti -1c
+.RI "int \fBdts_DestDir\fP (void *data)"
+.br
+.RI "\fIGet a directory listing for a queue's delivery dir. \fP"
+.ti -1c
+.RI "int \fBdts_CheckDir\fP (void *data)"
+.br
+.RI "\fITest whether path is a directory. \fP"
+.ti -1c
+.RI "int \fBdts_Chmod\fP (void *data)"
+.br
+.RI "\fIChange the mode of a file. \fP"
+.ti -1c
+.RI "int \fBdts_DiskFree\fP (void *data)"
+.br
+.RI "\fIGet 1K-block disk space available on specified path. \fP"
+.ti -1c
+.RI "int \fBdts_DiskUsed\fP (void *data)"
+.br
+.RI "\fIGet 1K-block disk space used on specified path. \fP"
+.ti -1c
+.RI "int \fBdts_Echo\fP (void *data)"
+.br
+.RI "\fIEcho the input text. \fP"
+.ti -1c
+.RI "int \fBdts_FSize\fP (void *data)"
+.br
+.RI "\fIGet the file size for remote file. \fP"
+.ti -1c
+.RI "int \fBdts_FMode\fP (void *data)"
+.br
+.RI "\fIGet the file mode for remote file. \fP"
+.ti -1c
+.RI "int \fBdts_FTime\fP (void *data)"
+.br
+.RI "\fIGet the file times for remote file. \fP"
+.ti -1c
+.RI "int \fBdts_Mkdir\fP (void *data)"
+.br
+.RI "\fIMake a directory. \fP"
+.ti -1c
+.RI "int \fBdts_Ping\fP (void *data)"
+.br
+.RI "\fIIs host and \fBDTS\fP alive. \fP"
+.ti -1c
+.RI "int \fBdts_PingSleep\fP (void *data)"
+.br
+.RI "\fIIs host and \fBDTS\fP alive. \fP"
+.ti -1c
+.RI "int \fBdts_psHandler\fP (void *data)"
+.br
+.ti -1c
+.RI "int \fBdts_nullHandler\fP (void *data)"
+.br
+.ti -1c
+.RI "int \fBdts_PingStr\fP (void *data)"
+.br
+.RI "\fIIs host and \fBDTS\fP alive. \fP"
+.ti -1c
+.RI "int \fBdts_PingArray\fP (void *data)"
+.br
+.ti -1c
+.RI "int \fBdts_remotePing\fP (void *data)"
+.br
+.RI "\fIIs remote host and \fBDTS\fP alive. \fP"
+.ti -1c
+.RI "int \fBdts_Rename\fP (void *data)"
+.br
+.RI "\fIRename a file. \fP"
+.ti -1c
+.RI "int \fBdts_SetRoot\fP (void *data)"
+.br
+.RI "\fISet the root directory of a \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBdts_SetDbg\fP (void *data)"
+.br
+.RI "\fISet a debug flag on the \fBDTS\fP node machine. \fP"
+.ti -1c
+.RI "int \fBdts_UnsetDbg\fP (void *data)"
+.br
+.RI "\fIUnset a debug flag on the \fBDTS\fP node machine. \fP"
+.ti -1c
+.RI "int \fBdts_Touch\fP (void *data)"
+.br
+.RI "\fITouch a file. \fP"
+.ti -1c
+.RI "int \fBdts_Read\fP (void *data)"
+.br
+.RI "\fIRead from a file. \fP"
+.ti -1c
+.RI "int \fBdts_Write\fP (void *data)"
+.br
+.RI "\fIRead from a file. \fP"
+.ti -1c
+.RI "int \fBdts_Prealloc\fP (void *data)"
+.br
+.RI "\fIPre-allocate a file. \fP"
+.ti -1c
+.RI "int \fBdts_Stat\fP (void *data)"
+.br
+.RI "\fIGet the stat() info for a file. \fP"
+.ti -1c
+.RI "int \fBdts_startQueue\fP (void *data)"
+.br
+.RI "\fIStart the named \fBDTS\fP queue. \fP"
+.ti -1c
+.RI "int \fBdts_shutdownQueue\fP (void *data)"
+.br
+.RI "\fIShut down the named \fBDTS\fP queue. \fP"
+.ti -1c
+.RI "int \fBdts_flushQueue\fP (void *data)"
+.br
+.RI "\fIFlush the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_pokeQueue\fP (void *data)"
+.br
+.ti -1c
+.RI "int \fBdts_pauseQueue\fP (void *data)"
+.br
+.RI "\fIPoke the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_stopQueue\fP (void *data)"
+.br
+.RI "\fIStop processing of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_getQueueStat\fP (void *data)"
+.br
+.RI "\fIGet the status flag of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_setQueueStat\fP (void *data)"
+.br
+.RI "\fISet the status flag of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_setQueueCount\fP (void *data)"
+.br
+.RI "\fISet the pending count of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_getQueueCount\fP (void *data)"
+.br
+.RI "\fIGet the pending count of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_setQueueDir\fP (void *data)"
+.br
+.RI "\fISet the queue deliveryDirectory. \fP"
+.ti -1c
+.RI "int \fBdts_getQueueDir\fP (void *data)"
+.br
+.RI "\fIGet the queue delivery directory. \fP"
+.ti -1c
+.RI "int \fBdts_setQueueCmd\fP (void *data)"
+.br
+.RI "\fISet the queue deliveryCmd. \fP"
+.ti -1c
+.RI "int \fBdts_getQueueCmd\fP (void *data)"
+.br
+.RI "\fIGet the queue deliveryCmd. \fP"
+.ti -1c
+.RI "int \fBdts_getCopyDir\fP (void *data)"
+.br
+.RI "\fIGet the \fBDTS\fP copy directory. \fP"
+.ti -1c
+.RI "int \fBdts_execCmd\fP (void *data)"
+.br
+.RI "\fIExecute the named command. \fP"
+.ti -1c
+.RI "int \fBdts_listQueue\fP (void *data)"
+.br
+.RI "\fIList pending queue data. \fP"
+.ti -1c
+.RI "int \fBdts_restartQueue\fP (void *data)"
+.br
+.RI "\fISimply stop, then restart, the queue. \fP"
+.ti -1c
+.RI "int \fBdts_addToQueue\fP (void *data)"
+.br
+.RI "\fIAdd the named object to the \fBDTS\fP queue. \fP"
+.ti -1c
+.RI "int \fBdts_removeFromQueue\fP (void *data)"
+.br
+.RI "\fIRemove the named object from the \fBDTS\fP queue. \fP"
+.ti -1c
+.RI "int \fBdts_printQueueCfg\fP (void *data)"
+.br
+.RI "\fIPrint queue configuration. \fP"
+.ti -1c
+.RI "int \fBdts_List\fP (void *data)"
+.br
+.RI "\fIList configuration parameters. \fP"
+.ti -1c
+.RI "int \fBdts_Set\fP (void *data)"
+.br
+.RI "\fISet and option value. \fP"
+.ti -1c
+.RI "int \fBdts_Get\fP (void *data)"
+.br
+.RI "\fIGet and option value. \fP"
+.ti -1c
+.RI "int \fBdts_queueAccept\fP (void *data)"
+.br
+.RI "\fISee if queue will accept a new object. \fP"
+.ti -1c
+.RI "int \fBdts_queueValid\fP (void *data)"
+.br
+.RI "\fISee if queue name is valid on the host. \fP"
+.ti -1c
+.RI "int \fBdts_queueDest\fP (void *data)"
+.br
+.RI "\fIGet the destination of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_queueSrc\fP (void *data)"
+.br
+.RI "\fIGet the source of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_queueComplete\fP (void *data)"
+.br
+.RI "\fIComplete transfer of a file. \fP"
+.ti -1c
+.RI "int \fBdts_queueRelease\fP (void *data)"
+.br
+.RI "\fIRelease lock on queue semaphore. \fP"
+.ti -1c
+.RI "int \fBdts_queueSetControl\fP (void *data)"
+.br
+.RI "\fICreate the control file for the transfer. \fP"
+.ti -1c
+.RI "int \fBdts_queueUpdateStats\fP (void *data)"
+.br
+.RI "\fIUpdate queue transfer statistics. \fP"
+.ti -1c
+.RI "int \fBdts_initTransfer\fP (void *data)"
+.br
+.RI "\fIInitialize a transfer operation. \fP"
+.ti -1c
+.RI "int \fBdts_endTransfer\fP (void *data)"
+.br
+.RI "\fIClean up and terminate a transfer operation. \fP"
+.ti -1c
+.RI "int \fBdts_doTransfer\fP (void *data)"
+.br
+.RI "\fIDo the actual transfer of an object. \fP"
+.ti -1c
+.RI "int \fBdts_cancelTransfer\fP (void *data)"
+.br
+.RI "\fICancel an active file transfer. \fP"
+.ti -1c
+.RI "int \fBdts_testFault\fP (void *data)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "char * \fBbuild_version\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP Command Interface. 
+
+\fBDTS\fP Command Interface - These are the methods implemented for he XML-RPC interace. These command are used from a variety of locations during the operation of the \fBDTS\fP (i.e. the queueing, logging or interactive environments.
+.PP
+initDTS - reinitialize \fBDTS\fP shutdownDTS - shutdown \fBDTS\fP, cancel all queues abortDTS - exit \fBDTS\fP immediately
+.PP
+File Operations:
+.PP
+access <path> <mode> - check file access cwd - get current working directory del <pattern> <pass> <recur> - delete a file dir <pattern> - get a directory listing diskFree - how much disk space is available? diskUsed - how much disk space is used? echo <str> - simple echo function fsize <fname> - get a file size ftime <fname> - get a file time mkdir <path> - make a directory ping - simple aliveness test function sping - simple aliveness test function prealloc <fname> <nbytes> - preallocate space for a file rename <old> <new> - rename a file stat <fname> - get file stat() info setroot <path> - set the root directory of a \fBDTS\fP touch <path> - touch a file access time
+.PP
+Queue Operations:
+.PP
+startQueue - start the named queue stopQueue - stop the named queue flushQueue - flush the named queue listQueue - list pending queue data restartQueue - restart (stop-then-start) queue addToQueue - add object to queue removeFromQueue - delete object from queue printQueueCfg - print queue configuration
+.PP
+queueAccept - accept new object to queue queueValid - See if queue name is valid queueSetControl - Set control file for transfer queueTrace - trace connectivity through a queue queueUpdateStats - update queue statistics
+.PP
+list <option> - list config parameters set <option> 
+.PP
+- set a specified option get <option> - get value of option
+.PP
+initTransfer <method> - initialize an object transfer doTransfer - transfer the actual file endTransfer - end the object transfer cancelTransfer - abort an in-progress transfer
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_abortDTS (void * data)"
+.PP
+Immediately exit the \fBDTS\fP. 
+.PP
+DTS_ABORTDTS -- Immediately exit the \fBDTS\fP daemon.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_validPasswd().
+.SS "int dts_Access (void * data)"
+.PP
+Check a file for an access mode. 
+.PP
+DTS_ACCESS -- Check a file for an access mode.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_addToQueue (void * data)"
+.PP
+Add the named object to the \fBDTS\fP queue. 
+.PP
+DTS_ADDTOTQUEUE -- Add the named object to the \fBDTS\fP queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_cancelTransfer (void * data)"
+.PP
+Cancel an active file transfer. 
+.PP
+DTS_CANCELTRANSFER -- Cancel an active file transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_Cat (void * data)"
+.PP
+Cat a file. 
+.PP
+DTS_CAT -- Cat a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References base64_encode(), dts_fileRead(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_Cfg (void * data)"
+.PP
+Get the current configuration table name. 
+.PP
+DTS_CFG -- Get the current configuration table name.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_fmtConfig(), and dtsLog().
+.SS "int dts_CheckDir (void * data)"
+.PP
+Test whether path is a directory. 
+.PP
+DTS_CHECKDIR -- Test whether path is a directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_isDir(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_Checksum (void * data)"
+.PP
+Checksum a file. 
+.PP
+DTS_CHECKSUM -- Checksum a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_Chmod (void * data)"
+.PP
+Change the mode of a file. 
+.PP
+DTS_CHMOD -- Change the mode of a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_Copy (void * data)"
+.PP
+Copy a file. 
+.PP
+DTS_COPY -- Copy a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_Cwd (void * data)"
+.PP
+Get the current working directory. 
+.PP
+DTS_CWD -- Get the current working directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_Delete (void * data)"
+.PP
+Delete a file. 
+.PP
+DTS_DEL -- Delete a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_isDir(), dts_isTemplate(), dts_sandboxPath(), dts_unlink(), dts_validPasswd(), and dtsLog().
+.SS "int dts_DestDir (void * data)"
+.PP
+Get a directory listing for a queue's delivery dir. 
+.PP
+DTS_DESTDIR -- Get a directory listing for a queue's delivery dir.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dtsLog().
+.SS "int dts_Dir (void * data)"
+.PP
+Get a directory listing. 
+.PP
+DTS_DIR -- Get a directory listing.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_fmtMode(), dts_isTemplate(), dts_patMatch(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_DiskFree (void * data)"
+.PP
+Get 1K-block disk space available on specified path. 
+.PP
+DTS_DISKFREE -- Get disk space available on specified path.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_DiskUsed (void * data)"
+.PP
+Get 1K-block disk space used on specified path. 
+.PP
+DTS_DISKUSED -- Get disk space used on specified path.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_doTransfer (void * data)"
+.PP
+Do the actual transfer of an object. 
+.PP
+DTS_DOTRANSFER -- Do the actual transfer of an object.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_Echo (void * data)"
+.PP
+Echo the input text. 
+.PP
+DTS_ECHO -- Simple echo function.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_endTransfer (void * data)"
+.PP
+Clean up and terminate a transfer operation. 
+.PP
+DTS_ENDTRANSFER -- Clean up and terminate a transfer operation.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_Deliver(), dts_Ingest(), dts_loadControl(), dts_logXFerStats(), dts_qstatDiskEnd(), dts_qstatDiskStart(), dts_qstatDlvrStat(), dts_qstatEnd(), dts_qstatSetFName(), dts_qstatSummary(), dts_queueDelete(), dts_queueGetCurrent(), dts_queueLookup(), dts_queueNameFmt(), dts_queueSetCurrent(), dts_sandboxPath(), dts_semIncr(), dtsErrLog(), dtsLog(), transferMB(), and transferMb().
+.SS "int dts_execCmd (void * data)"
+.PP
+Execute the named command. 
+.PP
+DTS_EXECCMD -- Execute the named command.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sysExec().
+.SS "int dts_flushQueue (void * data)"
+.PP
+Flush the named queue. 
+.PP
+DTS_FLUSHQUEUE -- Set current to next, which is used to skip over files.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueGetCurrent(), dts_queueGetNext(), dts_queueLookup(), and dts_queueSetCurrent().
+.SS "int dts_FMode (void * data)"
+.PP
+Get the file mode for remote file. 
+.PP
+DTS_FMODE -- Get the file mode for remote file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_FSize (void * data)"
+.PP
+Get the file size for remote file. 
+.PP
+DTS_FSIZE -- Get the file size for remote file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_du(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_FTime (void * data)"
+.PP
+Get the file times for remote file. 
+.PP
+DTS_FTIME -- Get the file access/create/modify time for remote file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_Get (void * data)"
+.PP
+Get and option value. 
+.PP
+DTS_GET - Get an option value.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "int dts_getCopyDir (void * data)"
+.PP
+Get the \fBDTS\fP copy directory. 
+.PP
+DTS_GETCOPYDIR -- Get the \fBDTS\fP copy directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_getQueueCmd (void * data)"
+.PP
+Get the queue deliveryCmd. 
+.PP
+DTS_GETQUEUECMD -- Get the queue deliveryCmd.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "int dts_getQueueCount (void * data)"
+.PP
+Get the pending count of the named queue. 
+.PP
+DTS_GETQUEUECOUNT -- Get the pending count of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dts_semGetVal().
+.SS "int dts_getQueueDir (void * data)"
+.PP
+Get the queue delivery directory. 
+.PP
+DTS_GETQUEUEDIR -- Get the queue delivery directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "int dts_getQueueStat (void * data)"
+.PP
+Get the status flag of the named queue. 
+.PP
+DTS_GETQUEUESTAT -- Get the status flag of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dts_semGetVal().
+.SS "int dts_initDTS (void * data)"
+.PP
+Initialize the \fBDTS\fP. 
+.PP
+DTS_INITDTS -- (Re-)Initialize the \fBDTS\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_initTransfer (void * data)"
+.PP
+Initialize a transfer operation. 
+.PP
+DTS_INITTRANSFER -- Initialize a transfer operation.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_getNextQueueDir(), dts_getQueuePath(), dts_qstatInit(), dts_qstatStart(), dts_queueLookup(), dts_queueNameFmt(), dts_semGetVal(), and dtsLog().
+.SS "int dts_List (void * data)"
+.PP
+List configuration parameters. 
+.PP
+DTS_LIST -- List config parameters.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_listQueue (void * data)"
+.PP
+List pending queue data. 
+.PP
+DTS_LISTQUEUE -- List pending queue data.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_Mkdir (void * data)"
+.PP
+Make a directory. 
+.PP
+DTS_MKDIR -- Make a directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_nodeStat (void * data)"
+.PP
+Return status information for the given node. 
+.PP
+DTS_NODESTAT - Return status information for the given node.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_cfgQNodeStr(), dts_queueGetCurrent(), dts_queueGetNext(), dts_queueGetStats(), dts_sandboxPath(), and dts_semGetVal().
+.SS "int dts_pauseQueue (void * data)"
+.PP
+Poke the named queue. 
+.PP
+Pause processing of the named queue.
+.PP
+DTS_POKEQUEUE -- Add 1 to current, which is used to skip over files.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno
+.RE
+.PP
+DTS_PAUSEQUEUE -- Stop processing of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_semGetVal(), dts_semSetVal(), and dtsLog().
+.SS "int dts_Ping (void * data)"
+.PP
+Is host and \fBDTS\fP alive. 
+.PP
+DTS_PING -- Simple aliveness test function.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_PingSleep (void * data)"
+.PP
+Is host and \fBDTS\fP alive. 
+.PP
+DTS_PINGSLEEP -- Simple aliveness test function.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno
+.RE
+.PP
+NOTE: This is an ASYNC method. 
+.PP
+References dts_closeClient(), dts_getClient(), and dtsLog().
+.SS "int dts_PingStr (void * data)"
+.PP
+Is host and \fBDTS\fP alive. 
+.PP
+DTS_PINGSTR -- Simple aliveness test function, string return
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno
+.RE
+.PP
+DTS_PINGARRAY -- Simple aliveness test function, array return
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_Prealloc (void * data)"
+.PP
+Pre-allocate a file. 
+.PP
+DTS_PREALLOC -- Pre-allocate a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_preAlloc(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_printQueueCfg (void * data)"
+.PP
+Print queue configuration. 
+.PP
+DTS_PRINTQUEUECFG -- Print queue configuration.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_cfgQMethodStr(), dts_cfgQModeStr(), dts_cfgQTypeStr(), and dts_queueLookup().
+.SS "int dts_queueAccept (void * data)"
+.PP
+See if queue will accept a new object. 
+.PP
+DTS_QUEUEACCEPT - See if queue will accept a new object.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_getNextQueueDir(), dts_getQueuePath(), and dtsLog().
+.SS "int dts_queueComplete (void * data)"
+.PP
+Complete transfer of a file. 
+.PP
+DTS_QUEUECOMPLETE - Complete transfer of a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), dtsGets(), and dtsLog().
+.SS "int dts_queueDest (void * data)"
+.PP
+Get the destination of the named queue. 
+.PP
+DTS_QUEUEDEST -- Get the destination of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_queueRelease (void * data)"
+.PP
+Release lock on queue semaphore. 
+.PP
+DTS_QUEUERELEASE -- Release lock on queue semaphore.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dts_semSetVal().
+.SS "int dts_queueSetControl (void * data)"
+.PP
+Create the control file for the transfer. 
+.PP
+DTS_QUEUESETCONTROL - Create the control file for the transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_queueNameFmt(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_queueSrc (void * data)"
+.PP
+Get the source of the named queue. 
+.PP
+DTS_QUEUESRC -- Get the source of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_queueUpdateStats (void * data)"
+.PP
+Update queue transfer statistics. 
+.PP
+DTS_QUEUEUPDATESTATS -- Update queue transfer statistics.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dts_queueSetStats().
+.SS "int dts_queueValid (void * data)"
+.PP
+See if queue name is valid on the host. 
+.PP
+DTS_QUEUEVALID - See if queue name is valid on the host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_Read (void * data)"
+.PP
+Read from a file. 
+.PP
+DTS_READ -- Read from a file. We read at most 4096 bytes from the file at a time. On input we get the offset into the file and the requested number of bytes. We update the offset on output and return the number of bytes read as a base-64 encoded string.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References base64_encode(), dts_fileRead(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_remotePing (void * data)"
+.PP
+Is remote host and \fBDTS\fP alive. 
+.PP
+DTS_REMOTEPING -- Simple 3rd party aliveness test function.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_hostPing(), and dtsLog().
+.SS "int dts_removeFromQueue (void * data)"
+.PP
+Remove the named object from the \fBDTS\fP queue. 
+.PP
+DTS_REMOVEFROMQUEUE -- Remove the named object from the \fBDTS\fP queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_Rename (void * data)"
+.PP
+Rename a file. 
+.PP
+DTS_RENAME -- Rename a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_restartQueue (void * data)"
+.PP
+Simply stop, then restart, the queue. 
+.PP
+DTS_RESTARTQUEUE -- Simply stop, then restart, the queue. We pass through the calling params and don't need to interpret them here.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_startQueue(), and dts_stopQueue().
+.SS "int dts_Set (void * data)"
+.PP
+Set and option value. 
+.PP
+DTS_SET - Set an option value.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_SetDbg (void * data)"
+.PP
+Set a debug flag on the \fBDTS\fP node machine. 
+.PP
+DTS_SETDBG -- Set a debug flag on the \fBDTS\fP node machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_setQueueCmd (void * data)"
+.PP
+Set the queue deliveryCmd. 
+.PP
+DTS_SETQUEUECMD -- Set the queue deliveryCmd
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "int dts_setQueueCount (void * data)"
+.PP
+Set the pending count of the named queue. 
+.PP
+DTS_SETQUEUECOUNT -- Set the pending count of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dts_semSetVal().
+.SS "int dts_setQueueDir (void * data)"
+.PP
+Set the queue deliveryDirectory. 
+.PP
+DTS_SETQUEUEDIR -- Set the queue deliveryDirectory
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup().
+.SS "int dts_setQueueStat (void * data)"
+.PP
+Set the status flag of the named queue. 
+.PP
+DTS_SETQUEUESTAT -- Set the status flag of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), and dts_semSetVal().
+.SS "int dts_SetRoot (void * data)"
+.PP
+Set the root directory of a \fBDTS\fP. 
+.PP
+DTS_SETROOT -- Set the root directory of a \fBDTS\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_initServerRoot(), dts_sandboxPath(), and dtsLog().
+.SS "int dts_shutdownDTS (void * data)"
+.PP
+Shut down the \fBDTS\fP. 
+.PP
+DTS_SHUTDOWNDTS -- Shut down the \fBDTS\fP daemon.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_validPasswd().
+.SS "int dts_shutdownQueue (void * data)"
+.PP
+Shut down the named \fBDTS\fP queue. 
+.PP
+DTS_SHUTDOWNQUEUE -- Shutdown the named \fBDTS\fP queue
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_semGetVal(), dts_semSetVal(), and dtsLog().
+.SS "int dts_startQueue (void * data)"
+.PP
+Start the named \fBDTS\fP queue. 
+.PP
+DTS_STARTQUEUE -- Start the named \fBDTS\fP queue
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_semGetVal(), dts_semSetVal(), and dtsLog().
+.PP
+Referenced by dts_restartQueue().
+.SS "int dts_Stat (void * data)"
+.PP
+Get the stat() info for a file. 
+.PP
+DTS_STAT -- Get the stat() info for a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_stopQueue (void * data)"
+.PP
+Stop processing of the named queue. 
+.PP
+DTS_STOPQUEUE -- Stop processing of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_semSetVal(), and dtsLog().
+.PP
+Referenced by dts_restartQueue().
+.SS "int dts_Touch (void * data)"
+.PP
+Touch a file. 
+.PP
+DTS_TOUCH -- Touch a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_sandboxPath(), and dtsLog().
+.SS "int dts_UnsetDbg (void * data)"
+.PP
+Unset a debug flag on the \fBDTS\fP node machine. 
+.PP
+DTS_UNSETDBG -- Unset a debug flag on the \fBDTS\fP node machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_Write (void * data)"
+.PP
+Read from a file. 
+.PP
+DTS_WRITE -- Write to a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

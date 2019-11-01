@@ -1,0 +1,1421 @@
+\hypertarget{dtsCommands_8c}{
+\section{dtsCommands.c File Reference}
+\label{dtsCommands_8c}\index{dtsCommands.c@{dtsCommands.c}}
+}
+Client-callable \hyperlink{structDTS}{DTS} commands.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsCommands_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~CMD\_\-DEBUG}
+\label{dtsCommands_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{dtsCommands_8c_fd63d23830ad86d01b6fff2e6c615f7e}{
+\#define \textbf{MAX\_\-TRIES}~5}
+\label{dtsCommands_8c_fd63d23830ad86d01b6fff2e6c615f7e}
+
+\item 
+\hypertarget{dtsCommands_8c_fd63d23830ad86d01b6fff2e6c615f7e}{
+\#define \textbf{MAX\_\-TRIES}~5}
+\label{dtsCommands_8c_fd63d23830ad86d01b6fff2e6c615f7e}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{dtsCommands_8c_da9a1386f1b2804bc68ec2ab9f7ceed6}{dts\_\-cmdInit} ()
+\item 
+int \hyperlink{dtsCommands_8c_89206c7f5702993e813f77283e9a5e88}{dts\_\-getClient} (char $\ast$host)
+\item 
+int \hyperlink{dtsCommands_8c_87de97e1da4d94dcfc30004a90a0753c}{dts\_\-hostAccess} (char $\ast$host, char $\ast$path, int mode)
+\begin{CompactList}\small\item\em Check file access on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_c41332ac6de701f1b752f049ab6e00fd}{dts\_\-hostCat} (char $\ast$host, char $\ast$fname)
+\begin{CompactList}\small\item\em Cat a file. \item\end{CompactList}\item 
+\hypertarget{dtsCommands_8c_b1945e972a9b2c27218fdce456e24df2}{
+int \textbf{dts\_\-hostChecksum} (char $\ast$host, char $\ast$fname, unsigned int $\ast$sum32, unsigned int $\ast$crc, char $\ast$$\ast$md5)}
+\label{dtsCommands_8c_b1945e972a9b2c27218fdce456e24df2}
+
+\item 
+int \hyperlink{dtsCommands_8c_19bea8c8fdeb40a8911bb1f352b3b963}{dts\_\-hostCopy} (char $\ast$host, char $\ast$old, char $\ast$new)
+\begin{CompactList}\small\item\em Copy a file on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+\hypertarget{dtsCommands_8c_8ce789e673209be5e29316e3ae2ba6b3}{
+char $\ast$ \textbf{dts\_\-hostCfg} (char $\ast$host, int quiet)}
+\label{dtsCommands_8c_8ce789e673209be5e29316e3ae2ba6b3}
+
+\item 
+int \hyperlink{dtsCommands_8c_0dbf220073481c1132fc7c187891b291}{dts\_\-hostChmod} (char $\ast$host, char $\ast$path, mode\_\-t mode)
+\begin{CompactList}\small\item\em Change the mode of a file on a remote \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_b0dd7c06567b4132e1d16a4e7a9acbad}{dts\_\-hostCwd} (char $\ast$host)
+\begin{CompactList}\small\item\em Get the cwd of the \hyperlink{structDTS}{DTS} host. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_3a55643980d07d923f35c211e633dae0}{dts\_\-hostDel} (char $\ast$host, char $\ast$path, char $\ast$passwd, int recursive)
+\begin{CompactList}\small\item\em Delete a file on a \hyperlink{structDTS}{DTS} host. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_8b8ba4b97a493b95872394ce4d663cee}{dts\_\-hostDir} (char $\ast$host, char $\ast$path, int lsLong)
+\begin{CompactList}\small\item\em Get a directory listing from a \hyperlink{structDTS}{DTS} host. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_3aaaafbe28937f87397e11bf351e00c2}{dts\_\-hostDestDir} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get a listing for a queue's delivery directory. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_c614bdff894e0c802dde6241a885f9ef}{dts\_\-hostIsDir} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Test whether the given path is a directory. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_34ef857bddce42dadb56a81b95fb4605}{dts\_\-hostDiskFree} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Get the space available on the give containing a specified path. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_64d060e3293199c02e4d60a750ec4e9a}{dts\_\-hostDiskUsed} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Get the space available on the give containing a specified path. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_1d4f63e8382658034690aebe495f94d2}{dts\_\-hostEcho} (char $\ast$host, char $\ast$str)
+\begin{CompactList}\small\item\em Have a host \hyperlink{structDTS}{DTS} machine echo a string. \item\end{CompactList}\item 
+long \hyperlink{dtsCommands_8c_3c071e1cfe369d0ab24170ec9c1be582}{dts\_\-hostFSize} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Get a file size on a remote \hyperlink{structDTS}{DTS} host. \item\end{CompactList}\item 
+long \hyperlink{dtsCommands_8c_acc4c397bbe8d32e4fc7be4c05813e4b}{dts\_\-hostFMode} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Get a file mode on a remote \hyperlink{structDTS}{DTS} host. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_a30236cbaf69a00482fe57504e9a338d}{dts\_\-hostFTime} (char $\ast$host, char $\ast$path, char $\ast$mode)
+\begin{CompactList}\small\item\em Get a file time on a remote \hyperlink{structDTS}{DTS} host. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_caba9f4abb4cb0d06ed31cb3a8188fc3}{dts\_\-hostFGet} (char $\ast$host, char $\ast$fname, char $\ast$local, int blk)
+\begin{CompactList}\small\item\em Get a remote file to a local file. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_cbbd9245835f4291a0b0de23fb2c08dc}{dts\_\-hostMkdir} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Make a directory on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_821c3181439c0fc450024a8aa00e3427}{dts\_\-hostPoke} (char $\ast$host)
+\begin{CompactList}\small\item\em Poke a host \hyperlink{structDTS}{DTS} machine, i.e. ping w/out a restart. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_ac97ed92ed9cdccd2451906bd16f842e}{dts\_\-hostPing} (char $\ast$host)
+\begin{CompactList}\small\item\em Ping a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_f2dc0d7c3146596d29270b6bb19d4b5d}{dts\_\-hostPingSleep} (char $\ast$host, int time)
+\begin{CompactList}\small\item\em Ping a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+\hypertarget{dtsCommands_8c_3e1b4748bb085f3eb390dc1d258cf85e}{
+int \textbf{dts\_\-hostSvrPing} (char $\ast$host, int time)}
+\label{dtsCommands_8c_3e1b4748bb085f3eb390dc1d258cf85e}
+
+\item 
+char $\ast$ \hyperlink{dtsCommands_8c_ca0bdc05055e753e25956c24bb5c35f1}{dts\_\-hostPingStr} (char $\ast$host)
+\begin{CompactList}\small\item\em Ping a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_0935013c1b7e9da0815cd62115ca0f2d}{dts\_\-hostPingArray} (char $\ast$host)
+\begin{CompactList}\small\item\em Ping a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_085eb41af477bdc4786d9e94c660c67e}{dts\_\-hostRemotePing} (char $\ast$local, char $\ast$remote)
+\begin{CompactList}\small\item\em Tell one machine to ping another. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_0b706a5b09ccb109895c400f9c93dafd}{dts\_\-hostPrealloc} (char $\ast$host, char $\ast$path, long size)
+\begin{CompactList}\small\item\em Prealloc space on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_f390d4e8d08004d04c1c6d2d03c29710}{dts\_\-hostRename} (char $\ast$host, char $\ast$old, char $\ast$new)
+\begin{CompactList}\small\item\em Rename a file on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_1b90712543efadb4bfe6c7b1a487d934}{dts\_\-hostStat} (char $\ast$host, char $\ast$path, struct stat $\ast$st)
+\begin{CompactList}\small\item\em Update access time on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_777cb6ae0277da281ac1e0bca400f136}{dts\_\-hostSetRoot} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Set the root directory of a \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_59cbe9781e39c555781b3714202d7ad2}{dts\_\-hostSetDbg} (char $\ast$host, char $\ast$flag)
+\begin{CompactList}\small\item\em Set a debug flag on a \hyperlink{structDTS}{DTS} node. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_3e8dffd6876120e43d5a71c4d3005710}{dts\_\-hostUnsetDbg} (char $\ast$host, char $\ast$flag)
+\begin{CompactList}\small\item\em Unset a debug flag on the \hyperlink{structDTS}{DTS} node. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_8358207b2bb483a5cee73cafb5e0a04f}{dts\_\-hostTouch} (char $\ast$host, char $\ast$path)
+\begin{CompactList}\small\item\em Update access time on a host \hyperlink{structDTS}{DTS} machine. \item\end{CompactList}\item 
+unsigned char $\ast$ \hyperlink{dtsCommands_8c_39f9a397017b988fad73e2fdd02f20ae}{dts\_\-hostRead} (char $\ast$host, char $\ast$fname, int offset, int sz, int $\ast$retnb)
+\begin{CompactList}\small\item\em Read a chunk from a file. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_b8e92f2b12134b917de801c3b1333b01}{dts\_\-hostSrc} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the source of the named queue. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_ae2efaa0a5a3b5f9e2c03080750306f8}{dts\_\-hostDest} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the destination of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_d17acd7ebb9d8c22338336504a911506}{dts\_\-hostStartQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Start the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_6eaa2eab6425b050f452cf5efbdfc987}{dts\_\-hostShutdownQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Shutdown the named queue. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_8da718190c8870e5271bb813b556fadb}{dts\_\-hostPrintQueueCfg} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Print the configuration of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_ea8b3a5af69539b17eb844c4d7fd927d}{dts\_\-hostGetQueueStat} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the status flag on the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_6fa58f3bca0256a314378374ec487e74}{dts\_\-hostSetQueueStat} (char $\ast$host, char $\ast$qname, int val)
+\begin{CompactList}\small\item\em Set the status flag on the named queue. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_c6e5fc77a87e0123f9dd086b062113f3}{dts\_\-hostGetQueueDir} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the queue deliverDirectory. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_de4c39df9647325016b929ec0711095a}{dts\_\-hostSetQueueDir} (char $\ast$host, char $\ast$qname, char $\ast$dir)
+\begin{CompactList}\small\item\em Set the queue deliveryDir. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_6045a2cccbb8b4ceb584d666116c0cbb}{dts\_\-hostGetQueueCmd} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the queue deliverCmd. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_69f7f8a80573380414acb16c296cae5a}{dts\_\-hostSetQueueCmd} (char $\ast$host, char $\ast$qname, char $\ast$cmd)
+\begin{CompactList}\small\item\em Set the queue deliveryCmd. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_f0c0559bd33f5927eba6b003e84f1ff7}{dts\_\-hostGetCopyDir} (char $\ast$host)
+\begin{CompactList}\small\item\em Get the \hyperlink{structDTS}{DTS} copy directory. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_e2a0eeadc9a21785bdd1c5b7f722be46}{dts\_\-hostExecCmd} (char $\ast$host, char $\ast$ewd, char $\ast$cmd)
+\begin{CompactList}\small\item\em Execute the given command. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_041af17c4b4d84f0120ef51e03ee805e}{dts\_\-hostStopQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Stop the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_f637d6363021dc9829c2da7ed856b530}{dts\_\-hostFlushQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Stop the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_aed6a0cae65003482bb9c4786a11f94f}{dts\_\-hostPokeQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Poke the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_2f2fe4a97d0aaffcad230016ca30ad6d}{dts\_\-hostPauseQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Pause the named queue. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_074c359f7f8681a6ccf07cd5f8e6228a}{dts\_\-hostListQueue} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em List the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_673c0810cfaf77351be31bad89c9f4d3}{dts\_\-hostSetQueueCount} (char $\ast$host, char $\ast$qname, int count)
+\begin{CompactList}\small\item\em Set the pending count for the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_f50fc2b35a4aedff85360266d3d4ed36}{dts\_\-hostGetQueueCount} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the pending count for the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_b642efc1396c525214c595bcbe9a2098}{dts\_\-hostAbort} (char $\ast$host, char $\ast$passwd)
+\begin{CompactList}\small\item\em Just freakin' die. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_952d8048620067cdf074d79f4744cad8}{dts\_\-hostContact} (char $\ast$host)
+\begin{CompactList}\small\item\em Attempt to contact/start the remote \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_f2da8c328d7a370934938fcc094cb896}{dts\_\-hostShutdown} (char $\ast$host, char $\ast$passwd)
+\begin{CompactList}\small\item\em Just freakin' die. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_fab957704773e946c64c01662f837804}{dts\_\-hostSet} (char $\ast$host, char $\ast$class, char $\ast$key, char $\ast$val)
+\begin{CompactList}\small\item\em Set a value on the remote host. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsCommands_8c_bc357c8b479519503b3f176b9749da44}{dts\_\-hostGet} (char $\ast$host, char $\ast$class, char $\ast$key)
+\begin{CompactList}\small\item\em Get a value from the remote host. \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_08460d796393303d54163d514b3f17e0}{dts\_\-hostUpStats} (char $\ast$host, char $\ast$qname, \hyperlink{structxferStat}{xferStat} $\ast$xfs)
+\begin{CompactList}\small\item\em Update the transfer statistics. \item\end{CompactList}\item 
+\hypertarget{dtsCommands_8c_c8f61fb1d0593e0bc0d325989bc23561}{
+int \textbf{dts\_\-hostNodeStat} (char $\ast$host, char $\ast$qname, int errs, nodeStat $\ast$ns)}
+\label{dtsCommands_8c_c8f61fb1d0593e0bc0d325989bc23561}
+
+\item 
+int \hyperlink{dtsCommands_8c_444ff16f65d71a45209f4c2b423d135a}{dts\_\-isLocal} (char $\ast$host)
+\begin{CompactList}\small\item\em Is the given host the local machine? \item\end{CompactList}\item 
+int \hyperlink{dtsCommands_8c_6ee4c9e769b5f667a0b1f3155dfac4f2}{dts\_\-closeClient} (int client)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsCommands_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsCommands_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsCommands_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsCommands_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+Client-callable \hyperlink{structDTS}{DTS} commands. 
+
+DTSCOMMANDS.C -- Client-callable \hyperlink{structDTS}{DTS} commands.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsCommands_8c_6ee4c9e769b5f667a0b1f3155dfac4f2}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-closeClient@{dts\_\-closeClient}}
+\index{dts\_\-closeClient@{dts\_\-closeClient}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-closeClient}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-closeClient (int {\em client})}}
+\label{dtsCommands_8c_6ee4c9e769b5f667a0b1f3155dfac4f2}
+
+
+DTS\_\-CLOSECLIENT - Close a client handle for the given host. 
+
+Referenced by dts\_\-hostAbort(), dts\_\-hostAccess(), dts\_\-hostCat(), dts\_\-hostChmod(), dts\_\-hostCopy(), dts\_\-hostCwd(), dts\_\-hostDel(), dts\_\-hostDest(), dts\_\-hostDestDir(), dts\_\-hostDir(), dts\_\-hostDiskFree(), dts\_\-hostDiskUsed(), dts\_\-hostEcho(), dts\_\-hostEndTransfer(), dts\_\-hostExecCmd(), dts\_\-hostFGet(), dts\_\-hostFlushQueue(), dts\_\-hostFMode(), dts\_\-hostFSize(), dts\_\-hostFTime(), dts\_\-hostGet(), dts\_\-hostGetCopyDir(), dts\_\-hostGetQueueCmd(), dts\_\-hostGetQueueCount(), dts\_\-hostGetQueueDir(), dts\_\-hostGetQueueStat(), dts\_\-hostInitTransfer(), dts\_\-hostIsDir(), dts\_\-hostListQueue(), dts\_\-hostMkdir(), dts\_\-hostPauseQueue(), dts\_\-hostPing(), dts\_\-hostPingArray(), dts\_\-hostPingSleep(), dts\_\-hostPingStr(), dts\_\-hostPoke(), dts\_\-hostPokeQueue(), dts\_\-hostPrealloc(), dts\_\-hostPrintQueueCfg(), dts\_\-hostQueueAccept(), dts\_\-hostQueueComplete(), dts\_\-hostQueueRelease(), dts\_\-hostQueueValid(), dts\_\-hostRead(), dts\_\-hostRemotePing(), dts\_\-hostRename(), dts\_\-hostSet(), dts\_\-hostSetDbg(), dts\_\-hostSetQueueCmd(), dts\_\-hostSetQueueControl(), dts\_\-hostSetQueueCount(), dts\_\-hostSetQueueDir(), dts\_\-hostSetQueueStat(), dts\_\-hostSetRoot(), dts\_\-hostShutdown(), dts\_\-hostShutdownQueue(), dts\_\-hostSrc(), dts\_\-hostStartQueue(), dts\_\-hostStat(), dts\_\-hostStopQueue(), dts\_\-hostTouch(), dts\_\-hostUnsetDbg(), dts\_\-hostUpStats(), dts\_\-PingSleep(), dts\_\-xferFile(), dtsLog(), dtsLogMsg(), and dtsLogStat().\hypertarget{dtsCommands_8c_da9a1386f1b2804bc68ec2ab9f7ceed6}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-cmdInit@{dts\_\-cmdInit}}
+\index{dts\_\-cmdInit@{dts\_\-cmdInit}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-cmdInit}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-cmdInit ()}}
+\label{dtsCommands_8c_da9a1386f1b2804bc68ec2ab9f7ceed6}
+
+
+DTS\_\-CMDINIT - Initialize the command interface. 
+
+Referenced by dts\_\-hostAbort(), dts\_\-hostAccess(), dts\_\-hostCat(), dts\_\-hostChmod(), dts\_\-hostCopy(), dts\_\-hostCwd(), dts\_\-hostDel(), dts\_\-hostDest(), dts\_\-hostDestDir(), dts\_\-hostDir(), dts\_\-hostDiskFree(), dts\_\-hostDiskUsed(), dts\_\-hostEcho(), dts\_\-hostEndTransfer(), dts\_\-hostExecCmd(), dts\_\-hostFGet(), dts\_\-hostFlushQueue(), dts\_\-hostFMode(), dts\_\-hostFrom(), dts\_\-hostFSize(), dts\_\-hostFTime(), dts\_\-hostGet(), dts\_\-hostGetCopyDir(), dts\_\-hostGetQueueCmd(), dts\_\-hostGetQueueCount(), dts\_\-hostGetQueueDir(), dts\_\-hostGetQueueStat(), dts\_\-hostInitTransfer(), dts\_\-hostIsDir(), dts\_\-hostListQueue(), dts\_\-hostMkdir(), dts\_\-hostPauseQueue(), dts\_\-hostPing(), dts\_\-hostPingArray(), dts\_\-hostPingSleep(), dts\_\-hostPingStr(), dts\_\-hostPoke(), dts\_\-hostPokeQueue(), dts\_\-hostPrealloc(), dts\_\-hostPrintQueueCfg(), dts\_\-hostQueueAccept(), dts\_\-hostQueueComplete(), dts\_\-hostQueueRelease(), dts\_\-hostQueueValid(), dts\_\-hostRead(), dts\_\-hostRemotePing(), dts\_\-hostRename(), dts\_\-hostSet(), dts\_\-hostSetDbg(), dts\_\-hostSetQueueCmd(), dts\_\-hostSetQueueControl(), dts\_\-hostSetQueueCount(), dts\_\-hostSetQueueDir(), dts\_\-hostSetQueueStat(), dts\_\-hostSetRoot(), dts\_\-hostShutdown(), dts\_\-hostShutdownQueue(), dts\_\-hostSrc(), dts\_\-hostStartQueue(), dts\_\-hostStat(), dts\_\-hostStopQueue(), dts\_\-hostTo(), dts\_\-hostTouch(), dts\_\-hostUnsetDbg(), and dts\_\-hostUpStats().\hypertarget{dtsCommands_8c_89206c7f5702993e813f77283e9a5e88}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-getClient@{dts\_\-getClient}}
+\index{dts\_\-getClient@{dts\_\-getClient}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-getClient}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getClient (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_89206c7f5702993e813f77283e9a5e88}
+
+
+DTS\_\-GETCLIENT - Get a client handle for the given host. 
+
+Referenced by dts\_\-hostAbort(), dts\_\-hostAccess(), dts\_\-hostCat(), dts\_\-hostChmod(), dts\_\-hostCopy(), dts\_\-hostCwd(), dts\_\-hostDel(), dts\_\-hostDest(), dts\_\-hostDestDir(), dts\_\-hostDir(), dts\_\-hostDiskFree(), dts\_\-hostDiskUsed(), dts\_\-hostEcho(), dts\_\-hostEndTransfer(), dts\_\-hostExecCmd(), dts\_\-hostFGet(), dts\_\-hostFlushQueue(), dts\_\-hostFMode(), dts\_\-hostFSize(), dts\_\-hostFTime(), dts\_\-hostGet(), dts\_\-hostGetCopyDir(), dts\_\-hostGetQueueCmd(), dts\_\-hostGetQueueCount(), dts\_\-hostGetQueueDir(), dts\_\-hostGetQueueStat(), dts\_\-hostInitTransfer(), dts\_\-hostIsDir(), dts\_\-hostListQueue(), dts\_\-hostMkdir(), dts\_\-hostPauseQueue(), dts\_\-hostPing(), dts\_\-hostPingArray(), dts\_\-hostPingSleep(), dts\_\-hostPingStr(), dts\_\-hostPoke(), dts\_\-hostPokeQueue(), dts\_\-hostPrealloc(), dts\_\-hostPrintQueueCfg(), dts\_\-hostQueueAccept(), dts\_\-hostQueueComplete(), dts\_\-hostQueueRelease(), dts\_\-hostQueueValid(), dts\_\-hostRead(), dts\_\-hostRemotePing(), dts\_\-hostRename(), dts\_\-hostSet(), dts\_\-hostSetDbg(), dts\_\-hostSetQueueCmd(), dts\_\-hostSetQueueControl(), dts\_\-hostSetQueueCount(), dts\_\-hostSetQueueDir(), dts\_\-hostSetQueueStat(), dts\_\-hostSetRoot(), dts\_\-hostShutdown(), dts\_\-hostShutdownQueue(), dts\_\-hostSrc(), dts\_\-hostStartQueue(), dts\_\-hostStat(), dts\_\-hostStopQueue(), dts\_\-hostTouch(), dts\_\-hostUnsetDbg(), dts\_\-hostUpStats(), dts\_\-PingSleep(), dts\_\-xferFile(), dtsLog(), dtsLogMsg(), and dtsLogStat().\hypertarget{dtsCommands_8c_b642efc1396c525214c595bcbe9a2098}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostAbort@{dts\_\-hostAbort}}
+\index{dts\_\-hostAbort@{dts\_\-hostAbort}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostAbort}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostAbort (char $\ast$ {\em host}, \/  char $\ast$ {\em passwd})}}
+\label{dtsCommands_8c_b642efc1396c525214c595bcbe9a2098}
+
+
+Just freakin' die. 
+
+DTS\_\-HOSTABORT -- Exit the \hyperlink{structDTS}{DTS} without prejudice.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em passwd}]\hyperlink{structDTS}{DTS} host passwd \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_87de97e1da4d94dcfc30004a90a0753c}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostAccess@{dts\_\-hostAccess}}
+\index{dts\_\-hostAccess@{dts\_\-hostAccess}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostAccess}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostAccess (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  int {\em mode})}}
+\label{dtsCommands_8c_87de97e1da4d94dcfc30004a90a0753c}
+
+
+Check file access on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTACCESS -- Check file access on a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path name to be checked \item[{\em mode}]access mode (R\_\-OK$|$W\_\-OK$|$X\_\-OK, default F\_\-OK) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if access allowed/file exists \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-hostFrom().\hypertarget{dtsCommands_8c_c41332ac6de701f1b752f049ab6e00fd}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostCat@{dts\_\-hostCat}}
+\index{dts\_\-hostCat@{dts\_\-hostCat}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostCat}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostCat (char $\ast$ {\em host}, \/  char $\ast$ {\em fname})}}
+\label{dtsCommands_8c_c41332ac6de701f1b752f049ab6e00fd}
+
+
+Cat a file. 
+
+DTS\_\-HOSTCAT -- Cat a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em fname}]file name to be read \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Current working dir of \hyperlink{structDTS}{DTS} host \end{Desc}
+
+
+References base64\_\-decode(), dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-getClient(), and dts\_\-hostFSize().\hypertarget{dtsCommands_8c_0dbf220073481c1132fc7c187891b291}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostChmod@{dts\_\-hostChmod}}
+\index{dts\_\-hostChmod@{dts\_\-hostChmod}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostChmod}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostChmod (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  mode\_\-t {\em mode})}}
+\label{dtsCommands_8c_0dbf220073481c1132fc7c187891b291}
+
+
+Change the mode of a file on a remote \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-HOSTCHMOD -- Change the mode of a file on a remote \hyperlink{structDTS}{DTS}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to file \item[{\em mode}]file access mode \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status (OK or ERR) \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-xferDirTo(), and dts\_\-xferFile().\hypertarget{dtsCommands_8c_952d8048620067cdf074d79f4744cad8}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostContact@{dts\_\-hostContact}}
+\index{dts\_\-hostContact@{dts\_\-hostContact}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostContact}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostContact (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_952d8048620067cdf074d79f4744cad8}
+
+
+Attempt to contact/start the remote \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-HOSTCONTACT -- Attempt to contact/start the remote \hyperlink{structDTS}{DTS}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-openClientSocket().
+
+Referenced by dts\_\-hostPing(), and dts\_\-verifyDTS().\hypertarget{dtsCommands_8c_19bea8c8fdeb40a8911bb1f352b3b963}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostCopy@{dts\_\-hostCopy}}
+\index{dts\_\-hostCopy@{dts\_\-hostCopy}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostCopy}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostCopy (char $\ast$ {\em host}, \/  char $\ast$ {\em old}, \/  char $\ast$ {\em new})}}
+\label{dtsCommands_8c_19bea8c8fdeb40a8911bb1f352b3b963}
+
+
+Copy a file on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTCOPY -- Copy a file on a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em old}]old path \item[{\em new}]new path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_b0dd7c06567b4132e1d16a4e7a9acbad}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostCwd@{dts\_\-hostCwd}}
+\index{dts\_\-hostCwd@{dts\_\-hostCwd}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostCwd}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostCwd (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_b0dd7c06567b4132e1d16a4e7a9acbad}
+
+
+Get the cwd of the \hyperlink{structDTS}{DTS} host. 
+
+DTS\_\-HOSTCWD -- Get the cwd of the \hyperlink{structDTS}{DTS} host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Current working dir of \hyperlink{structDTS}{DTS} host \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-getClient(), and dts\_\-resolveHost().\hypertarget{dtsCommands_8c_3a55643980d07d923f35c211e633dae0}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostDel@{dts\_\-hostDel}}
+\index{dts\_\-hostDel@{dts\_\-hostDel}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostDel}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostDel (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  char $\ast$ {\em passwd}, \/  int {\em recursive})}}
+\label{dtsCommands_8c_3a55643980d07d923f35c211e633dae0}
+
+
+Delete a file on a \hyperlink{structDTS}{DTS} host. 
+
+DTS\_\-HOSTDEL -- Delete a file on a \hyperlink{structDTS}{DTS} host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to file to be deleted \item[{\em passwd}]\hyperlink{structDTS}{DTS} host passwd \item[{\em recursive}]recursive delete? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]success code \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_ae2efaa0a5a3b5f9e2c03080750306f8}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostDest@{dts\_\-hostDest}}
+\index{dts\_\-hostDest@{dts\_\-hostDest}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostDest}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostDest (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_ae2efaa0a5a3b5f9e2c03080750306f8}
+
+
+Get the destination of the named queue. 
+
+DTS\_\-HOSTDEST -- Get the destination of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Current working dir of \hyperlink{structDTS}{DTS} host \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_3aaaafbe28937f87397e11bf351e00c2}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostDestDir@{dts\_\-hostDestDir}}
+\index{dts\_\-hostDestDir@{dts\_\-hostDestDir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostDestDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostDestDir (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_3aaaafbe28937f87397e11bf351e00c2}
+
+
+Get a listing for a queue's delivery directory. 
+
+DTS\_\-HOSTDESTDIR -- Get a listing for a queue's delivery directory
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]queue name to list \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_8b8ba4b97a493b95872394ce4d663cee}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostDir@{dts\_\-hostDir}}
+\index{dts\_\-hostDir@{dts\_\-hostDir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostDir (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  int {\em lsLong})}}
+\label{dtsCommands_8c_8b8ba4b97a493b95872394ce4d663cee}
+
+
+Get a directory listing from a \hyperlink{structDTS}{DTS} host. 
+
+DTS\_\-HOSTDIR -- Get a directory listing from a \hyperlink{structDTS}{DTS} host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path on disk partition to be listed. \item[{\em lsLong}]long listing? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-xferDirFrom().\hypertarget{dtsCommands_8c_34ef857bddce42dadb56a81b95fb4605}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostDiskFree@{dts\_\-hostDiskFree}}
+\index{dts\_\-hostDiskFree@{dts\_\-hostDiskFree}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostDiskFree}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostDiskFree (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_34ef857bddce42dadb56a81b95fb4605}
+
+
+Get the space available on the give containing a specified path. 
+
+DTS\_\-HOSTDISKFREE -- Get the space available on the \hyperlink{structDTS}{DTS} host containing a specified path.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path on disk partition to be checked. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_64d060e3293199c02e4d60a750ec4e9a}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostDiskUsed@{dts\_\-hostDiskUsed}}
+\index{dts\_\-hostDiskUsed@{dts\_\-hostDiskUsed}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostDiskUsed}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostDiskUsed (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_64d060e3293199c02e4d60a750ec4e9a}
+
+
+Get the space available on the give containing a specified path. 
+
+DTS\_\-HOSTDISKUSED -- Get the space used on the \hyperlink{structDTS}{DTS} host containing a specified path.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path on disk partition to be checked. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_1d4f63e8382658034690aebe495f94d2}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostEcho@{dts\_\-hostEcho}}
+\index{dts\_\-hostEcho@{dts\_\-hostEcho}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostEcho}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostEcho (char $\ast$ {\em host}, \/  char $\ast$ {\em str})}}
+\label{dtsCommands_8c_1d4f63e8382658034690aebe495f94d2}
+
+
+Have a host \hyperlink{structDTS}{DTS} machine echo a string. 
+
+DTS\_\-HOSTECHO -- Have a host \hyperlink{structDTS}{DTS} machine echo a string.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em str}]string to echo \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_e2a0eeadc9a21785bdd1c5b7f722be46}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostExecCmd@{dts\_\-hostExecCmd}}
+\index{dts\_\-hostExecCmd@{dts\_\-hostExecCmd}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostExecCmd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostExecCmd (char $\ast$ {\em host}, \/  char $\ast$ {\em ewd}, \/  char $\ast$ {\em cmd})}}
+\label{dtsCommands_8c_e2a0eeadc9a21785bdd1c5b7f722be46}
+
+
+Execute the given command. 
+
+DTS\_\-HOSTEXECCMD -- Execute the given command.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em ewd}]effective working dir \item[{\em cmd}]queue delivery command \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status flag \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_caba9f4abb4cb0d06ed31cb3a8188fc3}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostFGet@{dts\_\-hostFGet}}
+\index{dts\_\-hostFGet@{dts\_\-hostFGet}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostFGet}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostFGet (char $\ast$ {\em host}, \/  char $\ast$ {\em fname}, \/  char $\ast$ {\em local}, \/  int {\em blk})}}
+\label{dtsCommands_8c_caba9f4abb4cb0d06ed31cb3a8188fc3}
+
+
+Get a remote file to a local file. 
+
+DTS\_\-HOSTFGET -- Get a remote file to a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em fname}]remote file name to be read \item[{\em local}]local file name to write \item[{\em blk}]i/o block size \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status of transfer \end{Desc}
+
+
+References base64\_\-decode(), dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-fileWrite(), dts\_\-getClient(), dts\_\-hostFSize(), and transferMB().\hypertarget{dtsCommands_8c_f637d6363021dc9829c2da7ed856b530}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostFlushQueue@{dts\_\-hostFlushQueue}}
+\index{dts\_\-hostFlushQueue@{dts\_\-hostFlushQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostFlushQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostFlushQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_f637d6363021dc9829c2da7ed856b530}
+
+
+Stop the named queue. 
+
+DTS\_\-HOSTFLUSHQUEUE -- Stop the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_acc4c397bbe8d32e4fc7be4c05813e4b}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostFMode@{dts\_\-hostFMode}}
+\index{dts\_\-hostFMode@{dts\_\-hostFMode}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostFMode}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-hostFMode (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_acc4c397bbe8d32e4fc7be4c05813e4b}
+
+
+Get a file mode on a remote \hyperlink{structDTS}{DTS} host. 
+
+DTS\_\-HOSTFMODE -- Get a file mode on a remote \hyperlink{structDTS}{DTS} host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]pathname to be checked \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]size (bytes) of file \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-hostFrom(), and dts\_\-xferDirFrom().\hypertarget{dtsCommands_8c_3c071e1cfe369d0ab24170ec9c1be582}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostFSize@{dts\_\-hostFSize}}
+\index{dts\_\-hostFSize@{dts\_\-hostFSize}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostFSize}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-hostFSize (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_3c071e1cfe369d0ab24170ec9c1be582}
+
+
+Get a file size on a remote \hyperlink{structDTS}{DTS} host. 
+
+DTS\_\-HOSTFSIZE -- Get a file size on a remote \hyperlink{structDTS}{DTS} host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]pathname to be checked \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]size (bytes) of file \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-hostCat(), dts\_\-hostFGet(), dts\_\-hostFrom(), dts\_\-hostRead(), and dts\_\-xferDirFrom().\hypertarget{dtsCommands_8c_a30236cbaf69a00482fe57504e9a338d}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostFTime@{dts\_\-hostFTime}}
+\index{dts\_\-hostFTime@{dts\_\-hostFTime}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostFTime}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostFTime (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  char $\ast$ {\em mode})}}
+\label{dtsCommands_8c_a30236cbaf69a00482fe57504e9a338d}
+
+
+Get a file time on a remote \hyperlink{structDTS}{DTS} host. 
+
+DTS\_\-HOSTFTIME -- Get a file time on a remote \hyperlink{structDTS}{DTS} host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]pathname to be checked \item[{\em mode}]mode to check ('c'reate, 'm'odified, 'a'ccess) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]time (seconds) \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_bc357c8b479519503b3f176b9749da44}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostGet@{dts\_\-hostGet}}
+\index{dts\_\-hostGet@{dts\_\-hostGet}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostGet}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostGet (char $\ast$ {\em host}, \/  char $\ast$ {\em class}, \/  char $\ast$ {\em key})}}
+\label{dtsCommands_8c_bc357c8b479519503b3f176b9749da44}
+
+
+Get a value from the remote host. 
+
+DTS\_\-HOSTGET -- Get a value from the remote host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em class}]class \item[{\em key}]keyword \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]value from remote \hyperlink{structDTS}{DTS} system \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_f0c0559bd33f5927eba6b003e84f1ff7}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostGetCopyDir@{dts\_\-hostGetCopyDir}}
+\index{dts\_\-hostGetCopyDir@{dts\_\-hostGetCopyDir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostGetCopyDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostGetCopyDir (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_f0c0559bd33f5927eba6b003e84f1ff7}
+
+
+Get the \hyperlink{structDTS}{DTS} copy directory. 
+
+DTS\_\-HOSTGETCOPYDIR -- Get the \hyperlink{structDTS}{DTS} copy directory
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]delivery directory for queue \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_6045a2cccbb8b4ceb584d666116c0cbb}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostGetQueueCmd@{dts\_\-hostGetQueueCmd}}
+\index{dts\_\-hostGetQueueCmd@{dts\_\-hostGetQueueCmd}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostGetQueueCmd}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostGetQueueCmd (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_6045a2cccbb8b4ceb584d666116c0cbb}
+
+
+Get the queue deliverCmd. 
+
+DTS\_\-HOSTGETQUEUECMD -- Get the queue deliverCmd.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]delivery directory for queue \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_f50fc2b35a4aedff85360266d3d4ed36}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostGetQueueCount@{dts\_\-hostGetQueueCount}}
+\index{dts\_\-hostGetQueueCount@{dts\_\-hostGetQueueCount}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostGetQueueCount}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostGetQueueCount (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_f50fc2b35a4aedff85360266d3d4ed36}
+
+
+Get the pending count for the named queue. 
+
+DTS\_\-HOSTGETQUEUECOUNT -- Get the pending count for the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_c6e5fc77a87e0123f9dd086b062113f3}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostGetQueueDir@{dts\_\-hostGetQueueDir}}
+\index{dts\_\-hostGetQueueDir@{dts\_\-hostGetQueueDir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostGetQueueDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostGetQueueDir (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_c6e5fc77a87e0123f9dd086b062113f3}
+
+
+Get the queue deliverDirectory. 
+
+DTS\_\-HOSTGETQUEUEDIR -- Get the queue deliverDirectory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]delivery directory for queue \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_ea8b3a5af69539b17eb844c4d7fd927d}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostGetQueueStat@{dts\_\-hostGetQueueStat}}
+\index{dts\_\-hostGetQueueStat@{dts\_\-hostGetQueueStat}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostGetQueueStat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostGetQueueStat (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_ea8b3a5af69539b17eb844c4d7fd927d}
+
+
+Get the status flag on the named queue. 
+
+DTS\_\-HOSTGETQUEUESTAT -- Get the status flag on the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status flag \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_c614bdff894e0c802dde6241a885f9ef}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostIsDir@{dts\_\-hostIsDir}}
+\index{dts\_\-hostIsDir@{dts\_\-hostIsDir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostIsDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostIsDir (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_c614bdff894e0c802dde6241a885f9ef}
+
+
+Test whether the given path is a directory. 
+
+DTS\_\-HOSTISDIR -- Test whether the given path is a directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to be tested. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if path is a directory, zero otherwise \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-hostFrom(), and dts\_\-xferFile().\hypertarget{dtsCommands_8c_074c359f7f8681a6ccf07cd5f8e6228a}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostListQueue@{dts\_\-hostListQueue}}
+\index{dts\_\-hostListQueue@{dts\_\-hostListQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostListQueue}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostListQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_074c359f7f8681a6ccf07cd5f8e6228a}
+
+
+List the named queue. 
+
+DTS\_\-HOSTLISTQUEUE -- List the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_cbbd9245835f4291a0b0de23fb2c08dc}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostMkdir@{dts\_\-hostMkdir}}
+\index{dts\_\-hostMkdir@{dts\_\-hostMkdir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostMkdir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostMkdir (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_cbbd9245835f4291a0b0de23fb2c08dc}
+
+
+Make a directory on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTMKDIR -- Make a directory on a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]directory to create \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-hostFrom(), dts\_\-hostTo(), dts\_\-xferDirTo(), and dts\_\-xferFile().\hypertarget{dtsCommands_8c_2f2fe4a97d0aaffcad230016ca30ad6d}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPauseQueue@{dts\_\-hostPauseQueue}}
+\index{dts\_\-hostPauseQueue@{dts\_\-hostPauseQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPauseQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPauseQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_2f2fe4a97d0aaffcad230016ca30ad6d}
+
+
+Pause the named queue. 
+
+DTS\_\-HOSTPAUSEQUEUE -- Pause the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_ac97ed92ed9cdccd2451906bd16f842e}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPing@{dts\_\-hostPing}}
+\index{dts\_\-hostPing@{dts\_\-hostPing}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPing}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPing (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_ac97ed92ed9cdccd2451906bd16f842e}
+
+
+Ping a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTPING -- Ping a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-getClient(), and dts\_\-hostContact().
+
+Referenced by dts\_\-remotePing(), and dts\_\-verifyDTS().\hypertarget{dtsCommands_8c_0935013c1b7e9da0815cd62115ca0f2d}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPingArray@{dts\_\-hostPingArray}}
+\index{dts\_\-hostPingArray@{dts\_\-hostPingArray}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPingArray}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPingArray (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_0935013c1b7e9da0815cd62115ca0f2d}
+
+
+Ping a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTPINGARRAY -- Ping a host \hyperlink{structDTS}{DTS} machine, array return.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]sum of array values if \hyperlink{structDTS}{DTS} responds, -1 on error. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_f2dc0d7c3146596d29270b6bb19d4b5d}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPingSleep@{dts\_\-hostPingSleep}}
+\index{dts\_\-hostPingSleep@{dts\_\-hostPingSleep}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPingSleep}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPingSleep (char $\ast$ {\em host}, \/  int {\em time})}}
+\label{dtsCommands_8c_f2dc0d7c3146596d29270b6bb19d4b5d}
+
+
+Ping a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTPINGSLEEP -- Ping a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds.\end{Desc}
+NOTE: This is implemented as an ASYNC call. 
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-getClient(), and dts\_\-getLocalHost().\hypertarget{dtsCommands_8c_ca0bdc05055e753e25956c24bb5c35f1}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPingStr@{dts\_\-hostPingStr}}
+\index{dts\_\-hostPingStr@{dts\_\-hostPingStr}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPingStr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostPingStr (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_ca0bdc05055e753e25956c24bb5c35f1}
+
+
+Ping a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTPINGSTR -- Ping a host \hyperlink{structDTS}{DTS} machine, string return.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]string response \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_821c3181439c0fc450024a8aa00e3427}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPoke@{dts\_\-hostPoke}}
+\index{dts\_\-hostPoke@{dts\_\-hostPoke}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPoke}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPoke (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_821c3181439c0fc450024a8aa00e3427}
+
+
+Poke a host \hyperlink{structDTS}{DTS} machine, i.e. ping w/out a restart. 
+
+DTS\_\-HOSTPOKE -- Poke a host \hyperlink{structDTS}{DTS} machine, i.e. ping w/out a restart.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_aed6a0cae65003482bb9c4786a11f94f}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPokeQueue@{dts\_\-hostPokeQueue}}
+\index{dts\_\-hostPokeQueue@{dts\_\-hostPokeQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPokeQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPokeQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_aed6a0cae65003482bb9c4786a11f94f}
+
+
+Poke the named queue. 
+
+DTS\_\-HOSTPOKEQUEUE -- Poke the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_0b706a5b09ccb109895c400f9c93dafd}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPrealloc@{dts\_\-hostPrealloc}}
+\index{dts\_\-hostPrealloc@{dts\_\-hostPrealloc}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPrealloc}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostPrealloc (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  long {\em size})}}
+\label{dtsCommands_8c_0b706a5b09ccb109895c400f9c93dafd}
+
+
+Prealloc space on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTPREALLOC -- Prealloc space on a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to file to prealloc \item[{\em size}]size of allocation \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_8da718190c8870e5271bb813b556fadb}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostPrintQueueCfg@{dts\_\-hostPrintQueueCfg}}
+\index{dts\_\-hostPrintQueueCfg@{dts\_\-hostPrintQueueCfg}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostPrintQueueCfg}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostPrintQueueCfg (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_8da718190c8870e5271bb813b556fadb}
+
+
+Print the configuration of the named queue. 
+
+DTS\_\-HOSTPRINTQUEUECFG -- Print the configuration of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status flag \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_39f9a397017b988fad73e2fdd02f20ae}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostRead@{dts\_\-hostRead}}
+\index{dts\_\-hostRead@{dts\_\-hostRead}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostRead}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ dts\_\-hostRead (char $\ast$ {\em host}, \/  char $\ast$ {\em fname}, \/  int {\em offset}, \/  int {\em sz}, \/  int $\ast$ {\em retnb})}}
+\label{dtsCommands_8c_39f9a397017b988fad73e2fdd02f20ae}
+
+
+Read a chunk from a file. 
+
+DTS\_\-HOSTREAD -- Read a chunk from a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em fname}]file name to be read \item[{\em offset}]file offset \item[{\em sz}]size of chunk to read \item[{\em retnb}]number of bytes read \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Current working dir of \hyperlink{structDTS}{DTS} host \end{Desc}
+
+
+References base64\_\-decode(), dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-getClient(), and dts\_\-hostFSize().\hypertarget{dtsCommands_8c_085eb41af477bdc4786d9e94c660c67e}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostRemotePing@{dts\_\-hostRemotePing}}
+\index{dts\_\-hostRemotePing@{dts\_\-hostRemotePing}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostRemotePing}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostRemotePing (char $\ast$ {\em local}, \/  char $\ast$ {\em remote})}}
+\label{dtsCommands_8c_085eb41af477bdc4786d9e94c660c67e}
+
+
+Tell one machine to ping another. 
+
+DTS\_\-HOSTREMOTEPING -- Tell one machine to ping another.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em local}]local host machine name (or IP string) \item[{\em remote}]remote machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_f390d4e8d08004d04c1c6d2d03c29710}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostRename@{dts\_\-hostRename}}
+\index{dts\_\-hostRename@{dts\_\-hostRename}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostRename}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostRename (char $\ast$ {\em host}, \/  char $\ast$ {\em old}, \/  char $\ast$ {\em new})}}
+\label{dtsCommands_8c_f390d4e8d08004d04c1c6d2d03c29710}
+
+
+Rename a file on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTRENAME -- Rename a file on a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em old}]old path \item[{\em new}]new path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_fab957704773e946c64c01662f837804}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSet@{dts\_\-hostSet}}
+\index{dts\_\-hostSet@{dts\_\-hostSet}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSet}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSet (char $\ast$ {\em host}, \/  char $\ast$ {\em class}, \/  char $\ast$ {\em key}, \/  char $\ast$ {\em val})}}
+\label{dtsCommands_8c_fab957704773e946c64c01662f837804}
+
+
+Set a value on the remote host. 
+
+DTS\_\-HOSTSET -- Set a value on the remote host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em class}]command class \item[{\em key}]keyword \item[{\em val}]value \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_59cbe9781e39c555781b3714202d7ad2}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSetDbg@{dts\_\-hostSetDbg}}
+\index{dts\_\-hostSetDbg@{dts\_\-hostSetDbg}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSetDbg}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetDbg (char $\ast$ {\em host}, \/  char $\ast$ {\em flag})}}
+\label{dtsCommands_8c_59cbe9781e39c555781b3714202d7ad2}
+
+
+Set a debug flag on a \hyperlink{structDTS}{DTS} node. 
+
+DTS\_\-HOSTSETDBG -- Set a debug flag on a \hyperlink{structDTS}{DTS} node.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em flag}]flag to set \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_69f7f8a80573380414acb16c296cae5a}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSetQueueCmd@{dts\_\-hostSetQueueCmd}}
+\index{dts\_\-hostSetQueueCmd@{dts\_\-hostSetQueueCmd}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSetQueueCmd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetQueueCmd (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em cmd})}}
+\label{dtsCommands_8c_69f7f8a80573380414acb16c296cae5a}
+
+
+Set the queue deliveryCmd. 
+
+DTS\_\-HOSTSETQUEUECMD -- Set the queue deliveryCmd.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \item[{\em cmd}]queue delivery command \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status flag \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_673c0810cfaf77351be31bad89c9f4d3}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSetQueueCount@{dts\_\-hostSetQueueCount}}
+\index{dts\_\-hostSetQueueCount@{dts\_\-hostSetQueueCount}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSetQueueCount}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetQueueCount (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  int {\em count})}}
+\label{dtsCommands_8c_673c0810cfaf77351be31bad89c9f4d3}
+
+
+Set the pending count for the named queue. 
+
+DTS\_\-HOSTSETQUEUECOUNT -- Set the pending count for the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \item[{\em count}]queue count \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_de4c39df9647325016b929ec0711095a}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSetQueueDir@{dts\_\-hostSetQueueDir}}
+\index{dts\_\-hostSetQueueDir@{dts\_\-hostSetQueueDir}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSetQueueDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetQueueDir (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em dir})}}
+\label{dtsCommands_8c_de4c39df9647325016b929ec0711095a}
+
+
+Set the queue deliveryDir. 
+
+DTS\_\-HOSTSETQUEUEDIR -- Set the queue deliveryDir.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \item[{\em dir}]queue delivery directory \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status flag \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_6fa58f3bca0256a314378374ec487e74}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSetQueueStat@{dts\_\-hostSetQueueStat}}
+\index{dts\_\-hostSetQueueStat@{dts\_\-hostSetQueueStat}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSetQueueStat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetQueueStat (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  int {\em val})}}
+\label{dtsCommands_8c_6fa58f3bca0256a314378374ec487e74}
+
+
+Set the status flag on the named queue. 
+
+DTS\_\-HOSTSETQUEUESTAT -- Set the status flag on the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \item[{\em val}]queue status value \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status flag \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_777cb6ae0277da281ac1e0bca400f136}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSetRoot@{dts\_\-hostSetRoot}}
+\index{dts\_\-hostSetRoot@{dts\_\-hostSetRoot}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSetRoot}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetRoot (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_777cb6ae0277da281ac1e0bca400f136}
+
+
+Set the root directory of a \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-HOSTSETROOT -- Set the root directory of a \hyperlink{structDTS}{DTS}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to touch \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_f2da8c328d7a370934938fcc094cb896}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostShutdown@{dts\_\-hostShutdown}}
+\index{dts\_\-hostShutdown@{dts\_\-hostShutdown}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostShutdown}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostShutdown (char $\ast$ {\em host}, \/  char $\ast$ {\em passwd})}}
+\label{dtsCommands_8c_f2da8c328d7a370934938fcc094cb896}
+
+
+Just freakin' die. 
+
+DTS\_\-HOSTSHUTDOWN -- Shutdown the \hyperlink{structDTS}{DTS} cleanly.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em passwd}]\hyperlink{structDTS}{DTS} host passwd \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_6eaa2eab6425b050f452cf5efbdfc987}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostShutdownQueue@{dts\_\-hostShutdownQueue}}
+\index{dts\_\-hostShutdownQueue@{dts\_\-hostShutdownQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostShutdownQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostShutdownQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_6eaa2eab6425b050f452cf5efbdfc987}
+
+
+Shutdown the named queue. 
+
+DTS\_\-HOSTSHUTDOWNQUEUE -- Shutdown the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_b8e92f2b12134b917de801c3b1333b01}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostSrc@{dts\_\-hostSrc}}
+\index{dts\_\-hostSrc@{dts\_\-hostSrc}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostSrc}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-hostSrc (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_b8e92f2b12134b917de801c3b1333b01}
+
+
+Get the source of the named queue. 
+
+DTS\_\-HOSTSRC -- Get the source of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Current working dir of \hyperlink{structDTS}{DTS} host \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_d17acd7ebb9d8c22338336504a911506}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostStartQueue@{dts\_\-hostStartQueue}}
+\index{dts\_\-hostStartQueue@{dts\_\-hostStartQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostStartQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostStartQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_d17acd7ebb9d8c22338336504a911506}
+
+
+Start the named queue. 
+
+DTS\_\-HOSTSTARTQUEUE -- Start the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_1b90712543efadb4bfe6c7b1a487d934}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostStat@{dts\_\-hostStat}}
+\index{dts\_\-hostStat@{dts\_\-hostStat}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostStat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostStat (char $\ast$ {\em host}, \/  char $\ast$ {\em path}, \/  struct stat $\ast$ {\em st})}}
+\label{dtsCommands_8c_1b90712543efadb4bfe6c7b1a487d934}
+
+
+Update access time on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTSTAT -- Get the file stat() information
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to touch \item[{\em st}]stat struct \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_041af17c4b4d84f0120ef51e03ee805e}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostStopQueue@{dts\_\-hostStopQueue}}
+\index{dts\_\-hostStopQueue@{dts\_\-hostStopQueue}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostStopQueue}]{\setlength{\rightskip}{0pt plus 5cm}cwd dts\_\-hostStopQueue (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsCommands_8c_041af17c4b4d84f0120ef51e03ee805e}
+
+
+Stop the named queue. 
+
+DTS\_\-HOSTSTOPQUEUE -- Stop the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_8358207b2bb483a5cee73cafb5e0a04f}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostTouch@{dts\_\-hostTouch}}
+\index{dts\_\-hostTouch@{dts\_\-hostTouch}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostTouch}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostTouch (char $\ast$ {\em host}, \/  char $\ast$ {\em path})}}
+\label{dtsCommands_8c_8358207b2bb483a5cee73cafb5e0a04f}
+
+
+Update access time on a host \hyperlink{structDTS}{DTS} machine. 
+
+DTS\_\-HOSTTOUCH -- Update access time on a host \hyperlink{structDTS}{DTS} machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em path}]path to touch \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-xferFile().\hypertarget{dtsCommands_8c_3e8dffd6876120e43d5a71c4d3005710}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostUnsetDbg@{dts\_\-hostUnsetDbg}}
+\index{dts\_\-hostUnsetDbg@{dts\_\-hostUnsetDbg}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostUnsetDbg}]{\setlength{\rightskip}{0pt plus 5cm}stat dts\_\-hostUnsetDbg (char $\ast$ {\em host}, \/  char $\ast$ {\em flag})}}
+\label{dtsCommands_8c_3e8dffd6876120e43d5a71c4d3005710}
+
+
+Unset a debug flag on the \hyperlink{structDTS}{DTS} node. 
+
+DTS\_\-HOSTUNSETDBG -- Unset a debug flag on the \hyperlink{structDTS}{DTS} node.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em flag}]flag to set \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsCommands_8c_08460d796393303d54163d514b3f17e0}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-hostUpStats@{dts\_\-hostUpStats}}
+\index{dts\_\-hostUpStats@{dts\_\-hostUpStats}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-hostUpStats}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostUpStats (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  {\bf xferStat} $\ast$ {\em xfs})}}
+\label{dtsCommands_8c_08460d796393303d54163d514b3f17e0}
+
+
+Update the transfer statistics. 
+
+DTS\_\-HOSTUPSTATS -- Update the transfer statistics.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]queue name \item[{\em xfs}]transfer stats \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-queueProcess().\hypertarget{dtsCommands_8c_444ff16f65d71a45209f4c2b423d135a}{
+\index{dtsCommands.c@{dtsCommands.c}!dts\_\-isLocal@{dts\_\-isLocal}}
+\index{dts\_\-isLocal@{dts\_\-isLocal}!dtsCommands.c@{dtsCommands.c}}
+\subsubsection[{dts\_\-isLocal}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-isLocal (char $\ast$ {\em host})}}
+\label{dtsCommands_8c_444ff16f65d71a45209f4c2b423d135a}
+
+
+Is the given host the local machine? 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Private Utility Procedures DTS\_\-ISLOCAL -- Is the given host the local machine?
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if \hyperlink{structDTS}{DTS} responds. \end{Desc}
+
+
+References dts\_\-getLocalIP().

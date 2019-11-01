@@ -1,0 +1,125 @@
+.TH "dtsConsole.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsConsole.c \- \fBDTS\fP Console Interface.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_monAttach\fP (void *data)"
+.br
+.ti -1c
+.RI "int \fBdts_monDetach\fP (void *data)"
+.br
+.ti -1c
+.RI "int \fBdts_monConsole\fP (void *data)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP Console Interface. 
+
+DTSCONSOLE.C
+.PP
+\fBDTS\fP Console Interface - These are the methods implemented for he XML-RPC interace. These command are used from a variety of locations during the operation of the \fBDTS\fP (i.e. the queueing, logging or interactive environments.
+.PP
+monAttach - attach logging to the specified dtsmonitor
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_monAttach (void * data)"
+.PP
+DTS_MONATTACH -- Attach the \fBDTS\fP logging output to the dtsmon at the specified host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP calling parameter data # 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status (OK|ERR) 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_monConsole (void * data)"
+.PP
+DTS_MONCONSOLE -- Request connection as a controlling console. We provide a (minimal security) password that must be supplied to grant access.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP calling parameter data # 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status (OK|ERR) 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SS "int dts_monDetach (void * data)"
+.PP
+DTS_MODETACH -- Detach the \fBDTS\fP logging output to the current dtsmon.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP calling parameter data # 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status (OK|ERR) 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

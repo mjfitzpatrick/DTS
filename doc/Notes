@@ -1,0 +1,86 @@
+
+DTS Current Working Directory
+=============================
+
+			     dts_cwd/
+                                |
+		    +-----------+---------+
+                    |                     |
+		staging/	        spool/
+                    |                     |
+		    |	       +----------+---------+
+                    |          |          |         |
+		incoming/    ncsa/      noao-s/    kpno/
+
+
+Data Transfer
+=============
+
+  Push Model:
+
+	QMgr			Src			Dest
+
+ (1)    ----[Push Msg] ---------->
+	
+ (2)                        Socket setup
+
+ (3)				----[FileRecieve Msg]----->
+
+ (4)				<=====[Data Transfer]=====>
+
+ (5)    <----[Status Return]-------
+
+
+
+  Pull Model:
+
+	QMgr			Src			Dest
+
+ (1)    -------------------[Pull Msg]--------------------->
+
+ (2)                  				    Socket setup
+
+ (3)				<-----[FileSend Msg]-------
+
+ (4)				<=====[Data Transfer]=====>
+
+ (5)    <------------------[Status Return]------------------
+
+
+
+  [Push Msg]
+	xferId		transfer id
+	fileName	file name
+	fileSize	file size
+	numThreads	num of transfer threads to open
+	srcPort		starting port number
+	destCmdURL	destination xmlrpc URI
+
+  [FileRecieve Msg]
+	xferId		transfer id
+	fileName	file name
+	fileSize	file size
+	numThreads	num of transfer threads to open
+	srcPort		starting port number
+	srcHostName	FQDN of source machine
+
+
+  [Pull Msg]
+	xferId		transfer id
+	fileName	file name
+	fileSize	file size
+	numThreads	num of transfer threads to open
+	srcPort		starting port number
+	destCmdURL	destination xmlrpc URI
+
+  [FileSend Msg]
+	xferId		transfer id
+	fileName	file name
+	fileSize	file size
+	numThreads	num of transfer threads to open
+	destPort	starting port number
+	destHostName	FQDN of source machine
+
+
+
+

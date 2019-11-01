@@ -1,0 +1,14 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+
+echo "Starting denali ...."
+csh -fc "(ssh -XY denali xgterm -fg wheat3 -bg black -T denali -fn 6x13 -geom 80x18+50+30 -e /home/fitz/dts.sync ) &"    >&  /tmp/_j
+
+echo "Starting elqui ...."
+csh -fc "(ssh -XY elqui  xgterm -fg wheat3 -bg black -T elqui  -fn 6x13 -geom 80x18+50+295 -e /home/fitz/dts.sync ) &"   >>& /tmp/_j

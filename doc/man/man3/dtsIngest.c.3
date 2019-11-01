@@ -1,0 +1,116 @@
+.TH "dtsIngest.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsIngest.c \- \fBDTS\fP procedures to 'ingest' a transfer object.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include <sys/param.h>\fP
+.br
+\fC#include <sys/wait.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsdb.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   (dts&&dts->debug)"
+.br
+.ti -1c
+.RI "#define \fBVDEBUG\fP   (dts&&dts->debug>2)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "char * \fBdts_Ingest\fP (\fBdtsQueue\fP *dtsq, Control *ctrl, char *fpath, char *cpath, int *stat)"
+.br
+.RI "\fIIngest a file for transport. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP procedures to 'ingest' a transfer object. 
+
+DTSINGEST.C -- \fBDTS\fP procedures to 'ingest' a transfer object.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "char* dts_Ingest (\fBdtsQueue\fP * dtsq, Control * ctrl, char * fpath, char * cpath, int * stat)"
+.PP
+Ingest a file for transport. 
+.PP
+DTS_INGEST -- Ingest a file for transport.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP queue structure 
+.br
+\fIctrl\fP Transfer control structure 
+.br
+\fIfpath\fP path to the file in spool dir 
+.br
+\fIcpath\fP path to the control file in spool dir 
+.br
+\fIstat\fP status of the ingest application 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+NULL or error message 
+.RE
+.PP
+
+.PP
+References dts_addControlHistory(), dts_fmtQueueCmd(), dts_isLink(), dts_loadDeliveryParams(), dts_nameMode(), dts_nameSize(), dts_qstatDlvrEnd(), dts_qstatDlvrStart(), dts_qstatDlvrStat(), dts_readLink(), dts_saveControl(), dts_semSetVal(), dts_sysExec(), dtsErrLog(), and dtsLog().
+.PP
+Referenced by dts_endTransfer().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

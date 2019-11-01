@@ -1,0 +1,647 @@
+\hypertarget{dtsUtil_8c}{
+\section{dtsUtil.c File Reference}
+\label{dtsUtil_8c}\index{dtsUtil.c@{dtsUtil.c}}
+}
+\hyperlink{structDTS}{DTS} Checksum utility methods.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/shm.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \textbf{hostTab}
+\item 
+struct \textbf{hostent\_\-wrapper}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsUtil_8c_6c13b5c83caf2fa8985ca66647861c93}{
+\#define \textbf{USE\_\-DNS\_\-IP}}
+\label{dtsUtil_8c_6c13b5c83caf2fa8985ca66647861c93}
+
+\item 
+\#define \hyperlink{dtsUtil_8c_177ae7b98cd87b6e15376d98c1c169a4}{NUM\_\-STR\_\-BUF}~1024
+\item 
+\hypertarget{dtsUtil_8c_76e0b9a406f43fcd4860ad11adcd26c1}{
+\#define \textbf{SZ\_\-BUF\_\-STR}~1024}
+\label{dtsUtil_8c_76e0b9a406f43fcd4860ad11adcd26c1}
+
+\item 
+\hypertarget{dtsUtil_8c_437109d466a5f787e55d8fca6e62b6ca}{
+\#define \textbf{STRBUF\_\-MAX\_\-WAIT}~5}
+\label{dtsUtil_8c_437109d466a5f787e55d8fca6e62b6ca}
+
+\item 
+\#define \hyperlink{dtsUtil_8c_17ba00ca77763582777e3252d148dc77}{\_\-DTS\_\-SRC\_\-}~1
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsUtil_8c_605bf0c2b8830e468937ba5552b187e1}{
+typedef struct hostTab $\ast$ \textbf{hostTabP}}
+\label{dtsUtil_8c_605bf0c2b8830e468937ba5552b187e1}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{dtsUtil_8c_9b8c06490118b1c3e8c8137010f3ebc4}{dtsDaemonize} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\item 
+void \hyperlink{dtsUtil_8c_c19134d05afcd019bcd606a171ae44b7}{dts\_\-sigHandler} (int sig)
+\item 
+\hypertarget{dtsUtil_8c_38e50e1ef274c7f6aa9ba03291789076}{
+void \textbf{dts\_\-setQueueShutdown} (int level)}
+\label{dtsUtil_8c_38e50e1ef274c7f6aa9ba03291789076}
+
+\item 
+void \hyperlink{dtsUtil_8c_87a72ebfa8ffde676fd4b687d2e9696f}{dts\_\-pause} ()
+\item 
+\hypertarget{dtsUtil_8c_0cdf29351bdc1ff6988fdcc87352edaa}{
+void \textbf{dtsShm} (\hyperlink{structDTS}{DTS} $\ast$dts)}
+\label{dtsUtil_8c_0cdf29351bdc1ff6988fdcc87352edaa}
+
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_780a7e2551ef7f8b7c83aab03f48b764}{dts\_\-localTime} ()
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_3b05bb3b77ab230138ad6fdc4fc41910}{dts\_\-UTTime} ()
+\item 
+\hypertarget{dtsUtil_8c_4b7c3d7e452873ed1c1649da1e83a07c}{
+void \textbf{dts\_\-getPrimaryIP} (char $\ast$buffer, size\_\-t buflen)}
+\label{dtsUtil_8c_4b7c3d7e452873ed1c1649da1e83a07c}
+
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_8677623ef15346b4b48658e2e65666ad}{dts\_\-getLocalIP} ()
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_4cd11b09fe89548b064e29ab70673b7a}{dts\_\-getLocalHost} ()
+\item 
+struct hostent $\ast$ \hyperlink{dtsUtil_8c_eaec19a499a8a95fe4ac72f8c03812e8}{dts\_\-getHostByName} (char $\ast$name)
+\item 
+void \hyperlink{dtsUtil_8c_1c0eb0837c8eab0f93bb5caaa7e50a51}{dts\_\-printHostTable} ()
+\item 
+struct hostent $\ast$ \hyperlink{dtsUtil_8c_a2e892f63df35bbfc8f8d4ca99e353bf}{dts\_\-dupHostent} (struct hostent $\ast$hentry)
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_3ce41c5623388004cd99375607e9bf42}{dts\_\-getAliasHost} (char $\ast$alias)
+\item 
+int \hyperlink{dtsUtil_8c_6a5c698ca189017460b1feb8b8b6ca8b}{dts\_\-getAliasPort} (char $\ast$alias)
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_578e7bf5fdf94e609fdb39095441f0b7}{dts\_\-getAliasDest} (char $\ast$alias)
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_5e2fd1d83a78d8da2370957e0dfe0593}{dts\_\-resolveHost} (char $\ast$hostname)
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_260fc9809ede865648e7f6ec0f545dc8}{dts\_\-logtime} ()
+\item 
+\hypertarget{dtsUtil_8c_c280df49dc081bc4eefc6e3633ebfde1}{
+void \textbf{dts\_\-tstart} (struct timeval $\ast$tv)}
+\label{dtsUtil_8c_c280df49dc081bc4eefc6e3633ebfde1}
+
+\item 
+\hypertarget{dtsUtil_8c_9ee8331738f783b9556122249fb1527e}{
+double \textbf{dts\_\-tstop} (struct timeval tv1)}
+\label{dtsUtil_8c_9ee8331738f783b9556122249fb1527e}
+
+\item 
+\hypertarget{dtsUtil_8c_3b32103245e16a0896c9c39014277468}{
+double \textbf{dts\_\-timediff} (struct timeval t1, struct timeval t2)}
+\label{dtsUtil_8c_3b32103245e16a0896c9c39014277468}
+
+\item 
+void \hyperlink{dtsUtil_8c_4b044c2d69166fb981024d1fcc5ef225}{measure\_\-start} (void)
+\begin{CompactList}\small\item\em Timer utils. \item\end{CompactList}\item 
+void \hyperlink{dtsUtil_8c_0d0705017516a7ada8826a28402beac4}{measure\_\-stop} (long transferred)
+\begin{CompactList}\small\item\em Stop timer and print summary of transfer stats. \item\end{CompactList}\item 
+double \hyperlink{dtsUtil_8c_280ad0ef1dbcf005d845cef1ebccf0cd}{transferMb} (long fileSize, int sec, int usec)
+\begin{CompactList}\small\item\em Return throughput in megabits/s. \item\end{CompactList}\item 
+double \hyperlink{dtsUtil_8c_c62de5cb46da45d14475dedcf63b03bd}{transferMB} (long fileSize, int sec, int usec)
+\begin{CompactList}\small\item\em Return throughput in megabytes/s. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsUtil_8c_a8410e23d2184631694f119a7a31b30d}{dts\_\-fmtMode} (char $\ast$lp, int flags)
+\item 
+int \hyperlink{dtsUtil_8c_92ff94eb5bea667365621066290fe910}{dts\_\-patMatch} (char $\ast$str, char $\ast$pattern)
+\item 
+int \hyperlink{dtsUtil_8c_8260abd57bb8d5b53fc96019b419101f}{dts\_\-isTemplate} (char $\ast$s)
+\item 
+char $\ast$ \hyperlink{dtsUtil_8c_03606f547ccedb5dd5c60dcc09489b59}{dtsGets} (char $\ast$s, int len, FILE $\ast$fp)
+\item 
+\hypertarget{dtsUtil_8c_1eda357c051ce88aff8d19b9307027dc}{
+char $\ast$ \textbf{dts\_\-strbuf} (char $\ast$s)}
+\label{dtsUtil_8c_1eda357c051ce88aff8d19b9307027dc}
+
+\item 
+\hypertarget{dtsUtil_8c_0e24d8252142156d5dcfaf62827df55b}{
+void \textbf{dtsError} (char $\ast$msg)}
+\label{dtsUtil_8c_0e24d8252142156d5dcfaf62827df55b}
+
+\item 
+int \hyperlink{dtsUtil_8c_24d14a9110968a52dc2dc5ad8d2d943e}{dts\_\-debugLevel} ()
+\item 
+\hypertarget{dtsUtil_8c_fa83e2710d9d2bc0b7c0f1d6e1fd3a1f}{
+char $\ast$ \textbf{dts\_\-printDTS} (\hyperlink{structDTS}{DTS} $\ast$dts, FILE $\ast$fd)}
+\label{dtsUtil_8c_fa83e2710d9d2bc0b7c0f1d6e1fd3a1f}
+
+\item 
+\hypertarget{dtsUtil_8c_6ea71480389ca8c8ac3364184249679e}{
+char $\ast$ \textbf{dts\_\-printDTSClient} (\hyperlink{structDTS}{DTS} $\ast$dts, FILE $\ast$fd)}
+\label{dtsUtil_8c_6ea71480389ca8c8ac3364184249679e}
+
+\item 
+\hypertarget{dtsUtil_8c_14cd5c9f87815e6e3b8f97e1aeaf3e25}{
+char $\ast$ \textbf{dts\_\-printAllQueues} (\hyperlink{structDTS}{DTS} $\ast$dts, FILE $\ast$fd)}
+\label{dtsUtil_8c_14cd5c9f87815e6e3b8f97e1aeaf3e25}
+
+\item 
+\hypertarget{dtsUtil_8c_60afe79767adb905f119a6112cbef692}{
+char $\ast$ \textbf{dts\_\-printQueue} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, FILE $\ast$fd)}
+\label{dtsUtil_8c_60afe79767adb905f119a6112cbef692}
+
+\item 
+\hypertarget{dtsUtil_8c_079c0fe457473a27c6186cb3afc8eddc}{
+void \textbf{doprnt} (char $\ast$buf, char $\ast$format,...)}
+\label{dtsUtil_8c_079c0fe457473a27c6186cb3afc8eddc}
+
+\item 
+\hypertarget{dtsUtil_8c_08a4fc3bb2229037048b91b9d5e7cf21}{
+int \textbf{dtsSleep} (unsigned int seconds)}
+\label{dtsUtil_8c_08a4fc3bb2229037048b91b9d5e7cf21}
+
+\item 
+int \hyperlink{dtsUtil_8c_fd7b1f99e86858d922e1c3dba426abbe}{base64\_\-encode} (unsigned char $\ast$source, size\_\-t sourcelen, char $\ast$target, size\_\-t targetlen)
+\item 
+int \hyperlink{dtsUtil_8c_054354b1d0470cee90881ac4973d819e}{base64\_\-decode} (char $\ast$source, unsigned char $\ast$target, size\_\-t targetlen)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsUtil_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsUtil_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+struct timeval \hyperlink{dtsUtil_8c_44389d04de4f034d4e950b21976a18f5}{measure\_\-start\_\-tv}
+\item 
+\hypertarget{dtsUtil_8c_bc3bb7a68b2cea3f7db95cb764bce904}{
+struct timeval \textbf{io\_\-tv} = \{0, 0\}}
+\label{dtsUtil_8c_bc3bb7a68b2cea3f7db95cb764bce904}
+
+\item 
+\hypertarget{dtsUtil_8c_c1ea7bff6656fc38bdd88cd2a69c6539}{
+pthread\_\-mutex\_\-t \textbf{str\_\-mut} = PTHREAD\_\-MUTEX\_\-INITIALIZER}
+\label{dtsUtil_8c_c1ea7bff6656fc38bdd88cd2a69c6539}
+
+\item 
+const char $\ast$ \hyperlink{dtsUtil_8c_d0f7d06353e13dc9d4be21d2be8d8a20}{b64\_\-chars}
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} Checksum utility methods. 
+
+\hyperlink{structDTS}{DTS} Utility methods.
+
+DTSCHECKSUM.C -- Checksum utility routines for the \hyperlink{structDTS}{DTS}.
+
+md5 = dts\_\-fileMD5 (char $\ast$fname) crc = dts\_\-fileCRC32 (char $\ast$fname) sum = dts\_\-fileChecksum (char $\ast$fname, int do\_\-sysv) sum = dts\_\-fileCRCChecksum (char $\ast$fname, unsigned int $\ast$crc)
+
+valid = dts\_\-fileValidate (char $\ast$fname, uint sum32, uint crc, char $\ast$md5)
+
+checksum (uchar $\ast$data, int length, ushort $\ast$sum16, uint $\ast$sum32) sum = addcheck32 (uchar $\ast$array, int length)
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09\end{Desc}
+DTSUTIL.C -- Utility routines for the \hyperlink{structDTS}{DTS}.
+
+dtsDaemonize (\hyperlink{structDTS}{DTS} $\ast$dts) dts\_\-sigHandler (int sig) \hyperlink{dtsUtil_8c_87a72ebfa8ffde676fd4b687d2e9696f}{dts\_\-pause()} dts\_\-getLocalIP () dts\_\-getLocalHost () dts\_\-resolveHost (char $\ast$hostname) dts\_\-fmtMode (char $\ast$lp, int flags) dts\_\-patMatch (char $\ast$str, char $\ast$pattern) dts\_\-isTemplate (char $\ast$s) dts\_\-strbuf (char $\ast$s);
+
+dtsGets (char $\ast$s, int len, FILE $\ast$fp) dtsError (char $\ast$msg) dts\_\-debugLevel () dts\_\-printDTS (\hyperlink{structDTS}{DTS} $\ast$dts, FILE $\ast$fd) dts\_\-printDTSClient (\hyperlink{structDTS}{DTS} $\ast$dts, FILE $\ast$fd) dts\_\-printAllQueues (\hyperlink{structDTS}{DTS} $\ast$dts, FILE $\ast$fd) dts\_\-printQueue (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, FILE $\ast$fd)
+
+measure\_\-start (void) measure\_\-stop (long transferred)
+
+base64\_\-encode (uchar $\ast$source, size\_\-t sourcelen, char $\ast$target, size\_\-t targetlen) base64\_\-decode (char $\ast$source, unsigned char $\ast$target, size\_\-t targetlen)
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09 \end{Desc}
+
+
+\subsection{Define Documentation}
+\hypertarget{dtsUtil_8c_17ba00ca77763582777e3252d148dc77}{
+\index{dtsUtil.c@{dtsUtil.c}!\_\-DTS\_\-SRC\_\-@{\_\-DTS\_\-SRC\_\-}}
+\index{\_\-DTS\_\-SRC\_\-@{\_\-DTS\_\-SRC\_\-}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{\_\-DTS\_\-SRC\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-DTS\_\-SRC\_\-~1}}
+\label{dtsUtil_8c_17ba00ca77763582777e3252d148dc77}
+
+
+DTSERROR -- Print a fatal error message. \hypertarget{dtsUtil_8c_177ae7b98cd87b6e15376d98c1c169a4}{
+\index{dtsUtil.c@{dtsUtil.c}!NUM\_\-STR\_\-BUF@{NUM\_\-STR\_\-BUF}}
+\index{NUM\_\-STR\_\-BUF@{NUM\_\-STR\_\-BUF}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{NUM\_\-STR\_\-BUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define NUM\_\-STR\_\-BUF~1024}}
+\label{dtsUtil_8c_177ae7b98cd87b6e15376d98c1c169a4}
+
+
+DTS\_\-STRBUF -- Return a string from a static buffer. 
+
+\subsection{Function Documentation}
+\hypertarget{dtsUtil_8c_054354b1d0470cee90881ac4973d819e}{
+\index{dtsUtil.c@{dtsUtil.c}!base64\_\-decode@{base64\_\-decode}}
+\index{base64\_\-decode@{base64\_\-decode}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{base64\_\-decode}]{\setlength{\rightskip}{0pt plus 5cm}int base64\_\-decode (char $\ast$ {\em source}, \/  unsigned char $\ast$ {\em target}, \/  size\_\-t {\em targetlen})}}
+\label{dtsUtil_8c_054354b1d0470cee90881ac4973d819e}
+
+
+decode base64 encoded data
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em source}]the encoded data (zero terminated) \item[{\em target}]pointer to the target buffer \item[{\em targetlen}]length of the target buffer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]length of converted data on success, -1 otherwise \end{Desc}
+
+
+Referenced by dts\_\-hostCat(), dts\_\-hostFGet(), and dts\_\-hostRead().\hypertarget{dtsUtil_8c_fd7b1f99e86858d922e1c3dba426abbe}{
+\index{dtsUtil.c@{dtsUtil.c}!base64\_\-encode@{base64\_\-encode}}
+\index{base64\_\-encode@{base64\_\-encode}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{base64\_\-encode}]{\setlength{\rightskip}{0pt plus 5cm}int base64\_\-encode (unsigned char $\ast$ {\em source}, \/  size\_\-t {\em sourcelen}, \/  char $\ast$ {\em target}, \/  size\_\-t {\em targetlen})}}
+\label{dtsUtil_8c_fd7b1f99e86858d922e1c3dba426abbe}
+
+
+encode an array of bytes using Base64 (RFC 3548)
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em source}]the source buffer \item[{\em sourcelen}]the length of the source buffer \item[{\em target}]the target buffer \item[{\em targetlen}]the length of the target buffer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 on success, 0 otherwise \end{Desc}
+
+
+Referenced by dts\_\-Cat(), and dts\_\-Read().\hypertarget{dtsUtil_8c_24d14a9110968a52dc2dc5ad8d2d943e}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-debugLevel@{dts\_\-debugLevel}}
+\index{dts\_\-debugLevel@{dts\_\-debugLevel}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-debugLevel}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-debugLevel (void)}}
+\label{dtsUtil_8c_24d14a9110968a52dc2dc5ad8d2d943e}
+
+
+DTS\_\-DEBUGLEVEL -- Return the current debug level to procedures without a \hyperlink{structDTS}{DTS} pointer. 
+
+Referenced by psReceiveStripe(), psSendStripe(), udtReceiveStripe(), and udtSendStripe().\hypertarget{dtsUtil_8c_a2e892f63df35bbfc8f8d4ca99e353bf}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-dupHostent@{dts\_\-dupHostent}}
+\index{dts\_\-dupHostent@{dts\_\-dupHostent}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-dupHostent}]{\setlength{\rightskip}{0pt plus 5cm}struct hostent$\ast$ dts\_\-dupHostent (struct hostent $\ast$ {\em hentry})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
+\label{dtsUtil_8c_a2e892f63df35bbfc8f8d4ca99e353bf}
+
+
+DTS\_\-DUPHOSTENT -- Duplicate a hostent structure via a deep copy. 
+
+Referenced by dts\_\-getHostByName().\hypertarget{dtsUtil_8c_a8410e23d2184631694f119a7a31b30d}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-fmtMode@{dts\_\-fmtMode}}
+\index{dts\_\-fmtMode@{dts\_\-fmtMode}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-fmtMode}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-fmtMode (char $\ast$ {\em lp}, \/  int {\em flags})}}
+\label{dtsUtil_8c_a8410e23d2184631694f119a7a31b30d}
+
+
+DTS\_\-FMTMODE -- Format the file mode permissions as a string. 
+
+Referenced by dts\_\-Dir(), and dts\_\-localDir().\hypertarget{dtsUtil_8c_578e7bf5fdf94e609fdb39095441f0b7}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-getAliasDest@{dts\_\-getAliasDest}}
+\index{dts\_\-getAliasDest@{dts\_\-getAliasDest}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-getAliasDest}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getAliasDest (char $\ast$ {\em alias})}}
+\label{dtsUtil_8c_578e7bf5fdf94e609fdb39095441f0b7}
+
+
+DTS\_\-GETALIASDEST -- Get the destination associated with a node alias.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em alias}]client alias \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]destination as 'node:port' \end{Desc}
+
+
+Referenced by dts\_\-queueInitControl(), and dts\_\-queueProcess().\hypertarget{dtsUtil_8c_3ce41c5623388004cd99375607e9bf42}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-getAliasHost@{dts\_\-getAliasHost}}
+\index{dts\_\-getAliasHost@{dts\_\-getAliasHost}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-getAliasHost}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getAliasHost (char $\ast$ {\em alias})}}
+\label{dtsUtil_8c_3ce41c5623388004cd99375607e9bf42}
+
+
+DTS\_\-GETALIASHOST -- Get the host associated with a node alias.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em alias}]client alias \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]name of host \end{Desc}
+\hypertarget{dtsUtil_8c_6a5c698ca189017460b1feb8b8b6ca8b}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-getAliasPort@{dts\_\-getAliasPort}}
+\index{dts\_\-getAliasPort@{dts\_\-getAliasPort}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-getAliasPort}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getAliasPort (char $\ast$ {\em alias})}}
+\label{dtsUtil_8c_6a5c698ca189017460b1feb8b8b6ca8b}
+
+
+DTS\_\-GETALIASPORT -- Get the port associated with a node alias.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em alias}]client alias \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]name of host \end{Desc}
+\hypertarget{dtsUtil_8c_eaec19a499a8a95fe4ac72f8c03812e8}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-getHostByName@{dts\_\-getHostByName}}
+\index{dts\_\-getHostByName@{dts\_\-getHostByName}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-getHostByName}]{\setlength{\rightskip}{0pt plus 5cm}struct hostent$\ast$ dts\_\-getHostByName (char $\ast$ {\em name})\hspace{0.3cm}{\tt  \mbox{[}read\mbox{]}}}}
+\label{dtsUtil_8c_eaec19a499a8a95fe4ac72f8c03812e8}
+
+
+DTS\_\-GETHOSTBYNAME -- Get the host entry associated with a (cached) name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]host name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]host entry structure pointer \end{Desc}
+
+
+References dts\_\-dupHostent(), and dtsErrLog().
+
+Referenced by dts\_\-getLocalIP(), dts\_\-openClientSocket(), dts\_\-openUDTClientSocket(), and dts\_\-resolveHost().\hypertarget{dtsUtil_8c_4cd11b09fe89548b064e29ab70673b7a}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-getLocalHost@{dts\_\-getLocalHost}}
+\index{dts\_\-getLocalHost@{dts\_\-getLocalHost}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-getLocalHost}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getLocalHost (void)}}
+\label{dtsUtil_8c_4cd11b09fe89548b064e29ab70673b7a}
+
+
+DTS\_\-GETLOCALHOST -- Get the local host name as a string.
+
+\begin{Desc}
+\item[Returns:]name of host \end{Desc}
+
+
+Referenced by dts\_\-hostPingSleep(), dts\_\-loadDefaultConfig(), dts\_\-newQueue(), and dts\_\-queueInitControl().\hypertarget{dtsUtil_8c_8677623ef15346b4b48658e2e65666ad}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-getLocalIP@{dts\_\-getLocalIP}}
+\index{dts\_\-getLocalIP@{dts\_\-getLocalIP}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-getLocalIP}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getLocalIP ()}}
+\label{dtsUtil_8c_8677623ef15346b4b48658e2e65666ad}
+
+
+DTS\_\-GETLOCALIP -- Get the local IP address as a string.
+
+\begin{Desc}
+\item[Returns:]character string of IP, e.g. \char`\"{}127.0.0.1\char`\"{} \end{Desc}
+
+
+References dts\_\-getHostByName(), and dts\_\-resolveHost().
+
+Referenced by dts\_\-hostFrom(), dts\_\-hostTo(), dts\_\-initCopyMode(), dts\_\-isLocal(), dts\_\-loadConfigFile(), dts\_\-openClientSocket(), dts\_\-openServerSocket(), dts\_\-openUDTClientSocket(), dts\_\-queueProcess(), dts\_\-resolveHost(), dts\_\-xferParsePaths(), and dts\_\-xferPushFile().\hypertarget{dtsUtil_8c_8260abd57bb8d5b53fc96019b419101f}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-isTemplate@{dts\_\-isTemplate}}
+\index{dts\_\-isTemplate@{dts\_\-isTemplate}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-isTemplate}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-isTemplate (char $\ast$ {\em s})}}
+\label{dtsUtil_8c_8260abd57bb8d5b53fc96019b419101f}
+
+
+DTS\_\-ISTEMPLATE -- Is a string a pattern template? 
+
+Referenced by dts\_\-Delete(), dts\_\-Dir(), dts\_\-localDelete(), and dts\_\-localDir().\hypertarget{dtsUtil_8c_780a7e2551ef7f8b7c83aab03f48b764}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-localTime@{dts\_\-localTime}}
+\index{dts\_\-localTime@{dts\_\-localTime}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-localTime}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-localTime ()}}
+\label{dtsUtil_8c_780a7e2551ef7f8b7c83aab03f48b764}
+
+
+DTS\_\-LOCALTIME - Generate a local time string. 
+
+Referenced by dts\_\-addControlHistory().\hypertarget{dtsUtil_8c_260fc9809ede865648e7f6ec0f545dc8}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-logtime@{dts\_\-logtime}}
+\index{dts\_\-logtime@{dts\_\-logtime}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-logtime}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-logtime (void)}}
+\label{dtsUtil_8c_260fc9809ede865648e7f6ec0f545dc8}
+
+
+LOGTIME - Generate a time string for the log.
+
+\begin{Desc}
+\item[Returns:]a standard logfile timestring \end{Desc}
+
+
+Referenced by dts\_\-logControl(), and dts\_\-logXFerStats().\hypertarget{dtsUtil_8c_92ff94eb5bea667365621066290fe910}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-patMatch@{dts\_\-patMatch}}
+\index{dts\_\-patMatch@{dts\_\-patMatch}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-patMatch}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-patMatch (char $\ast$ {\em str}, \/  char $\ast$ {\em pattern})}}
+\label{dtsUtil_8c_92ff94eb5bea667365621066290fe910}
+
+
+DTS\_\-PATMATCH -- Match a string against a pattern template. 
+
+Referenced by dts\_\-Dir(), dts\_\-dirSize(), dts\_\-localDir(), and dts\_\-unlink().\hypertarget{dtsUtil_8c_87a72ebfa8ffde676fd4b687d2e9696f}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-pause@{dts\_\-pause}}
+\index{dts\_\-pause@{dts\_\-pause}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-pause}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-pause (void)}}
+\label{dtsUtil_8c_87a72ebfa8ffde676fd4b687d2e9696f}
+
+
+DTS\_\-PAUSE -- Dummy procedure to provide a debugger breakpoint. \hypertarget{dtsUtil_8c_1c0eb0837c8eab0f93bb5caaa7e50a51}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-printHostTable@{dts\_\-printHostTable}}
+\index{dts\_\-printHostTable@{dts\_\-printHostTable}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-printHostTable}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-printHostTable (void)}}
+\label{dtsUtil_8c_1c0eb0837c8eab0f93bb5caaa7e50a51}
+
+
+DTS\_\-PRINTHOSTTAB -- Debug util to print host table. \hypertarget{dtsUtil_8c_5e2fd1d83a78d8da2370957e0dfe0593}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-resolveHost@{dts\_\-resolveHost}}
+\index{dts\_\-resolveHost@{dts\_\-resolveHost}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-resolveHost}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-resolveHost (char $\ast$ {\em hostname})}}
+\label{dtsUtil_8c_5e2fd1d83a78d8da2370957e0dfe0593}
+
+
+DTS\_\-RESOLVEHOST -- Resolve a host name to an IP string.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em hostname}]FQDN hostname \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]character string of IP, e.g. \char`\"{}127.0.0.1\char`\"{} \end{Desc}
+
+
+References dts\_\-cfgNameToIP(), dts\_\-getHostByName(), dts\_\-getLocalIP(), and dts\_\-nameToHost().
+
+Referenced by dts\_\-getLocalIP(), dts\_\-hostCwd(), dts\_\-hostFrom(), dts\_\-loadConfigFile(), dts\_\-loadDefaultConfig(), dts\_\-nameToIP(), dts\_\-queueProcess(), and dts\_\-xferParsePaths().\hypertarget{dtsUtil_8c_c19134d05afcd019bcd606a171ae44b7}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-sigHandler@{dts\_\-sigHandler}}
+\index{dts\_\-sigHandler@{dts\_\-sigHandler}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-sigHandler}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-sigHandler (int {\em sig})}}
+\label{dtsUtil_8c_c19134d05afcd019bcd606a171ae44b7}
+
+
+DTS\_\-SIGHANDLER -- Signal handler for the \hyperlink{structDTS}{DTS} daemon.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em sig}]signal number \end{description}
+\end{Desc}
+
+
+References dtsLog().
+
+Referenced by dtsDaemonize().\hypertarget{dtsUtil_8c_3b05bb3b77ab230138ad6fdc4fc41910}{
+\index{dtsUtil.c@{dtsUtil.c}!dts\_\-UTTime@{dts\_\-UTTime}}
+\index{dts\_\-UTTime@{dts\_\-UTTime}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dts\_\-UTTime}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-UTTime ()}}
+\label{dtsUtil_8c_3b05bb3b77ab230138ad6fdc4fc41910}
+
+
+DTS\_\-UTTIME - Generate a Greenwich Mean time string. \hypertarget{dtsUtil_8c_9b8c06490118b1c3e8c8137010f3ebc4}{
+\index{dtsUtil.c@{dtsUtil.c}!dtsDaemonize@{dtsDaemonize}}
+\index{dtsDaemonize@{dtsDaemonize}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dtsDaemonize}]{\setlength{\rightskip}{0pt plus 5cm}void dtsDaemonize ({\bf DTS} $\ast$ {\em dts})}}
+\label{dtsUtil_8c_9b8c06490118b1c3e8c8137010f3ebc4}
+
+
+DTSDAEMONIZE -- Daemonize the \hyperlink{structDTS}{DTS}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\end{Desc}
+
+
+References dts\_\-connectToMonitor(), dts\_\-sigHandler(), and dtsLog().\hypertarget{dtsUtil_8c_03606f547ccedb5dd5c60dcc09489b59}{
+\index{dtsUtil.c@{dtsUtil.c}!dtsGets@{dtsGets}}
+\index{dtsGets@{dtsGets}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{dtsGets}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dtsGets (char $\ast$ {\em s}, \/  int {\em len}, \/  FILE $\ast$ {\em fp})}}
+\label{dtsUtil_8c_03606f547ccedb5dd5c60dcc09489b59}
+
+
+DTSGETS A smart fgets() function
+
+Read the line; unlike fgets(), we read the entire line but dump characters that go past the end of the buffer. We accept CR, LF, or CR LF for the line endings to be \char`\"{}safe\char`\"{}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]string buffer \item[{\em len}]length of buffer \item[{\em fp}]file descriptor \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]pointer to next string on the stream \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile(), dts\_\-loadControl(), dts\_\-loadDeliveryParams(), and dts\_\-queueComplete().\hypertarget{dtsUtil_8c_4b044c2d69166fb981024d1fcc5ef225}{
+\index{dtsUtil.c@{dtsUtil.c}!measure\_\-start@{measure\_\-start}}
+\index{measure\_\-start@{measure\_\-start}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{measure\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}void measure\_\-start (void)}}
+\label{dtsUtil_8c_4b044c2d69166fb981024d1fcc5ef225}
+
+
+Timer utils. 
+
+Start timer. 
+
+References measure\_\-start\_\-tv.\hypertarget{dtsUtil_8c_0d0705017516a7ada8826a28402beac4}{
+\index{dtsUtil.c@{dtsUtil.c}!measure\_\-stop@{measure\_\-stop}}
+\index{measure\_\-stop@{measure\_\-stop}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{measure\_\-stop}]{\setlength{\rightskip}{0pt plus 5cm}void measure\_\-stop (long {\em transferred})}}
+\label{dtsUtil_8c_0d0705017516a7ada8826a28402beac4}
+
+
+Stop timer and print summary of transfer stats. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em transferred}]number of bytes transferred \end{description}
+\end{Desc}
+
+
+References measure\_\-start\_\-tv.\hypertarget{dtsUtil_8c_c62de5cb46da45d14475dedcf63b03bd}{
+\index{dtsUtil.c@{dtsUtil.c}!transferMB@{transferMB}}
+\index{transferMB@{transferMB}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{transferMB}]{\setlength{\rightskip}{0pt plus 5cm}double transferMB (long {\em fileSize}, \/  int {\em sec}, \/  int {\em usec})}}
+\label{dtsUtil_8c_c62de5cb46da45d14475dedcf63b03bd}
+
+
+Return throughput in megabytes/s. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fileSize}]number of bytes transferred \item[{\em sec}]transfer time seconds \item[{\em usec}]transfer time micro-seconds \end{description}
+\end{Desc}
+
+
+Referenced by dts\_\-endTransfer(), dts\_\-hostFGet(), dts\_\-xferFile(), dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), and dts\_\-xferSendFile().\hypertarget{dtsUtil_8c_280ad0ef1dbcf005d845cef1ebccf0cd}{
+\index{dtsUtil.c@{dtsUtil.c}!transferMb@{transferMb}}
+\index{transferMb@{transferMb}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{transferMb}]{\setlength{\rightskip}{0pt plus 5cm}double transferMb (long {\em fileSize}, \/  int {\em sec}, \/  int {\em usec})}}
+\label{dtsUtil_8c_280ad0ef1dbcf005d845cef1ebccf0cd}
+
+
+Return throughput in megabits/s. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fileSize}]number of bytes transferred \item[{\em sec}]transfer time seconds \item[{\em usec}]transfer time micro-seconds \end{description}
+\end{Desc}
+
+
+Referenced by dts\_\-endTransfer(), dts\_\-xferFile(), dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), and dts\_\-xferSendFile().
+
+\subsection{Variable Documentation}
+\hypertarget{dtsUtil_8c_d0f7d06353e13dc9d4be21d2be8d8a20}{
+\index{dtsUtil.c@{dtsUtil.c}!b64\_\-chars@{b64\_\-chars}}
+\index{b64\_\-chars@{b64\_\-chars}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{b64\_\-chars}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf b64\_\-chars}}}
+\label{dtsUtil_8c_d0f7d06353e13dc9d4be21d2be8d8a20}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim}
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+\end{verbatim}
+\end{Code}
+Characters used for Base64 encoding \hypertarget{dtsUtil_8c_44389d04de4f034d4e950b21976a18f5}{
+\index{dtsUtil.c@{dtsUtil.c}!measure\_\-start\_\-tv@{measure\_\-start\_\-tv}}
+\index{measure\_\-start\_\-tv@{measure\_\-start\_\-tv}!dtsUtil.c@{dtsUtil.c}}
+\subsubsection[{measure\_\-start\_\-tv}]{\setlength{\rightskip}{0pt plus 5cm}struct timeval {\bf measure\_\-start\_\-tv}}}
+\label{dtsUtil_8c_44389d04de4f034d4e950b21976a18f5}
+
+
+Transfer and measurement utilities. 
+
+Referenced by measure\_\-start(), and measure\_\-stop().

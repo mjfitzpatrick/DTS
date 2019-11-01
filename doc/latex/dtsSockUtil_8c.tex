@@ -1,0 +1,303 @@
+\hypertarget{dtsSockUtil_8c}{
+\section{dtsSockUtil.c File Reference}
+\label{dtsSockUtil_8c}\index{dtsSockUtil.c@{dtsSockUtil.c}}
+}
+\hyperlink{structDTS}{DTS} socket utilities.  
+
+
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$sys/select.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsUDT.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}udtc.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsSockUtil_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~0}
+\label{dtsSockUtil_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{dtsSockUtil_8c_63ba7b9916f965cde541ce0db8b4b389}{dts\_\-setNonBlock} (int sock)
+\item 
+void \hyperlink{dtsSockUtil_8c_8b6025ff1d9995e2925bc1b92ec9f957}{dts\_\-setBlock} (int sock)
+\item 
+int \hyperlink{dtsSockUtil_8c_9ea8fc6acb9adb85051c1d315bb4433d}{dts\_\-openServerSocket} (int port)
+\begin{CompactList}\small\item\em Open a socket to be used on the 'server' side. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_277191a31b268b7a69dd1f78c8cc76a4}{dts\_\-testServerSocket} (int port)
+\begin{CompactList}\small\item\em Test whether a server socket is in use. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_63041fe9517df067ef010c8569ae1707}{dts\_\-getOpenPort} (int port, int maxTries)
+\begin{CompactList}\small\item\em Get an open server port. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_c8979317fc16c84d258129c6eeea1427}{dts\_\-openClientSocket} (char $\ast$host, int port, int retry)
+\begin{CompactList}\small\item\em Open a socket to be used on the 'client' side. \item\end{CompactList}\item 
+\hypertarget{dtsSockUtil_8c_ea7e7c1326fdcbc8ddea7683615fe982}{
+int \textbf{dts\_\-openUDTServerSocket} (int port, int rate)}
+\label{dtsSockUtil_8c_ea7e7c1326fdcbc8ddea7683615fe982}
+
+\item 
+int \hyperlink{dtsSockUtil_8c_e8cc48087dff5b28765e1dc49ed6cf20}{dts\_\-openUDTClientSocket} (char $\ast$host, int port, int retry)
+\begin{CompactList}\small\item\em Open a socket to be used on the 'client' side. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_fba12b2495ba9dd8175c80409222c51d}{dts\_\-sockRead} (int fd, void $\ast$vptr, int nbytes)
+\begin{CompactList}\small\item\em Recv exactly \char`\"{}n\char`\"{} bytes from a socket descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_e2d35a7eb30bce58ebf4bb9c5d139a13}{dts\_\-sockWrite} (int fd, void $\ast$vptr, int nbytes)
+\begin{CompactList}\small\item\em Send exactly \char`\"{}n\char`\"{} bytes to a socket descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_6ad8bc0d104122e2b54d8c51c698f63e}{dts\_\-udtRead} (int fd, void $\ast$vptr, long nbytes, int flags)
+\begin{CompactList}\small\item\em Recv exactly \char`\"{}n\char`\"{} bytes from a UDT socket descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsSockUtil_8c_bf651aeb86fa07f122bb1a70db9b89ad}{dts\_\-udtWrite} (int fd, void $\ast$vptr, long nbytes, int flags)
+\begin{CompactList}\small\item\em Send exactly \char`\"{}n\char`\"{} bytes to a UDT socket descriptor. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsSockUtil_8c_90f43ff66249c34fa1e9d1a87f7e0eef}{
+pthread\_\-mutex\_\-t \textbf{cs\_\-mut} = PTHREAD\_\-MUTEX\_\-INITIALIZER}
+\label{dtsSockUtil_8c_90f43ff66249c34fa1e9d1a87f7e0eef}
+
+\item 
+\hypertarget{dtsSockUtil_8c_a5395fbabc3e53792ad85c7ae11181e8}{
+pthread\_\-mutex\_\-t \textbf{ss\_\-mut} = PTHREAD\_\-MUTEX\_\-INITIALIZER}
+\label{dtsSockUtil_8c_a5395fbabc3e53792ad85c7ae11181e8}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} socket utilities. 
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsSockUtil_8c_63041fe9517df067ef010c8569ae1707}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-getOpenPort@{dts\_\-getOpenPort}}
+\index{dts\_\-getOpenPort@{dts\_\-getOpenPort}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-getOpenPort}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getOpenPort (int {\em port}, \/  int {\em maxTries})}}
+\label{dtsSockUtil_8c_63041fe9517df067ef010c8569ae1707}
+
+
+Get an open server port. 
+
+dts\_\-getOpenPort -- Get an open server port. The input port is a high value, if not immediately open we decrement the port up to the max number of attempts.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]initial port number to open (high value) \item[{\em maxTries}]max ports to test \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]open port number \end{Desc}
+
+
+References dts\_\-testServerSocket().\hypertarget{dtsSockUtil_8c_c8979317fc16c84d258129c6eeea1427}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-openClientSocket@{dts\_\-openClientSocket}}
+\index{dts\_\-openClientSocket@{dts\_\-openClientSocket}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-openClientSocket}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-openClientSocket (char $\ast$ {\em host}, \/  int {\em port}, \/  int {\em retry})}}
+\label{dtsSockUtil_8c_c8979317fc16c84d258129c6eeea1427}
+
+
+Open a socket to be used on the 'client' side. 
+
+dts\_\-openClientSocket -- Open a socket to be used on the 'client' side.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host name \item[{\em port}]port number to open \item[{\em retry}]attempt to reconnect? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]socket descriptor \end{Desc}
+
+
+References dts\_\-getHostByName(), and dts\_\-getLocalIP().
+
+Referenced by dts\_\-hostContact(), psReceiveFile(), and psSendFile().\hypertarget{dtsSockUtil_8c_9ea8fc6acb9adb85051c1d315bb4433d}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-openServerSocket@{dts\_\-openServerSocket}}
+\index{dts\_\-openServerSocket@{dts\_\-openServerSocket}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-openServerSocket}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-openServerSocket (int {\em port})}}
+\label{dtsSockUtil_8c_9ea8fc6acb9adb85051c1d315bb4433d}
+
+
+Open a socket to be used on the 'server' side. 
+
+dts\_\-openServerSocket -- Open a socket to be used on the 'server' side.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]port number to open \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]socket descriptor \end{Desc}
+
+
+References dts\_\-getLocalIP(), and dtsErrLog().
+
+Referenced by psReceiveFile(), and psSendFile().\hypertarget{dtsSockUtil_8c_e8cc48087dff5b28765e1dc49ed6cf20}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-openUDTClientSocket@{dts\_\-openUDTClientSocket}}
+\index{dts\_\-openUDTClientSocket@{dts\_\-openUDTClientSocket}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-openUDTClientSocket}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-openUDTClientSocket (char $\ast$ {\em host}, \/  int {\em port}, \/  int {\em retry})}}
+\label{dtsSockUtil_8c_e8cc48087dff5b28765e1dc49ed6cf20}
+
+
+Open a socket to be used on the 'client' side. 
+
+dts\_\-openUDTClientSocket -- Open a socket to be used on the 'client' side.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host name \item[{\em port}]port number to open \item[{\em retry}]attempt to reconnect? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]socket descriptor \end{Desc}
+
+
+References dts\_\-getHostByName(), and dts\_\-getLocalIP().
+
+Referenced by udtReceiveFile(), and udtSendFile().\hypertarget{dtsSockUtil_8c_8b6025ff1d9995e2925bc1b92ec9f957}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-setBlock@{dts\_\-setBlock}}
+\index{dts\_\-setBlock@{dts\_\-setBlock}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-setBlock}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-setBlock (int {\em sock})}}
+\label{dtsSockUtil_8c_8b6025ff1d9995e2925bc1b92ec9f957}
+
+
+DTS\_\-SETBLOCK -- Set a blocking mode on the descriptor. \hypertarget{dtsSockUtil_8c_63ba7b9916f965cde541ce0db8b4b389}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-setNonBlock@{dts\_\-setNonBlock}}
+\index{dts\_\-setNonBlock@{dts\_\-setNonBlock}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-setNonBlock}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-setNonBlock (int {\em sock})}}
+\label{dtsSockUtil_8c_63ba7b9916f965cde541ce0db8b4b389}
+
+
+DTS\_\-SETNONBLOCK -- Set a non-blocking mode on the descriptor. 
+
+Referenced by dts\_\-fileWrite(), dts\_\-sockRead(), dts\_\-sockWrite(), and dts\_\-udtWrite().\hypertarget{dtsSockUtil_8c_fba12b2495ba9dd8175c80409222c51d}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-sockRead@{dts\_\-sockRead}}
+\index{dts\_\-sockRead@{dts\_\-sockRead}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-sockRead}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-sockRead (int {\em fd}, \/  void $\ast$ {\em vptr}, \/  int {\em nbytes})}}
+\label{dtsSockUtil_8c_fba12b2495ba9dd8175c80409222c51d}
+
+
+Recv exactly \char`\"{}n\char`\"{} bytes from a socket descriptor. 
+
+DTS\_\-SOCKREAD -- Read exactly \char`\"{}n\char`\"{} bytes from a socket descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em vptr}]data buffer to be written \item[{\em nbytes}]number of bytes to write \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written \end{Desc}
+
+
+References dts\_\-setNonBlock(), dtsErrLog(), and psock\_\-checksum\_\-policy.
+
+Referenced by psReceiveStripe(), and psSendStripe().\hypertarget{dtsSockUtil_8c_e2d35a7eb30bce58ebf4bb9c5d139a13}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-sockWrite@{dts\_\-sockWrite}}
+\index{dts\_\-sockWrite@{dts\_\-sockWrite}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-sockWrite}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-sockWrite (int {\em fd}, \/  void $\ast$ {\em vptr}, \/  int {\em nbytes})}}
+\label{dtsSockUtil_8c_e2d35a7eb30bce58ebf4bb9c5d139a13}
+
+
+Send exactly \char`\"{}n\char`\"{} bytes to a socket descriptor. 
+
+DTS\_\-SOCKWRITE -- Write exactly \char`\"{}n\char`\"{} bytes to a socket descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em vptr}]data buffer to be written \item[{\em nbytes}]number of bytes to write \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written \end{Desc}
+
+
+References dts\_\-setNonBlock(), dtsErrLog(), and psock\_\-checksum\_\-policy.
+
+Referenced by psReceiveStripe(), and psSendStripe().\hypertarget{dtsSockUtil_8c_277191a31b268b7a69dd1f78c8cc76a4}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-testServerSocket@{dts\_\-testServerSocket}}
+\index{dts\_\-testServerSocket@{dts\_\-testServerSocket}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-testServerSocket}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-testServerSocket (int {\em port})}}
+\label{dtsSockUtil_8c_277191a31b268b7a69dd1f78c8cc76a4}
+
+
+Test whether a server socket is in use. 
+
+dts\_\-testServerSocket -- Test whether a server socket is in use.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em port}]port number to open \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status (0=free, 1=in-use) \end{Desc}
+
+
+Referenced by dts\_\-getOpenPort().\hypertarget{dtsSockUtil_8c_6ad8bc0d104122e2b54d8c51c698f63e}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-udtRead@{dts\_\-udtRead}}
+\index{dts\_\-udtRead@{dts\_\-udtRead}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-udtRead}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-udtRead (int {\em fd}, \/  void $\ast$ {\em vptr}, \/  long {\em nbytes}, \/  int {\em flags})}}
+\label{dtsSockUtil_8c_6ad8bc0d104122e2b54d8c51c698f63e}
+
+
+Recv exactly \char`\"{}n\char`\"{} bytes from a UDT socket descriptor. 
+
+DTS\_\-UDTREAD -- Read exactly \char`\"{}n\char`\"{} bytes from a UDT socket descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em vptr}]data buffer to be written \item[{\em nbytes}]number of bytes to write \item[{\em flags}]option flags \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written \end{Desc}
+
+
+References dtsErrLog(), and udt\_\-checksum\_\-policy.
+
+Referenced by udtReceiveStripe().\hypertarget{dtsSockUtil_8c_bf651aeb86fa07f122bb1a70db9b89ad}{
+\index{dtsSockUtil.c@{dtsSockUtil.c}!dts\_\-udtWrite@{dts\_\-udtWrite}}
+\index{dts\_\-udtWrite@{dts\_\-udtWrite}!dtsSockUtil.c@{dtsSockUtil.c}}
+\subsubsection[{dts\_\-udtWrite}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-udtWrite (int {\em fd}, \/  void $\ast$ {\em vptr}, \/  long {\em nbytes}, \/  int {\em flags})}}
+\label{dtsSockUtil_8c_bf651aeb86fa07f122bb1a70db9b89ad}
+
+
+Send exactly \char`\"{}n\char`\"{} bytes to a UDT socket descriptor. 
+
+DTS\_\-UDTWRITE -- Write exactly \char`\"{}n\char`\"{} bytes to a UDT socket descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em vptr}]data buffer to be written \item[{\em nbytes}]number of bytes to write \item[{\em flags}]option flags \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written \end{Desc}
+
+
+References dts\_\-setNonBlock(), dtsErrLog(), and udt\_\-checksum\_\-policy.
+
+Referenced by udtSendStripe().

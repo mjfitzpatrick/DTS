@@ -1,0 +1,394 @@
+\hypertarget{dtsQueueStat_8c}{
+\section{dtsQueueStat.c File Reference}
+\label{dtsQueueStat_8c}\index{dtsQueueStat.c@{dtsQueueStat.c}}
+}
+\hyperlink{structDTS}{DTS} queue statistics utilities.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsQueueStat_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~(dts\&\&dts $\rightarrow$ debug)}
+\label{dtsQueueStat_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{dtsQueueStat_8c_d49caff1acb225330ec3dbaf3b8e165e}{
+\#define \textbf{QSTAT}~dtsq $\rightarrow$ qstat}
+\label{dtsQueueStat_8c_d49caff1acb225330ec3dbaf3b8e165e}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{dtsQueueStat_8c_8ed9605467b6e497f0fc3c5dc021e266}{dts\_\-qstatInit} (char $\ast$qname, char $\ast$fname, size\_\-t size)
+\begin{CompactList}\small\item\em Initialize the transfer stat struct. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_85b1b1eaeafa322047b6deaddd573dbd}{dts\_\-qstatSetFName} (char $\ast$qname, char $\ast$fname)
+\begin{CompactList}\small\item\em Set the file name being transferred in a queue. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_019174de35475b3ff08de2161ec86994}{dts\_\-qstatSetSize} (char $\ast$qname, size\_\-t size)
+\begin{CompactList}\small\item\em Set the fize of file being transferred in a queue. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_acd4b2c2baf3bff4ff171d4bdd80f9a7}{dts\_\-qstatStart} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the start time of file being transferred in a queue. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_1556a84a5723af598c0ed4f727f4f5f0}{dts\_\-qstatEnd} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the end time of file being transferred in a queue. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_ab1c0b07fdf1a54f0a77395532caa812}{dts\_\-qstatNetStart} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the start time of network transfer time. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_b473eddc99613472c1619c38bbcaadfe}{dts\_\-qstatNetEnd} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the end time of network transfer time. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_da7d30dc8ca90ebee4eba00f3d3f29c5}{dts\_\-qstatDiskStart} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the start time of network transfer time. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_e151b00c4371e90e0437b4c455b9ba78}{dts\_\-qstatDiskEnd} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the end time of network transfer time. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_56820baf4544cf8b32594173dcfc1959}{dts\_\-qstatDlvrStart} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the start time of network transfer time. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_57c876d00183affb75f533762da1b410}{dts\_\-qstatDlvrEnd} (char $\ast$qname)
+\begin{CompactList}\small\item\em Set the end time of network transfer time. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_251a0bf84a7c2ae85b2962bb102755db}{dts\_\-qstatXferStat} (char $\ast$qname, int stat)
+\begin{CompactList}\small\item\em Set the transfer status code. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_266e778a30a8570b21a08fae03a41328}{dts\_\-qstatNetStat} (char $\ast$qname, int stat)
+\begin{CompactList}\small\item\em Set the network transfer status code. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_d8560ba6d26c2d73c24a75e049e9927f}{dts\_\-qstatDlvrStat} (char $\ast$qname, int stat)
+\begin{CompactList}\small\item\em Set the delivery status code. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueStat_8c_75e2bbc5f33fdd3ebc66e0253f2fc77b}{dts\_\-qstatSummary} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$qname)
+\begin{CompactList}\small\item\em Print the transfer summary to the log. \item\end{CompactList}\item 
+\hypertarget{dtsQueueStat_8c_a68f0f850c4c2380c2b1d2d18b9f603e}{
+void \textbf{dts\_\-qstatPrint} (char $\ast$qname)}
+\label{dtsQueueStat_8c_a68f0f850c4c2380c2b1d2d18b9f603e}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsQueueStat_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsQueueStat_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsQueueStat_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsQueueStat_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} queue statistics utilities. 
+
+DTSQUEUESTAT.C -- \hyperlink{structDTS}{DTS} queue statistics utilities.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsQueueStat_8c_e151b00c4371e90e0437b4c455b9ba78}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatDiskEnd@{dts\_\-qstatDiskEnd}}
+\index{dts\_\-qstatDiskEnd@{dts\_\-qstatDiskEnd}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatDiskEnd}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatDiskEnd (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_e151b00c4371e90e0437b4c455b9ba78}
+
+
+Set the end time of network transfer time. 
+
+DTS\_\-QSTATDISKEND -- Set the end time of network transfer time
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueStat_8c_da7d30dc8ca90ebee4eba00f3d3f29c5}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatDiskStart@{dts\_\-qstatDiskStart}}
+\index{dts\_\-qstatDiskStart@{dts\_\-qstatDiskStart}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatDiskStart}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatDiskStart (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_da7d30dc8ca90ebee4eba00f3d3f29c5}
+
+
+Set the start time of network transfer time. 
+
+DTS\_\-QSTATDISKSTART -- Set the start time of network transfer time
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueStat_8c_57c876d00183affb75f533762da1b410}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatDlvrEnd@{dts\_\-qstatDlvrEnd}}
+\index{dts\_\-qstatDlvrEnd@{dts\_\-qstatDlvrEnd}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatDlvrEnd}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatDlvrEnd (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_57c876d00183affb75f533762da1b410}
+
+
+Set the end time of network transfer time. 
+
+DTS\_\-QSTATDISKEND -- Set the end time of network transfer time
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-Deliver(), and dts\_\-Ingest().\hypertarget{dtsQueueStat_8c_56820baf4544cf8b32594173dcfc1959}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatDlvrStart@{dts\_\-qstatDlvrStart}}
+\index{dts\_\-qstatDlvrStart@{dts\_\-qstatDlvrStart}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatDlvrStart}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatDlvrStart (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_56820baf4544cf8b32594173dcfc1959}
+
+
+Set the start time of network transfer time. 
+
+DTS\_\-QSTATDISKSTART -- Set the start time of network transfer time
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-Deliver(), and dts\_\-Ingest().\hypertarget{dtsQueueStat_8c_d8560ba6d26c2d73c24a75e049e9927f}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatDlvrStat@{dts\_\-qstatDlvrStat}}
+\index{dts\_\-qstatDlvrStat@{dts\_\-qstatDlvrStat}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatDlvrStat}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatDlvrStat (char $\ast$ {\em qname}, \/  int {\em stat})}}
+\label{dtsQueueStat_8c_d8560ba6d26c2d73c24a75e049e9927f}
+
+
+Set the delivery status code. 
+
+DTS\_\-QSTATDLVRSTAT -- Set the delivery status code.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \item[{\em stat}]OK or ERR \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-Deliver(), dts\_\-endTransfer(), and dts\_\-Ingest().\hypertarget{dtsQueueStat_8c_1556a84a5723af598c0ed4f727f4f5f0}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatEnd@{dts\_\-qstatEnd}}
+\index{dts\_\-qstatEnd@{dts\_\-qstatEnd}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatEnd}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatEnd (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_1556a84a5723af598c0ed4f727f4f5f0}
+
+
+Set the end time of file being transferred in a queue. 
+
+DTS\_\-QSTATEND -- Set the end time of file being transferred in a queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueStat_8c_8ed9605467b6e497f0fc3c5dc021e266}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatInit@{dts\_\-qstatInit}}
+\index{dts\_\-qstatInit@{dts\_\-qstatInit}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatInit}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatInit (char $\ast$ {\em qname}, \/  char $\ast$ {\em fname}, \/  size\_\-t {\em size})}}
+\label{dtsQueueStat_8c_8ed9605467b6e497f0fc3c5dc021e266}
+
+
+Initialize the transfer stat struct. 
+
+DTS\_\-QSTATINIT -- Initialize the transfer stat struct.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]name of the file \item[{\em qname}]name of the queue \item[{\em size}]size of the file \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-initTransfer().\hypertarget{dtsQueueStat_8c_b473eddc99613472c1619c38bbcaadfe}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatNetEnd@{dts\_\-qstatNetEnd}}
+\index{dts\_\-qstatNetEnd@{dts\_\-qstatNetEnd}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatNetEnd}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatNetEnd (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_b473eddc99613472c1619c38bbcaadfe}
+
+
+Set the end time of network transfer time. 
+
+DTS\_\-QSTATNETEND -- Set the end time of network transfer time
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-xferPullFile(), and dts\_\-xferReceiveFile().\hypertarget{dtsQueueStat_8c_ab1c0b07fdf1a54f0a77395532caa812}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatNetStart@{dts\_\-qstatNetStart}}
+\index{dts\_\-qstatNetStart@{dts\_\-qstatNetStart}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatNetStart}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatNetStart (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_ab1c0b07fdf1a54f0a77395532caa812}
+
+
+Set the start time of network transfer time. 
+
+DTS\_\-QSTATNETSTART -- Set the start time of network transfer time
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-xferPullFile(), and dts\_\-xferReceiveFile().\hypertarget{dtsQueueStat_8c_266e778a30a8570b21a08fae03a41328}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatNetStat@{dts\_\-qstatNetStat}}
+\index{dts\_\-qstatNetStat@{dts\_\-qstatNetStat}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatNetStat}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatNetStat (char $\ast$ {\em qname}, \/  int {\em stat})}}
+\label{dtsQueueStat_8c_266e778a30a8570b21a08fae03a41328}
+
+
+Set the network transfer status code. 
+
+DTS\_\-QSTATNETSTAT -- Set the network transfer status code.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \item[{\em stat}]OK or ERR \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsQueueStat_8c_85b1b1eaeafa322047b6deaddd573dbd}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatSetFName@{dts\_\-qstatSetFName}}
+\index{dts\_\-qstatSetFName@{dts\_\-qstatSetFName}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatSetFName}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatSetFName (char $\ast$ {\em qname}, \/  char $\ast$ {\em fname})}}
+\label{dtsQueueStat_8c_85b1b1eaeafa322047b6deaddd573dbd}
+
+
+Set the file name being transferred in a queue. 
+
+DTS\_\-QSTATSETFNAME -- Set the file name being transferred in a queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]queue name \item[{\em fname}]file name \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueStat_8c_019174de35475b3ff08de2161ec86994}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatSetSize@{dts\_\-qstatSetSize}}
+\index{dts\_\-qstatSetSize@{dts\_\-qstatSetSize}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatSetSize}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatSetSize (char $\ast$ {\em qname}, \/  size\_\-t {\em size})}}
+\label{dtsQueueStat_8c_019174de35475b3ff08de2161ec86994}
+
+
+Set the fize of file being transferred in a queue. 
+
+DTS\_\-QSTATSETSIZE -- Set the fize of file being transferred in a queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]queue name \item[{\em size}]size of the file \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsQueueStat_8c_acd4b2c2baf3bff4ff171d4bdd80f9a7}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatStart@{dts\_\-qstatStart}}
+\index{dts\_\-qstatStart@{dts\_\-qstatStart}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatStart}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatStart (char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_acd4b2c2baf3bff4ff171d4bdd80f9a7}
+
+
+Set the start time of file being transferred in a queue. 
+
+DTS\_\-QSTATSTART -- Set the start time of file being transferred in a queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().
+
+Referenced by dts\_\-initTransfer().\hypertarget{dtsQueueStat_8c_75e2bbc5f33fdd3ebc66e0253f2fc77b}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatSummary@{dts\_\-qstatSummary}}
+\index{dts\_\-qstatSummary@{dts\_\-qstatSummary}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatSummary}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatSummary ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em qname})}}
+\label{dtsQueueStat_8c_75e2bbc5f33fdd3ebc66e0253f2fc77b}
+
+
+Print the transfer summary to the log. 
+
+DTS\_\-QSTATSUMMARY -- Print the transfer summary to the log.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-queueNameFmt(), and dtsLog().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueStat_8c_251a0bf84a7c2ae85b2962bb102755db}{
+\index{dtsQueueStat.c@{dtsQueueStat.c}!dts\_\-qstatXferStat@{dts\_\-qstatXferStat}}
+\index{dts\_\-qstatXferStat@{dts\_\-qstatXferStat}!dtsQueueStat.c@{dtsQueueStat.c}}
+\subsubsection[{dts\_\-qstatXferStat}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-qstatXferStat (char $\ast$ {\em qname}, \/  int {\em stat})}}
+\label{dtsQueueStat_8c_251a0bf84a7c2ae85b2962bb102755db}
+
+
+Set the transfer status code. 
+
+DTS\_\-QSTATXFERSTAT -- Set the transfer status code.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \item[{\em stat}]OK or ERR \end{description}
+\end{Desc}
+
+
+References dts\_\-queueLookup().

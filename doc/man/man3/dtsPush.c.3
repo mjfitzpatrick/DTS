@@ -1,0 +1,174 @@
+.TH "dtsPush.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsPush.c \- \fBDTS\fP Push-Model Transfer Methods.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <netinet/in.h>\fP
+.br
+\fC#include <arpa/inet.h>\fP
+.br
+\fC#include <netdb.h>\fP
+.br
+\fC#include <xmlrpc-c/base.h>\fP
+.br
+\fC#include <xmlrpc-c/client.h>\fP
+.br
+\fC#include <xmlrpc-c/server.h>\fP
+.br
+\fC#include <xmlrpc-c/server_abyss.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsUDT.h'\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_nullHandler\fP ()"
+.br
+.ti -1c
+.RI "int \fBdts_xferPushFile\fP (void *data)"
+.br
+.RI "\fIPush a file from the src to the dest machine. \fP"
+.ti -1c
+.RI "int \fBdts_xferReceiveFile\fP (void *data)"
+.br
+.RI "\fIPush a file from the src to the dest machine. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBthread_sem\fP"
+.br
+.ti -1c
+.RI "int \fBqueue_delay\fP"
+.br
+.ti -1c
+.RI "int \fBfirst_write\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP Push-Model Transfer Methods. 
+
+\fBDTS\fP Push-Model Transfer Methods
+.PP
+The methods defined here are both the client and server-side code needed to implement the 'push' model of data transfer. In this mode, an RPC command is called to push data from the source to the destination machine. The source machine acts as a server, opening the transfer sockets locally before sending a request to the remote machine to receive the file. Once the connection is established, transfer begins. The return status of this method then determines whether the transfer was successful.
+.PP
+A sequence diagram of the process would look something like:
+.PP
+Push Model:
+.PP
+QMgr Host A Host B
+.PP
+(1) ----[Push Msg] ---------->
+.PP
+(2) Socket setup
+.PP
+(3) ----[FileRecieve Msg]----->
+.PP
+(4) <=====[Data Transfer]=====>
+.PP
+(5) <----[Status Return]-------
+.PP
+The 'QMgr' is the Queue Manager which initiates the request on the local machine.
+.PP
+RPC Methods Implemented:
+.PP
+dts_xferPushFile initiate Push transfer of file (src method) dts_xferReceiveFile begin receiving file (dest method)
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_xferPushFile (void * data)"
+.PP
+Push a file from the src to the dest machine. 
+.PP
+DTS_XFERPUSH -- Push a file from the src to the dest machine.
+.PP
+RPC Params: xferId S transfer id method S transfer method fileName S file name fileSize I file size nthreads I num of transfer threads to open srcPort I starting port number destHost S FQDN of destination machine destCmdURL S destination xmlrpc URI
+.PP
+RPC Returns: tsec I transfer time seconds tusec I transfer time micro-seconds status I transfer succeeded (0) or failed (1) ---------------------------------------------------------------------
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+References dts_getLocalIP(), dts_queueFromPath(), dts_queueNameFmt(), dts_semGetVal(), dts_semInit(), dts_semRemove(), dtsErrLog(), dtsLog(), psCollectThreads(), psSendFile(), psSpawnThreads(), transferMB(), transferMb(), udtSendFile(), and udtSpawnThreads().
+.SS "int dts_xferReceiveFile (void * data)"
+.PP
+Push a file from the src to the dest machine. 
+.PP
+DTS_XFERRECEIVEFILE -- Receive a file on the dest machine.
+.PP
+RPC Params: xferId S transfer id fileName S file name fileSize I file size nthreads I num of transfer threads to open srcPort I starting port number srcIP S IP address of caller (string)
+.PP
+RPC Return: 0 transfer succeeded 1 transfer failed ---------------------------------------------------------------------
+.PP
+Receive a file on the dest machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+References dts_qstatNetEnd(), dts_qstatNetStart(), dts_queueFromPath(), dts_queueNameFmt(), dtsLog(), psCollectThreads(), psReceiveFile(), psSpawnThreads(), transferMB(), transferMb(), udtReceiveFile(), and udtSpawnThreads().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

@@ -1,0 +1,72 @@
+.TH "xferContext" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+xferContext \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <dts.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBtmethod\fP"
+.br
+.ti -1c
+.RI "int \fBmodel\fP"
+.br
+.ti -1c
+.RI "int \fBendpoint\fP"
+.br
+.ti -1c
+.RI "void(* \fBinit\fP )(void *data)"
+.br
+.ti -1c
+.RI "void(* \fBxfer\fP )(void *data)"
+.br
+.ti -1c
+.RI "void(* \fBfini\fP )(void *data)"
+.br
+.ti -1c
+.RI "void(* \fBpreproc\fP )(void *data)"
+.br
+.ti -1c
+.RI "void(* \fBpostproc\fP )(void *data)"
+.br
+.ti -1c
+.RI "int \fBport\fP"
+.br
+.ti -1c
+.RI "int \fBnports\fP"
+.br
+.ti -1c
+.RI "int \fBstatus\fP"
+.br
+.ti -1c
+.RI "long \fBfsize\fP"
+.br
+.ti -1c
+.RI "long \fBtransferred\fP"
+.br
+.ti -1c
+.RI "float \fBtput_mb\fP"
+.br
+.ti -1c
+.RI "float \fBtput_MB\fP"
+.br
+.ti -1c
+.RI "float \fBtime\fP"
+.br
+.ti -1c
+.RI "int \fBvalid\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Transfer Context. The context is used to describe the current state of a transfer request, and to hold status information while the transfer is in progress. There is one context per connection, however since 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

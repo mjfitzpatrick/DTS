@@ -1,0 +1,596 @@
+\hypertarget{dtsConfig_8c}{
+\section{dtsConfig.c File Reference}
+\label{dtsConfig_8c}\index{dtsConfig.c@{dtsConfig.c}}
+}
+\hyperlink{structDTS}{DTS} Config File Interface.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$math.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsConfig_8c_d26d77b7d4560b6c70bdbac39890cf3b}{
+\#define \textbf{CFG\_\-DEBUG}~(getenv(\char`\"{}CFG\_\-DBG\char`\"{})!=NULL$|$$|$access(\char`\"{}/tmp/CFG\_\-DBG\char`\"{},F\_\-OK)==0)}
+\label{dtsConfig_8c_d26d77b7d4560b6c70bdbac39890cf3b}
+
+\item 
+\hypertarget{dtsConfig_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~CFG\_\-DEBUG}
+\label{dtsConfig_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{dtsConfig_8c_459d0501adcd3f4118acceb245072ede}{
+\#define \textbf{CON\_\-GLOBAL}~0}
+\label{dtsConfig_8c_459d0501adcd3f4118acceb245072ede}
+
+\item 
+\hypertarget{dtsConfig_8c_cec0fb47909ecba71c9024ff7c43926f}{
+\#define \textbf{CON\_\-DTS}~1}
+\label{dtsConfig_8c_cec0fb47909ecba71c9024ff7c43926f}
+
+\item 
+\hypertarget{dtsConfig_8c_fb72beb6baf56125f091514b2ea50962}{
+\#define \textbf{CON\_\-QUEUE}~2}
+\label{dtsConfig_8c_fb72beb6baf56125f091514b2ea50962}
+
+\item 
+\hypertarget{dtsConfig_8c_d92b37c083844c50a668156d39a8b16e}{
+\#define \textbf{CON\_\-XFER}~3}
+\label{dtsConfig_8c_d92b37c083844c50a668156d39a8b16e}
+
+\item 
+\hypertarget{dtsConfig_8c_937b3367d64dd3d617808e88d6e84f7c}{
+\#define \textbf{CFG\_\-NREQUIRED}~9}
+\label{dtsConfig_8c_937b3367d64dd3d617808e88d6e84f7c}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ \hyperlink{dtsConfig_8c_d038925bb15e30872e2c4889d82b6aa1}{dtsGets} (char $\ast$s, int len, FILE $\ast$fd)
+\item 
+void \hyperlink{dtsConfig_8c_389a5b821f5d2b4e20b7a6e59645bea5}{dts\_\-loadConfigDir} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$cfg, char $\ast$dhost, int dport, char $\ast$droot, int initialize)
+\begin{CompactList}\small\item\em Load the \hyperlink{structDTS}{DTS} configuration file. \item\end{CompactList}\item 
+void \hyperlink{dtsConfig_8c_9e1e56bc6f34a1fe1a8e94f3c197c74f}{dts\_\-loadConfigFile} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$cfg, char $\ast$dhost, int dport, char $\ast$droot, int initialize)
+\begin{CompactList}\small\item\em Load the \hyperlink{structDTS}{DTS} configuration file. \item\end{CompactList}\item 
+int \hyperlink{dtsConfig_8c_4773b579c4bcf1c67a726365a55a814a}{dts\_\-loadDefaultConfig} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$host, int port)
+\item 
+\hyperlink{structdtsQueue}{dtsQueue} $\ast$ \hyperlink{dtsConfig_8c_ea5a35d602804a798afc3a7e3d12cbfe}{dts\_\-newQueue} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\item 
+int \hyperlink{dtsConfig_8c_ead5907474a7fe09cf0a25ac4b9a0acd}{dts\_\-validateQueue} (\hyperlink{structDTS}{DTS} $\ast$dts, \hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq)
+\item 
+int \hyperlink{dtsConfig_8c_587d1cf09032b57454b93c897103e8ba}{dts\_\-getQPort} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$qname, int tport)
+\item 
+void \hyperlink{dtsConfig_8c_a9701d18a4657914290a64612d539011}{dts\_\-printQPorts} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\item 
+int \hyperlink{dtsConfig_8c_faf96c7bc01f8b9a37b23b7030191a04}{dts\_\-validPasswd} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$passwd)
+\begin{CompactList}\small\item\em Validate a passwd against the host. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_e01d451f58d820104d1475e12ca7dbd5}{dts\_\-nameToHost} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$name)
+\begin{CompactList}\small\item\em Convert a \hyperlink{structDTS}{DTS} name to the host. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_0a2a57533302f07e814ce4c905dbcaa1}{dts\_\-nameToIP} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$name)
+\begin{CompactList}\small\item\em Convert a \hyperlink{structDTS}{DTS} name to the host IP. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_1ea31f3ccd808f20a70b2e8e9416b0b3}{dts\_\-cfgNameToHost} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$name)
+\begin{CompactList}\small\item\em Convert a \hyperlink{structDTS}{DTS} name to the host name (2nd method). \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_1e530272f6035d256b03a2a010f31e7d}{dts\_\-cfgNameToIP} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$name)
+\begin{CompactList}\small\item\em Convert a \hyperlink{structDTS}{DTS} name to the host IP (2nd method). \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_305baeebda91742d0128e10ccf20d3cd}{dts\_\-getLocalRoot} ()
+\item 
+int \hyperlink{dtsConfig_8c_e927756a844a723a4f51854f5d90592f}{dts\_\-cfgQType} (char $\ast$s)
+\begin{CompactList}\small\item\em Get the type of queue. \item\end{CompactList}\item 
+int \hyperlink{dtsConfig_8c_ce5973c4cb13c04c117eed50869d4fcd}{dts\_\-cfgQNode} (char $\ast$s)
+\begin{CompactList}\small\item\em Get the node type of queue. \item\end{CompactList}\item 
+int \hyperlink{dtsConfig_8c_a2201861ef52cb543fc14e8cdd2c3d2a}{dts\_\-cfgQMethod} (char $\ast$s)
+\begin{CompactList}\small\item\em Get the queue transfer method. \item\end{CompactList}\item 
+int \hyperlink{dtsConfig_8c_7f1782f360124fcc702e5ccb52f4d154}{dts\_\-cfgQMode} (char $\ast$s)
+\begin{CompactList}\small\item\em Get the trander mode (push or pull). \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_64e76b8c7c5d28914a0c4d9ba2c12e79}{dts\_\-cfgQTypeStr} (int type)
+\begin{CompactList}\small\item\em Convert mode to string name. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_3c4f4a52ded3814305298d65ccb435b9}{dts\_\-cfgQNodeStr} (int node)
+\begin{CompactList}\small\item\em Convert dode to type string name. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_270eb477d144240d2ad87edf403df491}{dts\_\-cfgQMethodStr} (int method)
+\begin{CompactList}\small\item\em Convert method type to string name. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_a5a260ceab890f77768efa361f875bc1}{dts\_\-cfgQModeStr} (int mode)
+\begin{CompactList}\small\item\em Convert mode type to string name. \item\end{CompactList}\item 
+time\_\-t \hyperlink{dtsConfig_8c_da1b08444e39ac19d7f0b1fce527001a}{dts\_\-cfgInterval} (char $\ast$intstr)
+\begin{CompactList}\small\item\em Get a timing interval (in sec) from the config value. \item\end{CompactList}\item 
+time\_\-t \hyperlink{dtsConfig_8c_e86c815bd6bc45367e58940c824e6039}{dts\_\-cfgStartTime} (char $\ast$tstr)
+\begin{CompactList}\small\item\em Get a timing interval (in sec) from the config value. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsConfig_8c_c685bdb723accfd63da40ac825622ec7}{dts\_\-cfgPath} ()
+\item 
+void \hyperlink{dtsConfig_8c_7b090914d81b4fc0c0ddef236bc04d17}{dts\_\-printConfig} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\item 
+char $\ast$ \hyperlink{dtsConfig_8c_8dfac5f5648b1517f2c402772bb33f80}{dts\_\-fmtConfig} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsConfig_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsConfig_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\item 
+\hypertarget{dtsConfig_8c_0cd0101a1be8237c7b4483660ba4bfae}{
+int \textbf{context} = CON\_\-GLOBAL}
+\label{dtsConfig_8c_0cd0101a1be8237c7b4483660ba4bfae}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} Config File Interface. 
+
+DTSCONFIG.C -- \hyperlink{structDTS}{DTS} Config File Interface
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsConfig_8c_da1b08444e39ac19d7f0b1fce527001a}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgInterval@{dts\_\-cfgInterval}}
+\index{dts\_\-cfgInterval@{dts\_\-cfgInterval}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgInterval}]{\setlength{\rightskip}{0pt plus 5cm}time\_\-t dts\_\-cfgInterval (char $\ast$ {\em intstr})}}
+\label{dtsConfig_8c_da1b08444e39ac19d7f0b1fce527001a}
+
+
+Get a timing interval (in sec) from the config value. 
+
+DTS\_\-CFGINTERVAL -- Get a timing interval (in sec) from the config value. Default unit is minutes, intervals may be specified in the form
+
+$<$N$>$\mbox{[}h$|$m$|$s\mbox{]} run every $<$N$>$ (h)ours, (m)in, or (s)ec
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em intstr}]interval value (string type) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]interval in seconds \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_1ea31f3ccd808f20a70b2e8e9416b0b3}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgNameToHost@{dts\_\-cfgNameToHost}}
+\index{dts\_\-cfgNameToHost@{dts\_\-cfgNameToHost}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgNameToHost}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgNameToHost ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em name})}}
+\label{dtsConfig_8c_1ea31f3ccd808f20a70b2e8e9416b0b3}
+
+
+Convert a \hyperlink{structDTS}{DTS} name to the host name (2nd method). 
+
+DTS\_\-CFGNAMETOHOST -- Convert a \hyperlink{structDTS}{DTS} name to the host name (2nd method).
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct \item[{\em name}]\hyperlink{structDTS}{DTS} name string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]host name \end{Desc}
+\hypertarget{dtsConfig_8c_1e530272f6035d256b03a2a010f31e7d}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgNameToIP@{dts\_\-cfgNameToIP}}
+\index{dts\_\-cfgNameToIP@{dts\_\-cfgNameToIP}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgNameToIP}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgNameToIP ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em name})}}
+\label{dtsConfig_8c_1e530272f6035d256b03a2a010f31e7d}
+
+
+Convert a \hyperlink{structDTS}{DTS} name to the host IP (2nd method). 
+
+DTS\_\-CFGNAMETOIP -- Convert a \hyperlink{structDTS}{DTS} name to the host IP (2nd method).
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct \item[{\em name}]\hyperlink{structDTS}{DTS} name string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]IP name \end{Desc}
+
+
+Referenced by dts\_\-resolveHost().\hypertarget{dtsConfig_8c_c685bdb723accfd63da40ac825622ec7}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgPath@{dts\_\-cfgPath}}
+\index{dts\_\-cfgPath@{dts\_\-cfgPath}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgPath}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgPath (void)}}
+\label{dtsConfig_8c_c685bdb723accfd63da40ac825622ec7}
+
+
+DTS\_\-CFGPATH -- Construct a path to a user's \char`\"{}.dts\_\-config\char`\"{} file. 
+
+Referenced by dtsInit().\hypertarget{dtsConfig_8c_a2201861ef52cb543fc14e8cdd2c3d2a}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQMethod@{dts\_\-cfgQMethod}}
+\index{dts\_\-cfgQMethod@{dts\_\-cfgQMethod}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQMethod}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-cfgQMethod (char $\ast$ {\em s})}}
+\label{dtsConfig_8c_a2201861ef52cb543fc14e8cdd2c3d2a}
+
+
+Get the queue transfer method. 
+
+DTS\_\-CFGQMETHOD -- Get the queue transfer method.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]string method name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]method code \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_270eb477d144240d2ad87edf403df491}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQMethodStr@{dts\_\-cfgQMethodStr}}
+\index{dts\_\-cfgQMethodStr@{dts\_\-cfgQMethodStr}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQMethodStr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgQMethodStr (int {\em method})}}
+\label{dtsConfig_8c_270eb477d144240d2ad87edf403df491}
+
+
+Convert method type to string name. 
+
+DTS\_\-CFGQMETHODSTR -- Convert method type to string name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em method}]method type code \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-printQueueCfg(), dts\_\-queueProcess(), and dts\_\-xferFile().\hypertarget{dtsConfig_8c_7f1782f360124fcc702e5ccb52f4d154}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQMode@{dts\_\-cfgQMode}}
+\index{dts\_\-cfgQMode@{dts\_\-cfgQMode}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQMode}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-cfgQMode (char $\ast$ {\em s})}}
+\label{dtsConfig_8c_7f1782f360124fcc702e5ccb52f4d154}
+
+
+Get the trander mode (push or pull). 
+
+DTS\_\-CFGQMODE -- Get the trander mode (push or pull).
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]string mode name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_a5a260ceab890f77768efa361f875bc1}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQModeStr@{dts\_\-cfgQModeStr}}
+\index{dts\_\-cfgQModeStr@{dts\_\-cfgQModeStr}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQModeStr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgQModeStr (int {\em mode})}}
+\label{dtsConfig_8c_a5a260ceab890f77768efa361f875bc1}
+
+
+Convert mode type to string name. 
+
+DTS\_\-CFGMODESTR -- Convert mode type to string name
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em mode}]mode type code \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-printQueueCfg(), and dts\_\-queueProcess().\hypertarget{dtsConfig_8c_ce5973c4cb13c04c117eed50869d4fcd}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQNode@{dts\_\-cfgQNode}}
+\index{dts\_\-cfgQNode@{dts\_\-cfgQNode}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQNode}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-cfgQNode (char $\ast$ {\em s})}}
+\label{dtsConfig_8c_ce5973c4cb13c04c117eed50869d4fcd}
+
+
+Get the node type of queue. 
+
+DTS\_\-CFGQNODE -- Get the node type of queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]string name of queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]queue type \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_3c4f4a52ded3814305298d65ccb435b9}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQNodeStr@{dts\_\-cfgQNodeStr}}
+\index{dts\_\-cfgQNodeStr@{dts\_\-cfgQNodeStr}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQNodeStr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgQNodeStr (int {\em node})}}
+\label{dtsConfig_8c_3c4f4a52ded3814305298d65ccb435b9}
+
+
+Convert dode to type string name. 
+
+DTS\_\-CFGQNODESTR -- Convert node to type string name
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em node}]queue node code \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-nodeStat().\hypertarget{dtsConfig_8c_e927756a844a723a4f51854f5d90592f}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQType@{dts\_\-cfgQType}}
+\index{dts\_\-cfgQType@{dts\_\-cfgQType}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQType}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-cfgQType (char $\ast$ {\em s})}}
+\label{dtsConfig_8c_e927756a844a723a4f51854f5d90592f}
+
+
+Get the type of queue. 
+
+DTS\_\-CFGQTYPE -- Get the type of queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]string name of queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]queue type \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_64e76b8c7c5d28914a0c4d9ba2c12e79}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgQTypeStr@{dts\_\-cfgQTypeStr}}
+\index{dts\_\-cfgQTypeStr@{dts\_\-cfgQTypeStr}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgQTypeStr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-cfgQTypeStr (int {\em type})}}
+\label{dtsConfig_8c_64e76b8c7c5d28914a0c4d9ba2c12e79}
+
+
+Convert mode to string name. 
+
+DTS\_\-CFGQTYPESTR -- Convert mode to string name
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em type}]queue type code \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-printQueueCfg().\hypertarget{dtsConfig_8c_e86c815bd6bc45367e58940c824e6039}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-cfgStartTime@{dts\_\-cfgStartTime}}
+\index{dts\_\-cfgStartTime@{dts\_\-cfgStartTime}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-cfgStartTime}]{\setlength{\rightskip}{0pt plus 5cm}time\_\-t dts\_\-cfgStartTime (char $\ast$ {\em tstr})}}
+\label{dtsConfig_8c_e86c815bd6bc45367e58940c824e6039}
+
+
+Get a timing interval (in sec) from the config value. 
+
+DTS\_\-CFGSTARTTIME -- Convert a start time to equivalent time\_\-t seconds.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em tstr}]start time value (string type) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]interval in seconds \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_8dfac5f5648b1517f2c402772bb33f80}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-fmtConfig@{dts\_\-fmtConfig}}
+\index{dts\_\-fmtConfig@{dts\_\-fmtConfig}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-fmtConfig}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-fmtConfig ({\bf DTS} $\ast$ {\em dts})}}
+\label{dtsConfig_8c_8dfac5f5648b1517f2c402772bb33f80}
+
+
+DTS\_\-FMTCONFIG -- Print Config file info as a formatted string. 
+
+Referenced by dts\_\-Cfg().\hypertarget{dtsConfig_8c_305baeebda91742d0128e10ccf20d3cd}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-getLocalRoot@{dts\_\-getLocalRoot}}
+\index{dts\_\-getLocalRoot@{dts\_\-getLocalRoot}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-getLocalRoot}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getLocalRoot (void)}}
+\label{dtsConfig_8c_305baeebda91742d0128e10ccf20d3cd}
+
+
+Utility routine to get values for the local \hyperlink{structDTS}{DTS} host. 
+
+Referenced by dts\_\-sandboxPath().\hypertarget{dtsConfig_8c_587d1cf09032b57454b93c897103e8ba}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-getQPort@{dts\_\-getQPort}}
+\index{dts\_\-getQPort@{dts\_\-getQPort}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-getQPort}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getQPort ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em qname}, \/  int {\em tport})}}
+\label{dtsConfig_8c_587d1cf09032b57454b93c897103e8ba}
+
+
+DTS\_\-GETQPORT -- Get the next available base port for a transfer queue. If the input port number is already in use we'll search for a new port to use, otherwise we return the input port (i.e. validate it). 
+
+References dtsErrLog().
+
+Referenced by dts\_\-loadConfigFile(), and dts\_\-validateQueue().\hypertarget{dtsConfig_8c_389a5b821f5d2b4e20b7a6e59645bea5}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-loadConfigDir@{dts\_\-loadConfigDir}}
+\index{dts\_\-loadConfigDir@{dts\_\-loadConfigDir}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-loadConfigDir}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-loadConfigDir ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em cfg}, \/  char $\ast$ {\em dhost}, \/  int {\em dport}, \/  char $\ast$ {\em droot}, \/  int {\em initialize})}}
+\label{dtsConfig_8c_389a5b821f5d2b4e20b7a6e59645bea5}
+
+
+Load the \hyperlink{structDTS}{DTS} configuration file. 
+
+DTS\_\-LOADCONFIGDIR -- Load the \hyperlink{structDTS}{DTS} configuration files in a directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em cfg}]\hyperlink{structDTS}{DTS} config directory \item[{\em dhost}]\hyperlink{structDTS}{DTS} daemon host machine \item[{\em dport}]\hyperlink{structDTS}{DTS} daemon port number \item[{\em droot}]\hyperlink{structDTS}{DTS} daemon root directory \item[{\em initialize}]initialize \hyperlink{structDTS}{DTS}? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-isDir(), dts\_\-loadConfigFile(), and dtsLog().
+
+Referenced by dtsInit().\hypertarget{dtsConfig_8c_9e1e56bc6f34a1fe1a8e94f3c197c74f}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-loadConfigFile@{dts\_\-loadConfigFile}}
+\index{dts\_\-loadConfigFile@{dts\_\-loadConfigFile}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-loadConfigFile}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-loadConfigFile ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em cfg}, \/  char $\ast$ {\em dhost}, \/  int {\em dport}, \/  char $\ast$ {\em droot}, \/  int {\em initialize})}}
+\label{dtsConfig_8c_9e1e56bc6f34a1fe1a8e94f3c197c74f}
+
+
+Load the \hyperlink{structDTS}{DTS} configuration file. 
+
+DTS\_\-LOADCONFIGFILE -- Load the \hyperlink{structDTS}{DTS} configuration file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em cfg}]\hyperlink{structDTS}{DTS} config file \item[{\em dhost}]\hyperlink{structDTS}{DTS} daemon host machine \item[{\em dport}]\hyperlink{structDTS}{DTS} daemon port number \item[{\em droot}]\hyperlink{structDTS}{DTS} daemon root directory \item[{\em initialize}]initialize \hyperlink{structDTS}{DTS}? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-cfgInterval(), dts\_\-cfgQMethod(), dts\_\-cfgQMode(), dts\_\-cfgQNode(), dts\_\-cfgQType(), dts\_\-cfgStartTime(), dts\_\-getLocalIP(), dts\_\-getQPort(), dts\_\-loadDefaultConfig(), dts\_\-newQueue(), dts\_\-printConfig(), dts\_\-printQPorts(), dts\_\-resolveHost(), dts\_\-semInitId(), dts\_\-testDeliveryDir(), dts\_\-validateQueue(), dtsGets(), and dtsLog().
+
+Referenced by dts\_\-loadConfigDir(), and dtsInit().\hypertarget{dtsConfig_8c_4773b579c4bcf1c67a726365a55a814a}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-loadDefaultConfig@{dts\_\-loadDefaultConfig}}
+\index{dts\_\-loadDefaultConfig@{dts\_\-loadDefaultConfig}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-loadDefaultConfig}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-loadDefaultConfig ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em host}, \/  int {\em port})}}
+\label{dtsConfig_8c_4773b579c4bcf1c67a726365a55a814a}
+
+
+DTS\_\-LOADDEFAULTCONFIG -- Duh 
+
+References dts\_\-getLocalHost(), and dts\_\-resolveHost().
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_e01d451f58d820104d1475e12ca7dbd5}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-nameToHost@{dts\_\-nameToHost}}
+\index{dts\_\-nameToHost@{dts\_\-nameToHost}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-nameToHost}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-nameToHost ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em name})}}
+\label{dtsConfig_8c_e01d451f58d820104d1475e12ca7dbd5}
+
+
+Convert a \hyperlink{structDTS}{DTS} name to the host. 
+
+DTS\_\-NAMETOHOST -- Convert a \hyperlink{structDTS}{DTS} name to the host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em name}]\hyperlink{structDTS}{DTS} name string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]host name \end{Desc}
+
+
+Referenced by dts\_\-resolveHost().\hypertarget{dtsConfig_8c_0a2a57533302f07e814ce4c905dbcaa1}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-nameToIP@{dts\_\-nameToIP}}
+\index{dts\_\-nameToIP@{dts\_\-nameToIP}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-nameToIP}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-nameToIP ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em name})}}
+\label{dtsConfig_8c_0a2a57533302f07e814ce4c905dbcaa1}
+
+
+Convert a \hyperlink{structDTS}{DTS} name to the host IP. 
+
+DTS\_\-NAMETOIP -- Convert a \hyperlink{structDTS}{DTS} name to the host IP.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em name}]\hyperlink{structDTS}{DTS} name string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]IP string \end{Desc}
+
+
+References dts\_\-resolveHost().\hypertarget{dtsConfig_8c_ea5a35d602804a798afc3a7e3d12cbfe}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-newQueue@{dts\_\-newQueue}}
+\index{dts\_\-newQueue@{dts\_\-newQueue}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-newQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dtsQueue}$\ast$ dts\_\-newQueue ({\bf DTS} $\ast$ {\em dts})}}
+\label{dtsConfig_8c_ea5a35d602804a798afc3a7e3d12cbfe}
+
+
+DTS\_\-NEWQUEUE -- Get a new \hyperlink{structDTS}{DTS} queue structure and fill in the defaults. 
+
+References dts\_\-getLocalHost().
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_7b090914d81b4fc0c0ddef236bc04d17}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-printConfig@{dts\_\-printConfig}}
+\index{dts\_\-printConfig@{dts\_\-printConfig}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-printConfig}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-printConfig ({\bf DTS} $\ast$ {\em dts})}}
+\label{dtsConfig_8c_7b090914d81b4fc0c0ddef236bc04d17}
+
+
+DTS\_\-PRINTCONFIG -- Print Config file info. 
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_a9701d18a4657914290a64612d539011}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-printQPorts@{dts\_\-printQPorts}}
+\index{dts\_\-printQPorts@{dts\_\-printQPorts}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-printQPorts}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-printQPorts ({\bf DTS} $\ast$ {\em dts})}}
+\label{dtsConfig_8c_a9701d18a4657914290a64612d539011}
+
+
+DTS\_\-GETQPORT -- Get the next available base port for a transfer queue. If the input port number is already in use we'll search for a new port to use, otherwise we return the input port (i.e. validate it). 
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_ead5907474a7fe09cf0a25ac4b9a0acd}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-validateQueue@{dts\_\-validateQueue}}
+\index{dts\_\-validateQueue@{dts\_\-validateQueue}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-validateQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-validateQueue ({\bf DTS} $\ast$ {\em dts}, \/  {\bf dtsQueue} $\ast$ {\em dtsq})}}
+\label{dtsConfig_8c_ead5907474a7fe09cf0a25ac4b9a0acd}
+
+
+DTS\_\-VALIDATEQUEUE -- Validate the queue structure. 
+
+References dts\_\-getQPort().
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsConfig_8c_faf96c7bc01f8b9a37b23b7030191a04}{
+\index{dtsConfig.c@{dtsConfig.c}!dts\_\-validPasswd@{dts\_\-validPasswd}}
+\index{dts\_\-validPasswd@{dts\_\-validPasswd}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dts\_\-validPasswd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-validPasswd ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em passwd})}}
+\label{dtsConfig_8c_faf96c7bc01f8b9a37b23b7030191a04}
+
+
+Validate a passwd against the host. 
+
+DTS\_\-VALIDPASSWD -- Validate a passwd against the host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em passwd}]passwd to be checked \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-abortDTS(), dts\_\-Delete(), and dts\_\-shutdownDTS().\hypertarget{dtsConfig_8c_d038925bb15e30872e2c4889d82b6aa1}{
+\index{dtsConfig.c@{dtsConfig.c}!dtsGets@{dtsGets}}
+\index{dtsGets@{dtsGets}!dtsConfig.c@{dtsConfig.c}}
+\subsubsection[{dtsGets}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dtsGets (char $\ast$ {\em s}, \/  int {\em len}, \/  FILE $\ast$ {\em fp})}}
+\label{dtsConfig_8c_d038925bb15e30872e2c4889d82b6aa1}
+
+
+DTSGETS A smart fgets() function
+
+Read the line; unlike fgets(), we read the entire line but dump characters that go past the end of the buffer. We accept CR, LF, or CR LF for the line endings to be \char`\"{}safe\char`\"{}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]string buffer \item[{\em len}]length of buffer \item[{\em fp}]file descriptor \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]pointer to next string on the stream \end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile(), dts\_\-loadControl(), dts\_\-loadDeliveryParams(), and dts\_\-queueComplete().

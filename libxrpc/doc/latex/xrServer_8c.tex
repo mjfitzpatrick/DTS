@@ -1,0 +1,174 @@
+\hypertarget{xrServer_8c}{
+\section{xrServer.c File Reference}
+\label{xrServer_8c}\index{xrServer.c@{xrServer.c}}
+}
+Procedures used to implement an XML-RPC server.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$sys/syscall.h$>$}\par
+{\tt \#include $<$xmlrpc-c/base.h$>$}\par
+{\tt \#include $<$xmlrpc-c/client.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server\_\-abyss.h$>$}\par
+{\tt \#include $<$xmlrpc-c/abyss.h$>$}\par
+{\tt \#include \char`\"{}xrpcP.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrServer_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~0}
+\label{xrServer_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{xrServer_8c_6b84756475de396349ba3436e919662c}{
+\#define \textbf{SRVR\_\-DEBUG}~(getenv(\char`\"{}SRVR\_\-DBG\char`\"{})!=NULL$|$$|$access(\char`\"{}/tmp/SRVR\_\-DBG\char`\"{},F\_\-OK)==0)}
+\label{xrServer_8c_6b84756475de396349ba3436e919662c}
+
+\item 
+\hypertarget{xrServer_8c_24cae8dddc5a3c2ada4aa2ad210130b2}{
+\#define \textbf{SINGLE\_\-RUN\_\-SERVER}~1}
+\label{xrServer_8c_24cae8dddc5a3c2ada4aa2ad210130b2}
+
+\item 
+\hypertarget{xrServer_8c_50f84a08a6ef591e7db26917cb6d98cf}{
+\#define \textbf{SZ\_\-CALL\_\-RING}~1024}
+\label{xrServer_8c_50f84a08a6ef591e7db26917cb6d98cf}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrServer_8c_34f22549d8008c08819534ffe46f3166}{
+int \textbf{xr\_\-createServer} (char $\ast$path, int port, char $\ast$logfile)}
+\label{xrServer_8c_34f22549d8008c08819534ffe46f3166}
+
+\item 
+\hypertarget{xrServer_8c_c819087f1170888bdfb593f3ac16f6da}{
+int \textbf{xr\_\-addServerMethod} (char $\ast$name, void $\ast$method, void $\ast$userData)}
+\label{xrServer_8c_c819087f1170888bdfb593f3ac16f6da}
+
+\item 
+\hypertarget{xrServer_8c_3e9bd94b6c2193efba9cebb23dfd90b1}{
+int \textbf{xr\_\-removeServerMethod} (char $\ast$name)}
+\label{xrServer_8c_3e9bd94b6c2193efba9cebb23dfd90b1}
+
+\item 
+\hypertarget{xrServer_8c_d21c3561b176ba1bda6052804157fc1a}{
+void \textbf{xr\_\-setServerParam} (char $\ast$param, void $\ast$value)}
+\label{xrServer_8c_d21c3561b176ba1bda6052804157fc1a}
+
+\item 
+\hypertarget{xrServer_8c_98196da5ba5e815b01b3edfb84b7eb66}{
+int \textbf{xr\_\-startServerThread} ()}
+\label{xrServer_8c_98196da5ba5e815b01b3edfb84b7eb66}
+
+\item 
+\hypertarget{xrServer_8c_2e1f650901fc9a95a7d2b8badff242fc}{
+void \textbf{xr\_\-killServer} ()}
+\label{xrServer_8c_2e1f650901fc9a95a7d2b8badff242fc}
+
+\item 
+\hypertarget{xrServer_8c_4b219195aa95713bbc1a808b36b05e57}{
+int \textbf{xr\_\-startServer} ()}
+\label{xrServer_8c_4b219195aa95713bbc1a808b36b05e57}
+
+\item 
+\hypertarget{xrServer_8c_c46f24c2975ae33f54e6a64165065676}{
+int \textbf{xr\_\-shutdownServer} ()}
+\label{xrServer_8c_c46f24c2975ae33f54e6a64165065676}
+
+\item 
+\hypertarget{xrServer_8c_cc44370f904ceee4bdb7c02188823ecc}{
+void \textbf{xr\_\-setShutdownLevel} (int level)}
+\label{xrServer_8c_cc44370f904ceee4bdb7c02188823ecc}
+
+\item 
+int \hyperlink{xrServer_8c_738c94629e91a2c7e6c8daf302e908b2}{xr\_\-requestAbort} (void $\ast$data)
+\item 
+\hypertarget{xrServer_8c_0a346a55deda48ee0f00883c83e7c85c}{
+xmlrpc\_\-value $\ast$ \textbf{test\_\-ping} (xmlrpc\_\-env $\ast$const envP, xmlrpc\_\-value $\ast$const paramArrayP, void $\ast$const serverInfo, void $\ast$const channelInfo)}
+\label{xrServer_8c_0a346a55deda48ee0f00883c83e7c85c}
+
+\item 
+\hypertarget{xrServer_8c_75d9ec8b44907549cd92694bcb10e039}{
+void \textbf{xr\_\-atexit} (void)}
+\label{xrServer_8c_75d9ec8b44907549cd92694bcb10e039}
+
+\item 
+void \hyperlink{xrServer_8c_e0e8688beeff611d1fdc309c9c347ca7}{xr\_\-sigShutdown} (int sig)
+\item 
+\hypertarget{xrServer_8c_129ee4699a929bb19c5a1dc75c11b441}{
+void \textbf{xr\_\-sigAbort} (int sig)}
+\label{xrServer_8c_129ee4699a929bb19c5a1dc75c11b441}
+
+\item 
+\hypertarget{xrServer_8c_4a3cac32710a1dd6b9f2f1dfaa0a9f17}{
+void \textbf{xr\_\-setSigHandler} (int sig, sighandler\_\-t handler)}
+\label{xrServer_8c_4a3cac32710a1dd6b9f2f1dfaa0a9f17}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrServer_8c_c92fbdd535c6be9a672c8faead9d0570}{
+int \textbf{res\_\-anum} = -1}
+\label{xrServer_8c_c92fbdd535c6be9a672c8faead9d0570}
+
+\item 
+\hypertarget{xrServer_8c_46b3555f351b18f2d79c1061446f664e}{
+int \textbf{res\_\-snum} = -1}
+\label{xrServer_8c_46b3555f351b18f2d79c1061446f664e}
+
+\item 
+\hypertarget{xrServer_8c_50a083301d9a6d37c9b39e1a1731440c}{
+int \textbf{svr\_\-done} = 0}
+\label{xrServer_8c_50a083301d9a6d37c9b39e1a1731440c}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+Procedures used to implement an XML-RPC server. 
+
+XRSERVER.C
+
+Procedures used to implement an XML-RPC server in an application. To do this, we keep a local registry of method names and functions and rely on a default method to invoke the procedure using a common function prototype.
+
+\hyperlink{structServer}{Server} methods:
+
+xr\_\-createServer (path, port, logfile) xr\_\-addServerMethod (name, $\ast$method, $\ast$userData) xr\_\-removeServerMethod (name) xr\_\-setServerParam (param, $\ast$value)
+
+xr\_\-startServerThread () // never returns xr\_\-shutdownServer ()
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{xrServer_8c_738c94629e91a2c7e6c8daf302e908b2}{
+\index{xrServer.c@{xrServer.c}!xr\_\-requestAbort@{xr\_\-requestAbort}}
+\index{xr\_\-requestAbort@{xr\_\-requestAbort}!xrServer.c@{xrServer.c}}
+\subsubsection[{xr\_\-requestAbort}]{\setlength{\rightskip}{0pt plus 5cm}int xr\_\-requestAbort (void $\ast$ {\em data})}}
+\label{xrServer_8c_738c94629e91a2c7e6c8daf302e908b2}
+
+
+XR\_\-REQUESTABORT -- Issue an abort request. You make this run by executing the local system method 'sys.abort'. \hypertarget{xrServer_8c_e0e8688beeff611d1fdc309c9c347ca7}{
+\index{xrServer.c@{xrServer.c}!xr\_\-sigShutdown@{xr\_\-sigShutdown}}
+\index{xr\_\-sigShutdown@{xr\_\-sigShutdown}!xrServer.c@{xrServer.c}}
+\subsubsection[{xr\_\-sigShutdown}]{\setlength{\rightskip}{0pt plus 5cm}void xr\_\-sigShutdown (int {\em sig})}}
+\label{xrServer_8c_e0e8688beeff611d1fdc309c9c347ca7}
+
+
+\hyperlink{structServer}{Server} methods to handle shutdown requests.
+
+typedef void ($\ast$sighandler\_\-t)(int); 

@@ -1,0 +1,1622 @@
+.TH "dtsCommands.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsCommands.c \- Client-callable \fBDTS\fP commands.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   CMD_DEBUG"
+.br
+.ti -1c
+.RI "#define \fBMAX_TRIES\fP   5"
+.br
+.ti -1c
+.RI "#define \fBMAX_TRIES\fP   5"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdts_cmdInit\fP ()"
+.br
+.ti -1c
+.RI "int \fBdts_getClient\fP (char *host)"
+.br
+.ti -1c
+.RI "int \fBdts_hostAccess\fP (char *host, char *path, int mode)"
+.br
+.RI "\fICheck file access on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "char * \fBdts_hostCat\fP (char *host, char *fname)"
+.br
+.RI "\fICat a file. \fP"
+.ti -1c
+.RI "int \fBdts_hostChecksum\fP (char *host, char *fname, unsigned int *sum32, unsigned int *crc, char **md5)"
+.br
+.ti -1c
+.RI "int \fBdts_hostCopy\fP (char *host, char *old, char *new)"
+.br
+.RI "\fICopy a file on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "char * \fBdts_hostCfg\fP (char *host, int quiet)"
+.br
+.ti -1c
+.RI "int \fBdts_hostChmod\fP (char *host, char *path, mode_t mode)"
+.br
+.RI "\fIChange the mode of a file on a remote \fBDTS\fP. \fP"
+.ti -1c
+.RI "char * \fBdts_hostCwd\fP (char *host)"
+.br
+.RI "\fIGet the cwd of the \fBDTS\fP host. \fP"
+.ti -1c
+.RI "int \fBdts_hostDel\fP (char *host, char *path, char *passwd, int recursive)"
+.br
+.RI "\fIDelete a file on a \fBDTS\fP host. \fP"
+.ti -1c
+.RI "char * \fBdts_hostDir\fP (char *host, char *path, int lsLong)"
+.br
+.RI "\fIGet a directory listing from a \fBDTS\fP host. \fP"
+.ti -1c
+.RI "char * \fBdts_hostDestDir\fP (char *host, char *qname)"
+.br
+.RI "\fIGet a listing for a queue's delivery directory. \fP"
+.ti -1c
+.RI "int \fBdts_hostIsDir\fP (char *host, char *path)"
+.br
+.RI "\fITest whether the given path is a directory. \fP"
+.ti -1c
+.RI "int \fBdts_hostDiskFree\fP (char *host, char *path)"
+.br
+.RI "\fIGet the space available on the give containing a specified path. \fP"
+.ti -1c
+.RI "int \fBdts_hostDiskUsed\fP (char *host, char *path)"
+.br
+.RI "\fIGet the space available on the give containing a specified path. \fP"
+.ti -1c
+.RI "char * \fBdts_hostEcho\fP (char *host, char *str)"
+.br
+.RI "\fIHave a host \fBDTS\fP machine echo a string. \fP"
+.ti -1c
+.RI "long \fBdts_hostFSize\fP (char *host, char *path)"
+.br
+.RI "\fIGet a file size on a remote \fBDTS\fP host. \fP"
+.ti -1c
+.RI "long \fBdts_hostFMode\fP (char *host, char *path)"
+.br
+.RI "\fIGet a file mode on a remote \fBDTS\fP host. \fP"
+.ti -1c
+.RI "int \fBdts_hostFTime\fP (char *host, char *path, char *mode)"
+.br
+.RI "\fIGet a file time on a remote \fBDTS\fP host. \fP"
+.ti -1c
+.RI "int \fBdts_hostFGet\fP (char *host, char *fname, char *local, int blk)"
+.br
+.RI "\fIGet a remote file to a local file. \fP"
+.ti -1c
+.RI "int \fBdts_hostMkdir\fP (char *host, char *path)"
+.br
+.RI "\fIMake a directory on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostPoke\fP (char *host)"
+.br
+.RI "\fIPoke a host \fBDTS\fP machine, i.e. ping w/out a restart. \fP"
+.ti -1c
+.RI "int \fBdts_hostPing\fP (char *host)"
+.br
+.RI "\fIPing a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostPingSleep\fP (char *host, int time)"
+.br
+.RI "\fIPing a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostSvrPing\fP (char *host, int time)"
+.br
+.ti -1c
+.RI "char * \fBdts_hostPingStr\fP (char *host)"
+.br
+.RI "\fIPing a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostPingArray\fP (char *host)"
+.br
+.RI "\fIPing a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostRemotePing\fP (char *local, char *remote)"
+.br
+.RI "\fITell one machine to ping another. \fP"
+.ti -1c
+.RI "int \fBdts_hostPrealloc\fP (char *host, char *path, long size)"
+.br
+.RI "\fIPrealloc space on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostRename\fP (char *host, char *old, char *new)"
+.br
+.RI "\fIRename a file on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostStat\fP (char *host, char *path, struct stat *st)"
+.br
+.RI "\fIUpdate access time on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetRoot\fP (char *host, char *path)"
+.br
+.RI "\fISet the root directory of a \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetDbg\fP (char *host, char *flag)"
+.br
+.RI "\fISet a debug flag on a \fBDTS\fP node. \fP"
+.ti -1c
+.RI "int \fBdts_hostUnsetDbg\fP (char *host, char *flag)"
+.br
+.RI "\fIUnset a debug flag on the \fBDTS\fP node. \fP"
+.ti -1c
+.RI "int \fBdts_hostTouch\fP (char *host, char *path)"
+.br
+.RI "\fIUpdate access time on a host \fBDTS\fP machine. \fP"
+.ti -1c
+.RI "unsigned char * \fBdts_hostRead\fP (char *host, char *fname, int offset, int sz, int *retnb)"
+.br
+.RI "\fIRead a chunk from a file. \fP"
+.ti -1c
+.RI "char * \fBdts_hostSrc\fP (char *host, char *qname)"
+.br
+.RI "\fIGet the source of the named queue. \fP"
+.ti -1c
+.RI "char * \fBdts_hostDest\fP (char *host, char *qname)"
+.br
+.RI "\fIGet the destination of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostStartQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIStart the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostShutdownQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIShutdown the named queue. \fP"
+.ti -1c
+.RI "char * \fBdts_hostPrintQueueCfg\fP (char *host, char *qname)"
+.br
+.RI "\fIPrint the configuration of the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostGetQueueStat\fP (char *host, char *qname)"
+.br
+.RI "\fIGet the status flag on the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetQueueStat\fP (char *host, char *qname, int val)"
+.br
+.RI "\fISet the status flag on the named queue. \fP"
+.ti -1c
+.RI "char * \fBdts_hostGetQueueDir\fP (char *host, char *qname)"
+.br
+.RI "\fIGet the queue deliverDirectory. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetQueueDir\fP (char *host, char *qname, char *dir)"
+.br
+.RI "\fISet the queue deliveryDir. \fP"
+.ti -1c
+.RI "char * \fBdts_hostGetQueueCmd\fP (char *host, char *qname)"
+.br
+.RI "\fIGet the queue deliverCmd. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetQueueCmd\fP (char *host, char *qname, char *cmd)"
+.br
+.RI "\fISet the queue deliveryCmd. \fP"
+.ti -1c
+.RI "char * \fBdts_hostGetCopyDir\fP (char *host)"
+.br
+.RI "\fIGet the \fBDTS\fP copy directory. \fP"
+.ti -1c
+.RI "int \fBdts_hostExecCmd\fP (char *host, char *ewd, char *cmd)"
+.br
+.RI "\fIExecute the given command. \fP"
+.ti -1c
+.RI "int \fBdts_hostStopQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIStop the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostFlushQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIStop the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostPokeQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIPoke the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostPauseQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIPause the named queue. \fP"
+.ti -1c
+.RI "char * \fBdts_hostListQueue\fP (char *host, char *qname)"
+.br
+.RI "\fIList the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetQueueCount\fP (char *host, char *qname, int count)"
+.br
+.RI "\fISet the pending count for the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostGetQueueCount\fP (char *host, char *qname)"
+.br
+.RI "\fIGet the pending count for the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostAbort\fP (char *host, char *passwd)"
+.br
+.RI "\fIJust freakin' die. \fP"
+.ti -1c
+.RI "int \fBdts_hostContact\fP (char *host)"
+.br
+.RI "\fIAttempt to contact/start the remote \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBdts_hostShutdown\fP (char *host, char *passwd)"
+.br
+.RI "\fIJust freakin' die. \fP"
+.ti -1c
+.RI "int \fBdts_hostSet\fP (char *host, char *class, char *key, char *val)"
+.br
+.RI "\fISet a value on the remote host. \fP"
+.ti -1c
+.RI "char * \fBdts_hostGet\fP (char *host, char *class, char *key)"
+.br
+.RI "\fIGet a value from the remote host. \fP"
+.ti -1c
+.RI "int \fBdts_hostUpStats\fP (char *host, char *qname, \fBxferStat\fP *xfs)"
+.br
+.RI "\fIUpdate the transfer statistics. \fP"
+.ti -1c
+.RI "int \fBdts_hostNodeStat\fP (char *host, char *qname, int errs, nodeStat *ns)"
+.br
+.ti -1c
+.RI "int \fBdts_isLocal\fP (char *host)"
+.br
+.RI "\fIIs the given host the local machine? \fP"
+.ti -1c
+.RI "int \fBdts_closeClient\fP (int client)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Client-callable \fBDTS\fP commands. 
+
+DTSCOMMANDS.C -- Client-callable \fBDTS\fP commands.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_closeClient (int client)"
+.PP
+DTS_CLOSECLIENT - Close a client handle for the given host. 
+.PP
+Referenced by dts_hostAbort(), dts_hostAccess(), dts_hostCat(), dts_hostChmod(), dts_hostCopy(), dts_hostCwd(), dts_hostDel(), dts_hostDest(), dts_hostDestDir(), dts_hostDir(), dts_hostDiskFree(), dts_hostDiskUsed(), dts_hostEcho(), dts_hostEndTransfer(), dts_hostExecCmd(), dts_hostFGet(), dts_hostFlushQueue(), dts_hostFMode(), dts_hostFSize(), dts_hostFTime(), dts_hostGet(), dts_hostGetCopyDir(), dts_hostGetQueueCmd(), dts_hostGetQueueCount(), dts_hostGetQueueDir(), dts_hostGetQueueStat(), dts_hostInitTransfer(), dts_hostIsDir(), dts_hostListQueue(), dts_hostMkdir(), dts_hostPauseQueue(), dts_hostPing(), dts_hostPingArray(), dts_hostPingSleep(), dts_hostPingStr(), dts_hostPoke(), dts_hostPokeQueue(), dts_hostPrealloc(), dts_hostPrintQueueCfg(), dts_hostQueueAccept(), dts_hostQueueComplete(), dts_hostQueueRelease(), dts_hostQueueValid(), dts_hostRead(), dts_hostRemotePing(), dts_hostRename(), dts_hostSet(), dts_hostSetDbg(), dts_hostSetQueueCmd(), dts_hostSetQueueControl(), dts_hostSetQueueCount(), dts_hostSetQueueDir(), dts_hostSetQueueStat(), dts_hostSetRoot(), dts_hostShutdown(), dts_hostShutdownQueue(), dts_hostSrc(), dts_hostStartQueue(), dts_hostStat(), dts_hostStopQueue(), dts_hostTouch(), dts_hostUnsetDbg(), dts_hostUpStats(), dts_PingSleep(), dts_xferFile(), dtsLog(), dtsLogMsg(), and dtsLogStat().
+.SS "void dts_cmdInit ()"
+.PP
+DTS_CMDINIT - Initialize the command interface. 
+.PP
+Referenced by dts_hostAbort(), dts_hostAccess(), dts_hostCat(), dts_hostChmod(), dts_hostCopy(), dts_hostCwd(), dts_hostDel(), dts_hostDest(), dts_hostDestDir(), dts_hostDir(), dts_hostDiskFree(), dts_hostDiskUsed(), dts_hostEcho(), dts_hostEndTransfer(), dts_hostExecCmd(), dts_hostFGet(), dts_hostFlushQueue(), dts_hostFMode(), dts_hostFrom(), dts_hostFSize(), dts_hostFTime(), dts_hostGet(), dts_hostGetCopyDir(), dts_hostGetQueueCmd(), dts_hostGetQueueCount(), dts_hostGetQueueDir(), dts_hostGetQueueStat(), dts_hostInitTransfer(), dts_hostIsDir(), dts_hostListQueue(), dts_hostMkdir(), dts_hostPauseQueue(), dts_hostPing(), dts_hostPingArray(), dts_hostPingSleep(), dts_hostPingStr(), dts_hostPoke(), dts_hostPokeQueue(), dts_hostPrealloc(), dts_hostPrintQueueCfg(), dts_hostQueueAccept(), dts_hostQueueComplete(), dts_hostQueueRelease(), dts_hostQueueValid(), dts_hostRead(), dts_hostRemotePing(), dts_hostRename(), dts_hostSet(), dts_hostSetDbg(), dts_hostSetQueueCmd(), dts_hostSetQueueControl(), dts_hostSetQueueCount(), dts_hostSetQueueDir(), dts_hostSetQueueStat(), dts_hostSetRoot(), dts_hostShutdown(), dts_hostShutdownQueue(), dts_hostSrc(), dts_hostStartQueue(), dts_hostStat(), dts_hostStopQueue(), dts_hostTo(), dts_hostTouch(), dts_hostUnsetDbg(), and dts_hostUpStats().
+.SS "int dts_getClient (char * host)"
+.PP
+DTS_GETCLIENT - Get a client handle for the given host. 
+.PP
+Referenced by dts_hostAbort(), dts_hostAccess(), dts_hostCat(), dts_hostChmod(), dts_hostCopy(), dts_hostCwd(), dts_hostDel(), dts_hostDest(), dts_hostDestDir(), dts_hostDir(), dts_hostDiskFree(), dts_hostDiskUsed(), dts_hostEcho(), dts_hostEndTransfer(), dts_hostExecCmd(), dts_hostFGet(), dts_hostFlushQueue(), dts_hostFMode(), dts_hostFSize(), dts_hostFTime(), dts_hostGet(), dts_hostGetCopyDir(), dts_hostGetQueueCmd(), dts_hostGetQueueCount(), dts_hostGetQueueDir(), dts_hostGetQueueStat(), dts_hostInitTransfer(), dts_hostIsDir(), dts_hostListQueue(), dts_hostMkdir(), dts_hostPauseQueue(), dts_hostPing(), dts_hostPingArray(), dts_hostPingSleep(), dts_hostPingStr(), dts_hostPoke(), dts_hostPokeQueue(), dts_hostPrealloc(), dts_hostPrintQueueCfg(), dts_hostQueueAccept(), dts_hostQueueComplete(), dts_hostQueueRelease(), dts_hostQueueValid(), dts_hostRead(), dts_hostRemotePing(), dts_hostRename(), dts_hostSet(), dts_hostSetDbg(), dts_hostSetQueueCmd(), dts_hostSetQueueControl(), dts_hostSetQueueCount(), dts_hostSetQueueDir(), dts_hostSetQueueStat(), dts_hostSetRoot(), dts_hostShutdown(), dts_hostShutdownQueue(), dts_hostSrc(), dts_hostStartQueue(), dts_hostStat(), dts_hostStopQueue(), dts_hostTouch(), dts_hostUnsetDbg(), dts_hostUpStats(), dts_PingSleep(), dts_xferFile(), dtsLog(), dtsLogMsg(), and dtsLogStat().
+.SS "int dts_hostAbort (char * host, char * passwd)"
+.PP
+Just freakin' die. 
+.PP
+DTS_HOSTABORT -- Exit the \fBDTS\fP without prejudice.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpasswd\fP \fBDTS\fP host passwd 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostAccess (char * host, char * path, int mode)"
+.PP
+Check file access on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTACCESS -- Check file access on a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path name to be checked 
+.br
+\fImode\fP access mode (R_OK|W_OK|X_OK, default F_OK) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if access allowed/file exists 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_hostFrom().
+.SS "char* dts_hostCat (char * host, char * fname)"
+.PP
+Cat a file. 
+.PP
+DTS_HOSTCAT -- Cat a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIfname\fP file name to be read 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Current working dir of \fBDTS\fP host 
+.RE
+.PP
+
+.PP
+References base64_decode(), dts_closeClient(), dts_cmdInit(), dts_getClient(), and dts_hostFSize().
+.SS "int dts_hostChmod (char * host, char * path, mode_t mode)"
+.PP
+Change the mode of a file on a remote \fBDTS\fP. 
+.PP
+DTS_HOSTCHMOD -- Change the mode of a file on a remote \fBDTS\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to file 
+.br
+\fImode\fP file access mode 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status (OK or ERR) 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_xferDirTo(), and dts_xferFile().
+.SS "int dts_hostContact (char * host)"
+.PP
+Attempt to contact/start the remote \fBDTS\fP. 
+.PP
+DTS_HOSTCONTACT -- Attempt to contact/start the remote \fBDTS\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_openClientSocket().
+.PP
+Referenced by dts_hostPing(), and dts_verifyDTS().
+.SS "int dts_hostCopy (char * host, char * old, char * new)"
+.PP
+Copy a file on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTCOPY -- Copy a file on a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIold\fP old path 
+.br
+\fInew\fP new path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostCwd (char * host)"
+.PP
+Get the cwd of the \fBDTS\fP host. 
+.PP
+DTS_HOSTCWD -- Get the cwd of the \fBDTS\fP host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Current working dir of \fBDTS\fP host 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), dts_getClient(), and dts_resolveHost().
+.SS "int dts_hostDel (char * host, char * path, char * passwd, int recursive)"
+.PP
+Delete a file on a \fBDTS\fP host. 
+.PP
+DTS_HOSTDEL -- Delete a file on a \fBDTS\fP host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to file to be deleted 
+.br
+\fIpasswd\fP \fBDTS\fP host passwd 
+.br
+\fIrecursive\fP recursive delete? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success code 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostDest (char * host, char * qname)"
+.PP
+Get the destination of the named queue. 
+.PP
+DTS_HOSTDEST -- Get the destination of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Current working dir of \fBDTS\fP host 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostDestDir (char * host, char * qname)"
+.PP
+Get a listing for a queue's delivery directory. 
+.PP
+DTS_HOSTDESTDIR -- Get a listing for a queue's delivery directory
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP queue name to list 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostDir (char * host, char * path, int lsLong)"
+.PP
+Get a directory listing from a \fBDTS\fP host. 
+.PP
+DTS_HOSTDIR -- Get a directory listing from a \fBDTS\fP host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path on disk partition to be listed. 
+.br
+\fIlsLong\fP long listing? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_xferDirFrom().
+.SS "int dts_hostDiskFree (char * host, char * path)"
+.PP
+Get the space available on the give containing a specified path. 
+.PP
+DTS_HOSTDISKFREE -- Get the space available on the \fBDTS\fP host containing a specified path.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path on disk partition to be checked. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostDiskUsed (char * host, char * path)"
+.PP
+Get the space available on the give containing a specified path. 
+.PP
+DTS_HOSTDISKUSED -- Get the space used on the \fBDTS\fP host containing a specified path.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path on disk partition to be checked. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostEcho (char * host, char * str)"
+.PP
+Have a host \fBDTS\fP machine echo a string. 
+.PP
+DTS_HOSTECHO -- Have a host \fBDTS\fP machine echo a string.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIstr\fP string to echo 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostExecCmd (char * host, char * ewd, char * cmd)"
+.PP
+Execute the given command. 
+.PP
+DTS_HOSTEXECCMD -- Execute the given command.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIewd\fP effective working dir 
+.br
+\fIcmd\fP queue delivery command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status flag 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostFGet (char * host, char * fname, char * local, int blk)"
+.PP
+Get a remote file to a local file. 
+.PP
+DTS_HOSTFGET -- Get a remote file to a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIfname\fP remote file name to be read 
+.br
+\fIlocal\fP local file name to write 
+.br
+\fIblk\fP i/o block size 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status of transfer 
+.RE
+.PP
+
+.PP
+References base64_decode(), dts_closeClient(), dts_cmdInit(), dts_fileWrite(), dts_getClient(), dts_hostFSize(), and transferMB().
+.SS "int dts_hostFlushQueue (char * host, char * qname)"
+.PP
+Stop the named queue. 
+.PP
+DTS_HOSTFLUSHQUEUE -- Stop the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "long dts_hostFMode (char * host, char * path)"
+.PP
+Get a file mode on a remote \fBDTS\fP host. 
+.PP
+DTS_HOSTFMODE -- Get a file mode on a remote \fBDTS\fP host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP pathname to be checked 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+size (bytes) of file 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_hostFrom(), and dts_xferDirFrom().
+.SS "long dts_hostFSize (char * host, char * path)"
+.PP
+Get a file size on a remote \fBDTS\fP host. 
+.PP
+DTS_HOSTFSIZE -- Get a file size on a remote \fBDTS\fP host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP pathname to be checked 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+size (bytes) of file 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_hostCat(), dts_hostFGet(), dts_hostFrom(), dts_hostRead(), and dts_xferDirFrom().
+.SS "int dts_hostFTime (char * host, char * path, char * mode)"
+.PP
+Get a file time on a remote \fBDTS\fP host. 
+.PP
+DTS_HOSTFTIME -- Get a file time on a remote \fBDTS\fP host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP pathname to be checked 
+.br
+\fImode\fP mode to check ('c'reate, 'm'odified, 'a'ccess) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+time (seconds) 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostGet (char * host, char * class, char * key)"
+.PP
+Get a value from the remote host. 
+.PP
+DTS_HOSTGET -- Get a value from the remote host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIclass\fP class 
+.br
+\fIkey\fP keyword 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+value from remote \fBDTS\fP system 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostGetCopyDir (char * host)"
+.PP
+Get the \fBDTS\fP copy directory. 
+.PP
+DTS_HOSTGETCOPYDIR -- Get the \fBDTS\fP copy directory
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+delivery directory for queue 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostGetQueueCmd (char * host, char * qname)"
+.PP
+Get the queue deliverCmd. 
+.PP
+DTS_HOSTGETQUEUECMD -- Get the queue deliverCmd.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+delivery directory for queue 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostGetQueueCount (char * host, char * qname)"
+.PP
+Get the pending count for the named queue. 
+.PP
+DTS_HOSTGETQUEUECOUNT -- Get the pending count for the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostGetQueueDir (char * host, char * qname)"
+.PP
+Get the queue deliverDirectory. 
+.PP
+DTS_HOSTGETQUEUEDIR -- Get the queue deliverDirectory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+delivery directory for queue 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostGetQueueStat (char * host, char * qname)"
+.PP
+Get the status flag on the named queue. 
+.PP
+DTS_HOSTGETQUEUESTAT -- Get the status flag on the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status flag 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostIsDir (char * host, char * path)"
+.PP
+Test whether the given path is a directory. 
+.PP
+DTS_HOSTISDIR -- Test whether the given path is a directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to be tested. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if path is a directory, zero otherwise 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_hostFrom(), and dts_xferFile().
+.SS "char* dts_hostListQueue (char * host, char * qname)"
+.PP
+List the named queue. 
+.PP
+DTS_HOSTLISTQUEUE -- List the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostMkdir (char * host, char * path)"
+.PP
+Make a directory on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTMKDIR -- Make a directory on a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP directory to create 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_hostFrom(), dts_hostTo(), dts_xferDirTo(), and dts_xferFile().
+.SS "int dts_hostPauseQueue (char * host, char * qname)"
+.PP
+Pause the named queue. 
+.PP
+DTS_HOSTPAUSEQUEUE -- Pause the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostPing (char * host)"
+.PP
+Ping a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTPING -- Ping a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), dts_getClient(), and dts_hostContact().
+.PP
+Referenced by dts_remotePing(), and dts_verifyDTS().
+.SS "int dts_hostPingArray (char * host)"
+.PP
+Ping a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTPINGARRAY -- Ping a host \fBDTS\fP machine, array return.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+sum of array values if \fBDTS\fP responds, -1 on error. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostPingSleep (char * host, int time)"
+.PP
+Ping a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTPINGSLEEP -- Ping a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds.
+.RE
+.PP
+NOTE: This is implemented as an ASYNC call. 
+.PP
+References dts_closeClient(), dts_cmdInit(), dts_getClient(), and dts_getLocalHost().
+.SS "char* dts_hostPingStr (char * host)"
+.PP
+Ping a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTPINGSTR -- Ping a host \fBDTS\fP machine, string return.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+string response 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostPoke (char * host)"
+.PP
+Poke a host \fBDTS\fP machine, i.e. ping w/out a restart. 
+.PP
+DTS_HOSTPOKE -- Poke a host \fBDTS\fP machine, i.e. ping w/out a restart.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostPokeQueue (char * host, char * qname)"
+.PP
+Poke the named queue. 
+.PP
+DTS_HOSTPOKEQUEUE -- Poke the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostPrealloc (char * host, char * path, long size)"
+.PP
+Prealloc space on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTPREALLOC -- Prealloc space on a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to file to prealloc 
+.br
+\fIsize\fP size of allocation 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostPrintQueueCfg (char * host, char * qname)"
+.PP
+Print the configuration of the named queue. 
+.PP
+DTS_HOSTPRINTQUEUECFG -- Print the configuration of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status flag 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "unsigned char* dts_hostRead (char * host, char * fname, int offset, int sz, int * retnb)"
+.PP
+Read a chunk from a file. 
+.PP
+DTS_HOSTREAD -- Read a chunk from a file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIfname\fP file name to be read 
+.br
+\fIoffset\fP file offset 
+.br
+\fIsz\fP size of chunk to read 
+.br
+\fIretnb\fP number of bytes read 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Current working dir of \fBDTS\fP host 
+.RE
+.PP
+
+.PP
+References base64_decode(), dts_closeClient(), dts_cmdInit(), dts_getClient(), and dts_hostFSize().
+.SS "int dts_hostRemotePing (char * local, char * remote)"
+.PP
+Tell one machine to ping another. 
+.PP
+DTS_HOSTREMOTEPING -- Tell one machine to ping another.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlocal\fP local host machine name (or IP string) 
+.br
+\fIremote\fP remote machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostRename (char * host, char * old, char * new)"
+.PP
+Rename a file on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTRENAME -- Rename a file on a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIold\fP old path 
+.br
+\fInew\fP new path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSet (char * host, char * class, char * key, char * val)"
+.PP
+Set a value on the remote host. 
+.PP
+DTS_HOSTSET -- Set a value on the remote host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIclass\fP command class 
+.br
+\fIkey\fP keyword 
+.br
+\fIval\fP value 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetDbg (char * host, char * flag)"
+.PP
+Set a debug flag on a \fBDTS\fP node. 
+.PP
+DTS_HOSTSETDBG -- Set a debug flag on a \fBDTS\fP node.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIflag\fP flag to set 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetQueueCmd (char * host, char * qname, char * cmd)"
+.PP
+Set the queue deliveryCmd. 
+.PP
+DTS_HOSTSETQUEUECMD -- Set the queue deliveryCmd.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.br
+\fIcmd\fP queue delivery command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status flag 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetQueueCount (char * host, char * qname, int count)"
+.PP
+Set the pending count for the named queue. 
+.PP
+DTS_HOSTSETQUEUECOUNT -- Set the pending count for the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.br
+\fIcount\fP queue count 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetQueueDir (char * host, char * qname, char * dir)"
+.PP
+Set the queue deliveryDir. 
+.PP
+DTS_HOSTSETQUEUEDIR -- Set the queue deliveryDir.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.br
+\fIdir\fP queue delivery directory 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status flag 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetQueueStat (char * host, char * qname, int val)"
+.PP
+Set the status flag on the named queue. 
+.PP
+DTS_HOSTSETQUEUESTAT -- Set the status flag on the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.br
+\fIval\fP queue status value 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status flag 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetRoot (char * host, char * path)"
+.PP
+Set the root directory of a \fBDTS\fP. 
+.PP
+DTS_HOSTSETROOT -- Set the root directory of a \fBDTS\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to touch 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostShutdown (char * host, char * passwd)"
+.PP
+Just freakin' die. 
+.PP
+DTS_HOSTSHUTDOWN -- Shutdown the \fBDTS\fP cleanly.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpasswd\fP \fBDTS\fP host passwd 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostShutdownQueue (char * host, char * qname)"
+.PP
+Shutdown the named queue. 
+.PP
+DTS_HOSTSHUTDOWNQUEUE -- Shutdown the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "char* dts_hostSrc (char * host, char * qname)"
+.PP
+Get the source of the named queue. 
+.PP
+DTS_HOSTSRC -- Get the source of the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Current working dir of \fBDTS\fP host 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostStartQueue (char * host, char * qname)"
+.PP
+Start the named queue. 
+.PP
+DTS_HOSTSTARTQUEUE -- Start the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostStat (char * host, char * path, struct stat * st)"
+.PP
+Update access time on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTSTAT -- Get the file stat() information
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to touch 
+.br
+\fIst\fP stat struct 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "cwd dts_hostStopQueue (char * host, char * qname)"
+.PP
+Stop the named queue. 
+.PP
+DTS_HOSTSTOPQUEUE -- Stop the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostTouch (char * host, char * path)"
+.PP
+Update access time on a host \fBDTS\fP machine. 
+.PP
+DTS_HOSTTOUCH -- Update access time on a host \fBDTS\fP machine.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIpath\fP path to touch 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_xferFile().
+.SS "stat dts_hostUnsetDbg (char * host, char * flag)"
+.PP
+Unset a debug flag on the \fBDTS\fP node. 
+.PP
+DTS_HOSTUNSETDBG -- Unset a debug flag on the \fBDTS\fP node.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIflag\fP flag to set 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostUpStats (char * host, char * qname, \fBxferStat\fP * xfs)"
+.PP
+Update the transfer statistics. 
+.PP
+DTS_HOSTUPSTATS -- Update the transfer statistics.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP queue name 
+.br
+\fIxfs\fP transfer stats 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_queueProcess().
+.SS "int dts_isLocal (char * host)"
+.PP
+Is the given host the local machine? 
+.PP
+********************************************************************* Private Utility Procedures DTS_ISLOCAL -- Is the given host the local machine?
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP responds. 
+.RE
+.PP
+
+.PP
+References dts_getLocalIP().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

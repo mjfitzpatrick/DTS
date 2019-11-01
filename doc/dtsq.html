@@ -1,0 +1,198 @@
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of DTSQ</TITLE>
+</HEAD><BODY>
+<H1>DTSQ</H1>
+Section: User Commands  (1)<BR>Updated: June 2012<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+dtsq - submit (enqueue) data to the DTS for transport
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<DL COMPACT>
+<DT><B>dtsq</B> [-q &lt;queue&gt;] [-f] [-h &lt;ip&gt;] &lt;path &gt; [&lt;path&gt; ....]<DD>
+</DL>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The <I>dtsq</I> task is used to submit files or directories to the DTS for
+transport on the specified queue.  The task requires either a configuration
+file to define the supported queues (the <B>$HOME/.dtsq_config</B> file is the
+default, alternate files may be named with the <B>-c &lt;path&gt;</B> commandline
+option), or use of the cmdline flags to specify the target DTS host and queue
+name.  
+<P>
+
+When invoked, the DTSQ task will attempt to contact the DTS machine hosting
+the queue, verifying that the DTS daemon is responding and willing to accept
+the file (i.e. there is sufficient disk space on the remote machine, the
+queue is operational, etc).  If successful, transport of the file to the
+remote queue directory is begun using the number of threads specified in the
+configuration file (or with the <B>-N &lt;nthreads&gt;</B> option).  If the
+transport method is specified as <I>give</I> then the server sockets are
+opened on the local machine and the remote DTS will connect as a client to
+initiate transport, in the case of a <I>push</I> method the remote DTS will
+open the server sockets and the DTSQ will connect as a client to begin
+transport.
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<P>
+
+The following commandline options are available:
+<DL COMPACT>
+<DT><B>-b</B><DD>
+bundle (i.e. tar) all files for transfer as a single data object
+<DT><B>-f</B><DD>
+fork to do the data transfer
+<DT><B>-m &lt;method&gt;</B><DD>
+specify transfer method (push | give)
+<DT><B>-p &lt;p=v&gt;</B><DD>
+pass param/value pair
+<DT><B>-s</B><DD>
+do file checksum
+<P>
+<DT><B>-R</B><DD>
+recover failed queue attempts
+<DT><B>-V</B><DD>
+verify queue transfers
+<P>
+<DT><B>+f</B><DD>
+disable task fork
+<DT><B>+s</B><DD>
+disable file checksum flag
+<DT><B>+d</B><DD>
+debug flag
+<P>
+</DL>
+<P>
+
+<B>Common DTS Options</B>
+<DL COMPACT>
+<DT><B>--debug &lt;N&gt;</B><DD>
+set debug level
+<DT><B>--help</B><DD>
+print task help
+<DT><B>--noop</B><DD>
+no-op flag, print steps taken only
+<DT><B>--verbose</B><DD>
+verbose flag
+<DT><B>--version</B><DD>
+print task version
+<P>
+<DT><B>-c &lt;file&gt;</B><DD>
+set DTSQ config file to be used
+<DT><B>-q &lt;queue&gt;</B><DD>
+submit to specified queue
+<DT><B>-t &lt;host&gt;</B><DD>
+name/IP address of target DTS host
+<DT><B>-w &lt;path&gt;</B><DD>
+set directory to DTSQ working directory
+<P>
+<DT><B>-H &lt;port&gt;</B><DD>
+set hi transfer port
+<DT><B>-L &lt;port&gt;</B><DD>
+set low transfer port
+<DT><B>-N &lt;NThreads&gt;</B><DD>
+set number of transfer threads
+<DT><B>-P &lt;port&gt;</B><DD>
+set communications port
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>ENVIRONMENT VARIABLES</H2>
+
+The <I>DTSQ</I> task will make use of the following environment variables if
+defined:
+<DL COMPACT>
+<DT><B>DTSQ_CONFIG</B>
+
+<DD>
+The location of the DTSQ configuration file to use.  This variable will be
+overridden by the commandline <I>-c</I> option and the default file in the
+user's $HOME directory.
+<DT><B>DTSQ_WORKDIR</B>
+
+<DD>
+The location of the DTSQ working directory.  This variable will be
+overridden by the commandline <I>-w</I> option and the default $HOME/.dtsq
+directory.
+<P>
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>RETURN STATUS</H2>
+
+On exit the task will return the following status codes:
+<PRE>
+     0 Success
+     1 Error code
+</PRE>
+
+<P>
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+<DL COMPACT>
+<DT>1) Queue a file for transport:<DD>
+<PRE>
+        % dtsq -q test /path/file.fits.fz
+</PRE>
+
+<P>
+<P>
+</DL>
+<A NAME="lbAI">&nbsp;</A>
+<H2>BUGS</H2>
+
+No known bugs at the time of writing.
+<P>
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H2>Revision History</H2>
+
+June 2012 - First public release
+<A NAME="lbAK">&nbsp;</A>
+<H2>Author</H2>
+
+Michael Fitzpatrick (<A HREF="mailto:fitz@noao.edu">fitz@noao.edu</A>), June 2012
+<A NAME="lbAL">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="http://localhost/cgi-bin/man/man2html?1+dtsq_config">dtsq_config</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsd">dtsd</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtscp">dtscp</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsh">dtsh</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsq">dtsq</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsmon">dtsmon</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+dtsstat">dtsstat</A>(1)
+<P>
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbAG">RETURN STATUS</A><DD>
+<DT><A HREF="#lbAH">EXAMPLES</A><DD>
+<DT><A HREF="#lbAI">BUGS</A><DD>
+<DT><A HREF="#lbAJ">Revision History</A><DD>
+<DT><A HREF="#lbAK">Author</A><DD>
+<DT><A HREF="#lbAL">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 20:38:18 GMT, March 07, 2013
+</BODY>
+</HTML>

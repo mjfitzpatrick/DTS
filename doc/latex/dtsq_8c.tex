@@ -1,0 +1,410 @@
+\hypertarget{dtsq_8c}{
+\section{dtsq.c File Reference}
+\label{dtsq_8c}\index{dtsq.c@{dtsq.c}}
+}
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$strings.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}build.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsq_8c_369266c24eacffb87046522897a570d5}{
+\#define \textbf{\_\-GNU\_\-SOURCE}}
+\label{dtsq_8c_369266c24eacffb87046522897a570d5}
+
+\item 
+\hypertarget{dtsq_8c_4e82026ec043992983ff9a34e9d007b3}{
+\#define \textbf{DTS\_\-DEBUG}~0}
+\label{dtsq_8c_4e82026ec043992983ff9a34e9d007b3}
+
+\item 
+\hypertarget{dtsq_8c_f0b5cfa4242ae7f98ba80fd23ef8afa9}{
+\#define \textbf{APP\_\-NAME}~\char`\"{}dtsq\char`\"{}}
+\label{dtsq_8c_f0b5cfa4242ae7f98ba80fd23ef8afa9}
+
+\item 
+\hypertarget{dtsq_8c_92673e33f27532767749b79edb8ef806}{
+\#define \textbf{APP\_\-VERSION}~\char`\"{}1.0\char`\"{}}
+\label{dtsq_8c_92673e33f27532767749b79edb8ef806}
+
+\item 
+\hypertarget{dtsq_8c_546b0678dfc7e94f295f0b31e03dc567}{
+\#define \textbf{MAXPORTS}~256}
+\label{dtsq_8c_546b0678dfc7e94f295f0b31e03dc567}
+
+\item 
+\hypertarget{dtsq_8c_9b4d8f0494af7e20159b072fb713ad89}{
+\#define \textbf{DQ\_\-NTHREADS}~4}
+\label{dtsq_8c_9b4d8f0494af7e20159b072fb713ad89}
+
+\item 
+\hypertarget{dtsq_8c_3f5c90cca4da893a59cfc0bd76f138ed}{
+\#define \textbf{DQ\_\-ERROR}~-1}
+\label{dtsq_8c_3f5c90cca4da893a59cfc0bd76f138ed}
+
+\item 
+\hypertarget{dtsq_8c_15d5f372d49005f6dd858369e41b73b6}{
+\#define \textbf{DQ\_\-READY}~0}
+\label{dtsq_8c_15d5f372d49005f6dd858369e41b73b6}
+
+\item 
+\hypertarget{dtsq_8c_e8f9d651b47e7cdabeabd8e47da9ef88}{
+\#define \textbf{DQ\_\-ACTIVE}~1}
+\label{dtsq_8c_e8f9d651b47e7cdabeabd8e47da9ef88}
+
+\item 
+\hypertarget{dtsq_8c_a7f9ad372ffdc7031676719a8b64ff02}{
+\#define \textbf{DQ\_\-INIT}~2}
+\label{dtsq_8c_a7f9ad372ffdc7031676719a8b64ff02}
+
+\item 
+\hypertarget{dtsq_8c_1c42701ba8b665d649690b982b98cace}{
+\#define \textbf{DQ\_\-XFER}~3}
+\label{dtsq_8c_1c42701ba8b665d649690b982b98cace}
+
+\item 
+\hypertarget{dtsq_8c_8badc5c888ea3aead558982dd16d78c6}{
+\#define \textbf{DQ\_\-DONE}~4}
+\label{dtsq_8c_8badc5c888ea3aead558982dd16d78c6}
+
+\item 
+\hypertarget{dtsq_8c_92a767dd9d5edd0565cbdf1f4da4f5b0}{
+\#define \textbf{DQ\_\-MINUTES}~0}
+\label{dtsq_8c_92a767dd9d5edd0565cbdf1f4da4f5b0}
+
+\item 
+\hypertarget{dtsq_8c_cde059c7cd14fb878ef12b34befab6cd}{
+\#define \textbf{DQ\_\-HOURS}~1}
+\label{dtsq_8c_cde059c7cd14fb878ef12b34befab6cd}
+
+\item 
+\hypertarget{dtsq_8c_fede97d1133ee8ab2d3f739f09334d94}{
+\#define \textbf{DQ\_\-DAYS}~2}
+\label{dtsq_8c_fede97d1133ee8ab2d3f739f09334d94}
+
+\item 
+\hypertarget{dtsq_8c_805fde55bb9170cc0178f225f61a8fe1}{
+\#define \textbf{DQ\_\-WEEKS}~3}
+\label{dtsq_8c_805fde55bb9170cc0178f225f61a8fe1}
+
+\item 
+\hypertarget{dtsq_8c_4f512cc50843cfb19a6e1c6410e42e62}{
+\#define \textbf{DQ\_\-PROCESS}~0}
+\label{dtsq_8c_4f512cc50843cfb19a6e1c6410e42e62}
+
+\item 
+\hypertarget{dtsq_8c_cbd3949b153b910d6481d380b777ee22}{
+\#define \textbf{DQ\_\-LIST}~1}
+\label{dtsq_8c_cbd3949b153b910d6481d380b777ee22}
+
+\item 
+\hypertarget{dtsq_8c_e12cdfabd25b8b13c87ead083d32776b}{
+\#define \textbf{DQ\_\-VALIDATE}~2}
+\label{dtsq_8c_e12cdfabd25b8b13c87ead083d32776b}
+
+\item 
+\hypertarget{dtsq_8c_efd2c0a888cffae587189d50c01a9ad4}{
+\#define \textbf{DQ\_\-RECOVER}~3}
+\label{dtsq_8c_efd2c0a888cffae587189d50c01a9ad4}
+
+\item 
+\hypertarget{dtsq_8c_a4b0e0f237d5159be495479577cbd3a9}{
+\#define \textbf{DQ\_\-LISTRECOVER}~4}
+\label{dtsq_8c_a4b0e0f237d5159be495479577cbd3a9}
+
+\item 
+\#define \hyperlink{dtsq_8c_26ed3fa759f2e51a87a31d3b847f3a40}{DTSQ\_\-ENV}~\char`\"{}DTSQ\_\-CONFIG\char`\"{}
+\item 
+\hypertarget{dtsq_8c_924444e47aeba5aca2e376c7bb523c53}{
+\#define \textbf{DTSQ\_\-DEF\_\-CONFIG}~\char`\"{}.dtsq\_\-config\char`\"{}}
+\label{dtsq_8c_924444e47aeba5aca2e376c7bb523c53}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsq_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsq_8c_e07ab57a78ba85fbb3cc86bae34666d0}{
+char \textbf{qhost} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtsq_8c_e07ab57a78ba85fbb3cc86bae34666d0}
+
+\item 
+\hypertarget{dtsq_8c_85f8101580eb3bc1dfce64e57f06ee17}{
+char \textbf{qmethod} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtsq_8c_85f8101580eb3bc1dfce64e57f06ee17}
+
+\item 
+\hypertarget{dtsq_8c_d0da7b10a8f2466b278fe5e6f4abbc16}{
+char \textbf{config} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsq_8c_d0da7b10a8f2466b278fe5e6f4abbc16}
+
+\item 
+\hypertarget{dtsq_8c_0c4060005edc7396fc8af69b35e7721e}{
+char \textbf{qroot} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsq_8c_0c4060005edc7396fc8af69b35e7721e}
+
+\item 
+\hypertarget{dtsq_8c_720156e9b505dfeeacb4530d9c3e8cfb}{
+char \textbf{qdir} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsq_8c_720156e9b505dfeeacb4530d9c3e8cfb}
+
+\item 
+\hypertarget{dtsq_8c_704fbf66564b04bb1034c43859451faa}{
+char \textbf{rdir} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsq_8c_704fbf66564b04bb1034c43859451faa}
+
+\item 
+\hypertarget{dtsq_8c_c06f47f6760a1ab087d97aee652771ec}{
+char \textbf{tdir} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsq_8c_c06f47f6760a1ab087d97aee652771ec}
+
+\item 
+\hypertarget{dtsq_8c_bdac8928627c8ca88b5b325d9916d218}{
+char $\ast$ \textbf{queue} = NULL}
+\label{dtsq_8c_bdac8928627c8ca88b5b325d9916d218}
+
+\item 
+\hypertarget{dtsq_8c_ef8e792972aabd8d008e6adee188ea07}{
+char $\ast$ \textbf{tframe} = NULL}
+\label{dtsq_8c_ef8e792972aabd8d008e6adee188ea07}
+
+\item 
+\hypertarget{dtsq_8c_7a322fc9a01b8cb81e843f3499c3bba6}{
+char $\ast$ \textbf{env\_\-var} = NULL}
+\label{dtsq_8c_7a322fc9a01b8cb81e843f3499c3bba6}
+
+\item 
+\hypertarget{dtsq_8c_e96bbe3347b319ee7bdbd1f2e2ba9f5b}{
+char $\ast$ \textbf{fname} = NULL}
+\label{dtsq_8c_e96bbe3347b319ee7bdbd1f2e2ba9f5b}
+
+\item 
+\hypertarget{dtsq_8c_6e27f49150e9a14580fb313cc2777e00}{
+int \textbf{status} = OK}
+\label{dtsq_8c_6e27f49150e9a14580fb313cc2777e00}
+
+\item 
+\hypertarget{dtsq_8c_bd6f4eb63a002bd6855f22ff92ef0307}{
+int \textbf{nfiles} = 0}
+\label{dtsq_8c_bd6f4eb63a002bd6855f22ff92ef0307}
+
+\item 
+\hypertarget{dtsq_8c_9e56413137aaccc450e1f8fa7b075545}{
+long \textbf{fsize} = 0}
+\label{dtsq_8c_9e56413137aaccc450e1f8fa7b075545}
+
+\item 
+\hypertarget{dtsq_8c_dcc9a19ad3119f823a658f6a49a24e64}{
+int \textbf{method} = TM\_\-PSOCK}
+\label{dtsq_8c_dcc9a19ad3119f823a658f6a49a24e64}
+
+\item 
+\hypertarget{dtsq_8c_237b61d96354eddd95772562ed9d3413}{
+int \textbf{qstat} = 0}
+\label{dtsq_8c_237b61d96354eddd95772562ed9d3413}
+
+\item 
+\hypertarget{dtsq_8c_8adda9db6d1fb7be6f86999c24c75ab0}{
+int \textbf{nThreads} = DQ\_\-NTHREADS}
+\label{dtsq_8c_8adda9db6d1fb7be6f86999c24c75ab0}
+
+\item 
+\hypertarget{dtsq_8c_63c89c04d1feae07ca35558055155ffb}{
+int \textbf{port} = DTSQ\_\-PORT}
+\label{dtsq_8c_63c89c04d1feae07ca35558055155ffb}
+
+\item 
+\hypertarget{dtsq_8c_01d264c50baf2315ce24eda6c8b2a226}{
+int \textbf{hiPort} = DTSQ\_\-PORT - 1}
+\label{dtsq_8c_01d264c50baf2315ce24eda6c8b2a226}
+
+\item 
+\hypertarget{dtsq_8c_38e295bc5474de50e9f88db612561fa7}{
+int \textbf{loPort} = (DTSQ\_\-PORT - 1 - DEF\_\-MAX\_\-PORTS)}
+\label{dtsq_8c_38e295bc5474de50e9f88db612561fa7}
+
+\item 
+\hypertarget{dtsq_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = FALSE}
+\label{dtsq_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtsq_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = FALSE}
+\label{dtsq_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtsq_8c_829add167f33003098445ad1e6b2d13a}{
+int \textbf{noop} = FALSE}
+\label{dtsq_8c_829add167f33003098445ad1e6b2d13a}
+
+\item 
+\hypertarget{dtsq_8c_116408cb8feae60807e9f81418fba63f}{
+int \textbf{do\_\-checksum} = TRUE}
+\label{dtsq_8c_116408cb8feae60807e9f81418fba63f}
+
+\item 
+\hypertarget{dtsq_8c_dfefcf1edb26eb115d710fdc85253d26}{
+int \textbf{do\_\-fork} = FALSE}
+\label{dtsq_8c_dfefcf1edb26eb115d710fdc85253d26}
+
+\item 
+\hypertarget{dtsq_8c_35247261ecacfa42c0592a39a9d0be89}{
+int \textbf{do\_\-give} = TRUE}
+\label{dtsq_8c_35247261ecacfa42c0592a39a9d0be89}
+
+\item 
+\hypertarget{dtsq_8c_7a829e6fd74e94e0edf10550470d844c}{
+int \textbf{rate} = 0}
+\label{dtsq_8c_7a829e6fd74e94e0edf10550470d844c}
+
+\item 
+\hypertarget{dtsq_8c_f7a1645e33cba2e3175fd9f6160cc5b6}{
+int \textbf{bundle} = 0}
+\label{dtsq_8c_f7a1645e33cba2e3175fd9f6160cc5b6}
+
+\item 
+\hypertarget{dtsq_8c_dc65e8dad84e6252dd2d406c55a8c5b8}{
+int \textbf{recover} = 0}
+\label{dtsq_8c_dc65e8dad84e6252dd2d406c55a8c5b8}
+
+\item 
+\hypertarget{dtsq_8c_8d391f3cd6e23f6d46b9a3e7f2baabf2}{
+int \textbf{validate} = 0}
+\label{dtsq_8c_8d391f3cd6e23f6d46b9a3e7f2baabf2}
+
+\item 
+\hypertarget{dtsq_8c_9ba0f2f280a2a2e49c17508af48aad91}{
+int \textbf{action} = DQ\_\-PROCESS}
+\label{dtsq_8c_9ba0f2f280a2a2e49c17508af48aad91}
+
+\item 
+\hypertarget{dtsq_8c_ca392a8d3941cd0740aef3ad92545d67}{
+FILE $\ast$ \textbf{in} = (FILE $\ast$) NULL}
+\label{dtsq_8c_ca392a8d3941cd0740aef3ad92545d67}
+
+\item 
+\hypertarget{dtsq_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dtsq_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsq_8c_e46fcc990156bad39982ba63a195779f}{
+char $\ast$ \textbf{clientUrl}}
+\label{dtsq_8c_e46fcc990156bad39982ba63a195779f}
+
+\item 
+\hypertarget{dtsq_8c_122c83a43e601449c2ade61d02e693a8}{
+char \textbf{localIP} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsq_8c_122c83a43e601449c2ade61d02e693a8}
+
+\item 
+\hypertarget{dtsq_8c_c20846e3a5817f3f9ddedf55d73e4c5a}{
+char \textbf{queuePath} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtsq_8c_c20846e3a5817f3f9ddedf55d73e4c5a}
+
+\item 
+\hypertarget{dtsq_8c_2d714ee13610f3daf00f2d68100994dc}{
+char $\ast$ \textbf{xArgs} \mbox{[}2\mbox{]}}
+\label{dtsq_8c_2d714ee13610f3daf00f2d68100994dc}
+
+\item 
+\hypertarget{dtsq_8c_c931dd77648a87bd57edf2dee6be7c6e}{
+char $\ast$ \textbf{sv\_\-argv} \mbox{[}128\mbox{]}}
+\label{dtsq_8c_c931dd77648a87bd57edf2dee6be7c6e}
+
+\item 
+\hypertarget{dtsq_8c_ffc17c0cf16eabbd5995441c859ed830}{
+int \textbf{sv\_\-argc} = 0}
+\label{dtsq_8c_ffc17c0cf16eabbd5995441c859ed830}
+
+\item 
+\hypertarget{dtsq_8c_f908f647771fb14de412c663fb1464f0}{
+xferStat \textbf{xfs}}
+\label{dtsq_8c_f908f647771fb14de412c663fb1464f0}
+
+\item 
+\hypertarget{dtsq_8c_5b723f03849d8d794365c8664556eb83}{
+Control \textbf{control}}
+\label{dtsq_8c_5b723f03849d8d794365c8664556eb83}
+
+\item 
+\hypertarget{dtsq_8c_5e73b6d3114c5721c4d98b88c47b0285}{
+time\_\-t \textbf{epoch} = (time\_\-t) 0}
+\label{dtsq_8c_5e73b6d3114c5721c4d98b88c47b0285}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTSQ -- Queue a data object for transport. Our job here is to verify that we can communicate with the DTS and that it will accept the object. We have an optional mode to fork off and work in the background so we return quickly, we can also keep a record of the transfer locally as well as provide recovery for failed transfers.
+
+Usage:
+
+dtsq \mbox{[}-q $<$queue$>$\mbox{]} \mbox{[}-f\mbox{]} \mbox{[}-h $<$ip$>$\mbox{]} $<$path$>$ \mbox{[}$<$path$>$ ....\mbox{]}
+
+-b bundle all files for transfer -f fork to do the data transfer -m $<$method$>$ specify transfer method (push $|$ give) -p $<$param=value$>$ pass param/value pair -s do file checksum
+
+-R recover failed queue attempts -V verify queue transfers
+
++f disable task fork +s disable file checksum flag +d debug flag
+
+Common DTS Options
+
+--debug $<$N$>$ set debug level --help print task help --noop no-op flag, print steps taken only --verbose verbose flag --version print task version
+
+-c $<$file$>$ set DTSQ config file to be used -q $<$queue$>$ submit to specified queue -t $<$host$>$ name/IP address of target DTS host -w $<$path$>$ set directory to DTSQ working directory
+
+-H $<$port$>$ set hi transfer port -L $<$port$>$ set low transfer port -N $<$NThreads$>$ set number of transfer threads -P $<$port$>$ set communications port
+
+$<$path$>$ full path to file to queue
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010 \end{Desc}
+
+
+\subsection{Define Documentation}
+\hypertarget{dtsq_8c_26ed3fa759f2e51a87a31d3b847f3a40}{
+\index{dtsq.c@{dtsq.c}!DTSQ\_\-ENV@{DTSQ\_\-ENV}}
+\index{DTSQ\_\-ENV@{DTSQ\_\-ENV}!dtsq.c@{dtsq.c}}
+\subsubsection[{DTSQ\_\-ENV}]{\setlength{\rightskip}{0pt plus 5cm}\#define DTSQ\_\-ENV~\char`\"{}DTSQ\_\-CONFIG\char`\"{}}}
+\label{dtsq_8c_26ed3fa759f2e51a87a31d3b847f3a40}
+
+
+DTS\_\-QLOADCONFIG -- Load the config file. 
+
+\subsection{Function Documentation}
+\hypertarget{dtsq_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dtsq.c@{dtsq.c}!main@{main}}
+\index{main@{main}!dtsq.c@{dtsq.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dtsq_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Task \hyperlink{dts__svr_8c_3c04138a5bfe5d72780bb7e82a18e627}{main()}. 

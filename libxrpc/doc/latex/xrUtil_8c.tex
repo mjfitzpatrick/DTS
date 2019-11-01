@@ -1,0 +1,160 @@
+\hypertarget{xrUtil_8c}{
+\section{xrUtil.c File Reference}
+\label{xrUtil_8c}\index{xrUtil.c@{xrUtil.c}}
+}
+Utility procedures.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/sem.h$>$}\par
+{\tt \#include $<$xmlrpc-c/base.h$>$}\par
+{\tt \#include $<$xmlrpc-c/client.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server\_\-abyss.h$>$}\par
+{\tt \#include \char`\"{}xrpcP.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrUtil_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~0}
+\label{xrUtil_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{xrUtil_8c_1433043163ca61797ce7e5472739c561}{
+\#define \textbf{ABORT\_\-DEBUG}~1}
+\label{xrUtil_8c_1433043163ca61797ce7e5472739c561}
+
+\item 
+\hypertarget{xrUtil_8c_f328b6ce3cae231d90cfbf2f340d03c2}{
+\#define \textbf{SHMSZ}~27}
+\label{xrUtil_8c_f328b6ce3cae231d90cfbf2f340d03c2}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrUtil_8c_999fd9347264457c44bed726a4706e40}{
+void \textbf{xr\_\-semSet} (int statsem)}
+\label{xrUtil_8c_999fd9347264457c44bed726a4706e40}
+
+\item 
+\hypertarget{xrUtil_8c_2a90dce972d5070beb5f45e50a416629}{
+void \textbf{xr\_\-setStat} (char stat)}
+\label{xrUtil_8c_2a90dce972d5070beb5f45e50a416629}
+
+\item 
+\hypertarget{xrUtil_8c_d022ac32fb1ddc82a6e13bac3532f1b3}{
+void \textbf{xr\_\-getStat} (\hyperlink{structxr__dtsstat}{xr\_\-dtsstat} $\ast$passedstat)}
+\label{xrUtil_8c_d022ac32fb1ddc82a6e13bac3532f1b3}
+
+\item 
+\hypertarget{xrUtil_8c_893a2b8aa2e248e05144fd82239d6b6a}{
+void \textbf{xr\_\-setupSigtermHandler} (xmlrpc\_\-server\_\-abyss\_\-t $\ast$serverP)}
+\label{xrUtil_8c_893a2b8aa2e248e05144fd82239d6b6a}
+
+\item 
+\hypertarget{xrUtil_8c_92322f04b49dedf5061092387f19a4af}{
+void \textbf{xr\_\-svrSigtermHandler} (int signalClass)}
+\label{xrUtil_8c_92322f04b49dedf5061092387f19a4af}
+
+\item 
+\hypertarget{xrUtil_8c_33e2c6815e2ef13c5e66a4dd55f550eb}{
+void \textbf{xr\_\-restoreSigtermHandler} (void)}
+\label{xrUtil_8c_33e2c6815e2ef13c5e66a4dd55f550eb}
+
+\item 
+void \hyperlink{xrUtil_8c_d4f2145985a09610d7bcb9f3a1c0f04a}{xr\_\-setupSigpipeHandlers} (void)
+\item 
+char $\ast$ \hyperlink{xrUtil_8c_1b1cbc4016b03a268c51d1c5719f7af8}{xr\_\-getPeerIpAddr} (TSession $\ast$const abyssSessionP)
+\item 
+\hypertarget{xrUtil_8c_22f0211849a0e53cf78efdd43d116dd3}{
+void \textbf{xr\_\-dieIfFailed} (char $\ast$description, xmlrpc\_\-env env)}
+\label{xrUtil_8c_22f0211849a0e53cf78efdd43d116dd3}
+
+\item 
+\hypertarget{xrUtil_8c_83c9afcc21df843ef3fc094f62d5040f}{
+void \textbf{die\_\-on\_\-error} (xmlrpc\_\-env $\ast$env)}
+\label{xrUtil_8c_83c9afcc21df843ef3fc094f62d5040f}
+
+\item 
+\hypertarget{xrUtil_8c_d452d3e6755688d618e35ccedd19c017}{
+void \textbf{warn\_\-on\_\-error} (xmlrpc\_\-env $\ast$env)}
+\label{xrUtil_8c_d452d3e6755688d618e35ccedd19c017}
+
+\item 
+\hypertarget{xrUtil_8c_0e8ac5011bf7385e1d84a8d97446573f}{
+void \textbf{xr\_\-dbgPrintParams} (xmlrpc\_\-server\_\-abyss\_\-parms s)}
+\label{xrUtil_8c_0e8ac5011bf7385e1d84a8d97446573f}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{xrUtil_8c_8cf4155643b866ef45abfed82e09539a}{
+int \textbf{client\_\-verbose}}
+\label{xrUtil_8c_8cf4155643b866ef45abfed82e09539a}
+
+\item 
+pthread\_\-mutex\_\-t \hyperlink{xrUtil_8c_0be2ec4bb8246ef44a7a0f6bd18ad7c1}{stat\_\-mutex} = PTHREAD\_\-MUTEX\_\-INITIALIZER
+\item 
+xmlrpc\_\-server\_\-abyss\_\-t $\ast$ \hyperlink{xrUtil_8c_3fe7b992756279105c1ab10171099806}{serverToTerminateP}
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+Utility procedures. 
+
+XRUTIL.C
+
+Utility procedures.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{xrUtil_8c_1b1cbc4016b03a268c51d1c5719f7af8}{
+\index{xrUtil.c@{xrUtil.c}!xr\_\-getPeerIpAddr@{xr\_\-getPeerIpAddr}}
+\index{xr\_\-getPeerIpAddr@{xr\_\-getPeerIpAddr}!xrUtil.c@{xrUtil.c}}
+\subsubsection[{xr\_\-getPeerIpAddr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ xr\_\-getPeerIpAddr (TSession $\ast$const  {\em abyssSessionP})}}
+\label{xrUtil_8c_1b1cbc4016b03a268c51d1c5719f7af8}
+
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Utility procedures. XR\_\-GETPEERIPADDR -- Get the IP addr of the host on the server channel. \hypertarget{xrUtil_8c_d4f2145985a09610d7bcb9f3a1c0f04a}{
+\index{xrUtil.c@{xrUtil.c}!xr\_\-setupSigpipeHandlers@{xr\_\-setupSigpipeHandlers}}
+\index{xr\_\-setupSigpipeHandlers@{xr\_\-setupSigpipeHandlers}!xrUtil.c@{xrUtil.c}}
+\subsubsection[{xr\_\-setupSigpipeHandlers}]{\setlength{\rightskip}{0pt plus 5cm}void xr\_\-setupSigpipeHandlers (void)}}
+\label{xrUtil_8c_d4f2145985a09610d7bcb9f3a1c0f04a}
+
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ SIGPIPE HANDLERS -- Setup the SIGPIPE handlers. 
+
+\subsection{Variable Documentation}
+\hypertarget{xrUtil_8c_3fe7b992756279105c1ab10171099806}{
+\index{xrUtil.c@{xrUtil.c}!serverToTerminateP@{serverToTerminateP}}
+\index{serverToTerminateP@{serverToTerminateP}!xrUtil.c@{xrUtil.c}}
+\subsubsection[{serverToTerminateP}]{\setlength{\rightskip}{0pt plus 5cm}xmlrpc\_\-server\_\-abyss\_\-t$\ast$ {\bf serverToTerminateP}}}
+\label{xrUtil_8c_3fe7b992756279105c1ab10171099806}
+
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ SIGTERM HANDLERS -- Setup the SIGTERM handler. \hypertarget{xrUtil_8c_0be2ec4bb8246ef44a7a0f6bd18ad7c1}{
+\index{xrUtil.c@{xrUtil.c}!stat\_\-mutex@{stat\_\-mutex}}
+\index{stat\_\-mutex@{stat\_\-mutex}!xrUtil.c@{xrUtil.c}}
+\subsubsection[{stat\_\-mutex}]{\setlength{\rightskip}{0pt plus 5cm}pthread\_\-mutex\_\-t {\bf stat\_\-mutex} = PTHREAD\_\-MUTEX\_\-INITIALIZER}}
+\label{xrUtil_8c_0be2ec4bb8246ef44a7a0f6bd18ad7c1}
+
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 

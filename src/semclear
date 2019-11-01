@@ -1,0 +1,5 @@
+#!/bin/csh -f
+
+foreach s ( `ipcs -st | awk '{print($1)}' |& egrep -v -e "--" -e "shmid"` )
+    ipcrm -s $s
+end

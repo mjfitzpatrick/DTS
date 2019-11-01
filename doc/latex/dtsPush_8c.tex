@@ -1,0 +1,152 @@
+\hypertarget{dtsPush_8c}{
+\section{dtsPush.c File Reference}
+\label{dtsPush_8c}\index{dtsPush.c@{dtsPush.c}}
+}
+\hyperlink{structDTS}{DTS} Push-Model Transfer Methods.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$xmlrpc-c/base.h$>$}\par
+{\tt \#include $<$xmlrpc-c/client.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server\_\-abyss.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsUDT.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsPush_8c_f474314bf0c7298787f3b631466db62b}{
+int \textbf{dts\_\-nullHandler} ()}
+\label{dtsPush_8c_f474314bf0c7298787f3b631466db62b}
+
+\item 
+int \hyperlink{dtsPush_8c_f55531bdb93b1bfcd659758510ecd2a1}{dts\_\-xferPushFile} (void $\ast$data)
+\begin{CompactList}\small\item\em Push a file from the src to the dest machine. \item\end{CompactList}\item 
+int \hyperlink{dtsPush_8c_7f9ce95b0c288f5c0f1515fdaa018b17}{dts\_\-xferReceiveFile} (void $\ast$data)
+\begin{CompactList}\small\item\em Push a file from the src to the dest machine. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsPush_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsPush_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsPush_8c_e9c89e7ff1fbfe74ed32f3bb6b69193f}{
+int \textbf{thread\_\-sem}}
+\label{dtsPush_8c_e9c89e7ff1fbfe74ed32f3bb6b69193f}
+
+\item 
+\hypertarget{dtsPush_8c_4e3d0548c599124f2df64c499a8b0ee6}{
+int \textbf{queue\_\-delay}}
+\label{dtsPush_8c_4e3d0548c599124f2df64c499a8b0ee6}
+
+\item 
+\hypertarget{dtsPush_8c_bfe1ab56be631e48e5edc9f0f1381486}{
+int \textbf{first\_\-write}}
+\label{dtsPush_8c_bfe1ab56be631e48e5edc9f0f1381486}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} Push-Model Transfer Methods. 
+
+\hyperlink{structDTS}{DTS} Push-Model Transfer Methods
+
+The methods defined here are both the client and server-side code needed to implement the \char`\"{}push\char`\"{} model of data transfer. In this mode, an RPC command is called to push data from the source to the destination machine. The source machine acts as a server, opening the transfer sockets locally before sending a request to the remote machine to receive the file. Once the connection is established, transfer begins. The return status of this method then determines whether the transfer was successful.
+
+A sequence diagram of the process would look something like:
+
+Push Model:
+
+QMgr Host A Host B
+
+(1) ----\mbox{[}Push Msg\mbox{]} ----------$>$
+
+(2) Socket setup
+
+(3) ----\mbox{[}FileRecieve Msg\mbox{]}-----$>$
+
+(4) $<$=====\mbox{[}Data Transfer\mbox{]}=====$>$
+
+(5) $<$----\mbox{[}Status Return\mbox{]}-------
+
+The 'QMgr' is the Queue Manager which initiates the request on the local machine.
+
+RPC Methods Implemented:
+
+dts\_\-xferPushFile initiate Push transfer of file (src method) dts\_\-xferReceiveFile begin receiving file (dest method)
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsPush_8c_f55531bdb93b1bfcd659758510ecd2a1}{
+\index{dtsPush.c@{dtsPush.c}!dts\_\-xferPushFile@{dts\_\-xferPushFile}}
+\index{dts\_\-xferPushFile@{dts\_\-xferPushFile}!dtsPush.c@{dtsPush.c}}
+\subsubsection[{dts\_\-xferPushFile}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferPushFile (void $\ast$ {\em data})}}
+\label{dtsPush_8c_f55531bdb93b1bfcd659758510ecd2a1}
+
+
+Push a file from the src to the dest machine. 
+
+DTS\_\-XFERPUSH -- Push a file from the src to the dest machine.
+
+RPC Params: xferId S transfer id method S transfer method fileName S file name fileSize I file size nthreads I num of transfer threads to open srcPort I starting port number destHost S FQDN of destination machine destCmdURL S destination xmlrpc URI
+
+RPC Returns: tsec I transfer time seconds tusec I transfer time micro-seconds status I transfer succeeded (0) or failed (1) ---------------------------------------------------------------------
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+References dts\_\-getLocalIP(), dts\_\-queueFromPath(), dts\_\-queueNameFmt(), dts\_\-semGetVal(), dts\_\-semInit(), dts\_\-semRemove(), dtsErrLog(), dtsLog(), psCollectThreads(), psSendFile(), psSpawnThreads(), transferMB(), transferMb(), udtSendFile(), and udtSpawnThreads().\hypertarget{dtsPush_8c_7f9ce95b0c288f5c0f1515fdaa018b17}{
+\index{dtsPush.c@{dtsPush.c}!dts\_\-xferReceiveFile@{dts\_\-xferReceiveFile}}
+\index{dts\_\-xferReceiveFile@{dts\_\-xferReceiveFile}!dtsPush.c@{dtsPush.c}}
+\subsubsection[{dts\_\-xferReceiveFile}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-xferReceiveFile (void $\ast$ {\em data})}}
+\label{dtsPush_8c_7f9ce95b0c288f5c0f1515fdaa018b17}
+
+
+Push a file from the src to the dest machine. 
+
+DTS\_\-XFERRECEIVEFILE -- Receive a file on the dest machine.
+
+RPC Params: xferId S transfer id fileName S file name fileSize I file size nthreads I num of transfer threads to open srcPort I starting port number srcIP S IP address of caller (string)
+
+RPC Return: 0 transfer succeeded 1 transfer failed ---------------------------------------------------------------------
+
+Receive a file on the dest machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+References dts\_\-qstatNetEnd(), dts\_\-qstatNetStart(), dts\_\-queueFromPath(), dts\_\-queueNameFmt(), dtsLog(), psCollectThreads(), psReceiveFile(), psSpawnThreads(), transferMB(), transferMb(), udtReceiveFile(), and udtSpawnThreads().

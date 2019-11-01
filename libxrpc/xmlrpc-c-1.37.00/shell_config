@@ -1,0 +1,30 @@
+#
+#######################################################
+# From 'shell_config'
+#######################################################
+ENABLE_ABYSS_THREADS="yes"
+THREAD_LIBS="-lpthread"
+ENABLE_LIBXML2_BACKEND="no"
+MUST_BUILD_WININET_CLIENT="no"
+MUST_BUILD_CURL_CLIENT="yes"
+MUST_BUILD_LIBWWW_CLIENT="no"
+NEED_RPATH="no"
+NEED_WL_RPATH="no"
+LIBXMLRPCPP_NAME="xmlrpc++"
+LSOCKET=""
+WININET_LDADD=""
+WININET_LIBDIR=""
+CURL_LDADD="-lcurl"
+CURL_LIBDIR="/usr/lib"
+LIBWWW_LDADD=""
+LIBWWW_LIBDIR=""
+XMLRPC_MAJOR_RELEASE="1"
+XMLRPC_MINOR_RELEASE="37"
+XMLRPC_POINT_RELEASE="0"
+FEATURE_LIST="abyss-server curl-client "
+PREFIX="/Users/fitz/dts/libxrpc"
+HEADERINST_DIR="/Users/fitz/dts/libxrpc/include"
+LIBINST_DIR="/Users/fitz/dts/libxrpc/lib"
+BLDDIR="/Users/fitz/dts/libxrpc/xmlrpc-c-1.37.00"
+ABS_SRCDIR="/Users/fitz/dts/libxrpc/xmlrpc-c-1.37.00"
+#######################################################

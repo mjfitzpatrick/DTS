@@ -1,0 +1,213 @@
+
+
+libdts/dtsPull.c
+libdts/dtsPush.c
+    Changed dts_semInit() id value to be offset by PID_MAX=32768 to avoid
+    collision with semaphores based on pid/tid  (11/22/13)
+
+================================================================================
+
+********************************************
+Merging Travis' changes    (4/23/13)
+********************************************
+
+libudt/udtc.h
+    Fixed multiple defs of UDT_API
+
+libudt/Makefile
+    Clean up
+
+libxrpc/mklibs
+    Re-enabled the build_curl/build_xmlrpc flags
+
+
+libxrpc/xrArray.h
+libxrpc/xrClient.h
+libxrpc/xrMethod.h
+libxrpc/xrServer.h
+libxrpc/xrStruct.h
+libxrpc/xrUtil.h
+libxrpc/xrpc.h
+    .......
+
+libdts/dts.c
+libdts/dts.h
+libdts/dtsCommands.c
+libdts/dtsConfig.c
+libdts/dtsFileUtil.c
+libdts/dtsLog.c
+libdts/dtsMethods.c
+libdts/dtsMethods.h
+libdts/dtsPSock.c
+libdts/dtsPull.c
+libdts/dtsPush.c
+libdts/dtsQueue.
+libdts/dtsQueueUtil.c
+libdts/dtsSem.c
+libdts/dtsSockUtil.c
+libdts/dtsUDT.c
+libdts/dtsUtil.c
+libdts/dtsXfer.c
+    .......
+
+
+Compiler Warnings:
+  dts.h:879: warning: 'first_write' defined but not used                          
+  dtsMethods.c:1909: warning: implicit declaration of function 
+		`xr_setLongLongInArray'
+  dtsMethods.c:2027: warning: unused variable `i'
+
+  dtsPSock.c:400: warning: passing arg 1 of `dtsErrLog' from 
+		incompatible pointer type
+  dtsPSock.c:416: warning: passing arg 1 of `dtsErrLog' from 
+		incompatible pointer type
+  dtsPSock.c:624: warning: int format, long int arg (arg 3)
+  dtsPSock.c:624: warning: int format, long int arg (arg 4)
+
+  dtsConfig.c:1503: warning: int format, time_t arg (arg 22)
+
+  dtsUtil.c:78:6: warning: "/*" within comment
+  dtsUtil.c:79:30: warning: "/*" within comment
+  dtsUtil.c:84:24: warning: "/*" within comment
+  dtsUtil.c:88:2: warning: "/*" within comment
+  dtsUtil.c:125: warning: comparison of distinct pointer types lacks a cast
+  dtsUtil.c:111: warning: unused variable `shm'
+  dtsUtil.c:111: warning: unused variable `s'
+
+  dtsFileUtil.c:191: warning: unused variable `nleft'
+  dtsFileUtil.c:191: warning: unused variable `nbytes'
+
+  dtsCommands.c:1480: warning: implicit declaration of function 
+		`xr_getLongLongFromArray'
+
+  dtsUDT.c:411: warning: unused variable `code'
+
+
+
+src/
+src/dtscp.c
+src/dtsd.c
+src/dtsh.c
+src/dtsmon.c
+src/dtsq.c
+src/dtstat.c
+
+Compiler Warnings:
+  dtsd.c:352: warning: comparison of distinct pointer types lacks a cast
+  dtsd.c:433: warning: implicit declaration of function
+  		`dts_respawnQueueManager'
+  dtsd.c:326: warning: unused variable `c'
+  dtsd.c:329: warning: unused variable `shm'
+  dtsd.c:329: warning: unused variable `s'
+  dtsd.c:350: warning: unused variable `k'
+  dtsd.c:1730: warning: unsigned int format, long int arg (arg 3)
+  dtsd.c:1735: warning: unsigned int format, long int arg (arg 3)
+  dtsd.c:1668: warning: unused variable `cycles'
+  
+  ../include/dts.h:879: warning: 'first_write' defined but not used
+  
+  dtsmon.c:352: warning: unused variable `i'
+  dtsmon.c:446: warning: int format, time_t arg (arg 6)
+  dtsmon.c:463: warning: int format, time_t arg (arg 6)
+  dtsmon.c:471: warning: int format, time_t arg (arg 5)
+  dtsmon.c:480: warning: int format, time_t arg (arg 5)
+  dtsmon.c:489: warning: int format, time_t arg (arg 5)
+  
+  dtsh.c:944: warning: int format, long int arg (arg 3)
+  dtsh.c:1036: warning: int format, double arg (arg 3)
+  dtsh.c:886: warning: unused variable `insert'
+  dtsh.c:891: warning: unused variable `str_start'
+  dtsh.c:892: warning: unused variable `str_stop'
+  dtsh.c:1667: warning: suggest parentheses around assignment used as 
+		truth value
+  dtsh.c:1670: warning: suggest parentheses around assignment used as 
+		truth value
+  dtsh.c:1672: warning: suggest parentheses around assignment used as 
+		truth value
+  dtsh.c:1680: warning: assignment from incompatible pointer type
+  
+  
+  dtstat.c:326: warning: unused variable `i'
+  
+  dtscp.c:541:51: warning: "/*" within comment
+  dtscp.c:544:17: warning: "/*" within comment
+  dtscp.c:544:55: warning: "/*" within comment
+  dtscp.c:544:62: warning: "/*" within comment
+  dtscp.c:545: warning: comparison between pointer and integer
+  dtscp.c:583: warning: passing arg 1 of `dts_cpCheckForRemoteWildcard' 
+		from incompatible pointer type
+  dtscp.c:661: warning: implicit declaration of function 
+		`canonicalize_file_name'
+  dtscp.c:661: warning: comparison between pointer and integer
+  dtscp.c:668: warning: passing arg 2 of `strcpy' makes pointer from 
+		integer without a cast                                                                       
+  dtscp.c:781: warning: comparison between pointer and integer
+  dtscp.c:788: warning: passing arg 2 of `strcpy' makes pointer from integer
+  		without a cast
+  dtscp.c:207: warning: unused variable `op'
+  dtscp.c:1015: warning: unused variable `ip'
+  dtscp.c:1564: warning: passing arg 1 of `strcpy' from incompatible pointer
+  dtscp.c:1564: warning: passing arg 2 of `strcpy' from incompatible pointer
+  dtscp.c:1565: warning: passing arg 1 of `strcpy' from incompatible pointer
+  dtscp.c:1565: warning: passing arg 2 of `strcpy' from incompatible pointer
+  dtscp.c:1568: warning: passing arg 1 of `sprintf' from incompatible pointer
+  dtscp.c:1581: warning: `return' with a value, in function returning void
+  dtscp.c:1622: warning: passing arg 1 of `strcpy' from incompatible pointer
+  dtscp.c:1622: warning: passing arg 2 of `strcpy' from incompatible pointer
+  dtscp.c:1623: warning: passing arg 1 of `strcpy' from incompatible pointer
+  dtscp.c:1623: warning: passing arg 2 of `strcpy' from incompatible pointer
+  dtscp.c:1625: warning: passing arg 1 of `sprintf' from incompatible pointer
+  dtscp.c:1638: warning: `return' with a value, in function returning void
+  dtscp.c:1689: warning: comparison between pointer and integer
+  dtscp.c:1696: warning: passing arg 1 of `strcpy' from incompatible pointer
+  dtscp.c:1696: warning: passing arg 2 of `strcpy' makes pointer from 
+		integer without a cast
+  dtscp.c:1660: warning: unused variable `ip'
+  dtscp.c:1662: warning: unused variable `first_run'
+  dtscp.c:180: warning: 'dts_cpCleanUpPaths' declared `static' but never defined
+  
+  dtsfuse.c:106: warning: passing arg 2 of `dts_hostStat' discards qualifiers
+  		from pointer target type
+  dtsfuse.c:120: warning: passing arg 2 of `dts_hostStat' makes pointer from
+  		integer without a cast
+  dtsfuse.c:133: warning: passing arg 2 of `dts_hostAccess' discards qualifiers
+  		from pointer target type
+  dtsfuse.c:165: warning: assignment makes integer from pointer without a cast
+  dtsfuse.c:160: warning: unused variable `res'
+  dtsfuse.c:207: warning: passing arg 2 of `dts_hostDir' discards qualifiers
+  		from pointer target type
+  dtsfuse.c:195: warning: unused variable `i'
+  dtsfuse.c:268: warning: passing arg 2 of `dts_hostMkdir' discards qualifiers
+  		from pointer target type
+  dtsfuse.c:279: warning: passing arg 2 of `dts_hostDel' discards qualifiers
+  		frompointer target type
+  dtsfuse.c:291: warning: passing arg 2 of `dts_hostDel' discards qualifiers
+  		frompointer target type
+  dtsfuse.c:481: warning: passing arg 2 of `dts_hostStat' discards qualifiers
+		from pointer target type
+  dtsfuse.c:481: warning: passing arg 3 of `dts_hostStat' from incompatible
+		pointer type
+  
+  dtsfuse.c:665: warning: unused variable `stat'
+  dtsfuse.c:665: warning: unused variable `alive'
+  dtsfuse.c:665: warning: unused variable `noop'
+  dtsfuse.c:668: warning: unused variable `qhost'
+  dtsfuse.c:671: warning: unused variable `nstat'
+  dtsfuse.c:750: warning: label `repeat_' defined but not used
+  dtsfuse.c:780:2: warning: no newline at end of file
+
+
+
+---------------------------------------------------------------------------
+
+Shadow System 
+    - deployed as 'shadow.new' on dtsct-hs/dsas3/dsan3
+    - queue 'decam_tcp' and 'decam_udt'
+
+    - Debug output in tasks, e.g.:
+	addMethod  in dtsq/dtsd
+        DEFAULT:  method='sendFile' data= 0x9cab5f0
+	argstart 131072000 nbytes 65536000 
+	ERRSTAT 0
+	
+

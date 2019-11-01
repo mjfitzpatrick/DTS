@@ -1,0 +1,41 @@
+
+alias z1  "./zztest 8800 9900"
+alias z2  "./zztest 9900 8800"
+alias z3  "./zztest 9901 8800"
+
+alias vz1  "valgrind --leak-check=full ./zztest 8800 9900"
+alias vz2  "valgrind --leak-check=full ./zztest 9900 8800"
+
+alias zt0  "unsetenv XMLRPC_TRACE_XML"
+alias zt1  "setenv XMLRPC_TRACE_XML 1"
+
+alias x    "xgterm -geom 80x24+10+10 -fn 9x15 -T tuc_dts -e ~/dts/src/dtsd -i -t +d +d >& /tmp/log.tuc &"
+
+alias mk   "(chdir ../ ; make install ; make); make"
+#alias z    "zztest"
+#alias zz   zz1
+alias  z   "(chdir ../libdts ; make install) ; make"
+
+alias xf    "xfer /tmp/test.dat"
+alias xp    "xfer -pull /tmp/test.dat"
+
+alias p	    "ps -mw -o pid,rsz,sz,args \!*"
+
+alias d	    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; clear ; (chdir /tmp ; limit coredumpsize unlimited ; /home/fitz/dts/src/dtsd +d +d -v -v)"
+alias dl    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; clear ; (chdir /tmp ; limit coredumpsize unlimited ; /home/fitz/dts.l/src/dtsd +d +d -v -v)"
+alias dt    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; clear ; (chdir /tmp ; limit coredumpsize unlimited ; /tucana/home/fitz/dts/src/dtsd +d +d -v -v)"
+alias vd    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; clear ; (chdir /tmp ; valgrind --leak-check=full --show-reachable=yes --leak-resolution=high /tucana/home/fitz/dts/src/dtsd +d +d -v -v)"
+alias ds    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; clear ; (chdir /tmp ; strace /tucana/home/fitz/dts/src/dtsd +d +d -v -v)"
+alias dbg   "del /tmp/dts.* /tmp/foo.* ; clear ; (chdir /tmp ; gdb /tucana/home/fitz/dts/src/dtsd --args /tucana/home/fitz/dts/src/dtsd +d +d -v -v)"
+alias dbg.d   "del /tmp/dts.* /tmp/foo.* ; clear ; (chdir /tmp ; gdb /tucana/home/fitz/dts/src/dtsd --args /tucana/home/fitz/dts/src/dtsd +d +d -v -v)"
+
+
+alias dc    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; rsync -avz tucana:dts . ; scp tucana:.dts_config . ; clear ; (chdir /tmp ; /home/fitz/dts/src/dtsd +d +d -v -v)"
+alias dd    "del /tmp/dts.* /tmp/foo.* ; scp tucana:.dts_config ~ ; clear ; (chdir /tmp ; /tucana/home/fitz/dts/src/dtsd +d +d -v -v)"
+alias dt    "del /d1/dts.* /tmp/dts.* /tmp/foo.* ;                            clear ; (chdir /tmp ; /home/fitz/dts/src/dtsd +d +d -v -v)"
+
+alias sq    "sqlite3 \!* 'select * from entry;'"
+alias sqm   "sqlite3 \!* 'select * from messages;'"
+
+alias zx    "/bin/rm -rf /tmp/dts.tuc /tmp/foo.tuc ~/.dtsq"
+alias zz    "/bin/rm -rf /tmp/dts.tuc /tmp/foo.tuc"

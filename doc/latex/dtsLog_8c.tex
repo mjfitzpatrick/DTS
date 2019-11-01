@@ -1,0 +1,208 @@
+\hypertarget{dtsLog_8c}{
+\section{dtsLog.c File Reference}
+\label{dtsLog_8c}\index{dtsLog.c@{dtsLog.c}}
+}
+\hyperlink{structDTS}{DTS} logging interface.  
+
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsLog_8c_7ca95aa869dee3c8acc0b1e278ec08be}{
+\#define \textbf{SZ\_\-FMTSPEC}~25}
+\label{dtsLog_8c_7ca95aa869dee3c8acc0b1e278ec08be}
+
+\item 
+\hypertarget{dtsLog_8c_a383cefd4e744dc4a39b9a92a1f6fc39}{
+\#define \textbf{SZ\_\-ARGVAL}~128}
+\label{dtsLog_8c_a383cefd4e744dc4a39b9a92a1f6fc39}
+
+\item 
+\hypertarget{dtsLog_8c_adbbc7b02d94a4c18646813ac8d7dec1}{
+\#define \textbf{EOS}~0}
+\label{dtsLog_8c_adbbc7b02d94a4c18646813ac8d7dec1}
+
+\item 
+\hypertarget{dtsLog_8c_d7fbee6ac1199a60f299182fdf5c86cd}{
+\#define \textbf{TY\_\-INT}~0}
+\label{dtsLog_8c_d7fbee6ac1199a60f299182fdf5c86cd}
+
+\item 
+\hypertarget{dtsLog_8c_139cdbab1ca85140036dd3a842dce925}{
+\#define \textbf{TY\_\-DOUBLE}~1}
+\label{dtsLog_8c_139cdbab1ca85140036dd3a842dce925}
+
+\item 
+\hypertarget{dtsLog_8c_98a8b550198a81aa12832006342b3a27}{
+\#define \textbf{TY\_\-CHAR}~2}
+\label{dtsLog_8c_98a8b550198a81aa12832006342b3a27}
+
+\item 
+\hypertarget{dtsLog_8c_6f65d5d83e14043db6b2e976b06a01fd}{
+\#define \textbf{SZ\_\-ERRBUF}~(4$\ast$SZ\_\-LINE)}
+\label{dtsLog_8c_6f65d5d83e14043db6b2e976b06a01fd}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{dtsLog_8c_d2c05204a0fc838b5af5cb776aa457ce}{dtsLog} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$format,...)
+\begin{CompactList}\small\item\em \hyperlink{structDTS}{DTS} message logger. \item\end{CompactList}\item 
+void \hyperlink{dtsLog_8c_dbc2225ca4ca582c03a1d8e3dcbe3c9f}{dtsLogMsg} (\hyperlink{structDTS}{DTS} $\ast$dts, int key, char $\ast$format,...)
+\begin{CompactList}\small\item\em Log \hyperlink{structDTS}{DTS} messages to DTSMON and local database. \item\end{CompactList}\item 
+void \hyperlink{dtsLog_8c_8c650d3a4d38d228050f03c8a706f1d5}{dtsLogStat} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$msg)
+\begin{CompactList}\small\item\em \hyperlink{structDTS}{DTS} message logger. \item\end{CompactList}\item 
+void \hyperlink{dtsLog_8c_f7df869bba0ef32fd401406ec844762a}{dtsErrLog} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, char $\ast$format,...)
+\begin{CompactList}\small\item\em \hyperlink{structDTS}{DTS} message logger. \item\end{CompactList}\item 
+void \hyperlink{dtsLog_8c_dbb792f77956cc647226bcacab450bf8}{dtsTimeLog} (char $\ast$fmt, struct timeval t1)
+\begin{CompactList}\small\item\em \hyperlink{structDTS}{DTS} timing message logger. \item\end{CompactList}\item 
+void \hyperlink{dtsLog_8c_fc4d96226d85c50d80a395cf98873463}{dts\_\-encodeString} (char $\ast$buf, char $\ast$format, va\_\-list $\ast$argp)
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} logging interface. 
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09\end{Desc}
+We can log to a local file as well as to a remote monitoring application. 
+
+\subsection{Function Documentation}
+\hypertarget{dtsLog_8c_fc4d96226d85c50d80a395cf98873463}{
+\index{dtsLog.c@{dtsLog.c}!dts\_\-encodeString@{dts\_\-encodeString}}
+\index{dts\_\-encodeString@{dts\_\-encodeString}!dtsLog.c@{dtsLog.c}}
+\subsubsection[{dts\_\-encodeString}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-encodeString (char $\ast$ {\em buf}, \/  char $\ast$ {\em format}, \/  va\_\-list $\ast$ {\em argp})}}
+\label{dtsLog_8c_fc4d96226d85c50d80a395cf98873463}
+
+
+DTS\_\-ENCODESTRING -- Process the format to the output file, taking arguments from the list pointed to by argp as \% format specs are encountered in the input.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em buf}]formatted output buffer \item[{\em format}]format string \item[{\em argp}]variable-length arguments \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\end{Desc}
+
+
+Referenced by dtsErrLog(), dtsLog(), and dtsLogMsg().\hypertarget{dtsLog_8c_f7df869bba0ef32fd401406ec844762a}{
+\index{dtsLog.c@{dtsLog.c}!dtsErrLog@{dtsErrLog}}
+\index{dtsErrLog@{dtsErrLog}!dtsLog.c@{dtsLog.c}}
+\subsubsection[{dtsErrLog}]{\setlength{\rightskip}{0pt plus 5cm}void dtsErrLog ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  char $\ast$ {\em format}, \/   {\em ...})}}
+\label{dtsLog_8c_f7df869bba0ef32fd401406ec844762a}
+
+
+\hyperlink{structDTS}{DTS} message logger. 
+
+DTS\_\-ERRLOG -- \hyperlink{structDTS}{DTS} message logger.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]queue pointer to save error msg (or NULL) \item[{\em format}]message format string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-encodeString(), and dtsLog().
+
+Referenced by dts\_\-endTransfer(), dts\_\-fopen(), dts\_\-getHostByName(), dts\_\-getQPort(), dts\_\-Ingest(), dts\_\-openServerSocket(), dts\_\-queueProcess(), dts\_\-sockRead(), dts\_\-sockWrite(), dts\_\-sysExec(), dts\_\-udtRead(), dts\_\-udtWrite(), dts\_\-xferDirFrom(), dts\_\-xferDirTo(), dts\_\-xferFile(), dts\_\-xferPullFile(), dts\_\-xferPushFile(), psComputeStripe(), psReceiveFile(), psReceiveStripe(), psSendFile(), psSendStripe(), psSpawnThreads(), udtReceiveFile(), udtSendFile(), udtSendStripe(), and udtSpawnThreads().\hypertarget{dtsLog_8c_d2c05204a0fc838b5af5cb776aa457ce}{
+\index{dtsLog.c@{dtsLog.c}!dtsLog@{dtsLog}}
+\index{dtsLog@{dtsLog}!dtsLog.c@{dtsLog.c}}
+\subsubsection[{dtsLog}]{\setlength{\rightskip}{0pt plus 5cm}void dtsLog ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em format}, \/   {\em ...})}}
+\label{dtsLog_8c_d2c05204a0fc838b5af5cb776aa457ce}
+
+
+\hyperlink{structDTS}{DTS} message logger. 
+
+DTS\_\-LOG -- \hyperlink{structDTS}{DTS} message logger.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em format}]message format string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-encodeString(), dts\_\-getClient(), and dts\_\-nullResponse().
+
+Referenced by dts\_\-Access(), dts\_\-Await(), dts\_\-Cat(), dts\_\-Cfg(), dts\_\-CheckDir(), dts\_\-Checksum(), dts\_\-Chmod(), dts\_\-Copy(), dts\_\-Cwd(), dts\_\-Delete(), dts\_\-Deliver(), dts\_\-DestDir(), dts\_\-Dir(), dts\_\-DiskFree(), dts\_\-DiskUsed(), dts\_\-Echo(), dts\_\-endTransfer(), dts\_\-FMode(), dts\_\-FSize(), dts\_\-FTime(), dts\_\-getNextQueueDir(), dts\_\-hostFrom(), dts\_\-hostInitTransfer(), dts\_\-hostTo(), dts\_\-Ingest(), dts\_\-initTransfer(), dts\_\-loadConfigDir(), dts\_\-loadConfigFile(), dts\_\-loadControl(), dts\_\-Mkdir(), dts\_\-monAttach(), dts\_\-monConsole(), dts\_\-monDetach(), dts\_\-pauseQueue(), dts\_\-Ping(), dts\_\-PingSleep(), dts\_\-PingStr(), dts\_\-Prealloc(), dts\_\-qstatSummary(), dts\_\-queueAccept(), dts\_\-queueCleanup(), dts\_\-queueComplete(), dts\_\-queueDelete(), dts\_\-queueDest(), dts\_\-queueProcess(), dts\_\-queueSetControl(), dts\_\-queueSrc(), dts\_\-queueValid(), dts\_\-Read(), dts\_\-remotePing(), dts\_\-Rename(), dts\_\-Set(), dts\_\-SetDbg(), dts\_\-SetRoot(), dts\_\-shutdownQueue(), dts\_\-sigHandler(), dts\_\-startQueue(), dts\_\-Stat(), dts\_\-stopQueue(), dts\_\-sysExec(), dts\_\-Touch(), dts\_\-UnsetDbg(), dts\_\-verifyDTS(), dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), dts\_\-xferSendFile(), dtsDaemonize(), dtsErrLog(), dtsErrorExit(), dtsErrorWarn(), psReceiveFile(), udtReceiveFile(), udtReceiveStripe(), and udtSendFile().\hypertarget{dtsLog_8c_dbc2225ca4ca582c03a1d8e3dcbe3c9f}{
+\index{dtsLog.c@{dtsLog.c}!dtsLogMsg@{dtsLogMsg}}
+\index{dtsLogMsg@{dtsLogMsg}!dtsLog.c@{dtsLog.c}}
+\subsubsection[{dtsLogMsg}]{\setlength{\rightskip}{0pt plus 5cm}void dtsLogMsg ({\bf DTS} $\ast$ {\em dts}, \/  int {\em key}, \/  char $\ast$ {\em format}, \/   {\em ...})}}
+\label{dtsLog_8c_dbc2225ca4ca582c03a1d8e3dcbe3c9f}
+
+
+Log \hyperlink{structDTS}{DTS} messages to DTSMON and local database. 
+
+DTS\_\-LOGMSG -- \hyperlink{structDTS}{DTS} message logger. Log to DTSMON and local database.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em key}]DB record key \item[{\em format}]message format string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-encodeString(), dts\_\-getClient(), and dts\_\-nullResponse().\hypertarget{dtsLog_8c_8c650d3a4d38d228050f03c8a706f1d5}{
+\index{dtsLog.c@{dtsLog.c}!dtsLogStat@{dtsLogStat}}
+\index{dtsLogStat@{dtsLogStat}!dtsLog.c@{dtsLog.c}}
+\subsubsection[{dtsLogStat}]{\setlength{\rightskip}{0pt plus 5cm}void dtsLogStat ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em msg})}}
+\label{dtsLog_8c_8c650d3a4d38d228050f03c8a706f1d5}
+
+
+\hyperlink{structDTS}{DTS} message logger. 
+
+DTS\_\-LOGSTAT -- \hyperlink{structDTS}{DTS} stat logger.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em msg}]message string \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-getClient(), and dts\_\-nullResponse().\hypertarget{dtsLog_8c_dbb792f77956cc647226bcacab450bf8}{
+\index{dtsLog.c@{dtsLog.c}!dtsTimeLog@{dtsTimeLog}}
+\index{dtsTimeLog@{dtsTimeLog}!dtsLog.c@{dtsLog.c}}
+\subsubsection[{dtsTimeLog}]{\setlength{\rightskip}{0pt plus 5cm}void dtsTimeLog (char $\ast$ {\em fmt}, \/  struct timeval {\em t1})}}
+\label{dtsLog_8c_dbb792f77956cc647226bcacab450bf8}
+
+
+\hyperlink{structDTS}{DTS} timing message logger. 
+
+DTSTIMELOG -- \hyperlink{structDTS}{DTS} timing message logger.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em format}]message format string (must include single 'g' format) \item[{\em t1}]starting time struct \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by psReceiveFile(), psReceiveStripe(), psSendFile(), psSendStripe(), udtReceiveFile(), udtSendFile(), and udtSendStripe().

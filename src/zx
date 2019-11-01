@@ -1,0 +1,8 @@
+#!/bin/csh -f
+
+
+scp dtsd dtsq dtsh dtstat mjfitz@decamsrvr01.fnal.gov:
+scp dtsd dtsq dtsh dtstat desar.cosmology.illinois.edu:
+scp dtsd dtsq dtsh dtstat dts@dsan3-hs.tuc.noao.edu:bin/
+scp dtsd dtsq dtsh dtstat dts@dsas3-hs.ctio.noao.edu:bin/
+scp dtsd dtsq dtsh dtstat dts@dtsct-hs.ctio.noao.edu:bin/

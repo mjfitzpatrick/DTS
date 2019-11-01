@@ -1,0 +1,14 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t denali    shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t elqui     shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana    shutdown dtsPass
+
+#    /home/fitz/dts/src/dtsh -a dts-ct    shutdown xyzzy
+#    /home/fitz/dts/src/dtsh -a dts-ls    shutdown xyzzy
+#    /home/fitz/dts/src/dtsh -a dts-ncsa  shutdown xyzzy
+#    /home/fitz/dts/src/dtsh -a dts-fermi shutdown xyzzy
+#    /home/fitz/dts/src/dtsh -a dts-tuc   shutdown xyzzy

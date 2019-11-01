@@ -1,0 +1,268 @@
+.TH "dtsQueue.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsQueue.c \- \fBDTS\fP queue methods.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   (dts&&dts->debug>2)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_hostInitTransfer\fP (char *host, char *qname, char *fname, char *msg)"
+.br
+.RI "\fISee if a queue will accept a new entry. \fP"
+.ti -1c
+.RI "int \fBdts_hostEndTransfer\fP (char *host, char *qname, char *qpath)"
+.br
+.RI "\fITerminate the file transfer. \fP"
+.ti -1c
+.RI "int \fBdts_hostQueueAccept\fP (char *host, char *qname, char *fname, char *msg)"
+.br
+.RI "\fISee if a queue will accept a new entry. \fP"
+.ti -1c
+.RI "int \fBdts_hostQueueComplete\fP (char *host, char *qname, char *qpath)"
+.br
+.RI "\fIComplete a file transfer. \fP"
+.ti -1c
+.RI "int \fBdts_hostQueueRelease\fP (char *host, char *qname)"
+.br
+.RI "\fIRelease the lock semaphore on a queue. \fP"
+.ti -1c
+.RI "int \fBdts_hostQueueValid\fP (char *host, char *qname)"
+.br
+.RI "\fISee if a queue name is valid on the host. \fP"
+.ti -1c
+.RI "int \fBdts_hostSetQueueControl\fP (char *host, char *qPath, Control *ctrl)"
+.br
+.RI "\fISet the control params for the transfer. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.ti -1c
+.RI "int \fBqueue_delay\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP queue methods. 
+
+DTSQUEUE.C -- \fBDTS\fP queue methods.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_hostEndTransfer (char * host, char * qname, char * qpath)"
+.PP
+Terminate the file transfer. 
+.PP
+DTS_HOSTENDTRANSFER -- Terminate the file transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP name of queue 
+.br
+\fIqpath\fP path to queue directory 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostInitTransfer (char * host, char * qname, char * fname, char * msg)"
+.PP
+See if a queue will accept a new entry. 
+.PP
+DTS_HOSTINITTRANSFER -- See if a queue will accept a new entry.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP name of queue 
+.br
+\fIfname\fP name of queue 
+.br
+\fImsg\fP returned message/path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), dts_du(), dts_getClient(), and dtsLog().
+.PP
+Referenced by dts_verifyDTS().
+.SS "int dts_hostQueueAccept (char * host, char * qname, char * fname, char * msg)"
+.PP
+See if a queue will accept a new entry. 
+.PP
+DTS_HOSTQUEUEACCEPT -- See if a queue will accept a new entry.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP name of queue 
+.br
+\fIfname\fP name of queue 
+.br
+\fImsg\fP returned message/path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), dts_du(), and dts_getClient().
+.SS "int dts_hostQueueComplete (char * host, char * qname, char * qpath)"
+.PP
+Complete a file transfer. 
+.PP
+DTS_HOSTQUEUECOMPLETE -- Complete a file transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP name of queue 
+.br
+\fIqpath\fP path to queue directory 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostQueueRelease (char * host, char * qname)"
+.PP
+Release the lock semaphore on a queue. 
+.PP
+DTS_HOSTQUEUERELEASE -- Release the lock semaphore on a queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP name of queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostQueueValid (char * host, char * qname)"
+.PP
+See if a queue name is valid on the host. 
+.PP
+DTS_HOSTQUEUEVALID -- See if a queue name is valid on the host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqname\fP name of queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.SS "int dts_hostSetQueueControl (char * host, char * qPath, Control * ctrl)"
+.PP
+Set the control params for the transfer. 
+.PP
+DTS_HOSTSETQUEUECONTROL -- Set the control params for the transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIqPath\fP path to queue directory being used 
+.br
+\fIctrl\fP Control data struct 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_cmdInit(), and dts_getClient().
+.PP
+Referenced by dts_queueInitControl().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

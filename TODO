@@ -1,0 +1,88 @@
+
+Development
+-----------
+
+    - configure DTS xinet files
+	- DECam
+	- pODI
+    - libdts
+	- while sleep() delays can be removed?
+    - DTSD
+	- stop/start methods
+	- email notification (what error conditions??)
+	- message database semaphore bug
+	- syslog interface
+	- delivery stats
+	- stuck _lock file cause?
+    - DTSCP task
+    - DTSQ 
+	- forwards 'Recover' file to queue
+	- creates submission log on queue
+	- methods to retrieve Recover/Log file from queues
+
+    - Build procedures
+	- single 'make' from source
+	- 64-bit support (requires testing)
+    - Documentation
+	- configuration/deployment description
+	- task man pages
+	- fix Doxygen generation for libdts
+
+
+Testing
+-----------
+    - Stop/Start DTS node
+    - Stop/Start DTS queue
+    - Stop/Start DTS network
+
+    - Simulated:
+	- loaded system
+	- disk full errors
+	- network outage
+	- failed delivery
+	- non-FITS files
+
+    - Recovery procedures:
+	- in the dome
+	- archive ingest?
+	- DSTQ recovery/verify
+
+    - Exit status from deliveryCmd
+	0         # Successful exit code
+	1         # Minor error in delivery script, continue
+	2         # Fatal error, do not forward file on queue, leave ERR file
+	3         # Fatal error, queue should be halted
+
+
+Ops
+-----------
+    - Questions:
+	- delivery apps are responsible for removing their copy
+	- do we auto or manually purge the DTS spool dirs?
+	- ODI: transfer tar bundles or individual files?
+
+    - Development
+	- Control tools (dtsh scripts?)
+	- Monitoring tools (dtstat and/or dtsh scripts?)
+	    - aliveness tests
+	    - log collection
+
+    - Documentation
+	- Ops Manual 
+	    - daily monitoring tasks
+	    - deployment procedure
+	    - Troubleshooting
+
+    - Software Releases
+	- where is code/release/doc repository?
+	- DECam
+	    - delivery/ingest apps
+	    - config files
+	        - dtsq
+	        - dtsd
+	- pODI
+	    - delivery/ingest apps
+	    - config files
+	        - dtsq
+	        - dtsd
+

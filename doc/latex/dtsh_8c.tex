@@ -1,0 +1,271 @@
+\hypertarget{dtsh_8c}{
+\section{dtsh.c File Reference}
+\label{dtsh_8c}\index{dtsh.c@{dtsh.c}}
+}
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}build.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsh_8c_f0b5cfa4242ae7f98ba80fd23ef8afa9}{
+\#define \textbf{APP\_\-NAME}~\char`\"{}dtsh\char`\"{}}
+\label{dtsh_8c_f0b5cfa4242ae7f98ba80fd23ef8afa9}
+
+\item 
+\hypertarget{dtsh_8c_92673e33f27532767749b79edb8ef806}{
+\#define \textbf{APP\_\-VERSION}~\char`\"{}1.0\char`\"{}}
+\label{dtsh_8c_92673e33f27532767749b79edb8ef806}
+
+\item 
+\hypertarget{dtsh_8c_c9c1311707cba8abcf575d13a527bc7b}{
+\#define \textbf{SZ\_\-SBUF}~4096}
+\label{dtsh_8c_c9c1311707cba8abcf575d13a527bc7b}
+
+\item 
+\hypertarget{dtsh_8c_29b7451465deac204c5f7cb1f9c6e1fc}{
+\#define \textbf{MAX\_\-ARGS}~32}
+\label{dtsh_8c_29b7451465deac204c5f7cb1f9c6e1fc}
+
+\item 
+\#define \hyperlink{dtsh_8c_a7df7208f8d6f2f7782738c2029ed70f}{SH\_\-MAX\_\-THREADS}~1024
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsh_8c_0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsh_8c_1c2046dcb30a629d6d9f45ff8f403f12}{
+char $\ast$ \textbf{host} = \char`\"{}localhost\char`\"{}}
+\label{dtsh_8c_1c2046dcb30a629d6d9f45ff8f403f12}
+
+\item 
+\hypertarget{dtsh_8c_fd18596eb21b31005561cc5941ddeac5}{
+char $\ast$ \textbf{lhost} = \char`\"{}\char`\"{}}
+\label{dtsh_8c_fd18596eb21b31005561cc5941ddeac5}
+
+\item 
+\hypertarget{dtsh_8c_7353cae57e2530c316ddacb27ef14932}{
+char $\ast$ \textbf{cmd} = NULL}
+\label{dtsh_8c_7353cae57e2530c316ddacb27ef14932}
+
+\item 
+\hypertarget{dtsh_8c_44196e6a5696d10442c29e639437196e}{
+char $\ast$ \textbf{path} = NULL}
+\label{dtsh_8c_44196e6a5696d10442c29e639437196e}
+
+\item 
+\hypertarget{dtsh_8c_74bb62276efdf39dd94048e007fca05b}{
+char $\ast$ \textbf{config} = NULL}
+\label{dtsh_8c_74bb62276efdf39dd94048e007fca05b}
+
+\item 
+\hypertarget{dtsh_8c_9027b352db4085a0122952932d065705}{
+char $\ast$ \textbf{alias} = NULL}
+\label{dtsh_8c_9027b352db4085a0122952932d065705}
+
+\item 
+\hypertarget{dtsh_8c_9e56413137aaccc450e1f8fa7b075545}{
+long \textbf{fsize} = 0}
+\label{dtsh_8c_9e56413137aaccc450e1f8fa7b075545}
+
+\item 
+\hypertarget{dtsh_8c_1ea5d0cb93f22f7d0fdf804bd68c3326}{
+int \textbf{mode} = 0}
+\label{dtsh_8c_1ea5d0cb93f22f7d0fdf804bd68c3326}
+
+\item 
+\hypertarget{dtsh_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = 0}
+\label{dtsh_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtsh_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = 0}
+\label{dtsh_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtsh_8c_55602ca214fb365e8deef9a73c8442e7}{
+int \textbf{quiet} = 0}
+\label{dtsh_8c_55602ca214fb365e8deef9a73c8442e7}
+
+\item 
+\hypertarget{dtsh_8c_829add167f33003098445ad1e6b2d13a}{
+int \textbf{noop} = 0}
+\label{dtsh_8c_829add167f33003098445ad1e6b2d13a}
+
+\item 
+\hypertarget{dtsh_8c_314dbcb00015eeb2e4b0121e96bfffde}{
+int \textbf{poke} = 0}
+\label{dtsh_8c_314dbcb00015eeb2e4b0121e96bfffde}
+
+\item 
+\hypertarget{dtsh_8c_e771d2f10d54356a879a6124e264d1d1}{
+int \textbf{doShell} = 0}
+\label{dtsh_8c_e771d2f10d54356a879a6124e264d1d1}
+
+\item 
+\hypertarget{dtsh_8c_febff510c77490d624a575300fb50d5a}{
+int \textbf{doTime} = 0}
+\label{dtsh_8c_febff510c77490d624a575300fb50d5a}
+
+\item 
+\hypertarget{dtsh_8c_7440bd6e24aa1071073ef2a5c4ede966}{
+int \textbf{contact} = 0}
+\label{dtsh_8c_7440bd6e24aa1071073ef2a5c4ede966}
+
+\item 
+\hypertarget{dtsh_8c_7a829e6fd74e94e0edf10550470d844c}{
+int \textbf{rate} = 0}
+\label{dtsh_8c_7a829e6fd74e94e0edf10550470d844c}
+
+\item 
+\hypertarget{dtsh_8c_dcc9a19ad3119f823a658f6a49a24e64}{
+int \textbf{method} = TM\_\-PSOCK}
+\label{dtsh_8c_dcc9a19ad3119f823a658f6a49a24e64}
+
+\item 
+\hypertarget{dtsh_8c_ac31eb68bff694554a182bd796b2f1c5}{
+int \textbf{res} = OK}
+\label{dtsh_8c_ac31eb68bff694554a182bd796b2f1c5}
+
+\item 
+\hypertarget{dtsh_8c_b96dbd9a8b1abb3da4fe742417fcc3ca}{
+int \textbf{cmdPort} = DTSSH\_\-PORT}
+\label{dtsh_8c_b96dbd9a8b1abb3da4fe742417fcc3ca}
+
+\item 
+\hypertarget{dtsh_8c_38e295bc5474de50e9f88db612561fa7}{
+int \textbf{loPort} = DTSSH\_\-PORT + 5}
+\label{dtsh_8c_38e295bc5474de50e9f88db612561fa7}
+
+\item 
+\hypertarget{dtsh_8c_01d264c50baf2315ce24eda6c8b2a226}{
+int \textbf{hiPort} = DTSSH\_\-PORT + 5 + DEF\_\-MAX\_\-PORTS}
+\label{dtsh_8c_01d264c50baf2315ce24eda6c8b2a226}
+
+\item 
+\hypertarget{dtsh_8c_2b6a46c4274b223ea03fb4a7b80f4a5a}{
+int \textbf{nthreads} = DEF\_\-NTHREADS}
+\label{dtsh_8c_2b6a46c4274b223ea03fb4a7b80f4a5a}
+
+\item 
+\hypertarget{dtsh_8c_ca392a8d3941cd0740aef3ad92545d67}{
+FILE $\ast$ \textbf{in} = (FILE $\ast$) NULL}
+\label{dtsh_8c_ca392a8d3941cd0740aef3ad92545d67}
+
+\item 
+\hypertarget{dtsh_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dtsh_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsh_8c_e46fcc990156bad39982ba63a195779f}{
+char $\ast$ \textbf{clientUrl}}
+\label{dtsh_8c_e46fcc990156bad39982ba63a195779f}
+
+\item 
+\hypertarget{dtsh_8c_610eba3d96a801323b46b5c28cbd476c}{
+char \textbf{cmdbuf} \mbox{[}SZ\_\-SBUF\mbox{]}}
+\label{dtsh_8c_610eba3d96a801323b46b5c28cbd476c}
+
+\item 
+\hypertarget{dtsh_8c_122c83a43e601449c2ade61d02e693a8}{
+char \textbf{localIP} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtsh_8c_122c83a43e601449c2ade61d02e693a8}
+
+\item 
+\hypertarget{dtsh_8c_9a9ff89716e45ff905821dbbbe51dd13}{
+char $\ast$ \textbf{subArg} \mbox{[}MAX\_\-ARGS\mbox{]}}
+\label{dtsh_8c_9a9ff89716e45ff905821dbbbe51dd13}
+
+\item 
+\hypertarget{dtsh_8c_2d886d8443ccfb900dca326ed9ba5dad}{
+int \textbf{numArgs} = 0}
+\label{dtsh_8c_2d886d8443ccfb900dca326ed9ba5dad}
+
+\item 
+\hypertarget{dtsh_8c_9c2c8932cd289db05ac20cf7d828771c}{
+char $\ast$ \textbf{xArgs} \mbox{[}MAX\_\-ARGS\mbox{]}}
+\label{dtsh_8c_9c2c8932cd289db05ac20cf7d828771c}
+
+\item 
+\hypertarget{dtsh_8c_0040a80030bf6365af946d5a932f0fbb}{
+int \textbf{nXArgs} = 0}
+\label{dtsh_8c_0040a80030bf6365af946d5a932f0fbb}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTSH -- Utility app to send a command to a DTS daemon on a remote host. Note we only support a subset of commands that might be useful in a scripting environment, the DTSMON as a console has full access to all the DTSD functionality. The first argument is always the host to be contacted, either a direct IP address or a DTS logical name if a local config file can be found. The second argument is the name of the command followed by whichever arguments that command requires.
+
+Usage: dtsh \mbox{[}options\mbox{]} $<$cmd$>$ $<$arg$>$ \mbox{[}$<$arg$>$ ...\mbox{]}
+
+Options: -h print help
+
+-c \mbox{[}fname\mbox{]} set config file -i run interactive shell -n no-op flag -q quiet - suppress output flag -t \mbox{[}name\mbox{]} target host flag -s run as command shell
+
+-H $<$port$>$ set hi transfer port -L $<$port$>$ set low transfer port -N $<$port$>$ set number of threads -P $<$port$>$ set (local) command port
+
+-d debug flag -v verbose output flag
+
+Commands: !$<$cmd$>$ shell escape rewind rewind command input (primitive loop) sleep $<$N$>$ suspend execution for $<$N$>$ seconds print $<$str$>$ print $<$str$>$ to stdout port $<$port$>$ restart on specified port target $<$host$>$ set command target host (name or IP)
+
+debug turn on debug output verbose set verbose output flag logout quit the shell
+
+// FILE COMMANDS access $<$path$>$ test file access to sanbox $<$path$>$ cat $<$file$>$ concatenate $<$file$>$ to stdout cfg print DTS config on target machine cwd print current working directory del \mbox{[}-r\mbox{]} $<$pattern$>$ \mbox{[}passwd\mbox{]} delete files matching pattern dir \mbox{[}-l\mbox{]} \mbox{[}$<$pattern$>$\mbox{]} list filenames matching pattern ddir $<$qname$>$ list delivery directory for named queue df return free disk (KB) du return used disk (KB) echo $<$str$>$ echo a string fget $<$path$>$ get file from remote host fsize $<$path$>$ print file size ftime $<$path$>$ \mbox{[}a$|$m$|$c\mbox{]} print file $<$mode$>$ time ls \mbox{[}-l\mbox{]} \mbox{[}$<$pattern$>$\mbox{]} list filenames matching pattern mkdir $<$path$>$ make a directory poke poke a host svrping (server) ping a host tping threaded ping ping ping a host pingstr ping a host (string return) pingsleep $<$n$>$ ping a host and sleep (int return) pingarray ping a host (array return) pclient print client information pqueue $<$queue$>$ print queue information mv $<$old$>$ $<$new$>$ rename a file nping $<$N$>$ ping a host $<$N$>$ times prealloc $<$path$>$ $<$nbytes$>$ preallocate file space pwd print current working directory read $<$path$>$ read from file rename $<$old$>$ $<$new$>$ rename a file rm $<$pattern$>$ delete files matching patter stat $<$path$>$ print fille stat() of file touch $<$path$>$ touch a file's access time
+
+// FILE TRANSFER COMMANDS give $<$file$>$ $<$args$>$ transfer local to remote, server take $<$file$>$ $<$args$>$ transfer remote to local, server push $<$file$>$ $<$args$>$ transfer local to remote, client pull $<$file$>$ $<$args$>$ transfer remote to local, client
+
+// QUEUE COMMANDS dest $<$qname$>$ get destination of named queue trace $<$qname$>$ trace connectivity of named queue
+
+// ADMIN COMMANDS abort abort dtsd shutdown shutdown dtsd
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010 \end{Desc}
+
+
+\subsection{Define Documentation}
+\hypertarget{dtsh_8c_a7df7208f8d6f2f7782738c2029ed70f}{
+\index{dtsh.c@{dtsh.c}!SH\_\-MAX\_\-THREADS@{SH\_\-MAX\_\-THREADS}}
+\index{SH\_\-MAX\_\-THREADS@{SH\_\-MAX\_\-THREADS}!dtsh.c@{dtsh.c}}
+\subsubsection[{SH\_\-MAX\_\-THREADS}]{\setlength{\rightskip}{0pt plus 5cm}\#define SH\_\-MAX\_\-THREADS~1024}}
+\label{dtsh_8c_a7df7208f8d6f2f7782738c2029ed70f}
+
+
+DTS\_\-SHTPING -- Multi-threaded PING. 
+
+\subsection{Function Documentation}
+\hypertarget{dtsh_8c_0ddf1224851353fc92bfbff6f499fa97}{
+\index{dtsh.c@{dtsh.c}!main@{main}}
+\index{main@{main}!dtsh.c@{dtsh.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{dtsh_8c_0ddf1224851353fc92bfbff6f499fa97}
+
+
+Task entry point. 

@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008
+END
+xmlrpc_server_cgi.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_server_cgi.vcproj
+END
+sample_add_server.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/sample_add_server.vcproj
+END
+xmlrpc_xmlparse.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_xmlparse.vcproj
+END
+cpptest.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/cpptest.vcproj
+END
+sample_add_sync_client.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/sample_add_sync_client.vcproj
+END
+rpctest.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/rpctest.vcproj
+END
+xmlrpc_server_w32httpsys.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_server_w32httpsys.vcproj
+END
+gennmtab.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/gennmtab.vcproj
+END
+xmlrpc_server.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_server.vcproj
+END
+xmlrpc_server_abyss.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_server_abyss.vcproj
+END
+sample_add_asynch_client.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/sample_add_asynch_client.vcproj
+END
+tool_xmlrpc-transport.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/tool_xmlrpc-transport.vcproj
+END
+xmlrpc.sln
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc.sln
+END
+sample_auth_client.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/sample_auth_client.vcproj
+END
+xmlrpc_util.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_util.vcproj
+END
+tool_xmlrpc.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/tool_xmlrpc.vcproj
+END
+xmlrpc_client.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_client.vcproj
+END
+xmlrpc__.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc__.vcproj
+END
+xmlrpc_xmltok.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_xmltok.vcproj
+END
+xmlrpc.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc.vcproj
+END
+xmlrpc_abyss.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/xmlrpc_abyss.vcproj
+END
+sample_add_server_w32httpsys.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/Windows/project/vs2008/sample_add_server_w32httpsys.vcproj
+END

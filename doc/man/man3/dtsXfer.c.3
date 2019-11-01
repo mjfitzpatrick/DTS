@@ -1,0 +1,358 @@
+.TH "dtsXfer.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsXfer.c \- Client-callable \fBDTS\fP commands to transfer files TO a remote host machine..  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <dirent.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_hostTo\fP (char *host, int port, int method, int rate, int loPort, int hiPort, int threads, int mode, int argc, char *argv[], \fBxferStat\fP *xfs)"
+.br
+.RI "\fIPush a file to a remote host. \fP"
+.ti -1c
+.RI "int \fBdts_hostFrom\fP (char *host, int port, int method, int rate, int loPort, int hiPort, int threads, int mode, int argc, char *argv[], \fBxferStat\fP *xfs)"
+.br
+.RI "\fIPull a file from a remote host. \fP"
+.ti -1c
+.RI "int \fBdts_xferDirTo\fP (char *host, char *func, int method, int rate, char *path, char *root, char *prefix, \fBxferStat\fP *xs)"
+.br
+.RI "\fIRecursively transfer a directory between hosts. \fP"
+.ti -1c
+.RI "int \fBdts_xferDirFrom\fP (char *srcHost, char *dstHost, int dstLocal, char *func, int method, int rate, char *path, char *root, char *prefix, \fBxferStat\fP *xs)"
+.br
+.RI "\fIRecursively transfer a directory between hosts. \fP"
+.ti -1c
+.RI "int \fBdts_xferFile\fP (char *host, char *func, int method, int rate, char *path, int fsize, mode_t fmode, \fBxferStat\fP *xs)"
+.br
+.RI "\fITransfer a single file between hosts. \fP"
+.ti -1c
+.RI "int \fBdts_xferParseArgs\fP (int argc, char *argv[], int *nthreads, int *port, int *verbose, char **path_A, char **path_B)"
+.br
+.RI "\fIParse arguments used by the transfer commands. \fP"
+.ti -1c
+.RI "int \fBdts_xferParsePaths\fP (char *host, char **path_A, char **path_B, int *srcLocal, int *dstLocal, char **src_host, char **dest_host, char **msg_host, char **path)"
+.br
+.RI "\fIParse the paths used by the transfer commands. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Client-callable \fBDTS\fP commands to transfer files TO a remote host machine.. 
+
+DTSHOTTO.C -- Client-callable \fBDTS\fP commands to transfer files TO a remote host machine..
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_hostFrom (char * host, int port, int method, int rate, int loPort, int hiPort, int threads, int mode, int argc, char * argv[], \fBxferStat\fP * xfs)"
+.PP
+Pull a file from a remote host. 
+.PP
+DTS_HOSTFROM -- Pull a file from A to B.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIport\fP local \fBDTS\fP command port 
+.br
+\fImethod\fP transport method 
+.br
+\fIrate\fP transport rate (Mbps) 
+.br
+\fIloPort\fP low \fBDTS\fP transfer port 
+.br
+\fIhiPort\fP high \fBDTS\fP transfer port 
+.br
+\fIthreads\fP number of transfer threads 
+.br
+\fImode\fP transfer mode 
+.br
+\fIargc\fP argument counter 
+.br
+\fIargv\fP argument vector 
+.br
+\fIxfs\fP transfer stats 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP succeeds. 
+.RE
+.PP
+
+.PP
+References dts_cmdInit(), dts_getLocalIP(), dts_hostAccess(), dts_hostFMode(), dts_hostFSize(), dts_hostIsDir(), dts_hostMkdir(), dts_localMkdir(), dts_pathDir(), dts_pathFname(), dts_queueFromPath(), dts_resolveHost(), dts_xferDirFrom(), dts_xferFile(), dts_xferParseArgs(), and dtsLog().
+.SS "int dts_hostTo (char * host, int port, int method, int rate, int loPort, int hiPort, int threads, int mode, int argc, char * argv[], \fBxferStat\fP * xfs)"
+.PP
+Push a file to a remote host. 
+.PP
+DTS_HOSTTO -- Move a file from A 'to' B (i.e. a 'push' or 'give').
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host machine name (or IP string) 
+.br
+\fIport\fP local \fBDTS\fP command port 
+.br
+\fImethod\fP transport method 
+.br
+\fIrate\fP transfer rate (Mbps) 
+.br
+\fIloPort\fP low \fBDTS\fP transfer port 
+.br
+\fIhiPort\fP high \fBDTS\fP transfer port 
+.br
+\fIthreads\fP number of transfer threads 
+.br
+\fImode\fP transfer mode 
+.br
+\fIargc\fP argument counter 
+.br
+\fIargv\fP argument vector 
+.br
+\fIxfs\fP transfer stats 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP succeeds. 
+.RE
+.PP
+
+.PP
+References dts_cmdInit(), dts_du(), dts_getLocalIP(), dts_hostMkdir(), dts_isDir(), dts_pathDir(), dts_pathFname(), dts_queueFromPath(), dts_xferDirTo(), dts_xferFile(), dts_xferParseArgs(), dts_xferParsePaths(), and dtsLog().
+.PP
+Referenced by dts_queueProcess().
+.SS "int dts_xferDirFrom (char * srcHost, char * dstHost, int dstLocal, char * func, int method, int rate, char * path, char * root, char * prefix, \fBxferStat\fP * xs)"
+.PP
+Recursively transfer a directory between hosts. 
+.PP
+DTS_XFERDIRFROM -- Recursively transfer a directory between hosts.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsrcHost\fP source host 
+.br
+\fIdstHost\fP destination host 
+.br
+\fIdstLocal\fP is dest the local machine? 
+.br
+\fIfunc\fP RPC method to call 
+.br
+\fImethod\fP transport method 
+.br
+\fIrate\fP transfer rate 
+.br
+\fIpath\fP path to file 
+.br
+\fIroot\fP destination root 
+.br
+\fIprefix\fP destination path prefix 
+.br
+\fIxfs\fP transfer stats 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP succeeds. 
+.RE
+.PP
+
+.PP
+References dts_hostDir(), dts_hostFMode(), dts_hostFSize(), dts_pathDir(), dts_pathFname(), dts_xferFile(), and dtsErrLog().
+.PP
+Referenced by dts_hostFrom().
+.SS "int dts_xferDirTo (char * host, char * func, int method, int rate, char * path, char * root, char * prefix, \fBxferStat\fP * xs)"
+.PP
+Recursively transfer a directory between hosts. 
+.PP
+DTS_XFERDIRTO -- Recursively transfer a directory between hosts.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host to call 
+.br
+\fIfunc\fP RPC method to call 
+.br
+\fImethod\fP transport method 
+.br
+\fIrate\fP transfer rate 
+.br
+\fIpath\fP path to file 
+.br
+\fIroot\fP destination root 
+.br
+\fIprefix\fP source prefix dir 
+.br
+\fIxfs\fP transfer stats 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP succeeds. 
+.RE
+.PP
+
+.PP
+References dts_hostChmod(), dts_hostMkdir(), dts_isDir(), dts_nameMode(), dts_nameSize(), dts_pathDir(), dts_pathFname(), dts_xferFile(), and dtsErrLog().
+.PP
+Referenced by dts_hostTo().
+.SS "int dts_xferFile (char * host, char * func, int method, int rate, char * path, int fsize, mode_t fmode, \fBxferStat\fP * xs)"
+.PP
+Transfer a single file between hosts. 
+.PP
+DTS_XFERFILE -- Transfer a single file between hosts.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP client host 
+.br
+\fIfunc\fP RPC method to call 
+.br
+\fImethod\fP transport method 
+.br
+\fIrate\fP transfer rate (Mbps) 
+.br
+\fIpath\fP path to file 
+.br
+\fIfsize\fP file size 
+.br
+\fIfmode\fP file protection mode 
+.br
+\fIxfs\fP transfer stats 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 (one) if \fBDTS\fP succeeds. 
+.RE
+.PP
+
+.PP
+References dts_cfgQMethodStr(), dts_closeClient(), dts_getClient(), dts_hostChmod(), dts_hostIsDir(), dts_hostMkdir(), dts_hostTouch(), dts_isDir(), dts_localMkdir(), dts_localTouch(), dts_nameMode(), dtsErrLog(), transferMB(), and transferMb().
+.PP
+Referenced by dts_hostFrom(), dts_hostTo(), dts_xferDirFrom(), and dts_xferDirTo().
+.SS "int dts_xferParseArgs (int argc, char * argv[], int * nthreads, int * port, int * verbose, char ** path_A, char ** path_B)"
+.PP
+Parse arguments used by the transfer commands. 
+.PP
+DTS_XFERPARSEARGS -- Parse the arguments used in the push/pull and give/take commands.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargc\fP arg count 
+.br
+\fIargv\fP arg vector 
+.br
+\fInthreads\fP number of processing threads 
+.br
+\fIverbose\fP verbose flag 
+.br
+\fIport\fP base transfer port 
+.br
+\fIpath_A\fP src path specification 
+.br
+\fIpath_B\fP dest path specification 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostFrom(), and dts_hostTo().
+.SS "int dts_xferParsePaths (char * host, char ** path_A, char ** path_B, int * srcLocal, int * dstLocal, char ** src_host, char ** dest_host, char ** msg_host, char ** path)"
+.PP
+Parse the paths used by the transfer commands. 
+.PP
+DTS_XFERPARSEPATHS -- Parse the paths used in the transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP host name 
+.br
+\fIpath_A\fP src path specification 
+.br
+\fIpath_B\fP dest path specification 
+.br
+\fIsrcLocal\fP is src local machine? 
+.br
+\fIdstLocal\fP is dest local machine? 
+.br
+\fIsrcHost\fP source host name 
+.br
+\fIdstHost\fP dest host name 
+.br
+\fImsgHost\fP message host name 
+.br
+\fIpath\fP path name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+References dts_getLocalIP(), and dts_resolveHost().
+.PP
+Referenced by dts_hostTo().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

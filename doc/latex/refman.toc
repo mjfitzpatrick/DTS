@@ -1,0 +1,98 @@
+\contentsline {chapter}{\numberline {1}File Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}File List}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}File Documentation}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}dtsASync.c File Reference}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Detailed Description}{3}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Function Documentation}{4}{subsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.2.1}dts\_\discretionary {-}{}{}nullResponse}{4}{subsubsection.2.1.2.1}
+\contentsline {section}{\numberline {2.2}dtsClient.c File Reference}{5}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Detailed Description}{5}{subsection.2.2.1}
+\contentsline {section}{\numberline {2.3}dtsConfig.c File Reference}{6}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Detailed Description}{7}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Function Documentation}{7}{subsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.2.1}dts\_\discretionary {-}{}{}cfgQMethod}{7}{subsubsection.2.3.2.1}
+\contentsline {subsubsection}{\numberline {2.3.2.2}dts\_\discretionary {-}{}{}cfgQMethodStr}{8}{subsubsection.2.3.2.2}
+\contentsline {subsubsection}{\numberline {2.3.2.3}dts\_\discretionary {-}{}{}cfgQMode}{8}{subsubsection.2.3.2.3}
+\contentsline {subsubsection}{\numberline {2.3.2.4}dts\_\discretionary {-}{}{}cfgQModeStr}{8}{subsubsection.2.3.2.4}
+\contentsline {subsubsection}{\numberline {2.3.2.5}dts\_\discretionary {-}{}{}cfgQType}{9}{subsubsection.2.3.2.5}
+\contentsline {subsubsection}{\numberline {2.3.2.6}dts\_\discretionary {-}{}{}cfgQTypeStr}{9}{subsubsection.2.3.2.6}
+\contentsline {subsubsection}{\numberline {2.3.2.7}dts\_\discretionary {-}{}{}loadConfig}{9}{subsubsection.2.3.2.7}
+\contentsline {subsubsection}{\numberline {2.3.2.8}dtsGets}{10}{subsubsection.2.3.2.8}
+\contentsline {section}{\numberline {2.4}dtsConsole.c File Reference}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Detailed Description}{11}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Function Documentation}{12}{subsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.2.1}dts\_\discretionary {-}{}{}monAttach}{12}{subsubsection.2.4.2.1}
+\contentsline {subsubsection}{\numberline {2.4.2.2}dts\_\discretionary {-}{}{}monConsole}{12}{subsubsection.2.4.2.2}
+\contentsline {subsubsection}{\numberline {2.4.2.3}dts\_\discretionary {-}{}{}monDetach}{12}{subsubsection.2.4.2.3}
+\contentsline {section}{\numberline {2.5}dtsFileUtil.c File Reference}{13}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Detailed Description}{14}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Function Documentation}{14}{subsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.2.1}dts\_\discretionary {-}{}{}fileClose}{14}{subsubsection.2.5.2.1}
+\contentsline {subsubsection}{\numberline {2.5.2.2}dts\_\discretionary {-}{}{}fileOpen}{14}{subsubsection.2.5.2.2}
+\contentsline {subsubsection}{\numberline {2.5.2.3}dts\_\discretionary {-}{}{}fileSize}{15}{subsubsection.2.5.2.3}
+\contentsline {subsubsection}{\numberline {2.5.2.4}dts\_\discretionary {-}{}{}getBuffer}{15}{subsubsection.2.5.2.4}
+\contentsline {subsubsection}{\numberline {2.5.2.5}dts\_\discretionary {-}{}{}preAlloc}{15}{subsubsection.2.5.2.5}
+\contentsline {section}{\numberline {2.6}dtsLog.c File Reference}{16}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Detailed Description}{16}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Function Documentation}{17}{subsection.2.6.2}
+\contentsline {subsubsection}{\numberline {2.6.2.1}dts\_\discretionary {-}{}{}encodeString}{17}{subsubsection.2.6.2.1}
+\contentsline {subsubsection}{\numberline {2.6.2.2}dtsLog}{17}{subsubsection.2.6.2.2}
+\contentsline {section}{\numberline {2.7}dtsMethods.c File Reference}{18}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Detailed Description}{19}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Function Documentation}{20}{subsection.2.7.2}
+\contentsline {subsubsection}{\numberline {2.7.2.1}dts\_\discretionary {-}{}{}addToQueue}{20}{subsubsection.2.7.2.1}
+\contentsline {subsubsection}{\numberline {2.7.2.2}dts\_\discretionary {-}{}{}cancelTransfer}{20}{subsubsection.2.7.2.2}
+\contentsline {subsubsection}{\numberline {2.7.2.3}dts\_\discretionary {-}{}{}diskSpace}{21}{subsubsection.2.7.2.3}
+\contentsline {subsubsection}{\numberline {2.7.2.4}dts\_\discretionary {-}{}{}Echo}{21}{subsubsection.2.7.2.4}
+\contentsline {subsubsection}{\numberline {2.7.2.5}dts\_\discretionary {-}{}{}flushQueue}{21}{subsubsection.2.7.2.5}
+\contentsline {subsubsection}{\numberline {2.7.2.6}dts\_\discretionary {-}{}{}Get}{22}{subsubsection.2.7.2.6}
+\contentsline {subsubsection}{\numberline {2.7.2.7}dts\_\discretionary {-}{}{}initDTS}{23}{subsubsection.2.7.2.7}
+\contentsline {subsubsection}{\numberline {2.7.2.8}dts\_\discretionary {-}{}{}List}{23}{subsubsection.2.7.2.8}
+\contentsline {subsubsection}{\numberline {2.7.2.9}dts\_\discretionary {-}{}{}Ping}{23}{subsubsection.2.7.2.9}
+\contentsline {subsubsection}{\numberline {2.7.2.10}dts\_\discretionary {-}{}{}removeFromQueue}{23}{subsubsection.2.7.2.10}
+\contentsline {subsubsection}{\numberline {2.7.2.11}dts\_\discretionary {-}{}{}restartQueue}{24}{subsubsection.2.7.2.11}
+\contentsline {subsubsection}{\numberline {2.7.2.12}dts\_\discretionary {-}{}{}Set}{24}{subsubsection.2.7.2.12}
+\contentsline {subsubsection}{\numberline {2.7.2.13}dts\_\discretionary {-}{}{}shutdownDTS}{24}{subsubsection.2.7.2.13}
+\contentsline {subsubsection}{\numberline {2.7.2.14}dts\_\discretionary {-}{}{}startQueue}{25}{subsubsection.2.7.2.14}
+\contentsline {subsubsection}{\numberline {2.7.2.15}dts\_\discretionary {-}{}{}stopQueue}{25}{subsubsection.2.7.2.15}
+\contentsline {section}{\numberline {2.8}dtsPSock.c File Reference}{26}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Detailed Description}{27}{subsection.2.8.1}
+\contentsline {subsection}{\numberline {2.8.2}Function Documentation}{28}{subsection.2.8.2}
+\contentsline {subsubsection}{\numberline {2.8.2.1}psComputeStripe}{28}{subsubsection.2.8.2.1}
+\contentsline {subsubsection}{\numberline {2.8.2.2}psReceiveFile}{28}{subsubsection.2.8.2.2}
+\contentsline {subsubsection}{\numberline {2.8.2.3}psReceiveStripe}{29}{subsubsection.2.8.2.3}
+\contentsline {subsubsection}{\numberline {2.8.2.4}psSendFile}{29}{subsubsection.2.8.2.4}
+\contentsline {subsubsection}{\numberline {2.8.2.5}psSendStripe}{30}{subsubsection.2.8.2.5}
+\contentsline {subsubsection}{\numberline {2.8.2.6}psSpawnWorker}{30}{subsubsection.2.8.2.6}
+\contentsline {subsection}{\numberline {2.8.3}Variable Documentation}{31}{subsection.2.8.3}
+\contentsline {subsubsection}{\numberline {2.8.3.1}svc\_\discretionary {-}{}{}mutex}{31}{subsubsection.2.8.3.1}
+\contentsline {section}{\numberline {2.9}dtsPull.c File Reference}{32}{section.2.9}
+\contentsline {subsection}{\numberline {2.9.1}Detailed Description}{33}{subsection.2.9.1}
+\contentsline {subsection}{\numberline {2.9.2}Function Documentation}{33}{subsection.2.9.2}
+\contentsline {subsubsection}{\numberline {2.9.2.1}dts\_\discretionary {-}{}{}xferSendFile}{33}{subsubsection.2.9.2.1}
+\contentsline {section}{\numberline {2.10}dtsPush.c File Reference}{35}{section.2.10}
+\contentsline {subsection}{\numberline {2.10.1}Detailed Description}{36}{subsection.2.10.1}
+\contentsline {subsection}{\numberline {2.10.2}Function Documentation}{36}{subsection.2.10.2}
+\contentsline {subsubsection}{\numberline {2.10.2.1}dts\_\discretionary {-}{}{}xferPush}{36}{subsubsection.2.10.2.1}
+\contentsline {subsubsection}{\numberline {2.10.2.2}dts\_\discretionary {-}{}{}xferReceiveFile}{37}{subsubsection.2.10.2.2}
+\contentsline {section}{\numberline {2.11}dtsQueue.c File Reference}{38}{section.2.11}
+\contentsline {subsection}{\numberline {2.11.1}Detailed Description}{38}{subsection.2.11.1}
+\contentsline {section}{\numberline {2.12}dtsSockUtil.c File Reference}{39}{section.2.12}
+\contentsline {subsection}{\numberline {2.12.1}Detailed Description}{39}{subsection.2.12.1}
+\contentsline {subsection}{\numberline {2.12.2}Function Documentation}{40}{subsection.2.12.2}
+\contentsline {subsubsection}{\numberline {2.12.2.1}dts\_\discretionary {-}{}{}openClientSocket}{40}{subsubsection.2.12.2.1}
+\contentsline {subsubsection}{\numberline {2.12.2.2}dts\_\discretionary {-}{}{}openServerSocket}{40}{subsubsection.2.12.2.2}
+\contentsline {section}{\numberline {2.13}dtsUtil.c File Reference}{41}{section.2.13}
+\contentsline {subsection}{\numberline {2.13.1}Detailed Description}{42}{subsection.2.13.1}
+\contentsline {subsection}{\numberline {2.13.2}Function Documentation}{42}{subsection.2.13.2}
+\contentsline {subsubsection}{\numberline {2.13.2.1}addcheck32}{42}{subsubsection.2.13.2.1}
+\contentsline {subsubsection}{\numberline {2.13.2.2}checksum}{43}{subsubsection.2.13.2.2}
+\contentsline {subsubsection}{\numberline {2.13.2.3}dts\_\discretionary {-}{}{}getLocalIP}{43}{subsubsection.2.13.2.3}
+\contentsline {subsubsection}{\numberline {2.13.2.4}dts\_\discretionary {-}{}{}sigHandler}{43}{subsubsection.2.13.2.4}
+\contentsline {subsubsection}{\numberline {2.13.2.5}dtsDaemonize}{43}{subsubsection.2.13.2.5}
+\contentsline {subsubsection}{\numberline {2.13.2.6}dtsGets}{44}{subsubsection.2.13.2.6}
+\contentsline {subsubsection}{\numberline {2.13.2.7}measure\_\discretionary {-}{}{}stop}{44}{subsubsection.2.13.2.7}
+\contentsline {subsubsection}{\numberline {2.13.2.8}transferMB}{44}{subsubsection.2.13.2.8}
+\contentsline {subsubsection}{\numberline {2.13.2.9}transferMb}{45}{subsubsection.2.13.2.9}
+\contentsline {subsection}{\numberline {2.13.3}Variable Documentation}{45}{subsection.2.13.3}
+\contentsline {subsubsection}{\numberline {2.13.3.1}measure\_\discretionary {-}{}{}start\_\discretionary {-}{}{}tv}{45}{subsubsection.2.13.3.1}

@@ -1,0 +1,24 @@
+#!/bin/csh -f
+
+dtsh -t dsas3-hs.ctio.noao.edu        	shutdown xyzzy
+dtsh -t dtsct-hs.ctio.noao.edu        	shutdown xyzzy
+dtsh -t dsan3-hs.tuc.noao.edu         	shutdown xyzzy
+dtsh -t desar.cosmology.illinois.edu  	shutdown xyzzy
+dtsh -t decamsrvr01.fnal.gov         	shutdown xyzzy
+
+dtsh -t denali.tuc.noao.edu    		shutdown xyzzy
+dtsh -t elqui.tuc.noao.edu     		shutdown xyzzy
+dtsh -t crux.tuc.noao.edu      		shutdown xyzzy
+dtsh -t tucana.tuc.noao.edu    		shutdown xyzzy
+
+
+#ssh dts@dtsct-hs.ctio.noao.edu 	/bin/rm -rf /decam/dts/DTS
+#ssh dts@dsas3-hs.ctio.noao.edu 	/bin/rm -rf /data2/dts/DTS
+#ssh dts@dsan3-hs.tuc.noao.edu  	/bin/rm -rf /data2/dts/DTS
+#ssh desar.cosmology.illinois.edu    	/bin/rm -rf /data2/dts/DTS
+#ssh mjfitz@fnal.gov    		/bin/rm -rf /data/dts/DTS
+
+ssh denali.tuc.noao.edu 	    /bin/rm -rf /tmp/dts.denali /tmp/foo*
+ssh elqui.tuc.noao.edu 		    /bin/rm -rf /tmp/dts.elqui  /tmp/foo*
+ssh crux.tuc.noao.edu 		    /bin/rm -rf /tmp/dts.crux   /tmp/foo*
+ssh tucana.tuc.noao.edu 	    /bin/rm -rf /d1/dts.tuc     /tmp/foo*

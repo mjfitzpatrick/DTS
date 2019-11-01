@@ -1,0 +1,47 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+clear
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+echo "Initializing DTS ...."		# initialize DTSQ directory
+/bin/rm -rf ~/.dtsq/* /tmp/dts.*[123] /tmp/foo.*[123]
+
+set cmd = 'xgterm -bg black -fg wheat3 -fn 6x13'
+set   g = "-geom 80x18+"
+set   d = "-vv +dd -c $cwd/dts.tcfg"
+
+source .alias
+if ($#argv > 0) then
+  if ("$1" == "-d") then
+    setenv XMLRPC_TRACE_XML 1
+  endif
+endif
+
+
+echo "Starting DTS #1 ...."
+csh -fc "($cmd -T ltuc1 ${g}80+0    -e ./dtsd -p 5001 ${d}) &"   >& /tmp/_j
+
+echo "Starting DTS #2 ...."
+csh -fc "($cmd -T ltuc2 ${g}110+50  -e ./dtsd -p 5002 ${d}) &" 	>>& /tmp/_j
+
+echo "Starting DTS #3 ...."
+csh -fc "($cmd -T ltuc3 ${g}140+100 -e ./dtsd -p 5003 ${d}) &" 	>>& /tmp/_j
+
+echo "Starting tucana test ...."
+csh -fc "(chdir zzdata ; $cmd -T tucana -geom 80x10+80+300) &"  >& /tmp/_j2
+
+
+echo "Waiting ...."
+set junk = "$<"
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t tucana:5001  shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana:5002  shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana:5003  shutdown dtsPass
+
+    kill -9 `cat /tmp/_j2 |& awk '{print ($2)}'`
+    /bin/rm -rf /tmp/_j /tmp/_j2

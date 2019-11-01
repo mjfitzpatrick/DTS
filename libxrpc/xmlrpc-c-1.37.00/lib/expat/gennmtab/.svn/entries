@@ -1,0 +1,52 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/lib/expat/gennmtab
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2012-08-12T19:34:16.498259Z
+2377
+giraffedata
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+gennmtab.c
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+0fcb40bd6252185e4b332cc2ecd3b74c
+2005-03-01T03:40:15.000000Z
+236
+giraffedata
+
+Makefile
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+48058c79c9385296475891a75e04b589
+2012-08-12T19:34:16.498259Z
+2377
+giraffedata
+

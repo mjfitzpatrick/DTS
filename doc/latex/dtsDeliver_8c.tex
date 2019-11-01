@@ -1,0 +1,266 @@
+\hypertarget{dtsDeliver_8c}{
+\section{dtsDeliver.c File Reference}
+\label{dtsDeliver_8c}\index{dtsDeliver.c@{dtsDeliver.c}}
+}
+\hyperlink{structDTS}{DTS} procedures to \char`\"{}deliver\char`\"{} a transfer object.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$sys/param.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/wait.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsDeliver_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~(dts\&\&dts $\rightarrow$ debug)}
+\label{dtsDeliver_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{dtsDeliver_8c_f0e46808444bcfb6237dcf6082da9533}{
+\#define \textbf{VDEBUG}~(dts\&\&dts $\rightarrow$ debug$>$2)}
+\label{dtsDeliver_8c_f0e46808444bcfb6237dcf6082da9533}
+
+\item 
+\hypertarget{dtsDeliver_8c_424390e93456ff8f2dbfb293118a7e49}{
+\#define \textbf{MAXTRIES}~3}
+\label{dtsDeliver_8c_424390e93456ff8f2dbfb293118a7e49}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ \hyperlink{dtsDeliver_8c_f658b6c9b92a009988a0754729885b32}{dts\_\-Deliver} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, Control $\ast$ctrl, char $\ast$fpath, int $\ast$stat)
+\begin{CompactList}\small\item\em Deliver a file at a destination location. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsDeliver_8c_906466be98ea4096ef4020e32171e764}{dts\_\-getDeliveryPath} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, Control $\ast$ctrl)
+\begin{CompactList}\small\item\em Get the delivery path name. \item\end{CompactList}\item 
+void \hyperlink{dtsDeliver_8c_5f79dff3c693862452034cdc2bdbfd5c}{dts\_\-loadDeliveryParams} (Control $\ast$ctrl, char $\ast$pfname)
+\begin{CompactList}\small\item\em Load the delivery app parameters. \item\end{CompactList}\item 
+int \hyperlink{dtsDeliver_8c_026b87b423a3997075125275b5108ee2}{dts\_\-testDeliveryDir} (char $\ast$dpath, int create, char $\ast$msg)
+\begin{CompactList}\small\item\em Test the delivery directory. \item\end{CompactList}\item 
+int \hyperlink{dtsDeliver_8c_b6cddb51634e349748071c1932cb2572}{dts\_\-validateDelivery} (Control $\ast$ctrl, char $\ast$dpath)
+\begin{CompactList}\small\item\em Verify the delivered file. \item\end{CompactList}\item 
+int \hyperlink{dtsDeliver_8c_fbf9f50db4696726883928359e0e2845}{dts\_\-addControlHistory} (Control $\ast$ctrl, char $\ast$msg)
+\begin{CompactList}\small\item\em Add history record to control file. \item\end{CompactList}\item 
+int \hyperlink{dtsDeliver_8c_10b81af1753179dcc067e5f8efb79fb5}{dts\_\-sysExec} (char $\ast$ewd, char $\ast$cmd)
+\begin{CompactList}\small\item\em Execute a general UNIX command passed as a string. \item\end{CompactList}\item 
+int \hyperlink{dtsDeliver_8c_bfd729a7e4a512397585397c041c539b}{dts\_\-Await} (int pid)
+\begin{CompactList}\small\item\em Wait for an asynchronous child process to terminate. \item\end{CompactList}\item 
+void \hyperlink{dtsDeliver_8c_7fa66ec9fa8dd635780be49d8541c562}{dts\_\-Interrupt} (int value)
+\item 
+void \hyperlink{dtsDeliver_8c_d2b4a835647ea36317c69283ae774425}{dts\_\-Enbint} (SIGFUNC handler)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsDeliver_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsDeliver_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsDeliver_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsDeliver_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} procedures to \char`\"{}deliver\char`\"{} a transfer object. 
+
+DTSDELIVER.C -- \hyperlink{structDTS}{DTS} procedures to \char`\"{}deliver\char`\"{} a transfer object.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsDeliver_8c_fbf9f50db4696726883928359e0e2845}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-addControlHistory@{dts\_\-addControlHistory}}
+\index{dts\_\-addControlHistory@{dts\_\-addControlHistory}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-addControlHistory}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-addControlHistory (Control $\ast$ {\em ctrl}, \/  char $\ast$ {\em msg})}}
+\label{dtsDeliver_8c_fbf9f50db4696726883928359e0e2845}
+
+
+Add history record to control file. 
+
+DTS\_\-ADDCONTROLHISTORY -- Add history record to control file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctrl}]transfer control strucure \item[{\em msg}]NULL or an error message \end{description}
+\end{Desc}
+
+
+References dts\_\-localTime(), and dts\_\-sandboxPath().
+
+Referenced by dts\_\-Deliver(), and dts\_\-Ingest().\hypertarget{dtsDeliver_8c_bfd729a7e4a512397585397c041c539b}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-Await@{dts\_\-Await}}
+\index{dts\_\-Await@{dts\_\-Await}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-Await}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Await (int {\em pid})}}
+\label{dtsDeliver_8c_bfd729a7e4a512397585397c041c539b}
+
+
+Wait for an asynchronous child process to terminate. 
+
+DTS\_\-AWAIT -- Wait for an asynchronous child process to terminate.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em pid}]process ID \end{description}
+\end{Desc}
+
+
+References dts\_\-Enbint(), dts\_\-Interrupt(), and dtsLog().
+
+Referenced by dts\_\-sysExec().\hypertarget{dtsDeliver_8c_f658b6c9b92a009988a0754729885b32}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-Deliver@{dts\_\-Deliver}}
+\index{dts\_\-Deliver@{dts\_\-Deliver}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-Deliver}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-Deliver ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  Control $\ast$ {\em ctrl}, \/  char $\ast$ {\em fpath}, \/  int $\ast$ {\em stat})}}
+\label{dtsDeliver_8c_f658b6c9b92a009988a0754729885b32}
+
+
+Deliver a file at a destination location. 
+
+DTS\_\-DELIVER -- Deliver a file at a destination location.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue structure \item[{\em ctrl}]Transfer control structure \item[{\em fpath}]path to the file in spool dir \item[{\em stat}]delivery application status \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\end{Desc}
+
+
+References dts\_\-addControlHistory(), dts\_\-fileCopy(), dts\_\-fmtQueueCmd(), dts\_\-getDeliveryPath(), dts\_\-loadDeliveryParams(), dts\_\-localDelete(), dts\_\-qstatDlvrEnd(), dts\_\-qstatDlvrStart(), dts\_\-qstatDlvrStat(), dts\_\-queueNameFmt(), dts\_\-semSetVal(), dts\_\-sysExec(), and dtsLog().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsDeliver_8c_d2b4a835647ea36317c69283ae774425}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-Enbint@{dts\_\-Enbint}}
+\index{dts\_\-Enbint@{dts\_\-Enbint}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-Enbint}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-Enbint (SIGFUNC {\em handler})}}
+\label{dtsDeliver_8c_d2b4a835647ea36317c69283ae774425}
+
+
+DTS\_\-ENBINT -- Post an exception handler function to be executed if any sort of interrupt occurs. 
+
+Referenced by dts\_\-Await(), and dts\_\-sysExec().\hypertarget{dtsDeliver_8c_906466be98ea4096ef4020e32171e764}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-getDeliveryPath@{dts\_\-getDeliveryPath}}
+\index{dts\_\-getDeliveryPath@{dts\_\-getDeliveryPath}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-getDeliveryPath}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getDeliveryPath ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  Control $\ast$ {\em ctrl})}}
+\label{dtsDeliver_8c_906466be98ea4096ef4020e32171e764}
+
+
+Get the delivery path name. 
+
+DTS\_\-GETDELIVERYPATH -- Get the delivery path name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]queue structure \item[{\em ctrl}]control structure \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-Deliver(), and dts\_\-fmtQueueCmd().\hypertarget{dtsDeliver_8c_7fa66ec9fa8dd635780be49d8541c562}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-Interrupt@{dts\_\-Interrupt}}
+\index{dts\_\-Interrupt@{dts\_\-Interrupt}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-Interrupt}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-Interrupt (int {\em value})}}
+\label{dtsDeliver_8c_7fa66ec9fa8dd635780be49d8541c562}
+
+
+DTS\_\-INTERRUPT -- Exception handler, called if an interrupt is received 
+
+Referenced by dts\_\-Await().\hypertarget{dtsDeliver_8c_5f79dff3c693862452034cdc2bdbfd5c}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-loadDeliveryParams@{dts\_\-loadDeliveryParams}}
+\index{dts\_\-loadDeliveryParams@{dts\_\-loadDeliveryParams}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-loadDeliveryParams}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-loadDeliveryParams (Control $\ast$ {\em ctrl}, \/  char $\ast$ {\em pfname})}}
+\label{dtsDeliver_8c_5f79dff3c693862452034cdc2bdbfd5c}
+
+
+Load the delivery app parameters. 
+
+DTS\_\-LOADDELIVERYPARAMS -- Load the delivery app parameters.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctrl}]control structure \item[{\em pfname}]path to the delivery parameters file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dtsGets().
+
+Referenced by dts\_\-Deliver(), and dts\_\-Ingest().\hypertarget{dtsDeliver_8c_10b81af1753179dcc067e5f8efb79fb5}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-sysExec@{dts\_\-sysExec}}
+\index{dts\_\-sysExec@{dts\_\-sysExec}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-sysExec}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-sysExec (char $\ast$ {\em ewd}, \/  char $\ast$ {\em cmd})}}
+\label{dtsDeliver_8c_10b81af1753179dcc067e5f8efb79fb5}
+
+
+Execute a general UNIX command passed as a string. 
+
+DTS\_\-SYSEXEC -- Execute a general UNIX command passed as a string. The command may contain i/o redirection metacharacters. The full path of the command to be executed should be given.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ewd}]effective working directory \item[{\em cmd}]command string to be executed \end{description}
+\end{Desc}
+
+
+References dts\_\-Await(), dts\_\-Enbint(), dtsErrLog(), and dtsLog().
+
+Referenced by dts\_\-Deliver(), dts\_\-execCmd(), and dts\_\-Ingest().\hypertarget{dtsDeliver_8c_026b87b423a3997075125275b5108ee2}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-testDeliveryDir@{dts\_\-testDeliveryDir}}
+\index{dts\_\-testDeliveryDir@{dts\_\-testDeliveryDir}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-testDeliveryDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-testDeliveryDir (char $\ast$ {\em dpath}, \/  int {\em create}, \/  char $\ast$ {\em msg})}}
+\label{dtsDeliver_8c_026b87b423a3997075125275b5108ee2}
+
+
+Test the delivery directory. 
+
+DTS\_\-TESTDELIVERYDIR -- Test the delivery directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dpath}]path to the delivery directory \item[{\em create}]create directory if it doesn't exist? \item[{\em msg}]return message string \end{description}
+\end{Desc}
+
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsDeliver_8c_b6cddb51634e349748071c1932cb2572}{
+\index{dtsDeliver.c@{dtsDeliver.c}!dts\_\-validateDelivery@{dts\_\-validateDelivery}}
+\index{dts\_\-validateDelivery@{dts\_\-validateDelivery}!dtsDeliver.c@{dtsDeliver.c}}
+\subsubsection[{dts\_\-validateDelivery}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-validateDelivery (Control $\ast$ {\em ctrl}, \/  char $\ast$ {\em dpath})}}
+\label{dtsDeliver_8c_b6cddb51634e349748071c1932cb2572}
+
+
+Verify the delivered file. 
+
+DTS\_\-VALIDATEDELIVERY -- Verify the delivered file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctrl}]transfer control strucure \item[{\em dpath}]path to the delivery directory \end{description}
+\end{Desc}

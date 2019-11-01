@@ -1,0 +1,202 @@
+/**
+ *  DTSSEM.C -- DTS utilities to manage semaphores easily.
+ *
+ *  @file       dtsSem.c
+ *  @author     Mike Fitzpatrick
+ *  @date       6/10/09
+ *
+ *  @brief  DTS utilities to manage semaphores easily.
+ */
+
+
+/*****************************************************************************/
+
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
+#include <semaphore.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+
+#include "dts.h"
+
+
+#define	 MAX_SEMAPHORES		32
+
+extern DTS *dts;
+
+
+typedef struct {
+    int    used;
+    sem_t  sem;
+} semType;
+
+static semType  sems[MAX_SEMAPHORES];
+static int	sem_initialized		= 0;
+
+
+
+#ifdef UNIT_TEST
+int 
+main (int argc, char *argv[])
+{
+    int   id, val = 0;
+
+
+    if (argc > 1 && strcmp (argv[1], "-r") == 0) {
+	/* Reset the semaphore. */
+        if (dts_semIncr (atoi(argv[2])) == OK)
+	    fprintf (stderr, "sem reset incr=1 OK\n");
+	return (OK);
+    }
+
+
+
+    if ((id = dts_semInit ((int)getuid(), 0)) < 0) {
+	fprintf (stderr, "semInit failed\n");
+	exit (1);
+    }
+
+    if (dts_semSetVal (id, 3) == OK)
+	fprintf (stderr, "sem setval=3 OK\t");
+    fprintf (stderr, "sem getval = %d\n", dts_semGetVal (id));
+
+    if (dts_semIncr (id) == OK)
+	fprintf (stderr, "sem incr OK\t");
+    fprintf (stderr, "sem getval = %d\n", dts_semGetVal (id));
+
+    if (dts_semDecr (id) == OK)
+	fprintf (stderr, "sem decr OK\t");
+    fprintf (stderr, "sem getval = %d\n", dts_semGetVal (id));
+
+
+    while ((val = dts_semDecr (id)) >= 0) {
+	fprintf (stderr, "sem loop decr OK,  val = %d\n", dts_semGetVal(id));
+  	sleep (5);
+    }
+
+    if (dts_semRemove (id) == OK)
+	fprintf (stderr, "sem removal OK\n");
+
+    return (0);
+}
+#endif
+
+
+
+/**
+ *  Create and/or initialize the semaphore.
+ */
+int
+dts_semInit (int id, int initVal)
+{
+    int    stat, sem_id = -1;
+
+    if (!sem_initialized++) {
+	for (sem_id=0; sem_id < MAX_SEMAPHORES; sem_id++)
+	    sems[sem_id].used = 0;
+    }
+    if (id > MAX_SEMAPHORES)
+	id = 0;
+
+
+    /*  Check to see if it already exists, if so initialize the value to zero.
+     */
+    if (sems[id].used) {
+	for (sem_id=0; sems[sem_id].used; sem_id++)	/* find unused	    */
+	    ;
+	if (sem_id >= MAX_SEMAPHORES)
+	    return (-1);
+        if ((stat = sem_init (&sems[sem_id].sem, 0, (unsigned int)initVal)) < 0)
+	    return (-1);
+	sems[sem_id].used = 1;
+
+        return (sem_id);
+
+    } else {
+        /*  Semaphore exists, just initialize the value. 
+	 */ 
+        if ((stat = sem_init (&sems[id].sem, 0, (unsigned int) initVal)) < 0)
+	    return (-1);
+
+	sems[id].used = 1;
+        return (id);
+    }
+}
+
+
+/**
+ *  Destroy the semaphore.
+ */
+int
+dts_semRemove (int id)
+{
+    int  stat = OK;
+
+    if (sems[id].used)
+        stat = sem_destroy (&sems[id].sem);
+    sems[id].used = 0;
+
+    return ( stat ); 
+}
+
+
+/**
+ *  Set the value.
+ */
+int
+dts_semSetVal (int id, int val)
+{
+    int  stat;
+
+    if (!sems[id].used)
+	return (-1);
+    if ((stat = sem_destroy (&sems[id].sem)) == 0)
+	stat = sem_init (&sems[id].sem, 0, (unsigned int) val);
+    return ( stat );
+}
+
+
+/**
+ *  Get the value.
+ */
+int
+dts_semGetVal (int id)
+{
+    int  value;
+
+    if (!sems[id].used)
+	return (-1);
+    sem_getvalue (&sems[id].sem, &value);
+    return ( value );
+}
+
+
+/**
+ *  Decrement the semaphore value.
+ */
+int
+dts_semDecr (int id)
+{
+    if (!sems[id].used)
+	return (-1);
+    return (sem_wait (&sems[id].sem));
+}
+
+
+/**
+ *  Increment the semaphore value.
+ */
+int
+dts_semIncr (int id)
+{
+fprintf (stderr, "semIncr:  id=%d  val=%d\n", id, dts_semGetVal(id));
+    if (!sems[id].used)
+	return (-1);
+
+fprintf (stderr, "semIncr:  posting....\n");
+    return (sem_post (&sems[id].sem));
+}

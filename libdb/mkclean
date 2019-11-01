@@ -1,0 +1,25 @@
+#!/bin/csh -f
+
+set top = `(chdir .. ; pwd)`
+
+echo "Cleaning database support libraries ...."
+
+/bin/rm -f bin/* lib/*.a lib/build/*.o share/*	>& /dev/null
+/bin/rm -f */_spool 				>& /dev/null
+
+(chdir sqlite ; make clean 			>>& _spool )
+echo "done"
+
+
+# Real clean
+find . -name \*.a -print -exec /bin/rm -f {} \;		>& /dev/null
+find . -name \*.o -print -exec /bin/rm -f {} \;		>& /dev/null
+find . -name \*.so -print -exec /bin/rm -f {} \;	>& /dev/null
+find . -name \*.so.\* -print -exec /bin/rm -f {} \;	>& /dev/null
+find . -name \*spool\* -print -exec /bin/rm -f {} \;	>& /dev/null
+find . -name \*.log -print -exec /bin/rm -f {} \;	>& /dev/null
+find . -name srcdir -exec /bin/rm -f {} \;		>& /dev/null
+find . -name blddir -exec /bin/rm -f {} \;		>& /dev/null
+
+
+exit 0

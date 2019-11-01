@@ -1,0 +1,43 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+clear
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+echo "Initializing DTS ...."		# initialize DTSQ directory
+/bin/rm -rf ~/.dtsq/*
+scp ~/.dts_config* denali:
+scp ~/.dts_config* crux:
+
+echo "Starting denali ...."
+csh -fc "(ssh -XY denali xgterm -fg wheat3 -bg black -T denali -fn 6x13 -geom 80x18+50+00 -e /home/fitz/dts.run1 ) &"    	 >& /dev/null
+csh -fc "(ssh -XY denali xgterm -fg wheat3 -bg black -T denali -fn 6x13 -geom 80x18+250+00 -e /home/fitz/dts.run2 ) &"    	 >& /dev/null
+
+echo "Starting crux ...."
+csh -fc "(ssh -XY crux  xgterm -fg wheat3 -bg black -T crux  -fn 6x13 -geom 80x18+50+265 -e /home/fitz/dts.run1 ) &"   		>>& /dev/null
+csh -fc "(ssh -XY crux  xgterm -fg wheat3 -bg black -T crux  -fn 6x13 -geom 80x18+250+265 -e /home/fitz/dts.run2 ) &"   	>>& /dev/null
+
+echo "Starting tucana ...."
+csh -fc "(               xgterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x18+50+530 -e /home/fitz/dts.run1 ) &"   	>>& /dev/null
+csh -fc "(               xgterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x18+250+530 -e /home/fitz/dts.run2 ) &"   	>>& /dev/null
+
+echo "Starting tucana test ...."
+csh -fc "(chdir zzdata ; xgterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x10+50+790) &" 				  	 >& /tmp/_dts.jobs
+csh -fc "(chdir zzdata ; xgterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x10+250+790) &" 			  	>>& /tmp/_dts.jobs
+
+
+echo "Waiting ...."
+set junk = "$<"
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t denali 	   shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t denali:4000 shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t crux        shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t crux:4000   shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana      shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana:4000 shutdown dtsPass
+    kill -9 `cat /tmp/_dts.jobs |& awk '{print ($2)}'`
+    /bin/rm -rf /tmp/_dts.jobs

@@ -1,0 +1,625 @@
+.TH "dtsConfig.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsConfig.c \- \fBDTS\fP Config File Interface.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <math.h>\fP
+.br
+\fC#include <dirent.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBCFG_DEBUG\fP   (getenv('CFG_DBG')!=NULL||access('/tmp/CFG_DBG',F_OK)==0)"
+.br
+.ti -1c
+.RI "#define \fBDEBUG\fP   CFG_DEBUG"
+.br
+.ti -1c
+.RI "#define \fBCON_GLOBAL\fP   0"
+.br
+.ti -1c
+.RI "#define \fBCON_DTS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBCON_QUEUE\fP   2"
+.br
+.ti -1c
+.RI "#define \fBCON_XFER\fP   3"
+.br
+.ti -1c
+.RI "#define \fBCFG_NREQUIRED\fP   9"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "char * \fBdtsGets\fP (char *s, int len, FILE *fd)"
+.br
+.ti -1c
+.RI "void \fBdts_loadConfigDir\fP (\fBDTS\fP *dts, char *cfg, char *dhost, int dport, char *droot, int initialize)"
+.br
+.RI "\fILoad the \fBDTS\fP configuration file. \fP"
+.ti -1c
+.RI "void \fBdts_loadConfigFile\fP (\fBDTS\fP *dts, char *cfg, char *dhost, int dport, char *droot, int initialize)"
+.br
+.RI "\fILoad the \fBDTS\fP configuration file. \fP"
+.ti -1c
+.RI "int \fBdts_loadDefaultConfig\fP (\fBDTS\fP *dts, char *host, int port)"
+.br
+.ti -1c
+.RI "\fBdtsQueue\fP * \fBdts_newQueue\fP (\fBDTS\fP *dts)"
+.br
+.ti -1c
+.RI "int \fBdts_validateQueue\fP (\fBDTS\fP *dts, \fBdtsQueue\fP *dtsq)"
+.br
+.ti -1c
+.RI "int \fBdts_getQPort\fP (\fBDTS\fP *dts, char *qname, int tport)"
+.br
+.ti -1c
+.RI "void \fBdts_printQPorts\fP (\fBDTS\fP *dts)"
+.br
+.ti -1c
+.RI "int \fBdts_validPasswd\fP (\fBDTS\fP *dts, char *passwd)"
+.br
+.RI "\fIValidate a passwd against the host. \fP"
+.ti -1c
+.RI "char * \fBdts_nameToHost\fP (\fBDTS\fP *dts, char *name)"
+.br
+.RI "\fIConvert a \fBDTS\fP name to the host. \fP"
+.ti -1c
+.RI "char * \fBdts_nameToIP\fP (\fBDTS\fP *dts, char *name)"
+.br
+.RI "\fIConvert a \fBDTS\fP name to the host IP. \fP"
+.ti -1c
+.RI "char * \fBdts_cfgNameToHost\fP (\fBDTS\fP *dts, char *name)"
+.br
+.RI "\fIConvert a \fBDTS\fP name to the host name (2nd method). \fP"
+.ti -1c
+.RI "char * \fBdts_cfgNameToIP\fP (\fBDTS\fP *dts, char *name)"
+.br
+.RI "\fIConvert a \fBDTS\fP name to the host IP (2nd method). \fP"
+.ti -1c
+.RI "char * \fBdts_getLocalRoot\fP ()"
+.br
+.ti -1c
+.RI "int \fBdts_cfgQType\fP (char *s)"
+.br
+.RI "\fIGet the type of queue. \fP"
+.ti -1c
+.RI "int \fBdts_cfgQNode\fP (char *s)"
+.br
+.RI "\fIGet the node type of queue. \fP"
+.ti -1c
+.RI "int \fBdts_cfgQMethod\fP (char *s)"
+.br
+.RI "\fIGet the queue transfer method. \fP"
+.ti -1c
+.RI "int \fBdts_cfgQMode\fP (char *s)"
+.br
+.RI "\fIGet the trander mode (push or pull). \fP"
+.ti -1c
+.RI "char * \fBdts_cfgQTypeStr\fP (int type)"
+.br
+.RI "\fIConvert mode to string name. \fP"
+.ti -1c
+.RI "char * \fBdts_cfgQNodeStr\fP (int node)"
+.br
+.RI "\fIConvert dode to type string name. \fP"
+.ti -1c
+.RI "char * \fBdts_cfgQMethodStr\fP (int method)"
+.br
+.RI "\fIConvert method type to string name. \fP"
+.ti -1c
+.RI "char * \fBdts_cfgQModeStr\fP (int mode)"
+.br
+.RI "\fIConvert mode type to string name. \fP"
+.ti -1c
+.RI "time_t \fBdts_cfgInterval\fP (char *intstr)"
+.br
+.RI "\fIGet a timing interval (in sec) from the config value. \fP"
+.ti -1c
+.RI "time_t \fBdts_cfgStartTime\fP (char *tstr)"
+.br
+.RI "\fIGet a timing interval (in sec) from the config value. \fP"
+.ti -1c
+.RI "char * \fBdts_cfgPath\fP ()"
+.br
+.ti -1c
+.RI "void \fBdts_printConfig\fP (\fBDTS\fP *dts)"
+.br
+.ti -1c
+.RI "char * \fBdts_fmtConfig\fP (\fBDTS\fP *dts)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.ti -1c
+.RI "int \fBcontext\fP = CON_GLOBAL"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP Config File Interface. 
+
+DTSCONFIG.C -- \fBDTS\fP Config File Interface
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "time_t dts_cfgInterval (char * intstr)"
+.PP
+Get a timing interval (in sec) from the config value. 
+.PP
+DTS_CFGINTERVAL -- Get a timing interval (in sec) from the config value. Default unit is minutes, intervals may be specified in the form
+.PP
+<N>[h|m|s] run every <N> (h)ours, (m)in, or (s)ec
+.PP
+\fBParameters:\fP
+.RS 4
+\fIintstr\fP interval value (string type) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+interval in seconds 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_cfgNameToHost (\fBDTS\fP * dts, char * name)"
+.PP
+Convert a \fBDTS\fP name to the host name (2nd method). 
+.PP
+DTS_CFGNAMETOHOST -- Convert a \fBDTS\fP name to the host name (2nd method).
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct 
+.br
+\fIname\fP \fBDTS\fP name string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+host name 
+.RE
+.PP
+
+.SS "char* dts_cfgNameToIP (\fBDTS\fP * dts, char * name)"
+.PP
+Convert a \fBDTS\fP name to the host IP (2nd method). 
+.PP
+DTS_CFGNAMETOIP -- Convert a \fBDTS\fP name to the host IP (2nd method).
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct 
+.br
+\fIname\fP \fBDTS\fP name string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+IP name 
+.RE
+.PP
+
+.PP
+Referenced by dts_resolveHost().
+.SS "char* dts_cfgPath (void)"
+.PP
+DTS_CFGPATH -- Construct a path to a user's '.dts_config' file. 
+.PP
+Referenced by dtsInit().
+.SS "int dts_cfgQMethod (char * s)"
+.PP
+Get the queue transfer method. 
+.PP
+DTS_CFGQMETHOD -- Get the queue transfer method.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP string method name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+method code 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_cfgQMethodStr (int method)"
+.PP
+Convert method type to string name. 
+.PP
+DTS_CFGQMETHODSTR -- Convert method type to string name.
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethod\fP method type code 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_printQueueCfg(), dts_queueProcess(), and dts_xferFile().
+.SS "int dts_cfgQMode (char * s)"
+.PP
+Get the trander mode (push or pull). 
+.PP
+DTS_CFGQMODE -- Get the trander mode (push or pull).
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP string mode name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_cfgQModeStr (int mode)"
+.PP
+Convert mode type to string name. 
+.PP
+DTS_CFGMODESTR -- Convert mode type to string name
+.PP
+\fBParameters:\fP
+.RS 4
+\fImode\fP mode type code 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_printQueueCfg(), and dts_queueProcess().
+.SS "int dts_cfgQNode (char * s)"
+.PP
+Get the node type of queue. 
+.PP
+DTS_CFGQNODE -- Get the node type of queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP string name of queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queue type 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_cfgQNodeStr (int node)"
+.PP
+Convert dode to type string name. 
+.PP
+DTS_CFGQNODESTR -- Convert node to type string name
+.PP
+\fBParameters:\fP
+.RS 4
+\fInode\fP queue node code 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_nodeStat().
+.SS "int dts_cfgQType (char * s)"
+.PP
+Get the type of queue. 
+.PP
+DTS_CFGQTYPE -- Get the type of queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP string name of queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queue type 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_cfgQTypeStr (int type)"
+.PP
+Convert mode to string name. 
+.PP
+DTS_CFGQTYPESTR -- Convert mode to string name
+.PP
+\fBParameters:\fP
+.RS 4
+\fItype\fP queue type code 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_printQueueCfg().
+.SS "time_t dts_cfgStartTime (char * tstr)"
+.PP
+Get a timing interval (in sec) from the config value. 
+.PP
+DTS_CFGSTARTTIME -- Convert a start time to equivalent time_t seconds.
+.PP
+\fBParameters:\fP
+.RS 4
+\fItstr\fP start time value (string type) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+interval in seconds 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_fmtConfig (\fBDTS\fP * dts)"
+.PP
+DTS_FMTCONFIG -- Print Config file info as a formatted string. 
+.PP
+Referenced by dts_Cfg().
+.SS "char* dts_getLocalRoot (void)"
+.PP
+Utility routine to get values for the local \fBDTS\fP host. 
+.PP
+Referenced by dts_sandboxPath().
+.SS "int dts_getQPort (\fBDTS\fP * dts, char * qname, int tport)"
+.PP
+DTS_GETQPORT -- Get the next available base port for a transfer queue. If the input port number is already in use we'll search for a new port to use, otherwise we return the input port (i.e. validate it). 
+.PP
+References dtsErrLog().
+.PP
+Referenced by dts_loadConfigFile(), and dts_validateQueue().
+.SS "void dts_loadConfigDir (\fBDTS\fP * dts, char * cfg, char * dhost, int dport, char * droot, int initialize)"
+.PP
+Load the \fBDTS\fP configuration file. 
+.PP
+DTS_LOADCONFIGDIR -- Load the \fBDTS\fP configuration files in a directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIcfg\fP \fBDTS\fP config directory 
+.br
+\fIdhost\fP \fBDTS\fP daemon host machine 
+.br
+\fIdport\fP \fBDTS\fP daemon port number 
+.br
+\fIdroot\fP \fBDTS\fP daemon root directory 
+.br
+\fIinitialize\fP initialize \fBDTS\fP? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_isDir(), dts_loadConfigFile(), and dtsLog().
+.PP
+Referenced by dtsInit().
+.SS "void dts_loadConfigFile (\fBDTS\fP * dts, char * cfg, char * dhost, int dport, char * droot, int initialize)"
+.PP
+Load the \fBDTS\fP configuration file. 
+.PP
+DTS_LOADCONFIGFILE -- Load the \fBDTS\fP configuration file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIcfg\fP \fBDTS\fP config file 
+.br
+\fIdhost\fP \fBDTS\fP daemon host machine 
+.br
+\fIdport\fP \fBDTS\fP daemon port number 
+.br
+\fIdroot\fP \fBDTS\fP daemon root directory 
+.br
+\fIinitialize\fP initialize \fBDTS\fP? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_cfgInterval(), dts_cfgQMethod(), dts_cfgQMode(), dts_cfgQNode(), dts_cfgQType(), dts_cfgStartTime(), dts_getLocalIP(), dts_getQPort(), dts_loadDefaultConfig(), dts_newQueue(), dts_printConfig(), dts_printQPorts(), dts_resolveHost(), dts_semInitId(), dts_testDeliveryDir(), dts_validateQueue(), dtsGets(), and dtsLog().
+.PP
+Referenced by dts_loadConfigDir(), and dtsInit().
+.SS "int dts_loadDefaultConfig (\fBDTS\fP * dts, char * host, int port)"
+.PP
+DTS_LOADDEFAULTCONFIG -- Duh 
+.PP
+References dts_getLocalHost(), and dts_resolveHost().
+.PP
+Referenced by dts_loadConfigFile().
+.SS "char* dts_nameToHost (\fBDTS\fP * dts, char * name)"
+.PP
+Convert a \fBDTS\fP name to the host. 
+.PP
+DTS_NAMETOHOST -- Convert a \fBDTS\fP name to the host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIname\fP \fBDTS\fP name string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+host name 
+.RE
+.PP
+
+.PP
+Referenced by dts_resolveHost().
+.SS "char* dts_nameToIP (\fBDTS\fP * dts, char * name)"
+.PP
+Convert a \fBDTS\fP name to the host IP. 
+.PP
+DTS_NAMETOIP -- Convert a \fBDTS\fP name to the host IP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIname\fP \fBDTS\fP name string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+IP string 
+.RE
+.PP
+
+.PP
+References dts_resolveHost().
+.SS "\fBdtsQueue\fP* dts_newQueue (\fBDTS\fP * dts)"
+.PP
+DTS_NEWQUEUE -- Get a new \fBDTS\fP queue structure and fill in the defaults. 
+.PP
+References dts_getLocalHost().
+.PP
+Referenced by dts_loadConfigFile().
+.SS "void dts_printConfig (\fBDTS\fP * dts)"
+.PP
+DTS_PRINTCONFIG -- Print Config file info. 
+.PP
+Referenced by dts_loadConfigFile().
+.SS "void dts_printQPorts (\fBDTS\fP * dts)"
+.PP
+DTS_GETQPORT -- Get the next available base port for a transfer queue. If the input port number is already in use we'll search for a new port to use, otherwise we return the input port (i.e. validate it). 
+.PP
+Referenced by dts_loadConfigFile().
+.SS "int dts_validateQueue (\fBDTS\fP * dts, \fBdtsQueue\fP * dtsq)"
+.PP
+DTS_VALIDATEQUEUE -- Validate the queue structure. 
+.PP
+References dts_getQPort().
+.PP
+Referenced by dts_loadConfigFile().
+.SS "int dts_validPasswd (\fBDTS\fP * dts, char * passwd)"
+.PP
+Validate a passwd against the host. 
+.PP
+DTS_VALIDPASSWD -- Validate a passwd against the host.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIpasswd\fP passwd to be checked 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_abortDTS(), dts_Delete(), and dts_shutdownDTS().
+.SS "char* dtsGets (char * s, int len, FILE * fp)"
+.PP
+DTSGETS A smart fgets() function
+.PP
+Read the line; unlike fgets(), we read the entire line but dump characters that go past the end of the buffer. We accept CR, LF, or CR LF for the line endings to be 'safe'.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP string buffer 
+.br
+\fIlen\fP length of buffer 
+.br
+\fIfp\fP file descriptor 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+pointer to next string on the stream 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile(), dts_loadControl(), dts_loadDeliveryParams(), and dts_queueComplete().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

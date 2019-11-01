@@ -1,0 +1,227 @@
+
+								9/27/09
+
+General Comments on DTS
+=======================
+
+
+DTS Daemon
+----------
+
+	The 'dtsd' application is the DTS Daemon and must be running
+    on at least the machine to/from which you will be moving data.
+    You use either the DTSH or DTSQ tasks (see below) to communicate
+    with it, for the most part it is meant to be an anonymous service on
+    the machine.  You can enable some debug output to be sure it's doing
+    something by starting as e.g.
+
+	dtsd +d +d +d
+
+    Each '+d' enables another level of debugging, the above will show you
+    transfer activity.  Without flags it won't produce any output so you
+    can run it in the background and for get about it.
+
+	By default, the dtsd command port is 3000 and must be open to the
+    firewall if that is an issue.  It can be changed on the commandline
+    with a '-p <portnum>' flag or in the config file, but these haven't
+    been tested much and there may be issues in using non-default ports
+    from some clients like dtsq.
+
+	The dtsd requires a configuration file which is normally called
+    ".dts_config" in the $HOME directory, there are cmdline flags and
+    environment variables to override this I won't detail here.  A 
+    minimal configuration for a single host would look something like
+
+	dts
+	    name      denali
+	    host      denali.tuc.noao.edu
+	    port      3000
+	    root      /data/dts/
+	    logfile   /data/dts.log
+
+    The defines an alias 'denali' that can be used as shorthand by tasks
+    like 'dtsh' but more importantly the .dts_config file would contain
+    one entry like this for each machine in the DTS system.  This
+    identifies the machine itself being used for a given alias.  The 
+    'port' is the DTS command port (transport sockets are defined
+    elsewhere) to be used, 'root' is the working directory for the DTS
+    and 'logfile' is meant to log all transactions (not really implemented
+    yet).
+
+	File paths used within DTS are sandboxed to the directory
+    specified by the 'root' parameter, this allows us to play with
+    absolute pathnames without needing to know the details of exactly
+    where on a remote machine the true path is.  For example, if I
+    request the file /foo/bar.fits from a DTS system, the remote machine
+    assumes this path is really /data/dts/foo/bar.fits.
+
+	There are many other config options, some not currently working
+    and some not implemented yet.  A final user's guide will describe this
+    file in more detail, until then just ask if you want to change
+    something.
+
+
+
+DTSQ - The queueing application
+-------------------------------
+
+	The dtsq task is what the IB calls to transfer the image to the
+    DTS system.  It usage is one of
+
+	dtsq -q <name> /path/image.fits		or
+	dtsq -q <name> -f /path/image.fits
+
+    The '-f' flag causes the task to fork to do the transfer so it returns
+    immediately with a zero status on success, or one if there was an
+    error (e.g. can't contact DTS, DTS disk is full, etc).  Without the
+    '-f' flag the task runs in the foregound and the IB will have to wait
+    until the transfer completes (could be 20-30 sec for DECam image).
+    The dtsq command only requires read access to the file, the full
+    path must be specified otherwise the file is assumed to be in the
+    dtsq working directory.
+  	The dtsq task handles the transfer to the DTS machine itself and
+    does not require a dtsd to be running on the IB machine.  It does
+    however require a ".dtsq_config" file in the $HOME directory to 
+    specify the DTS machine to contact.  A simple example would be
+
+	#  Sample DTSQ configuration file
+
+	queue
+	    name        denali
+	    host        denali.tuc.noao.edu
+	    dir         default
+	    method      give
+	    nthreads    4
+
+    In this case the <name> in the '-q' flag would be 'denali' and a 
+    dtsd should be running on the default port on denali.tuc.noao.edu.
+    Data will be transferred over 4 parallel sockets, you can specify
+    more but on a local network there is little point. 
+
+	The token files we talked about are created in a $HOME/.dtsq
+    directory (where $HOME depends on the user running the dtsq task).
+    This can be overridden with a '-d <path>' flag to specify some other
+    directory to be created.  The .dtsq directory will have a directory
+    for each named queue, within that directory you'll find a 'Log' file
+    to log all requests in summary form, a 'recovery' directory used to
+    log failed requests for later re-queueing, and a 'tokens' directory
+    for the tokens.  One reason we want the full pathname is that the
+    'tokens' directory will create paths for each queued file and the
+    final file will be the same name as the queued data, but this file 
+    is the token itself.  For example, if you queued /tmp/foo.fits then
+    under tokens you'll see a 'tmp' directory with a 'foo.fits' file 
+    that contains e.g.
+
+	Status:           OK
+	Completion Time:  2009-09-18T15:58:12
+	DTS Host:         denali.tuc.noao.edu
+	Queue Name:       denali
+	Transfer Stats:   3.894 sec   257.444 Mb/s  (32.181 MB/s)
+
+	The idea is that we can match these token paths to actual data
+    files and for any give data check its status in the DTS.  If a 
+    filename is reused the token file should just be appended with the
+    later request (not yet tested). 
+
+	For failed requests the '.dtsq/recovery/Pending' file is simply
+    a list of files to be requeued.  A (currently unimplemented) '-recover'
+    flag will read this file and queue the data again.  
+
+	On the DTS machine the working directory will contain a 'spool'
+    dir with subdirs for each named queue, witin that will be some
+    numbered directory for each file.  All of this is internal to DTS,
+    remember the point for now is to test the 'dtsq' command within
+    SISPI and make sure the file gets off the 3-day store to a remote
+    DTS machine (i.e. from the Blanco 4m acquisition system to the main
+    CTIO data store run by SDM).
+
+
+
+DTSH - The DTS shell/commandline tool
+-------------------------------------
+
+	The dtsh app is primarily a cmdline interface to the DTS.  It
+    can be used to directly transfer a file, e.g.
+
+	dtsh -t denali.tuc.noao.edu push foo.fits
+
+    would contact the DTS on denali.tuc.noao.edu and transfer the foo.fits
+    file using the 'push' method (i.e. the remote machine provides the
+    server sockets and the dtsh app 'pushes' the data across.  In a similar
+    'give' method we still move data to the denali machine, however it is
+    the dtsh that provides the server sockets to 'give' the data to the
+    remote machine.  Similar pull/take methods exist to move data FROM a
+    remote machine to your machine, but in general you won't use this.
+	Where the push/pull and give/take methods make a difference is in
+    negotiating firewall security.  For example, if Fermi only opens the
+    DTS command socket on port 3000 but no others,  you wouldn't be able
+    to connect to sockets used for the data transport running on ports 
+    3001 and higher.  Therefore, YOU would need to provide those sockets
+    in your firewall and would need to use the 'give' method.  A friendly
+    place like NOAO might open ports 3000-3100 for DTS and since we can
+    supply the sockets, Fermi would 'push' the data to us while staying
+    securely behind their one command port.  Again, these are subtleties
+    that require a full-up User Guide.
+
+	Dtsh has many other commands available and more planned, try doing
+    a "dtsh -help" for a partial list or see the examples below.
+
+
+Examples:
+---------
+
+    These examples assume a 'dtsd' is running on a machine called 'denali'
+    which is different than the machine executing the command.
+
+    1) 	Queue a file for transport to the 'default' queue on denali:
+
+	% dtsq -q default /data/image001.fits
+
+    2) 	Same as 1, but do it in a child process and return immediately.
+	Check the return status and verify we have a token:
+
+	% dtsq -q default -f /data/image001.fits
+	% echo $status
+	0				<---- zero means success
+	% cat ~/.dtsq/default/tokens/data/image0001.fits
+	Status:           OK
+	Completion Time:  2009-09-24T00:47:58
+	DTS Host:         denali.tuc.noao.edu
+	Queue Name:       denali
+	Transfer Stats:   0.614 sec   427.021 Mb/s  (53.378 MB/s)
+
+    3)  Test whether denali is running a DTS daemon:
+
+	% dtsh -t denali ping
+
+    4)  Transfer a file directly to the DTS on denali:
+
+	% dtsh -t denali.tuc.noao.edu push /data/image0001.fits
+
+    5)  Get the working directory on denali, list it's contents and
+	create a scratch directory.  Rely on the .dts_config file to
+	provide an alias so we don't have to specify the FQDN:
+
+	% dtsh -t denali cwd			# working dir
+	% dtsh -t denali df			# how much free space?
+	% dtsh -t denali ls			# directory listing
+	% dtsh -t denali ls -l			# long directory listing
+	% dtsh -t denali mkdir tmp		# create tmp dir
+	% dtsh -t denali ls -l			# make sure it's there
+
+    6)  Transfer a file directly to a machine not named in the config
+	file but we know is running a dtsd:
+
+	% dtsh -t 140.252.1.86 give /data/image0001.fits
+
+	Note we can also use the fully qualified host name so long as
+	it can resolve to an IP.
+
+    7)  Transfer a file using different numbers of transfer threads:
+
+	% dtsh -t denali -N 8  foo.fits
+	% dtsh -t denali -N 10 foo.fits
+	% dtsh -t denali -N 16 foo.fits
+	% dtsh -t denali -N 24 foo.fits
+
+

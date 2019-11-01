@@ -1,0 +1,85 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/lib/abyss
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2013-11-27T03:07:18.495955Z
+2559
+giraffedata
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+license.txt
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+2690367746ac2268f1f5cb83d0cb2c3a
+2001-01-13T01:08:28.000000Z
+5
+emk
+
+HISTORY
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+a825b3f2ed3c15c97cc4d5a5589b5219
+2006-10-17T02:13:25.000000Z
+769
+giraffedata
+
+conf
+dir
+
+src
+dir
+
+example
+dir
+
+Makefile
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+fa3965190329faaef873aba4c23d7734
+2008-05-11T17:05:56.664301Z
+1471
+giraffedata
+
+README
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+5fa00cc3fcea4dbc0bba9c561fe3ed86
+2005-06-10T21:33:21.000000Z
+390
+giraffedata
+

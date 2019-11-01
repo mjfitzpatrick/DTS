@@ -1,0 +1,10 @@
+echo "Configuring for i686-pc-linux-gnu, 32bit"
+./configure --build=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+make
+cd lib
+ar rvs libfuse.a *.o
+cd .. 
+echo "Creating .a library from object files."
+cp ./include/*.h ../include/fuse/
+cp ./lib/libfuse.a ../lib/
+echo "Copying include files and libfiles to DTS"

@@ -1,0 +1,22 @@
+
+################################################
+#  DES/DECam Recovery Queues
+################################################
+
+queue
+       name        des_r
+       host        dsas3.ctio.noao.edu
+       dir         default
+       method      give
+       port        2150
+       nthreads    4
+
+queue
+       name        decam_r
+       host        dsas3.ctio.noao.edu
+       dir         default
+       method      give
+       port        2130
+       nthreads    4
+
+

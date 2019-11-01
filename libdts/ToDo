@@ -1,0 +1,4 @@
+
+    - Check on static declarations (e.g. s_url) in dtsXfer.c
+
+

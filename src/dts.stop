@@ -1,0 +1,9 @@
+#!/bin/csh -f
+
+dtsh -t localhost:3000 shutdown xyzzy
+
+foreach p (`ps -efw | egrep -i dtsd | egrep -v grep | awk '{print($2)}'`)
+    echo "Killing DTSD at "$p
+    kill -9 $p                          >& /dev/null
+end
+

@@ -1,0 +1,35 @@
+
+
+incoming-dev    ->  incoming-test2
+
+   test file:	   ODI tarball, size = 503930880 bytes
+
+   test cmd:	   bin/dtsq -N <N> -P 3015 -q podi-test /home/dtsuser/tfile
+ 
+   delivery cmd:   dts.null
+   Nthreads:  25 @ 5		748 +- 38 Mbps      5.162 +- 0.266 sec
+   	      25 @ 10		820 +- 15 Mbps      4.699 +- 0.088 sec
+   	      25 @ 20		833 +- 16 Mbps      4.629 +- 0.089 sec
+   	      25 @ 30		835 +- 19 Mbps      4.618 +- 0.108 sec
+
+	      Number of checksum errors:	0
+ 
+
+   delivery cmd:   /usr/local/bin/incoming_msg $D
+   Nthreads:  100 @ 10		809 +- 43 Mbps      4.777 +- 0.273 sec
+
+	      Number of checksum errors:	0
+
+dts-tu-podi	-> incoming-test2
+
+   test file:	   ODI tarball, size = 503930880 bytes
+
+   test cmd:	   bin/dtsq -q podi-test /home/dtsuser/tfile
+ 
+   Test 1:	3 files sent @ 20 threads, all failed checksum, avg ~25 Mbps
+
+	Machine was rebooted ~12:00 on Fri 11/16
+
+   Test 2:	100 files sent @ 20 threads, 6 failed checksum, avg 127+-40 Mbps
+
+   Test 3:	600 files send @ 20 threads, 0 checksum errs, avg 135+-45 Mbps

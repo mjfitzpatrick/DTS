@@ -1,0 +1,114 @@
+.\" @(#)dtsq.1 1.0 June-2012 MJF
+.TH DTSQ 1 "June 2012" "NOAO Data Transport System"
+.SH NAME
+dtsq \- submit data for transport on a DTS queue
+.SH SYNOPSIS
+\fBdtsq\fP [\-\fopts\fP] [\fIfile\fP | \fIdirectory\fP ] [ ... ]
+
+.SH OPTIONS
+The \fIdtsq\fP task accepts the following options:
+.TP 8
+.B \-h, --help
+Print a help summary to the terminal and exit.  No processing is done 
+following this flag.
+
+.TP 8
+.B \-q, --quiet
+Quiet mode (suppress warning output).
+.TP 8
+.B \-v, --verbose
+Verbose output.  Normally used to print warnings when an object could not be
+resolved.
+
+.TP 0
+The following flags may be combined as a single option to indicate the
+desired output fields.  The order of the flags implies the order of the
+output values, e.g. "-dnt" prints the decimal position, name and type in
+that order.
+.TP 8
+.B \-a, --all
+Output all available information about the object.
+.TP 8
+.B \-d, --decimal
+Output the position as J2000 decimal degrees.  This is the default output if
+no format flags are specified.
+.TP 8
+.B \-e, --errors
+Output the estimated position errors.
+.TP 8
+.B \-n, --name
+Output the object name.
+.TP 8
+.B \-t, --type
+Output the object type.
+.TP 8
+.B \-s, --sex
+Output the position as sexagesimal RA and Dec.
+
+.TP 0
+Control Flags:
+.TP 8
+.B \-c <ra> <dec>  or \-c <ra>,<dec>  or \--coord-<ra>,<dec>
+Specify a coordinate to be explicitly used.  If set an RA and DEC are
+expected as either the next argument if they are a comma-separated string,
+or as the next two arguments.  Values may be input as floating point 
+decimal or sexagesimal strings.  Upon receipt, the task will create an
+artifical record for the object and output the values requested with the
+output flags described above.  Multiple \fI-c\fP options may be specified
+may be specified and mixed with object names, user coordinates are processed
+before the object names are resolved in the order they occur on the command
+line.
+.TP 8
+.B \-i, --invert
+Invert the sense of the search and print only objects which cannot be
+resolved to coordinates.
+.TP 8
+.B \-f, --force
+Force the object(s) to be resolved even if it is cached.  This option will
+cause the task to call the Sesame service rather than output a previously
+cached value, however the result will still be cached unless the VOC_NO_CACHE
+environment variable is defined.
+.TP 8
+.B \-o <name>  or  --output=<name>
+Specify the output file.  The default is to write the results to the
+standard output.
+
+
+.SH DESCRIPTION
+The \fIdtsq\fP task ......
+.PP
+More descriptions .....
+
+.SH SUB-DESCRIPTION
+More useful stuff .......
+
+
+.SH RETURN STATUS
+On exit the task will return the following status codes:
+.nf
+     0 Success
+     1 Error code
+.fi
+
+
+.SH EXAMPLES
+
+.TP 4
+1) Queue a file for transport:
+
+.nf
+	% dtsq -q test /path/file.fits.fz
+.fi
+
+
+.SH BUGS
+The DTSQ .....
+
+
+.SH Revision History
+June 2012 - First public release
+.SH Author
+Michael Fitzpatrick (fitz@noao.edu), June 2012
+.SH "SEE ALSO"
+dtsd(1), dtscp(1), dtsh(1), dtsq(1), dtsmon(1), dtsstat(1)
+

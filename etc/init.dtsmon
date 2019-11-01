@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# Startup script for the DTS daemon server.
+#
+# description: Apache is a World Wide Web server.  It is used to serve \
+# processname: dtsmon
+# pidfile:     /var/run/dtsmon.pid
+# config:      
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+
+# This will prevent initlog from swallowing up a pass-phrase prompt if
+# mod_ssl needs a pass-phrase from the user.
+INITLOG_ARGS=""
+
+
+# Path to the apachectl script, server binary, and short-form for messages.
+dtsmon=${/usr/local/bin/dtsmon}
+prog=dtsmon
+RETVAL=0
+
+
+# The semantics of these two functions differ from the way apachectl does
+# things -- attempting to start while running is a failure, and shutdown
+# when not running is also a failure.  So we just do it the way init scripts
+# are expected to behave here.
+start() {
+        echo -n $"Starting $prog: "
+        daemon $dtsmon $OPTIONS
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && touch /var/lock/subsys/dtsmon
+        return $RETVAL
+}
+stop() {
+	echo -n $"Stopping $prog: "
+	killproc $dtsmon
+	RETVAL=$?
+	echo
+	[ $RETVAL = 0 ] && rm -f /var/lock/subsys/dtsmon /var/run/dtsmon.pid
+}
+reload() {
+	echo -n $"Reloading $prog: "
+	killproc $dtsmon -HUP
+	RETVAL=$?
+	echo
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+        status $dtsmon
+	RETVAL=$?
+	;;
+  restart)
+	stop
+	start
+	;;
+  *)
+	echo $"Usage: $prog {start|stop|status|restart}"
+	exit 1
+esac
+
+exit $RETVAL

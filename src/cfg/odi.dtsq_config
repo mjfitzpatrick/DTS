@@ -1,0 +1,35 @@
+################################################
+#  DES/DECam Shadow Queues
+################################################
+
+queue
+       name        podi
+       host        dts-tu-podi.tuc.noao.edu
+       dir         default
+       method      give
+       port        2030
+       nthreads    10
+
+queue
+       name        podi-red
+       host        dts-tu-podi.tuc.noao.edu
+       dir         default
+       method      push
+       port        2050
+       nthreads    10
+
+queue
+       name        podi-test
+       host        dts-tu-podi.tuc.noao.edu
+       dir         default
+       method      push
+       port        2070
+       nthreads    10
+
+queue
+       name        test
+       host        tucana.tuc.noao.edu
+       dir         default
+       method      give
+       port        2030
+       nthreads    10

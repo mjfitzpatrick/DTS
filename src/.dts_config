@@ -1,0 +1,581 @@
+#
+#  DTS Development Configuration
+#
+#  Revision History
+#
+#      Created   5/13/09   MJF
+
+
+verbose   0
+debug     0
+monitor	  tucana.tuc.noao.edu:3002
+semId	  1024
+hb_time	  5
+
+password  dtsPass			# test password
+
+
+########################################
+# DTS dev/test systems
+########################################
+
+dts
+    name      denali			# Required fields
+    host      denali.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.denali/
+    contact   3001
+    network   dev
+
+    dbfile    /tmp/dts.denali/msg.db	# Optional fields
+    logfile   /tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        dest            tucana    	#
+        #dest            crux    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+	deliveryCmd	/tmp/dtest $D
+
+    queue 				# entry point from domes
+	name	      	test2		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        dest            crux    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+	# deliveryCmd
+
+    queue 				# entry point from domes
+	name	      	udt		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	udt		# dts or ????
+	udt_rate       	500		# dts or ????
+	nthreads      	1		# No. of outbound threads
+        port	      	3007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        dest            tucana    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      crux
+    host      crux.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.crux/
+    contact   3001
+    network   dev2
+
+    dbfile    /tmp/dts.crux/msg.db
+    logfile   /tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        give		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3037		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        src		denali		# 
+        dest            tucana    	#
+	deliverAs   	$F		# use original filename
+	deliveryDir   	/tmp/foo.crux	# spool or /path/to/copy
+	#deliveryCmd	/tmp/dtest $F $D $S $Q $E $sum32 $crc32 $md5 $ON $OP $DN $DP $SP $OH $FULL
+
+    queue 				# entry point from domes
+	name	      	test2		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src		denali		# 
+        dest            tucana    	#
+	deliveryDir   	/tmp/foo.crux	# spool or /path/to/copy
+
+
+
+# -------------------------------------------------------------------------
+
+dts
+    name      tucana			# Required fields
+    host      tucana.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /tmp/dts.tuc/
+    contact   3001
+    network   dev
+
+    dbfile    /tmp/dts.tuc/msg.db	# Optional field
+    logfile   /tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        #src		crux		# 
+        src		denali		# 
+	#deliverAs   	$D
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+	#deliveryCmd	/tmp/dlog $F $D test
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+    queue 				# entry point from domes
+	name	      	test2		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src		crux		# 
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+    queue 				# entry point from domes
+	name	      	udt		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	udt		# dts or ????
+	nthreads      	1		# No. of outbound threads
+        port	      	3007		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        purge   	yes		# purge complete spool
+        src		denali		# 
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+
+    queue
+	name	      	tuc-dir		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+        port	      	3005		# base transfer port
+        purge   	yes		# purge complete spool
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+
+
+
+    # /////////////////////////////////////////////
+    # NCSA Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	desar		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #purge   	yes		# purge complete spool
+        dest            desar    	#
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+	#deliveryCmd	/home/fitz/imhalf $F
+
+    queue                               # entry point from domes
+        name            des             # queue name
+        node            transfer        # ingest, transfer, or endpoint
+        type            normal          # normal, scheduled, priority
+        mode            push            # push or give
+        method          dts             # dts or ????
+        nthreads        20              # No. of outbound threads
+        port            3005            # base transfer port
+        keepalive       yes             # keep connection open?
+        src             dts-ncsa
+        dest            dts-tuc
+        deliveryDir     /home/fitz/DTS.deliver/
+        # deliveryCmd
+
+
+    # /////////////////////////////////////////////
+    # CTIO Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	ctio.test	# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	30		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        #src		dtsct		# 
+	#deliveryDir   	/d1/GSN		# spool or /path/to/copy
+	deliveryDir   	/d1/junk
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+    queue 				# entry point from domes
+	name	      	podi		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+        port	      	3080		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        dest            dts-iu-podi    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+	#deliveryCmd	/tmp/dtest $F
+
+
+
+################################################################################
+################################################################################
+
+
+########################################
+# DTS system at CTIO
+########################################
+
+dts
+    name      dts-ct
+    #host      dtsct-hs.ctio.noao.edu
+    host      dtsct1.ctio.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /decam/dts/DTS/
+    contact   3001
+    dbfile    /decam/dts/DTS/msg.db
+    logfile   /decam/dts/DTS/dts.log
+    network   decam
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	des		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        dest            dts-ls    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+	# deliveryCmd
+
+    queue 				# entry point from domes
+	name	      	decam		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        dest            dts-ls    	#
+	deliveryDir   	spool		# spool or /path/to/copy
+	# deliveryCmd
+
+
+
+
+########################################
+# DTS system at La Serena
+########################################
+
+dts
+    name      dts-ls
+    host      dsas3.ctio.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /data2/dts/DTS/
+    contact   3001
+    dbfile    /data2/dts/DTS/msg.db
+    logfile   /data2/dts/DTS/dts.log
+    network   decam
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	des		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             des-ct
+        dest            des-ncsa    	#
+	deliveryDir   	/data2/dts/DTS.deliver/
+	# deliveryCmd
+
+    queue 				# entry point from domes
+	name	      	decam		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             des-ct
+        dest            dts-tuc    	#
+	deliveryDir   	/data2/dts/DTS.deliver/
+	# deliveryCmd
+
+
+
+########################################
+# DTS system at NCSA
+########################################
+
+dts
+    name      dts-ncsa
+    host      desar2.cosmology.illinois.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /data2/dts/DTS/
+    contact   3001
+    dbfile    /data2/dts/DTS/msg.db
+    logfile   /data2/dts/DTS/dts.log
+    network   decam
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	des		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	20		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             des-ls
+        dest            dts-tuc    	#
+	deliveryDir   	/data2/dts/DTS.deliver/
+	# deliveryCmd
+
+
+########################################
+# DTS system at SDM Tucson
+########################################
+
+dts
+    name      dts-tuc
+    host      dsan3.tuc.noao.edu
+    port      3000
+    loPort    3002
+    hiPort    3100
+    root      /data2/dts/DTS/
+    contact   3001
+    dbfile    /data2/dts/DTS/msg.db
+    logfile   /data2/dts/DTS/dts.log
+    network   decam
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+    queue 				# entry point from domes
+	name	      	des		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             des-ct
+        dest            des-ncsa    	#
+	deliveryDir   	/data2/dts/DTS.deliver/
+	# deliveryCmd
+
+    queue 				# entry point from domes
+	name	      	decam		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	10		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src             des-ct
+        dest            dts-tuc    	#
+	deliveryDir   	/data2/dts/DTS.deliver/
+	# deliveryCmd
+
+
+
+
+
+#########################################
+## DTS system at Fermi
+#########################################
+#
+#dts
+#    name      dts-fermi
+#    host      decamsrvr01.fnal.gov
+#    port      3000
+#    loPort    3005
+#    hiPort    3099
+#    root      /home/mjfitz/DTS/
+#    contact   3001
+#    dbfile    /home/mjfitz/DTS/msg.db
+#    logfile   /home/mjfitz/DTS/dts.log
+#
+#    # /////////////////////////////////////////////
+#    # Queue configurations
+#    # /////////////////////////////////////////////
+#
+#    queue 				# entry point from domes
+#	name	      	fermi		# queue name
+#        node          	endpoint	# ingest, transfer, or endpoint
+#        type          	normal		# normal, scheduled, priority
+#	mode	        give		# push or give
+#	method        	dts		# dts or ????
+#	nthreads      	30		# No. of outbound threads
+#        port	      	3050		# base transfer port
+#        keepalive	yes		# keep connection open?		 [NYI]
+#        src             dts-ls
+#	deliveryDir   	/data/dts/
+#	# deliveryCmd
+#
+#    queue 				# entry point from domes
+#	name	      	fcopy		# queue name
+#        node          	endpoint	# ingest, transfer, or endpoint
+#        type          	normal		# normal, scheduled, priority
+#	mode	        give		# push or give
+#	method        	dts		# dts or ????
+#	nthreads      	30		# No. of outbound threads
+#        port	      	3050		# base transfer port
+#        keepalive	yes		# keep connection open?		 [NYI]
+#        src             dts-ct
+#	deliveryDir   	/data/ctio/
+#	# deliveryCmd
+#
+
+
+
+
+
+
+
+# =========================================================================
+# =========================================================================
+#
+#  Sample DTS (daemon) configuration file.
+#
+#
+#  The configuration file is made up of one or more entries with the
+#  following structure:
+#
+#     <global values>
+#
+#     dts			# define a new DTS instance
+#       <dts parameters>	#
+#	queue			# define a queue on this DTS
+#         <queue parameters>	#
+#
+#
+#
+#
+#  This example defines a DTS daemon running on machine denali.tuc.noao.edu
+#  at command port 3000.  This DTS is operating two queues: 'denali', which
+#  is used to ingest data into the DTS system (i.e. it is a target point 
+#  for the DTSQ application;  it also runs a 'test.push' queue that is an
+#  intermediate stage in a longer transport route (i.e. data coming into 
+#  this queue normally come from another DTS system and not a user app).
+#
+#
+#  DESCRIPTION:
+#  ===========
+#
+#  An explanation of the fields is as follows:
+#
+#    verbose	  Run the daemon in verbose mode.  When set as a global param-
+#		  eter this affects all DTS instances defined in the file.
+#
+#    debug	  Run the daemon in debug mode.  When set as a global param-
+#		  eter this affects all DTS instances defined in the file.
+#
+#    DTS Parameters:
+#
+#    name	  Name of this DTS instance                               [REQ]
+#    host	  Host machine on which it is running (FQDN or IP addr)   [REQ]
+#    port	  RPC command port to be used                             [REQ]
+#    root	  Root directory of the DTS sandboxed filesystem.         [REQ]
+#    logfile	  Local message logfile (not yet implemented).
+#    dbfile	  Local transfer database
+#
+#    Queue Parameters:
+#
+#    name	  Name of queue.
+#    node	  Node type of queue.  May be one of 'ingest', 'transfer'
+#		  or 'endpoint'.
+#    type	  Type of queue.  May be one of 'normal', 'scheduled',
+#		  or 'priority'.
+#    mode         Transport mode.  Defines the direction of transport, a
+#		  'push' means data are moved out of this DTS, a 'pull' 
+# 		  means the operates by pulling data from a remote DTS.
+#    method	  Transport method (NYI).  The only supported value at the
+#		  moment is 'dts', meaning to use internal DTS tranport
+#		  methods (currently parallel sockets).  Later versions will
+#		  allow for alternate bulk transport via scp, fdt, rsync, etc.
+#    nthreads     No. of transport threads.  This parameter defines the 
+#		  number of parallel sockets to run for transport.
+#    port         Base transfer port number.
+#    keepalive    Keep transport connections open?    [NOT YET IMPLEMENTED]
+#    src	  Machine which sends data to this queue
+#    dest	  Machine to which this queue sends data
+#    deliveryDir  Spool or /path/to/delivery/copy
+#    deliveryCmd  Delivery application to be run.
+#
+#
+#  DISCUSSION:
+#  ==========
+#
+# 	TBD
+#
+

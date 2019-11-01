@@ -1,0 +1,36 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+clear
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+echo "Initializing DTS ...."		# initialize DTSQ directory
+/bin/rm -rf ~/.dtsq/*
+scp ~/.dts_config denali:
+scp ~/.dts_config crux:
+
+echo "Starting denali ...."
+csh -fc "(ssh -XY denali xgterm -fg wheat3 -bg black -T denali -fn 6x13 -geom 80x18+50+00 -e /home/fitz/dts.run1 ) &"    >&  /tmp/_j
+
+echo "Starting crux ...."
+csh -fc "(ssh -XY crux  xgterm -fg wheat3 -bg black -T crux  -fn 6x13 -geom 80x18+50+265 -e /home/fitz/dts.run1 ) &"   >>& /tmp/_j
+
+echo "Starting tucana ...."
+csh -fc "(               xgterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x18+50+530 -e /home/fitz/dts.run1 ) &"   >>& /tmp/_j
+
+echo "Starting tucana test ...."
+csh -fc "(chdir zzdata ; xgterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x10+50+790) &" 				  >& /tmp/_j2
+
+
+echo "Waiting ...."
+set junk = "$<"
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t denali shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t crux   shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana shutdown dtsPass
+    kill -9 `cat /tmp/_j2 |& awk '{print ($2)}'`
+    /bin/rm -rf /tmp/_j /tmp/_j2

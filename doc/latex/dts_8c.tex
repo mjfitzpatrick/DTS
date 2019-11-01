@@ -1,0 +1,199 @@
+\hypertarget{dts_8c}{
+\section{dts.c File Reference}
+\label{dts_8c}\index{dts.c@{dts.c}}
+}
+\hyperlink{structDTS}{DTS} interface procedures,.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dts_8c_17ba00ca77763582777e3252d148dc77}{
+\#define \textbf{\_\-DTS\_\-SRC\_\-}~1}
+\label{dts_8c_17ba00ca77763582777e3252d148dc77}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{structDTS}{DTS} $\ast$ \hyperlink{dts_8c_5dbe6df7702b0e5678bb73fd2a9268cd}{dtsInit} (char $\ast$config, int port, char $\ast$host, char $\ast$sroot, int initialize)
+\begin{CompactList}\small\item\em Initialize the \hyperlink{structDTS}{DTS} daemon structure. \item\end{CompactList}\item 
+void \hyperlink{dts_8c_d3a53a72ab377b0a258468984ea3dbf0}{dts\_\-initCopyMode} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$host, int port)
+\item 
+void \hyperlink{dts_8c_363d0fe73832fc466694c7176ea23a1e}{dts\_\-initServerRoot} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\item 
+void \hyperlink{dts_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}{dtsFree} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\begin{CompactList}\small\item\em Free the \hyperlink{structDTS}{DTS} daemon structure. \item\end{CompactList}\item 
+void \hyperlink{dts_8c_5629564f91d5a7da37e23585ffab524b}{dts\_\-connectToMonitor} (\hyperlink{structDTS}{DTS} $\ast$dts)
+\begin{CompactList}\small\item\em Connoct to the logging monitor and/open log file. \item\end{CompactList}\item 
+void \hyperlink{dts_8c_eeb55d98b8be73e9c18dd260365d63a1}{dtsErrorExit} (char $\ast$msg)
+\begin{CompactList}\small\item\em Connect to the logging monitor and/open log file. \item\end{CompactList}\item 
+void \hyperlink{dts_8c_f8242403da76ff746ea3a4b29edb4d29}{dtsErrorWarn} (char $\ast$msg)
+\begin{CompactList}\small\item\em Connect to the logging monitor and/open log file. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dts_8c_4e3d0548c599124f2df64c499a8b0ee6}{
+int \textbf{queue\_\-delay} = 0}
+\label{dts_8c_4e3d0548c599124f2df64c499a8b0ee6}
+
+\item 
+\hypertarget{dts_8c_bfe1ab56be631e48e5edc9f0f1381486}{
+int \textbf{first\_\-write} = 1}
+\label{dts_8c_bfe1ab56be631e48e5edc9f0f1381486}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} interface procedures,. 
+
+DTS.C -- \hyperlink{structDTS}{DTS} interface procedures,
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dts_8c_5629564f91d5a7da37e23585ffab524b}{
+\index{dts.c@{dts.c}!dts\_\-connectToMonitor@{dts\_\-connectToMonitor}}
+\index{dts\_\-connectToMonitor@{dts\_\-connectToMonitor}!dts.c@{dts.c}}
+\subsubsection[{dts\_\-connectToMonitor}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-connectToMonitor ({\bf DTS} $\ast$ {\em dts})}}
+\label{dts_8c_5629564f91d5a7da37e23585ffab524b}
+
+
+Connoct to the logging monitor and/open log file. 
+
+DTS\_\-CONNECTTOMONITOR -- Connect to the logging monitor and/open log file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dtsDaemonize().\hypertarget{dts_8c_d3a53a72ab377b0a258468984ea3dbf0}{
+\index{dts.c@{dts.c}!dts\_\-initCopyMode@{dts\_\-initCopyMode}}
+\index{dts\_\-initCopyMode@{dts\_\-initCopyMode}!dts.c@{dts.c}}
+\subsubsection[{dts\_\-initCopyMode}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-initCopyMode ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em host}, \/  int {\em port})}}
+\label{dts_8c_d3a53a72ab377b0a258468984ea3dbf0}
+
+
+DTS\_\-INITCOPYMODR -- Initialize the server for copy mode. 
+
+References dts\_\-getLocalIP(), and dts\_\-localCwd().
+
+Referenced by dtsInit().\hypertarget{dts_8c_363d0fe73832fc466694c7176ea23a1e}{
+\index{dts.c@{dts.c}!dts\_\-initServerRoot@{dts\_\-initServerRoot}}
+\index{dts\_\-initServerRoot@{dts\_\-initServerRoot}!dts.c@{dts.c}}
+\subsubsection[{dts\_\-initServerRoot}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-initServerRoot ({\bf DTS} $\ast$ {\em dts})}}
+\label{dts_8c_363d0fe73832fc466694c7176ea23a1e}
+
+
+DTS\_\-INITSERVERROOT -- Initialize the server root directory. 
+
+References dts\_\-queueSetCurrent().
+
+Referenced by dts\_\-SetRoot().\hypertarget{dts_8c_eeb55d98b8be73e9c18dd260365d63a1}{
+\index{dts.c@{dts.c}!dtsErrorExit@{dtsErrorExit}}
+\index{dtsErrorExit@{dtsErrorExit}!dts.c@{dts.c}}
+\subsubsection[{dtsErrorExit}]{\setlength{\rightskip}{0pt plus 5cm}void dtsErrorExit (char $\ast$ {\em msg})}}
+\label{dts_8c_eeb55d98b8be73e9c18dd260365d63a1}
+
+
+Connect to the logging monitor and/open log file. 
+
+DTSERROREXIT -- Print an error message and exit.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em msg}]Error message \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dtsLog().\hypertarget{dts_8c_f8242403da76ff746ea3a4b29edb4d29}{
+\index{dts.c@{dts.c}!dtsErrorWarn@{dtsErrorWarn}}
+\index{dtsErrorWarn@{dtsErrorWarn}!dts.c@{dts.c}}
+\subsubsection[{dtsErrorWarn}]{\setlength{\rightskip}{0pt plus 5cm}void dtsErrorWarn (char $\ast$ {\em msg})}}
+\label{dts_8c_f8242403da76ff746ea3a4b29edb4d29}
+
+
+Connect to the logging monitor and/open log file. 
+
+DTSERRORWARN -- Print a warning message.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em msg}]Warning message \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dtsLog().\hypertarget{dts_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}{
+\index{dts.c@{dts.c}!dtsFree@{dtsFree}}
+\index{dtsFree@{dtsFree}!dts.c@{dts.c}}
+\subsubsection[{dtsFree}]{\setlength{\rightskip}{0pt plus 5cm}void dtsFree ({\bf DTS} $\ast$ {\em dts})}}
+\label{dts_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}
+
+
+Free the \hyperlink{structDTS}{DTS} daemon structure. 
+
+DTSFREE -- Free the \hyperlink{structDTS}{DTS} daemon structure.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+\hypertarget{dts_8c_5dbe6df7702b0e5678bb73fd2a9268cd}{
+\index{dts.c@{dts.c}!dtsInit@{dtsInit}}
+\index{dtsInit@{dtsInit}!dts.c@{dts.c}}
+\subsubsection[{dtsInit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DTS} $\ast$ dtsInit (char $\ast$ {\em config}, \/  int {\em port}, \/  char $\ast$ {\em host}, \/  char $\ast$ {\em root}, \/  int {\em initialize})}}
+\label{dts_8c_5dbe6df7702b0e5678bb73fd2a9268cd}
+
+
+Initialize the \hyperlink{structDTS}{DTS} daemon structure. 
+
+DTSINIT -- Initialize the \hyperlink{structDTS}{DTS} daemon structure.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em config}]\hyperlink{structDTS}{DTS} config file \item[{\em port}]\hyperlink{structDTS}{DTS} server port number \item[{\em host}]\hyperlink{structDTS}{DTS} server host name \item[{\em root}]\hyperlink{structDTS}{DTS} root directory \item[{\em initialize}]initialize root directory? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]pointer to \hyperlink{structDTS}{DTS} structure \end{Desc}
+
+
+References dts\_\-cfgPath(), dts\_\-initCopyMode(), dts\_\-isDir(), dts\_\-loadConfigDir(), and dts\_\-loadConfigFile().

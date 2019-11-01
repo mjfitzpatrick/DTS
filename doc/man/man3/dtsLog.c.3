@@ -1,0 +1,236 @@
+.TH "dtsLog.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsLog.c \- \fBDTS\fP logging interface.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsdb.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSZ_FMTSPEC\fP   25"
+.br
+.ti -1c
+.RI "#define \fBSZ_ARGVAL\fP   128"
+.br
+.ti -1c
+.RI "#define \fBEOS\fP   0"
+.br
+.ti -1c
+.RI "#define \fBTY_INT\fP   0"
+.br
+.ti -1c
+.RI "#define \fBTY_DOUBLE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBTY_CHAR\fP   2"
+.br
+.ti -1c
+.RI "#define \fBSZ_ERRBUF\fP   (4*SZ_LINE)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdtsLog\fP (\fBDTS\fP *dts, char *format,...)"
+.br
+.RI "\fI\fBDTS\fP message logger. \fP"
+.ti -1c
+.RI "void \fBdtsLogMsg\fP (\fBDTS\fP *dts, int key, char *format,...)"
+.br
+.RI "\fILog \fBDTS\fP messages to DTSMON and local database. \fP"
+.ti -1c
+.RI "void \fBdtsLogStat\fP (\fBDTS\fP *dts, char *msg)"
+.br
+.RI "\fI\fBDTS\fP message logger. \fP"
+.ti -1c
+.RI "void \fBdtsErrLog\fP (\fBdtsQueue\fP *dtsq, char *format,...)"
+.br
+.RI "\fI\fBDTS\fP message logger. \fP"
+.ti -1c
+.RI "void \fBdtsTimeLog\fP (char *fmt, struct timeval t1)"
+.br
+.RI "\fI\fBDTS\fP timing message logger. \fP"
+.ti -1c
+.RI "void \fBdts_encodeString\fP (char *buf, char *format, va_list *argp)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP logging interface. 
+
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09
+.RE
+.PP
+We can log to a local file as well as to a remote monitoring application. 
+.SH "Function Documentation"
+.PP 
+.SS "void dts_encodeString (char * buf, char * format, va_list * argp)"
+.PP
+DTS_ENCODESTRING -- Process the format to the output file, taking arguments from the list pointed to by argp as % format specs are encountered in the input.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbuf\fP formatted output buffer 
+.br
+\fIformat\fP format string 
+.br
+\fIargp\fP variable-length arguments 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.RE
+.PP
+
+.PP
+Referenced by dtsErrLog(), dtsLog(), and dtsLogMsg().
+.SS "void dtsErrLog (\fBdtsQueue\fP * dtsq, char * format,  ...)"
+.PP
+\fBDTS\fP message logger. 
+.PP
+DTS_ERRLOG -- \fBDTS\fP message logger.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP queue pointer to save error msg (or NULL) 
+.br
+\fIformat\fP message format string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_encodeString(), and dtsLog().
+.PP
+Referenced by dts_endTransfer(), dts_fopen(), dts_getHostByName(), dts_getQPort(), dts_Ingest(), dts_openServerSocket(), dts_queueProcess(), dts_sockRead(), dts_sockWrite(), dts_sysExec(), dts_udtRead(), dts_udtWrite(), dts_xferDirFrom(), dts_xferDirTo(), dts_xferFile(), dts_xferPullFile(), dts_xferPushFile(), psComputeStripe(), psReceiveFile(), psReceiveStripe(), psSendFile(), psSendStripe(), psSpawnThreads(), udtReceiveFile(), udtSendFile(), udtSendStripe(), and udtSpawnThreads().
+.SS "void dtsLog (\fBDTS\fP * dts, char * format,  ...)"
+.PP
+\fBDTS\fP message logger. 
+.PP
+DTS_LOG -- \fBDTS\fP message logger.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIformat\fP message format string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_encodeString(), dts_getClient(), and dts_nullResponse().
+.PP
+Referenced by dts_Access(), dts_Await(), dts_Cat(), dts_Cfg(), dts_CheckDir(), dts_Checksum(), dts_Chmod(), dts_Copy(), dts_Cwd(), dts_Delete(), dts_Deliver(), dts_DestDir(), dts_Dir(), dts_DiskFree(), dts_DiskUsed(), dts_Echo(), dts_endTransfer(), dts_FMode(), dts_FSize(), dts_FTime(), dts_getNextQueueDir(), dts_hostFrom(), dts_hostInitTransfer(), dts_hostTo(), dts_Ingest(), dts_initTransfer(), dts_loadConfigDir(), dts_loadConfigFile(), dts_loadControl(), dts_Mkdir(), dts_monAttach(), dts_monConsole(), dts_monDetach(), dts_pauseQueue(), dts_Ping(), dts_PingSleep(), dts_PingStr(), dts_Prealloc(), dts_qstatSummary(), dts_queueAccept(), dts_queueCleanup(), dts_queueComplete(), dts_queueDelete(), dts_queueDest(), dts_queueProcess(), dts_queueSetControl(), dts_queueSrc(), dts_queueValid(), dts_Read(), dts_remotePing(), dts_Rename(), dts_Set(), dts_SetDbg(), dts_SetRoot(), dts_shutdownQueue(), dts_sigHandler(), dts_startQueue(), dts_Stat(), dts_stopQueue(), dts_sysExec(), dts_Touch(), dts_UnsetDbg(), dts_verifyDTS(), dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), dts_xferSendFile(), dtsDaemonize(), dtsErrLog(), dtsErrorExit(), dtsErrorWarn(), psReceiveFile(), udtReceiveFile(), udtReceiveStripe(), and udtSendFile().
+.SS "void dtsLogMsg (\fBDTS\fP * dts, int key, char * format,  ...)"
+.PP
+Log \fBDTS\fP messages to DTSMON and local database. 
+.PP
+DTS_LOGMSG -- \fBDTS\fP message logger. Log to DTSMON and local database.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIkey\fP DB record key 
+.br
+\fIformat\fP message format string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_encodeString(), dts_getClient(), and dts_nullResponse().
+.SS "void dtsLogStat (\fBDTS\fP * dts, char * msg)"
+.PP
+\fBDTS\fP message logger. 
+.PP
+DTS_LOGSTAT -- \fBDTS\fP stat logger.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fImsg\fP message string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_closeClient(), dts_getClient(), and dts_nullResponse().
+.SS "void dtsTimeLog (char * fmt, struct timeval t1)"
+.PP
+\fBDTS\fP timing message logger. 
+.PP
+DTSTIMELOG -- \fBDTS\fP timing message logger.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIformat\fP message format string (must include single 'g' format) 
+.br
+\fIt1\fP starting time struct 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by psReceiveFile(), psReceiveStripe(), psSendFile(), psSendStripe(), udtReceiveFile(), udtSendFile(), and udtSendStripe().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

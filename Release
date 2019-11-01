@@ -1,0 +1,161 @@
+
+
+Summary Schedule:
+
+    Nov  4, 2011    Feature dev finalized, all known code issues resolved
+    Dec  2, 2011    Reliability of transfer & data paths demonstrated
+    Jan  6, 2012    First deployment of frozen v1.0 release
+    Feb  1, 2012    Final delivery of v1.0 operational release 
+    Mar  1, 2012    30-Day continuous operation milestone achieved
+    Mar 15, 2012    SDM E2E and DES DM integration complete
+
+    Known Travel:     Nov 5-11 (ADASS), Dec 8-9 (VAO), Jan 7-12 (AAS)
+    Possible Issues:  KOSMOS commissioning in Dec/Jan
+
+Milestones:
+
+    Sep-Oct 2011 	(Goal:  Finalize all development and pending decisions)
+    ------------
+
+    - DTS deployed on production machines:	
+	- data paths configured for all required queues
+	- ingest/delivery script calling interfaces configured
+	- DTSD configured as daemon process on each machine
+	- needed firewall holes enabled on machine
+
+    - SISPI use of DTS successfully demonstrated
+	- Data queued from multiple IB nodes in parallel
+	- Failed DTS call communicated to observing environment
+	- Recovery of failed transfer demonstrated
+
+    - DTS-E2E Requirements and ICD finalized  		(NOAO Internal)      (1)
+	- iSTB requirements/implementation
+	- archive delivery requirements/implementation
+	- DTS use (or not) in Community Pipeline	(NOAO/DES joint)
+
+    - DES DM operational decisions			(DES DM Internal)    (2)
+    	- What to do about "manifest files"?
+    	- DES queues: Do SN data go on separate queue?
+    	- Do Fermi data go direct or through NCSA?
+    	- Define requirements for DB syncing (file size, 
+	      frequency, direction, etc)
+
+    - Failure modes and recovery procedures documented and tested
+
+    - Release Candidate distribution built and deployed                      (3)
+	
+	Notes:
+	  1) ICD finalized early Oct to schedule work.  Implemen-
+	     tations not required for operational deployment Jan 1
+	  2) These decisions might impose new development on DTS,
+	     configuration of additional data paths, or operational
+	     concepts (e.g. DB sync at scheduled times to not interfere
+	     with data transfer).  They don't all require implementation
+	     by Jan 1, but should be decided soon
+	  3) DTS system is considered 'frozen' at this point, updates
+	     to deployed system more controlled and less frequent.
+
+
+    November 4, 2011 	(Goal:  Demonstrate reliability of deployed system)
+    ----------------
+
+    - Successful delivery of 1 night's data w/in 18 hours
+	- DES night		(350 images)
+	- Community night	(350 images)
+	- Split night		(350 images, half to each queue, sequentially)
+
+    - Successful delivery along each path demonstrated
+	- DES		(ctio -> la serena -> ncsa  -> tucson)
+	- Community	(ctio -> la serena          -> tucson)
+	- SDM Test	(ctio -> la serena -> ncsa  -> tucson)
+	- NCSA Test	(ctio -> la serena -> ncsa)
+	- Fermi Test	(ctio -> la serena -> ncsa? -> fermi)
+
+    - Transfer timing test plan (and supporting tools/docs) developed        (1)
+	- tune data path configurations
+	- Network reliability tests (i.e. simulated net failures)
+	- Data reliability tests (i.e. simulated packet failures)
+	- Bandwidth throughput tests of updated 1Gbps network
+	    - "burst mode" test to saturate bandwidth
+	    - ability to sustain throughput
+	    - ability to throttle to specific speed
+
+	Notes:
+	  1) Network improvements and DTS releases will require testing
+	     at each update to ensure reliability.  Also needed for 
+	     reporting purposes and continuous tuning of connections.
+
+
+    December 2, 2011 	(Goal:   Demonstrate operational readiness of system)
+    ----------------
+
+    - DES/DM Delivery successfully demonstrated (optional)                   (1)
+	- DES DM delivery script invoked, success/failure modes exercised 
+ 
+    - NOAO Delivery successfully demonstrated (optional)                     (1)
+	- NSA delivery script invoked, success/failure modes exercised 
+
+    - Continuous transfer operation for 7 Days 				     (2)
+	- no failed transfer (w/out auto recovery by DTS)
+	- data transferred on multiple queue in parallel
+
+	Notes:
+	  1) Milestone is considered optional since "dummy" scripts
+	     can be used for initial release to support data flow.
+	  2) "Continuous" means there are no freeze-ups in the transfer
+	     protocol, and no crashes of the DTS requiring a restart.
+
+
+    January 6, 2012
+    ---------------
+
+    - First delivery of v1.0 operational release 
+	- Installation documentation available
+	- Operational ICD (inc. recovery procedures) delivered and tested
+	- Bug-fix only updates of code
+
+    - Features added as needed to system monitoring/control tools
+
+
+    February 1, 2012    
+    ---------------
+
+    - Final delivery of v1.0 operational release 
+	- Only severe bug-fixes allowed, no new features
+
+    - Complete implementation/deployment of monitor/control tools
+
+
+    March  1, 2012    	(30-Day continuous operation milestone achieved)
+    ---------------
+
+    - Continuous transfer operation proven:
+	- no failed transfer (w/out auto recovery by DTS)
+	- data transferred on multiple queue in parallel
+
+    - Integration/deployment with SDM E2E systems
+	- iSTB ingestion script
+	- Archive delivery scripts (La Serena and Tucson)
+	- DTS monitoring/control tools developed and deployed
+
+
+    March 15, 2012    SDM E2E and DES DM integration complete
+    ---------------
+
+    - Final delivery of all DTS components, system in operational use by SDM
+
+
+Continued DTS Development in 2012
+---------------------------------
+
+    - Any as-needed work to support DECam
+    - Ongoing testing/tuning as network improves
+
+    LSST support work:
+        - Development of UDP-based bulk transfer protocol 
+        - Implementation / testing of streaming bulk transfer protocol
+	    - needed by alert system
+        - Implementation / testing of priority transfer queue
+	    - needed for ToO data
+
+

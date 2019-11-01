@@ -1,0 +1,4 @@
+#!/bin/csh -f 
+
+/bin/rm -rf DTS/* DTSQ/*		>& /dev/null
+

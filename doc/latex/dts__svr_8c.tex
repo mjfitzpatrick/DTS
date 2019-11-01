@@ -1,0 +1,159 @@
+\hypertarget{dts__svr_8c}{
+\section{dts\_\-svr.c File Reference}
+\label{dts__svr_8c}\index{dts\_\-svr.c@{dts\_\-svr.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+{\tt \#include \char`\"{}../build.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \textbf{qmArg}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dts__svr_8c_17ba00ca77763582777e3252d148dc77}{
+\#define \textbf{\_\-DTS\_\-SRC\_\-}}
+\label{dts__svr_8c_17ba00ca77763582777e3252d148dc77}
+
+\item 
+\hypertarget{dts__svr_8c_d058945657462717a987d91db0883803}{
+\#define \textbf{DTSD\_\-PAUSE}~5}
+\label{dts__svr_8c_d058945657462717a987d91db0883803}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+\hypertarget{dts__svr_8c_0292fd97e712b50174f114fbbb73dfcd}{
+typedef struct qmArg $\ast$ \textbf{qmArgP}}
+\label{dts__svr_8c_0292fd97e712b50174f114fbbb73dfcd}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{dts__svr_8c_3822ef5a194bb6cca513932325c40ca7}{
+int \textbf{dts\_\-initServerMethods} (DTS $\ast$dts)}
+\label{dts__svr_8c_3822ef5a194bb6cca513932325c40ca7}
+
+\item 
+\hypertarget{dts__svr_8c_cddc98edcee3f42843d061f04c9369c0}{
+int \textbf{dts\_\-queueRestart} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dts__svr_8c_cddc98edcee3f42843d061f04c9369c0}
+
+\item 
+\hypertarget{dts__svr_8c_9a7e1012477bc22535fb14613ac499b6}{
+int \textbf{dts\_\-queueObjXfer} (DTS $\ast$dts, dtsQueue $\ast$dtsq)}
+\label{dts__svr_8c_9a7e1012477bc22535fb14613ac499b6}
+
+\item 
+\hypertarget{dts__svr_8c_ba68b41282f5e475ce1501e4d1c7a870}{
+void \textbf{dts\_\-threadCleanup} (void $\ast$flag)}
+\label{dts__svr_8c_ba68b41282f5e475ce1501e4d1c7a870}
+
+\item 
+\hypertarget{dts__svr_8c_38d44488cce40f286141f26b4fcf1eb4}{
+void \textbf{dts\_\-cmdLoop} (DTS $\ast$dts)}
+\label{dts__svr_8c_38d44488cce40f286141f26b4fcf1eb4}
+
+\item 
+\hypertarget{dts__svr_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}{
+void \textbf{dtsFree} (DTS $\ast$dts)}
+\label{dts__svr_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}
+
+\item 
+\hypertarget{dts__svr_8c_32a1821895a6cd70532c6ecbb3371b3f}{
+void \textbf{dtsOnExit} (int stat, void $\ast$data)}
+\label{dts__svr_8c_32a1821895a6cd70532c6ecbb3371b3f}
+
+\item 
+int \hyperlink{dts__svr_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dts__svr_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dts__svr_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dts__svr_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = 0}
+\label{dts__svr_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dts__svr_8c_87aa9502a5ba32b171f08eebf78d2c25}{
+int \textbf{trace} = 0}
+\label{dts__svr_8c_87aa9502a5ba32b171f08eebf78d2c25}
+
+\item 
+\hypertarget{dts__svr_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = 0}
+\label{dts__svr_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dts__svr_8c_a2339b21f98abccd12533a54d5f9d712}{
+int \textbf{daemonize} = 0}
+\label{dts__svr_8c_a2339b21f98abccd12533a54d5f9d712}
+
+\item 
+\hypertarget{dts__svr_8c_eb39d5d8ddd4957f1b01720fa0e37e36}{
+int \textbf{interactive} = 0}
+\label{dts__svr_8c_eb39d5d8ddd4957f1b01720fa0e37e36}
+
+\item 
+\hypertarget{dts__svr_8c_795ea50921b36311ffd5e7baa2ef1f7e}{
+int \textbf{init} = 0}
+\label{dts__svr_8c_795ea50921b36311ffd5e7baa2ef1f7e}
+
+\item 
+\hypertarget{dts__svr_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor} = -1}
+\label{dts__svr_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\item 
+\hypertarget{dts__svr_8c_9363356bf2974c3226de88c86d7674da}{
+int \textbf{normal\_\-exit} = 0}
+\label{dts__svr_8c_9363356bf2974c3226de88c86d7674da}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTS\_\-SVR -- Minimal Data Transfer System Server.
+
+Usage: dts\_\-svr \mbox{[}options\mbox{]}
+
+Options: -h print help
+
+-c $<$cfg$>$ specify the config file to use -d run as a daemon -i run interactively -p $<$port$>$ specify server port -t trace -r $<$path$>$ specify server root dir -v verbose
+
+-H $<$host$>$ specify the host name to simulate -I initialize DTSD working directory
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dts__svr_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dts\_\-svr.c@{dts\_\-svr.c}!main@{main}}
+\index{main@{main}!dts_svr.c@{dts\_\-svr.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dts__svr_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+DTS Daemon Entry point. 

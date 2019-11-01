@@ -1,0 +1,9 @@
+
+queue 
+       name        test
+       host        decam01.fnal.gov
+       dir         default
+       method      give
+       port	   4000
+       nthreads    4
+

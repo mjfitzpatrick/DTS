@@ -1,0 +1,157 @@
+.\" @(#)dtsq.1 1.0 June-2012 MJF
+.TH DTSQ 1 "June 2012" "NOAO DTS"
+.SH NAME
+dtsq \- submit (enqueue) data to the DTS for transport
+.SH SYNOPSIS
+.TP 0
+\fBdtsq\fR [\-q <queue>] [\-f] [\-h <ip>] <path > [<path> ....]
+.SH DESCRIPTION
+The \fIdtsq\fP task is used to submit files or directories to the DTS for
+transport on the specified queue.  The task requires either a configuration
+file to define the supported queues (the \fB$HOME/.dtsq_config\fR file is the
+default, alternate files may be named with the \fB\-c <path>\fR commandline
+option), or use of the cmdline flags to specify the target DTS host and queue
+name.  
+.PP
+When invoked, the DTSQ task will attempt to contact the DTS machine hosting
+the queue, verifying that the DTS daemon is responding and willing to accept
+the file (i.e. there is sufficient disk space on the remote machine, the
+queue is operational, etc).  If successful, transport of the file to the
+remote queue directory is begun using the number of threads specified in the
+configuration file (or with the \fB\-N <nthreads>\fR option).  If the
+transport method is specified as \fIgive\fR then the server sockets are
+opened on the local machine and the remote DTS will connect as a client to
+initiate transport, in the case of a \fIpush\fR method the remote DTS will
+open the server sockets and the DTSQ will connect as a client to begin
+transport.
+
+
+
+
+
+
+.SH OPTIONS
+.PP
+The following commandline options are available:
+.TP 12
+\fB\-b\fR
+bundle (i.e. tar) all files for transfer as a single data object
+.TP 12
+\fB\-f\fR
+fork to do the data transfer
+.TP 12
+\fB\-m <method>\fR
+specify transfer method (push | give)
+.TP 12
+\fB\-p <p=v>\fR
+pass param/value pair
+.TP 12
+\fB\-s\fR
+do file checksum
+
+.TP 12
+\fB\-R\fR
+recover failed queue attempts
+.TP 12
+\fB\-V\fR
+verify queue transfers
+
+.TP 12
+\fB+f\fR
+disable task fork
+.TP 12
+\fB+s\fR
+disable file checksum flag
+.TP 12
+\fB+d\fR
+debug flag
+
+.PP
+\fBCommon DTS Options\fR
+.TP 12
+\fB\-\-debug <N>\fR
+set debug level
+.TP 12
+\fB\-\-help\fR
+print task help
+.TP 12
+\fB\-\-noop\fR
+no\-op flag, print steps taken only
+.TP 12
+\fB\-\-verbose\fR
+verbose flag
+.TP 12
+\fB\-\-version\fR
+print task version
+
+.TP 12
+\fB\-B\fR
+use the built-on configuration file
+.TP 12
+\fB\-c <file>\fR
+set DTSQ config file to be used
+.TP 12
+\fB\-q <queue>\fR
+submit to specified queue
+.TP 12
+\fB\-t <host>\fR
+name/IP address of target DTS host
+.TP 12
+\fB\-w <path>\fR
+set directory to DTSQ working directory
+
+.TP 12
+\fB\-H <port>\fR
+set hi transfer port
+.TP 12
+\fB\-L <port>\fR
+set low transfer port
+.TP 12
+\fB\-N <NThreads>\fR
+set number of transfer threads
+.TP 12
+\fB\-P <port>\fR
+set communications port
+
+.SH ENVIRONMENT VARIABLES
+The \fIDTSQ\fP task will make use of the following environment variables if
+defined:
+.TP
+.B DTSQ_CONFIG
+The location of the DTSQ configuration file to use.  This variable will be
+overridden by the commandline \fI\-c\fP option and the default file in the
+user's $HOME directory.
+.TP
+.B DTSQ_WORKDIR
+The location of the DTSQ working directory.  This variable will be
+overridden by the commandline \fI\-w\fP option and the default $HOME/.dtsq
+directory.
+
+
+.SH RETURN STATUS
+On exit the task will return the following status codes:
+.nf
+     0 Success
+     1 Error code
+.fi
+
+
+.SH EXAMPLES
+.TP 4
+1) Queue a file for transport:
+.nf
+	% dtsq -q test /path/file.fits.fz
+.fi
+
+
+.SH BUGS
+No known bugs at the time of writing.
+
+
+.SH Revision History
+June 2012 - First public release
+.SH Author
+Michael Fitzpatrick (fitz@noao.edu), June 2012
+.SH "SEE ALSO"
+dtsq_config(1), dtsd(1), dtscp(1), dtsh(1), dtsq(1), dtsmon(1), dtsstat(1)
+

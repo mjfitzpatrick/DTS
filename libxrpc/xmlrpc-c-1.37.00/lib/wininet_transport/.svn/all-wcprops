@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/wininet_transport
+END
+xmlrpc_wininet_transport.c
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/wininet_transport/xmlrpc_wininet_transport.c
+END
+pthreadx_win32.c
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/wininet_transport/pthreadx_win32.c
+END
+pthreadx.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/wininet_transport/pthreadx.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/wininet_transport/Makefile
+END

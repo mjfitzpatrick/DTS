@@ -1,0 +1,115 @@
+\hypertarget{dtsmon_8c}{
+\section{dtsmon.c File Reference}
+\label{dtsmon_8c}\index{dtsmon.c@{dtsmon.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}build.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsmon_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsmon_8c_600b792d6d2ff2e71096dfa60d97a3b0}{
+FILE $\ast$ \textbf{fd}}
+\label{dtsmon_8c_600b792d6d2ff2e71096dfa60d97a3b0}
+
+\item 
+\hypertarget{dtsmon_8c_eb39d5d8ddd4957f1b01720fa0e37e36}{
+int \textbf{interactive} = 0}
+\label{dtsmon_8c_eb39d5d8ddd4957f1b01720fa0e37e36}
+
+\item 
+\hypertarget{dtsmon_8c_4bf947cca001e8ca0cd9def2b8d058c7}{
+int \textbf{client} = DTSMON\_\-NONE}
+\label{dtsmon_8c_4bf947cca001e8ca0cd9def2b8d058c7}
+
+\item 
+\hypertarget{dtsmon_8c_ac31eb68bff694554a182bd796b2f1c5}{
+int \textbf{res} = OK}
+\label{dtsmon_8c_ac31eb68bff694554a182bd796b2f1c5}
+
+\item 
+\hypertarget{dtsmon_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = FALSE}
+\label{dtsmon_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtsmon_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = FALSE}
+\label{dtsmon_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtsmon_8c_829add167f33003098445ad1e6b2d13a}{
+int \textbf{noop} = FALSE}
+\label{dtsmon_8c_829add167f33003098445ad1e6b2d13a}
+
+\item 
+\hypertarget{dtsmon_8c_568d0a5ceacd91085c68c17affff6ad8}{
+int \textbf{webmon} = FALSE}
+\label{dtsmon_8c_568d0a5ceacd91085c68c17affff6ad8}
+
+\item 
+\hypertarget{dtsmon_8c_968475af1c9f618f40c7f183e535a909}{
+char \textbf{host} \mbox{[}SZ\_\-FNAME\mbox{]}}
+\label{dtsmon_8c_968475af1c9f618f40c7f183e535a909}
+
+\item 
+\hypertarget{dtsmon_8c_5dce0299cf42fd8fa46c218852e32fb3}{
+char \textbf{mon\_\-url} \mbox{[}SZ\_\-FNAME\mbox{]}}
+\label{dtsmon_8c_5dce0299cf42fd8fa46c218852e32fb3}
+
+\item 
+\hypertarget{dtsmon_8c_60edeadd3cbbd31c469218ad8988275f}{
+char \textbf{log\_\-line} \mbox{[}20\mbox{]}\mbox{[}SZ\_\-FNAME\mbox{]}}
+\label{dtsmon_8c_60edeadd3cbbd31c469218ad8988275f}
+
+\item 
+\hypertarget{dtsmon_8c_c43a7c44ded7cd2dc608108927feb9fa}{
+char \textbf{error\_\-log\_\-line} \mbox{[}20\mbox{]}\mbox{[}SZ\_\-FNAME\mbox{]}}
+\label{dtsmon_8c_c43a7c44ded7cd2dc608108927feb9fa}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTSMON -- Simple RPC client to log messages from DTS servers.
+
+Usage:
+
+dtsmon \mbox{[}-i\mbox{]} \mbox{[}-p $<$N$>$\mbox{]} \mbox{[}-version\mbox{]} \mbox{[}$<$log\_\-file$>$\mbox{]}
+
+-i run interactively -p monitor port number
+
+-version print build version string
+
+\mbox{[}log\_\-file\mbox{]} message log file
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]July 2010 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsmon_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dtsmon.c@{dtsmon.c}!main@{main}}
+\index{main@{main}!dtsmon.c@{dtsmon.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dtsmon_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Task entry point. 

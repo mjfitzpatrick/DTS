@@ -1,0 +1,90 @@
+\hypertarget{dtsIngest_8c}{
+\section{dtsIngest.c File Reference}
+\label{dtsIngest_8c}\index{dtsIngest.c@{dtsIngest.c}}
+}
+\hyperlink{structDTS}{DTS} procedures to \char`\"{}ingest\char`\"{} a transfer object.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$sys/param.h$>$}\par
+{\tt \#include $<$sys/wait.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsIngest_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~(dts\&\&dts $\rightarrow$ debug)}
+\label{dtsIngest_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\hypertarget{dtsIngest_8c_f0e46808444bcfb6237dcf6082da9533}{
+\#define \textbf{VDEBUG}~(dts\&\&dts $\rightarrow$ debug$>$2)}
+\label{dtsIngest_8c_f0e46808444bcfb6237dcf6082da9533}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ \hyperlink{dtsIngest_8c_2474c7bac4c2ae61260a930ff108cb86}{dts\_\-Ingest} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, Control $\ast$ctrl, char $\ast$fpath, char $\ast$cpath, int $\ast$stat)
+\begin{CompactList}\small\item\em Ingest a file for transport. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsIngest_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsIngest_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsIngest_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsIngest_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} procedures to \char`\"{}ingest\char`\"{} a transfer object. 
+
+DTSINGEST.C -- \hyperlink{structDTS}{DTS} procedures to \char`\"{}ingest\char`\"{} a transfer object.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsIngest_8c_2474c7bac4c2ae61260a930ff108cb86}{
+\index{dtsIngest.c@{dtsIngest.c}!dts\_\-Ingest@{dts\_\-Ingest}}
+\index{dts\_\-Ingest@{dts\_\-Ingest}!dtsIngest.c@{dtsIngest.c}}
+\subsubsection[{dts\_\-Ingest}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-Ingest ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  Control $\ast$ {\em ctrl}, \/  char $\ast$ {\em fpath}, \/  char $\ast$ {\em cpath}, \/  int $\ast$ {\em stat})}}
+\label{dtsIngest_8c_2474c7bac4c2ae61260a930ff108cb86}
+
+
+Ingest a file for transport. 
+
+DTS\_\-INGEST -- Ingest a file for transport.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue structure \item[{\em ctrl}]Transfer control structure \item[{\em fpath}]path to the file in spool dir \item[{\em cpath}]path to the control file in spool dir \item[{\em stat}]status of the ingest application \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]NULL or error message \end{Desc}
+
+
+References dts\_\-addControlHistory(), dts\_\-fmtQueueCmd(), dts\_\-isLink(), dts\_\-loadDeliveryParams(), dts\_\-nameMode(), dts\_\-nameSize(), dts\_\-qstatDlvrEnd(), dts\_\-qstatDlvrStart(), dts\_\-qstatDlvrStat(), dts\_\-readLink(), dts\_\-saveControl(), dts\_\-semSetVal(), dts\_\-sysExec(), dtsErrLog(), and dtsLog().
+
+Referenced by dts\_\-endTransfer().

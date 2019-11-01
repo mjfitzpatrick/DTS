@@ -1,0 +1,318 @@
+.TH "dtsUDT.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsUDT.c \- \fBDTS\fP UDT transfer routines.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <pthread.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <netdb.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <sys/errno.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <netinet/in.h>\fP
+.br
+\fC#include <netinet/tcp.h>\fP
+.br
+\fC#include <arpa/inet.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsUDT.h'\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+\fC#include 'udtc.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_PTCP_SRC_\fP"
+.br
+.ti -1c
+.RI "#define \fBUDT_DEBUG\fP   0"
+.br
+.ti -1c
+.RI "#define \fBUSE_PTHREAD_JOIN\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBudtSpawnThreads\fP (void *worker, int nthreads, char *dir, char *fname, long fsize, int mode, int rate, int port, char *host, int verbose, pthread_t *tids)"
+.br
+.RI "\fISpawn a worker thread for the transfer. \fP"
+.ti -1c
+.RI "int * \fBudtCollectThreads\fP (int nthreads, pthread_t *tids)"
+.br
+.RI "\fICollect worker threads for the transfer. \fP"
+.ti -1c
+.RI "void \fBudtSendFile\fP (void *data)"
+.br
+.RI "\fISend a file to a remote \fBDTS\fP. \fP"
+.ti -1c
+.RI "void \fBudtReceiveFile\fP (void *data)"
+.br
+.RI "\fIRead a file from a remote \fBDTS\fP. \fP"
+.ti -1c
+.RI "int \fBudtSendStripe\fP (int sock, unsigned char *dbuf, long offset, int tnum, long maxbytes)"
+.br
+.RI "\fIDo actual transfer of data stripe to the socket. \fP"
+.ti -1c
+.RI "unsigned char * \fBudtReceiveStripe\fP (int sock, long offset, int tnum)"
+.br
+.RI "\fIRead data stripe from the socket connection. \fP"
+.ti -1c
+.RI "void \fBudtComputeStripe\fP (long fsize, int nthreads, int tnum, long *chsize, long *start, long *end)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "pthread_mutex_t \fBudt_mutex\fP = PTHREAD_MUTEX_INITIALIZER"
+.br
+.ti -1c
+.RI "int \fBudt_checksum_policy\fP = CS_NONE"
+.br
+.ti -1c
+.RI "struct timeval \fBio_tv\fP"
+.br
+.ti -1c
+.RI "int \fBqueue_delay\fP"
+.br
+.ti -1c
+.RI "int \fBthread_sem\fP"
+.br
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBfirst_write\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP UDT transfer routines. 
+
+DTSUDT.C -- \fBDTS\fP UDT transfer routines.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, Travis Semple, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+3/10/13 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int udtCollectThreads (int nthreads, pthread_t * tids)"
+.PP
+Collect worker threads for the transfer. 
+.PP
+UDTCOLLECTTHREADS -- Collect the worker threads for the transfer. Our onl job here is start a thread to rejoin the previously createed threads.
+.PP
+\fBParameters:\fP
+.RS 4
+\fInthreads\fP number of threads to create 
+.br
+\fItids\fP thread IDs 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.SS "udtReceiveFile (void * data)"
+.PP
+Read a file from a remote \fBDTS\fP. 
+.PP
+UDTRECEIVEFILE -- Receive a file from a remote \fBDTS\fP.
+.PP
+This function can be called to read a portion of a file from a remote host. Arguments are passed in through a generic 'data' pointer to the psArg struct defined for this 'stripe' of the data.
+.PP
+In this procedure, we act as a client in the connection, i.e. the transfer won't begin until we connect to a remote server sending the data.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller thread data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fileOpen(), dts_fileWrite(), dts_makePath(), dts_openUDTClientSocket(), dts_preAlloc(), dts_sandboxPath(), dts_semDecr(), dtsErrLog(), dtsLog(), dtsTimeLog(), udt_mutex, and udtReceiveStripe().
+.PP
+Referenced by dts_xferPullFile(), and dts_xferReceiveFile().
+.SS "uchar * udtReceiveStripe (int sock, long offset, int tnum)"
+.PP
+Read data stripe from the socket connection. 
+.PP
+UDTRECEIVESTRIPE -- Do the actual transfer of the data stripe to the client connection. A 'stripe' of data is actually transferred in much smaller 'chunks' which can be tuned to be optimal for the given connection. The checksum policy allows us to perform a checksum of the data either for the entire stripe, or for each individual chunk. The former is generally more efficient as it involves fewer round-trips to the client (i.e. send the checksum and wait for verification before sending next chunk). File-level checksum policy is enforced by our parent.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsock\fP socket descriptor 
+.br
+\fIoffset\fP file offset for this stripe 
+.br
+\fItnum\fP thread (i.e. stripe) number
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+a pointer to the data read 
+.RE
+.PP
+
+.PP
+References dts_debugLevel(), dts_udtRead(), and dtsLog().
+.PP
+Referenced by udtReceiveFile().
+.SS "udtSendFile (void * data)"
+.PP
+Send a file to a remote \fBDTS\fP. 
+.PP
+UDTSENDFILE -- Send a file to a remote \fBDTS\fP using UDT.
+.PP
+This function can be called to send a portion of a file to a remote host. Arguments are passed in through a generic 'data' pointer to the psArg struct defined for this 'stripe' of the data.
+.PP
+In this procedure, we act as a server, i.e. we open the specified tcp/ip socket and wait for a client connection before beginning any transfer.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller thread data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fileClose(), dts_fileOpen(), dts_fileRead(), dts_makePath(), dts_openUDTClientSocket(), dts_sandboxPath(), dts_semDecr(), dtsErrLog(), dtsLog(), dtsTimeLog(), udt_mutex, and udtSendStripe().
+.PP
+Referenced by dts_xferPushFile(), and dts_xferSendFile().
+.SS "int udtSendStripe (int sock, unsigned char * dbuf, long offset, int tnum, long maxbytes)"
+.PP
+Do actual transfer of data stripe to the socket. 
+.PP
+UDTSENDSTRIPE -- Do the actual transfer of the data stripe to the client connection. A 'stripe' of data is actually transferred in much smaller 'chunks' which can be tuned to be optimal for the given connection. The checksum policy allows us to perform a checksum of the data either for the entire stripe, or for each individual chunk. The former is generally more efficient as it involves fewer round-trips to the client (i.e. send the checksum and wait for verification before sending next chunk). File-level checksum policy is enforced by our parent.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsock\fP socket descriptor 
+.br
+\fIdbuf\fP data buffer 
+.br
+\fIoffset\fP file offset for this stripe 
+.br
+\fItnum\fP thread number 
+.br
+\fImaxbytes\fP max bytes to transfer
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+number of chunks sent 
+.RE
+.PP
+
+.PP
+References dts_debugLevel(), dts_udtWrite(), dtsErrLog(), and dtsTimeLog().
+.PP
+Referenced by udtSendFile().
+.SS "int udtSpawnThreads (void * worker, int nthreads, char * dir, char * fname, long fsize, int mode, int rate, int port, char * host, int verbose, pthread_t * tids)"
+.PP
+Spawn a worker thread for the transfer. 
+.PP
+UDTSPAWNTHREADS -- Spawn a worker thread for the transfer. All we do here is start a thread to run the function passed in. This may be used to either read or write the data.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIworker\fP worker function 
+.br
+\fInthreads\fP number of threads to create 
+.br
+\fIdir\fP working directory 
+.br
+\fIfname\fP file name 
+.br
+\fIfsize\fP file size 
+.br
+\fImode\fP transfer mode (push or pull) 
+.br
+\fIrate\fP transfer rate (Mbps) 
+.br
+\fIport\fP client base port number 
+.br
+\fIhost\fP client host name 
+.br
+\fIverbose\fP verbose output flag 
+.br
+\fItids\fP thread id array
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+References dtsErrLog(), and psComputeStripe().
+.PP
+Referenced by dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SH "Variable Documentation"
+.PP 
+.SS "int \fBudt_checksum_policy\fP = CS_NONE"
+.PP
+FIXME -- CS_STRIPE and CS_PACKET not working...... 
+.PP
+Referenced by dts_udtRead(), and dts_udtWrite().
+.SS "pthread_mutex_t \fBudt_mutex\fP = PTHREAD_MUTEX_INITIALIZER"
+.PP
+Mutex lock for thread startup to protect file I/O. 
+.PP
+Referenced by udtReceiveFile(), and udtSendFile().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

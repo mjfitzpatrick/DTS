@@ -1,0 +1,49 @@
+#
+#  DTS Development Configuration
+#
+#  Revision History
+#
+#      Created   5/13/09   MJF
+
+
+verbose   0
+debug     0
+monitor	  tucana.tuc.noao.edu:3002
+semId	  1024
+
+password  dtsPass			# test password
+
+
+dts
+    name      tucana			# Required fields
+    host      tucana.tuc.noao.edu
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /home/fitz/tmp/dts.tuc/
+    contact   3001
+    network   dev
+
+    dbfile    /home/fitz/tmp/dts.tuc/msg.db	# Optional field
+    logfile   /home/fitz/tmp/dts.log
+
+    # /////////////////////////////////////////////
+    # Queue configurations
+    # /////////////////////////////////////////////
+
+    queue 				# entry point from domes
+	name	      	test2		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3005		# base transfer port
+        keepalive	yes		# keep connection open?		 [NYI]
+        src		crux		# 
+	deliveryDir   	/tmp/foo.tuc	# spool or /path/to/copy
+	#deliveryCmd	/usr/local/bin/imdisp $F
+
+
+
+

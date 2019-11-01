@@ -1,0 +1,37 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+clear
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+echo "Initializing DTS ...."		# initialize DTSQ directory
+/bin/rm -rf ~/.dtsq/*
+scp ~/.dts_config denali.tuc.noao.edu:
+scp ~/.dts_config crux.tuc.noao.edu:
+scp ~/.dts_config capacitor.tuc.noao.edu:
+
+echo "Starting denali ...."
+csh -fc "(ssh -XY denali xterm -fg wheat3 -bg black -T denali -fn 6x13 -geom 80x18+50+00 -e /home/fitz/dts.run1 ) &"    >&  /tmp/_j
+
+echo "Starting crux ...."
+csh -fc "(ssh -XY crux  xterm -fg wheat3 -bg black -T crux  -fn 6x13 -geom 80x18+50+265 -e /home/fitz/dts.run1 ) &"   >>& /tmp/_j
+
+echo "Starting capacitor ...."
+csh -fc "(ssh -XY capacitor.tuc.noao.edu xterm -fg wheat3 -bg black -T capacitor -fn 6x13 -geom 80x18+50+530 -e /home/fitz/dts.run1 ) &"   >>& /tmp/_j
+
+echo "Starting capacitor test ...."
+csh -fc "(chdir /home/fitz/dts.odi ; xterm -fg wheat3 -bg black -T tucana -fn 6x13 -geom 80x30+450+220) &" 				  >& /tmp/_j2
+
+
+echo "Waiting ...."
+set junk = "$<"
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t denali    shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t crux     shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t capacitor shutdown dtsPass
+    kill -9 `cat /tmp/_j2 |& awk '{print ($2)}'`
+    /bin/rm -rf /tmp/_j /tmp/_j2

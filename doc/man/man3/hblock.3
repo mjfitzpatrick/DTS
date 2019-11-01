@@ -1,0 +1,34 @@
+.TH "hblock" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+hblock \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <dtsTar.h>\fP
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBheader\fP"
+.br
+.in -1c
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBdummy\fP [TBLOCK]"
+.br
+.ti -1c
+.RI "struct hblock::header \fBdbuf\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+File header structure. One of these precedes each file on the tape. Each file occupies an integral number of TBLOCK size logical blocks on the tape. The number of logical blocks per physical block is variable, with at most NBLOCK logical blocks per physical tape block. Two zero blocks mark the end of the tar file. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

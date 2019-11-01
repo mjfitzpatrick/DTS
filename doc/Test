@@ -1,0 +1,153 @@
+
+
+DTSQ
+
+    Function: 
+	    Queue a data object for transport.  DTSQ acts in the same way as
+	the LPR command to queue data in the existing iSTB system, it
+	guarantees a fast response to 
+
+    Calling Arguments:
+	Complete host-level path of file to transport
+	FQDN host name of machine making request
+	Time of request
+	Full path of file to transport
+	Size (in bytes) of file to transport
+
+    Operational Requirements:
+	App must have read access to file being queued
+	Returns a status code to the caller quickly (< 1sec)
+	On Success:  set environment variable status to 0 (zero)
+	On Failure:  set environment variable status to 1 (one)
+
+    Success Defined As:
+	DTS will accept file for transport
+	To some reasonable extent, DTS agrees request is within its current 
+	    operational limits (has enough disk space, can connect to host,
+	    can access file, etc)
+
+    Failure Defined As:
+	DTSQ cannot connect to DTS daemon
+	    - command connection fails (e.g. network/remote machine down)
+	    - xmlrpc command fails for any reason (e.g. DTSQ crash)
+	DTS cannot access requesting host machine to make local copy
+	DTS staging disk is full
+
+    On Success:
+	Control file for transfer created on DTS spool area
+	DTS ingest queue processes control file
+	Successful queue request logged to DTS system logger
+
+    On Failure:
+	DTSQ sets env status code to non-zero value
+	Control file written to local recovery area
+	Failed queue request logged to DTS system logger
+
+    Error Recovery Procedure:
+	Command
+		dtsq -recovery
+
+	    will process all pending requests.  This command will return
+	    status=0 if all requests processed successfully (local
+	    control file is deleted), status=1 if any request failed
+	    (local control file remains for later attempt)
+		- Recovered files processed in oldest-first order 
+		- May be called multiple times until all files processed 
+		- Caller responsible to process until status=0
+		- Recovery request logged to DTS system logger
+		- Remove requirement on quick response, success now means 
+		  DTS has physical copy of image
+
+    Caller Responsibilities:
+	Error returns should be conveyed to higher-level software/operators
+
+    Interface Tests:
+
+	    Although there may be several reasons for the DTSQ task to fail,
+	the task only returns a single success or error code.  Therefore,
+	the effect of a failure needs to be tested in the two cases
+	that most affect the calling application/user:
+
+	DTSQ fails when queueing a new file to process:
+
+	    Implementation: 
+		- a "--error" flag to simulate any mode of failure
+
+	    Test #1: Queueing of a new file
+
+	        Expected Result: 
+		    - status code set to 1 (one)
+		    - local control file written for request
+		    - if contact with DTSD established, error messaged logged
+
+
+	DTSQ fails when recovering files:
+
+	    Implementation: 
+		- a "--error" flag to simulate failed recovery.  To be used
+		  along with "-recovery" flag.
+
+
+	    Test #1: Recovery a single file
+
+	        Expected Result: 
+		    - status code set to 1 (one)
+		    - local control remains on machine
+		    - if contact with DTSD established, error messaged logged
+
+	    Test #2: Recovery of multiple files, failure during processing
+
+	        Expected Result: 
+		    - status code set to 1 (one)
+		    - processed control files removed
+		    - local control file for failed (and all subsequent
+		      files) remains on machine
+		    - if contact with DTSD established, error messaged logged
+
+
+
+DTSD
+    Function: 
+
+    Calling Arguments:
+
+    Operational Requirements:
+
+    Success Defined As:
+
+    Failure Defined As:
+
+    On Success:
+
+    On Failure:
+
+    Error Recovery Procedure:
+
+    Caller Responsibilities:
+
+    Interface Tests:
+
+
+
+DTSMON
+    Function: 
+
+    Calling Arguments:
+
+    Operational Requirements:
+
+    Success Defined As:
+
+    Failure Defined As:
+
+    On Success:
+
+    On Failure:
+
+    Error Recovery Procedure:
+
+    Caller Responsibilities:
+
+    Interface Tests:
+
+

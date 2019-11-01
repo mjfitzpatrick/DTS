@@ -1,0 +1,411 @@
+\hypertarget{dtscp_8c}{
+\section{dtscp.c File Reference}
+\label{dtscp_8c}\index{dtscp.c@{dtscp.c}}
+}
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$libgen.h$>$}\par
+{\tt \#include $<$netdb.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$netinet/in.h$>$}\par
+{\tt \#include $<$arpa/inet.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}build.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \hyperlink{structsrcStruct}{srcStruct}
+\item 
+struct \textbf{destStruct}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtscp_8c_f0b5cfa4242ae7f98ba80fd23ef8afa9}{
+\#define \textbf{APP\_\-NAME}~\char`\"{}dtscp\char`\"{}}
+\label{dtscp_8c_f0b5cfa4242ae7f98ba80fd23ef8afa9}
+
+\item 
+\hypertarget{dtscp_8c_92673e33f27532767749b79edb8ef806}{
+\#define \textbf{APP\_\-VERSION}~\char`\"{}1.0\char`\"{}}
+\label{dtscp_8c_92673e33f27532767749b79edb8ef806}
+
+\item 
+\hypertarget{dtscp_8c_c9c1311707cba8abcf575d13a527bc7b}{
+\#define \textbf{SZ\_\-SBUF}~4096}
+\label{dtscp_8c_c9c1311707cba8abcf575d13a527bc7b}
+
+\item 
+\hypertarget{dtscp_8c_29b7451465deac204c5f7cb1f9c6e1fc}{
+\#define \textbf{MAX\_\-ARGS}~32}
+\label{dtscp_8c_29b7451465deac204c5f7cb1f9c6e1fc}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtscp_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtscp_8c_b3c1cbfb924caeb1d87f951a0ad2a94a}{
+char $\ast$ \textbf{srchost} = NULL}
+\label{dtscp_8c_b3c1cbfb924caeb1d87f951a0ad2a94a}
+
+\item 
+\hypertarget{dtscp_8c_1c2046dcb30a629d6d9f45ff8f403f12}{
+char $\ast$ \textbf{host} = NULL}
+\label{dtscp_8c_1c2046dcb30a629d6d9f45ff8f403f12}
+
+\item 
+\hypertarget{dtscp_8c_7353cae57e2530c316ddacb27ef14932}{
+char $\ast$ \textbf{cmd} = NULL}
+\label{dtscp_8c_7353cae57e2530c316ddacb27ef14932}
+
+\item 
+\hypertarget{dtscp_8c_44196e6a5696d10442c29e639437196e}{
+char $\ast$ \textbf{path} = NULL}
+\label{dtscp_8c_44196e6a5696d10442c29e639437196e}
+
+\item 
+\hypertarget{dtscp_8c_74bb62276efdf39dd94048e007fca05b}{
+char $\ast$ \textbf{config} = NULL}
+\label{dtscp_8c_74bb62276efdf39dd94048e007fca05b}
+
+\item 
+\hypertarget{dtscp_8c_9027b352db4085a0122952932d065705}{
+char $\ast$ \textbf{alias} = NULL}
+\label{dtscp_8c_9027b352db4085a0122952932d065705}
+
+\item 
+\hypertarget{dtscp_8c_9e56413137aaccc450e1f8fa7b075545}{
+long \textbf{fsize} = 0}
+\label{dtscp_8c_9e56413137aaccc450e1f8fa7b075545}
+
+\item 
+\hypertarget{dtscp_8c_1ea5d0cb93f22f7d0fdf804bd68c3326}{
+int \textbf{mode} = 0}
+\label{dtscp_8c_1ea5d0cb93f22f7d0fdf804bd68c3326}
+
+\item 
+\hypertarget{dtscp_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = 0}
+\label{dtscp_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtscp_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = 0}
+\label{dtscp_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtscp_8c_55602ca214fb365e8deef9a73c8442e7}{
+int \textbf{quiet} = 0}
+\label{dtscp_8c_55602ca214fb365e8deef9a73c8442e7}
+
+\item 
+\hypertarget{dtscp_8c_829add167f33003098445ad1e6b2d13a}{
+int \textbf{noop} = 0}
+\label{dtscp_8c_829add167f33003098445ad1e6b2d13a}
+
+\item 
+\hypertarget{dtscp_8c_4fb0f078574c9bdeeaee433d411298c9}{
+int \textbf{exec} = 0}
+\label{dtscp_8c_4fb0f078574c9bdeeaee433d411298c9}
+
+\item 
+\hypertarget{dtscp_8c_314dbcb00015eeb2e4b0121e96bfffde}{
+int \textbf{poke} = 0}
+\label{dtscp_8c_314dbcb00015eeb2e4b0121e96bfffde}
+
+\item 
+\hypertarget{dtscp_8c_e771d2f10d54356a879a6124e264d1d1}{
+int \textbf{doShell} = 0}
+\label{dtscp_8c_e771d2f10d54356a879a6124e264d1d1}
+
+\item 
+\hypertarget{dtscp_8c_1fa5c49a74aed37db904b14a65e608a9}{
+int \textbf{move\_\-flag} = 0}
+\label{dtscp_8c_1fa5c49a74aed37db904b14a65e608a9}
+
+\item 
+\hypertarget{dtscp_8c_febff510c77490d624a575300fb50d5a}{
+int \textbf{doTime} = 0}
+\label{dtscp_8c_febff510c77490d624a575300fb50d5a}
+
+\item 
+\hypertarget{dtscp_8c_41db0d235a8efebe76ef083844a30a82}{
+int \textbf{try\_\-pull} = 0}
+\label{dtscp_8c_41db0d235a8efebe76ef083844a30a82}
+
+\item 
+\hypertarget{dtscp_8c_651cc9978ea560ba7548fede0a068567}{
+int \textbf{push} = 1}
+\label{dtscp_8c_651cc9978ea560ba7548fede0a068567}
+
+\item 
+\hypertarget{dtscp_8c_c27e0bb2b20a3a4ffd7193c2f6e9552f}{
+int \textbf{remoteDest} = 0}
+\label{dtscp_8c_c27e0bb2b20a3a4ffd7193c2f6e9552f}
+
+\item 
+\hypertarget{dtscp_8c_7a829e6fd74e94e0edf10550470d844c}{
+int \textbf{rate} = 0}
+\label{dtscp_8c_7a829e6fd74e94e0edf10550470d844c}
+
+\item 
+\hypertarget{dtscp_8c_dcc9a19ad3119f823a658f6a49a24e64}{
+int \textbf{method} = TM\_\-PSOCK}
+\label{dtscp_8c_dcc9a19ad3119f823a658f6a49a24e64}
+
+\item 
+\hypertarget{dtscp_8c_ac31eb68bff694554a182bd796b2f1c5}{
+int \textbf{res} = OK}
+\label{dtscp_8c_ac31eb68bff694554a182bd796b2f1c5}
+
+\item 
+\hypertarget{dtscp_8c_686be44673ccbb40d023d3155daa6f67}{
+int \textbf{execStat} = ERR}
+\label{dtscp_8c_686be44673ccbb40d023d3155daa6f67}
+
+\item 
+\hypertarget{dtscp_8c_63c89c04d1feae07ca35558055155ffb}{
+int \textbf{port} = 0}
+\label{dtscp_8c_63c89c04d1feae07ca35558055155ffb}
+
+\item 
+\hypertarget{dtscp_8c_b96dbd9a8b1abb3da4fe742417fcc3ca}{
+int \textbf{cmdPort} = DTSCP\_\-PORT}
+\label{dtscp_8c_b96dbd9a8b1abb3da4fe742417fcc3ca}
+
+\item 
+\hypertarget{dtscp_8c_38e295bc5474de50e9f88db612561fa7}{
+int \textbf{loPort} = DTSCP\_\-PORT + 50}
+\label{dtscp_8c_38e295bc5474de50e9f88db612561fa7}
+
+\item 
+\hypertarget{dtscp_8c_01d264c50baf2315ce24eda6c8b2a226}{
+int \textbf{hiPort} = DTSCP\_\-PORT + 50 + DEF\_\-MAX\_\-PORTS}
+\label{dtscp_8c_01d264c50baf2315ce24eda6c8b2a226}
+
+\item 
+\hypertarget{dtscp_8c_8adda9db6d1fb7be6f86999c24c75ab0}{
+int \textbf{nThreads} = 1}
+\label{dtscp_8c_8adda9db6d1fb7be6f86999c24c75ab0}
+
+\item 
+\hypertarget{dtscp_8c_303aab5407c3a0329a7c79a31ef11f82}{
+int \textbf{s\_\-mfile} = 0}
+\label{dtscp_8c_303aab5407c3a0329a7c79a31ef11f82}
+
+\item 
+\hypertarget{dtscp_8c_5a317b1553299b3cbe3ef6d6d2edcffc}{
+char $\ast$ \textbf{qname} = NULL}
+\label{dtscp_8c_5a317b1553299b3cbe3ef6d6d2edcffc}
+
+\item 
+\hypertarget{dtscp_8c_7e04b9cb82ddcfa3678beb3f8672b99d}{
+char $\ast$ \textbf{ddir} = NULL}
+\label{dtscp_8c_7e04b9cb82ddcfa3678beb3f8672b99d}
+
+\item 
+\hypertarget{dtscp_8c_0d45ad552cedb2af402db53c8e476f68}{
+char $\ast$ \textbf{cdir} = NULL}
+\label{dtscp_8c_0d45ad552cedb2af402db53c8e476f68}
+
+\item 
+\hypertarget{dtscp_8c_ca392a8d3941cd0740aef3ad92545d67}{
+FILE $\ast$ \textbf{in} = (FILE $\ast$) NULL}
+\label{dtscp_8c_ca392a8d3941cd0740aef3ad92545d67}
+
+\item 
+\hypertarget{dtscp_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dtscp_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtscp_8c_e46fcc990156bad39982ba63a195779f}{
+char $\ast$ \textbf{clientUrl}}
+\label{dtscp_8c_e46fcc990156bad39982ba63a195779f}
+
+\item 
+\hypertarget{dtscp_8c_610eba3d96a801323b46b5c28cbd476c}{
+char \textbf{cmdbuf} \mbox{[}SZ\_\-SBUF\mbox{]}}
+\label{dtscp_8c_610eba3d96a801323b46b5c28cbd476c}
+
+\item 
+\hypertarget{dtscp_8c_122c83a43e601449c2ade61d02e693a8}{
+char \textbf{localIP} \mbox{[}SZ\_\-PATH\mbox{]}}
+\label{dtscp_8c_122c83a43e601449c2ade61d02e693a8}
+
+\item 
+\hypertarget{dtscp_8c_70ad1182a6dc3d33e0992bbc75566204}{
+char \textbf{to} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_70ad1182a6dc3d33e0992bbc75566204}
+
+\item 
+\hypertarget{dtscp_8c_28a40423a5a8ea712f49f7d6795b959d}{
+char \textbf{cwd} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_28a40423a5a8ea712f49f7d6795b959d}
+
+\item 
+\hypertarget{dtscp_8c_b15520edfbeefa472eaed3a5f80dfb29}{
+char \textbf{from} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_b15520edfbeefa472eaed3a5f80dfb29}
+
+\item 
+\hypertarget{dtscp_8c_f9776a35840c0741053ef75849a401ce}{
+destStruct \textbf{dst}}
+\label{dtscp_8c_f9776a35840c0741053ef75849a401ce}
+
+\item 
+\hypertarget{dtscp_8c_97fa59c899e115ea1622c42ae3be631d}{
+\hyperlink{structsrcStruct}{srcStruct} \textbf{src} \mbox{[}50\mbox{]}}
+\label{dtscp_8c_97fa59c899e115ea1622c42ae3be631d}
+
+\item 
+\hypertarget{dtscp_8c_7fba6c1b98fffc87a3f21e90c32cd440}{
+int \textbf{toPort}}
+\label{dtscp_8c_7fba6c1b98fffc87a3f21e90c32cd440}
+
+\item 
+\hypertarget{dtscp_8c_0bd0b1c266c9ff4b6e97a9d3cb16dc0e}{
+int \textbf{fromPort}}
+\label{dtscp_8c_0bd0b1c266c9ff4b6e97a9d3cb16dc0e}
+
+\item 
+\hypertarget{dtscp_8c_f64e4c2b689456230217f08737e908d6}{
+char \textbf{from\_\-file} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_f64e4c2b689456230217f08737e908d6}
+
+\item 
+\hypertarget{dtscp_8c_b5525e690702e5a116e15c07315c753b}{
+char \textbf{fromHost} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_b5525e690702e5a116e15c07315c753b}
+
+\item 
+\hypertarget{dtscp_8c_2baef451fc6ba87e37aae6f81f6719f4}{
+char \textbf{toHost} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_2baef451fc6ba87e37aae6f81f6719f4}
+
+\item 
+\hypertarget{dtscp_8c_b3cdce27a935583ed98fcbfb7e96d3b4}{
+char \textbf{fromIP} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_b3cdce27a935583ed98fcbfb7e96d3b4}
+
+\item 
+\hypertarget{dtscp_8c_3698d609b0600d065892da703c053bf8}{
+char \textbf{toIP} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_3698d609b0600d065892da703c053bf8}
+
+\item 
+\hypertarget{dtscp_8c_c6c9735e7ee47c485a7e84eeee158f39}{
+char \textbf{fromPath} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_c6c9735e7ee47c485a7e84eeee158f39}
+
+\item 
+\hypertarget{dtscp_8c_350aa27667db3df4132cca15dfd4149e}{
+char \textbf{toPath} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_350aa27667db3df4132cca15dfd4149e}
+
+\item 
+\hypertarget{dtscp_8c_c9704022431e4c0402ef1ca5f188e739}{
+char \textbf{savedtoPath} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_c9704022431e4c0402ef1ca5f188e739}
+
+\item 
+\hypertarget{dtscp_8c_37128ae0277d3773a82e269ce45bb6ff}{
+char \textbf{execBuf} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_37128ae0277d3773a82e269ce45bb6ff}
+
+\item 
+\hypertarget{dtscp_8c_def513432aa94f2c0a93a1afae33c679}{
+char \textbf{execCmd} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_def513432aa94f2c0a93a1afae33c679}
+
+\item 
+\hypertarget{dtscp_8c_c20846e3a5817f3f9ddedf55d73e4c5a}{
+char \textbf{queuePath} \mbox{[}SZ\_\-LINE\mbox{]}}
+\label{dtscp_8c_c20846e3a5817f3f9ddedf55d73e4c5a}
+
+\item 
+\hypertarget{dtscp_8c_9a9ff89716e45ff905821dbbbe51dd13}{
+char $\ast$ \textbf{subArg} \mbox{[}MAX\_\-ARGS\mbox{]}}
+\label{dtscp_8c_9a9ff89716e45ff905821dbbbe51dd13}
+
+\item 
+\hypertarget{dtscp_8c_2d886d8443ccfb900dca326ed9ba5dad}{
+int \textbf{numArgs} = 0}
+\label{dtscp_8c_2d886d8443ccfb900dca326ed9ba5dad}
+
+\item 
+\hypertarget{dtscp_8c_9c2c8932cd289db05ac20cf7d828771c}{
+char $\ast$ \textbf{xArgs} \mbox{[}MAX\_\-ARGS\mbox{]}}
+\label{dtscp_8c_9c2c8932cd289db05ac20cf7d828771c}
+
+\item 
+\hypertarget{dtscp_8c_0040a80030bf6365af946d5a932f0fbb}{
+int \textbf{nXArgs} = 0}
+\label{dtscp_8c_0040a80030bf6365af946d5a932f0fbb}
+
+\item 
+\hypertarget{dtscp_8c_f908f647771fb14de412c663fb1464f0}{
+xferStat \textbf{xfs}}
+\label{dtscp_8c_f908f647771fb14de412c663fb1464f0}
+
+\item 
+\hypertarget{dtscp_8c_5b723f03849d8d794365c8664556eb83}{
+Control \textbf{control}}
+\label{dtscp_8c_5b723f03849d8d794365c8664556eb83}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTSCP -- Utility app to copy files manually between DTS nodes.
+
+Usage: dtscp \mbox{[}options\mbox{]} $<$from$>$ $<$to$>$
+
+Options:
+
+-a $<$alias$>$ set contact alias -f $<$file$>$ process arguments in $<$file$>$ (NYI) -g use GIVE/TAKE mode for transfer (DEF) -i run interactive shell (NYI) -p use PUSH/PULL mode for transfer -q $<$qname$>$ transfer to queue's deliveryDir -t \mbox{[}name\mbox{]} target host name/IP
+
+Common DTS Options
+
+--debug $<$N$>$ set debug level --help print task help --noop no-op flag, print steps taken only --verbose verbose flag --version print task version
+
+-c $<$file$>$ set DTSCP config file to be used -q $<$queue$>$ submit to specified queue -t $<$host$>$ name/IP address of target DTS host -w $<$path$>$ set directory to DTSCP working directory
+
+-H $<$port$>$ set hi transfer port -L $<$port$>$ set low transfer port -N $<$NThreads$>$ set number of transfer threads -P $<$port$>$ set communications port
+
+$<$path$>$ full path to file to queue
+
+\begin{Desc}
+\item[Author:]Travis Semple, Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]June 2013 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtscp_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dtscp.c@{dtscp.c}!main@{main}}
+\index{main@{main}!dtscp.c@{dtscp.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dtscp_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Task \hyperlink{dts__svr_8c_3c04138a5bfe5d72780bb7e82a18e627}{main()}. 

@@ -1,0 +1,138 @@
+.TH "DTS" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DTS \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <dts.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBwhoAmI\fP [SZ_LINE]"
+.br
+.ti -1c
+.RI "char \fBpasswd\fP [SZ_LINE]"
+.br
+.ti -1c
+.RI "char \fBops_pass\fP [SZ_LINE]"
+.br
+.ti -1c
+.RI "char \fBserverName\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBserverRoot\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "int \fBserverPort\fP"
+.br
+.ti -1c
+.RI "char \fBserverUrl\fP [SZ_LINE]"
+.br
+.ti -1c
+.RI "char \fBserverHost\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBserverIP\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "int \fBcontactPort\fP"
+.br
+.ti -1c
+.RI "int \fBloPort\fP"
+.br
+.ti -1c
+.RI "int \fBhiPort\fP"
+.br
+.ti -1c
+.RI "int \fBsemId\fP"
+.br
+.ti -1c
+.RI "char \fBconfigFile\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBworkingDir\fP [SZ_LINE]"
+.br
+.ti -1c
+.RI "char \fBdbFile\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBlogFile\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "FILE * \fBlogfd\fP"
+.br
+.ti -1c
+.RI "\fBdtsClient\fP * \fBclients\fP [MAX_CLIENTS]"
+.br
+.ti -1c
+.RI "\fBdtsClient\fP * \fBself\fP"
+.br
+.ti -1c
+.RI "int \fBnclients\fP"
+.br
+.ti -1c
+.RI "\fBdtsQueue\fP * \fBqueues\fP [MAX_QUEUES]"
+.br
+.ti -1c
+.RI "int \fBnqueues\fP"
+.br
+.ti -1c
+.RI "int \fBnerrs\fP"
+.br
+.ti -1c
+.RI "char * \fBemsgs\fP [MAX_EMSGS]"
+.br
+.ti -1c
+.RI "char \fBmonitor\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "char \fBmon_url\fP [SZ_FNAME]"
+.br
+.ti -1c
+.RI "int \fBmon_fd\fP"
+.br
+.ti -1c
+.RI "int \fBmon_port\fP"
+.br
+.ti -1c
+.RI "int \fBstat_period\fP"
+.br
+.ti -1c
+.RI "pthread_t \fBstat_tid\fP"
+.br
+.ti -1c
+.RI "int \fBdaemonize\fP"
+.br
+.ti -1c
+.RI "int \fBverbose\fP"
+.br
+.ti -1c
+.RI "int \fBdebug\fP"
+.br
+.ti -1c
+.RI "int \fBcopyMode\fP"
+.br
+.ti -1c
+.RI "int \fBtrace\fP"
+.br
+.ti -1c
+.RI "int \fBshutdown\fP"
+.br
+.ti -1c
+.RI "time_t \fBstart_time\fP"
+.br
+.ti -1c
+.RI "char \fBbuild_date\fP [SZ_FNAME]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Runtime structure for the \fBDTS\fP daemon. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

@@ -1,0 +1,29 @@
+<html>
+<head>
+    <script type="text/javascript" src="mimic.js"></script>
+    <title>DTS Test Interface</title>
+</head>
+    
+<body>
+    <script type="text/javascript">
+
+        function callDir () {
+           var request =
+	       new XmlRpcRequest("http://iraf.noao.edu:3000/RPC2", "dir");
+
+	   try {
+
+               request.addParam(document.getElementById("dir").value);
+               var response = request.send();
+               alert ( response.parseXML() );
+
+	   } catch (e) { alert (e); }
+
+        }
+
+    </script>
+        
+    <input type="text" id="dir"/>
+    <input type="button"  onclick="callDir();" value="Directory Listing"/>
+</body>
+</html>

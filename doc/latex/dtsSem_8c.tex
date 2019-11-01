@@ -1,0 +1,155 @@
+\hypertarget{dtsSem_8c}{
+\section{dtsSem.c File Reference}
+\label{dtsSem_8c}\index{dtsSem.c@{dtsSem.c}}
+}
+\hyperlink{structDTS}{DTS} utilities to manage semaphores easily.  
+
+
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/ipc.h$>$}\par
+{\tt \#include $<$sys/sem.h$>$}\par
+{\tt \#include $<$semaphore.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+union \textbf{semun}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsSem_8c_17e620ae052622487b8eeccd151636f2}{
+\#define \textbf{SEM\_\-STAT}~18}
+\label{dtsSem_8c_17e620ae052622487b8eeccd151636f2}
+
+\item 
+\hypertarget{dtsSem_8c_cfd748a0d0866938cf2db65ef0dc1451}{
+\#define \textbf{SEM\_\-INFO}~19}
+\label{dtsSem_8c_cfd748a0d0866938cf2db65ef0dc1451}
+
+\item 
+\hypertarget{dtsSem_8c_17d3735e2d47ffa00a2cdf3a066f40d0}{
+\#define \textbf{IPC\_\-INFO}~3}
+\label{dtsSem_8c_17d3735e2d47ffa00a2cdf3a066f40d0}
+
+\item 
+\hypertarget{dtsSem_8c_517850ac8a9150a5b396d759eeed0297}{
+\#define \textbf{USE\_\-SEMOP}~1}
+\label{dtsSem_8c_517850ac8a9150a5b396d759eeed0297}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsSem_8c_2b719efabe9dd10991a04587d59d995c}{dts\_\-semInit} (int id, int initVal)
+\item 
+int \hyperlink{dtsSem_8c_4e2d04d834e38e2be30206b489a85d99}{dts\_\-semRemove} (int id)
+\item 
+int \hyperlink{dtsSem_8c_c745c4595f7e05dbdc4139bfbef5f5fa}{dts\_\-semSetVal} (int id, int val)
+\item 
+int \hyperlink{dtsSem_8c_9531e0c8f7193d486f6f26b34657bdbf}{dts\_\-semGetVal} (int id)
+\item 
+int \hyperlink{dtsSem_8c_ecb50339066dc9a25afb6e7c19f05f06}{dts\_\-semDecr} (int id)
+\item 
+int \hyperlink{dtsSem_8c_c5c870f78743529ef349bae4dddcbb99}{dts\_\-semIncr} (int id)
+\item 
+void \hyperlink{dtsSem_8c_a78552a3246e1da915c3fb3d1674e786}{dts\_\-semInitId} (int id)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsSem_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsSem_8c_99390fcf722f24689439904d1b546dce}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} utilities to manage semaphores easily. 
+
+DTSSEM.C -- \hyperlink{structDTS}{DTS} utilities to manage semaphores easily.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsSem_8c_ecb50339066dc9a25afb6e7c19f05f06}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semDecr@{dts\_\-semDecr}}
+\index{dts\_\-semDecr@{dts\_\-semDecr}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semDecr}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-semDecr (int {\em id})}}
+\label{dtsSem_8c_ecb50339066dc9a25afb6e7c19f05f06}
+
+
+Decrement the semaphore value. 
+
+References dts\_\-semGetVal().
+
+Referenced by psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().\hypertarget{dtsSem_8c_9531e0c8f7193d486f6f26b34657bdbf}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semGetVal@{dts\_\-semGetVal}}
+\index{dts\_\-semGetVal@{dts\_\-semGetVal}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semGetVal}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-semGetVal (int {\em id})}}
+\label{dtsSem_8c_9531e0c8f7193d486f6f26b34657bdbf}
+
+
+Get the value. 
+
+Referenced by dts\_\-getQueueCount(), dts\_\-getQueueStat(), dts\_\-initTransfer(), dts\_\-nodeStat(), dts\_\-pauseQueue(), dts\_\-semDecr(), dts\_\-shutdownQueue(), dts\_\-startQueue(), dts\_\-xferPullFile(), and dts\_\-xferPushFile().\hypertarget{dtsSem_8c_c5c870f78743529ef349bae4dddcbb99}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semIncr@{dts\_\-semIncr}}
+\index{dts\_\-semIncr@{dts\_\-semIncr}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semIncr}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-semIncr (int {\em id})}}
+\label{dtsSem_8c_c5c870f78743529ef349bae4dddcbb99}
+
+
+Increment the semaphore value. 
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsSem_8c_2b719efabe9dd10991a04587d59d995c}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semInit@{dts\_\-semInit}}
+\index{dts\_\-semInit@{dts\_\-semInit}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semInit}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-semInit (int {\em id}, \/  int {\em initVal})}}
+\label{dtsSem_8c_2b719efabe9dd10991a04587d59d995c}
+
+
+Create and/or initialize the semaphore. 
+
+References dts\_\-semSetVal().
+
+Referenced by dts\_\-xferPullFile(), and dts\_\-xferPushFile().\hypertarget{dtsSem_8c_a78552a3246e1da915c3fb3d1674e786}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semInitId@{dts\_\-semInitId}}
+\index{dts\_\-semInitId@{dts\_\-semInitId}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semInitId}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-semInitId (int {\em id})}}
+\label{dtsSem_8c_a78552a3246e1da915c3fb3d1674e786}
+
+
+Initialize the semaphore interface starting ID. 
+
+Referenced by dts\_\-loadConfigFile().\hypertarget{dtsSem_8c_4e2d04d834e38e2be30206b489a85d99}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semRemove@{dts\_\-semRemove}}
+\index{dts\_\-semRemove@{dts\_\-semRemove}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semRemove}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-semRemove (int {\em id})}}
+\label{dtsSem_8c_4e2d04d834e38e2be30206b489a85d99}
+
+
+Destroy the semaphore. 
+
+Referenced by dts\_\-xferPullFile(), and dts\_\-xferPushFile().\hypertarget{dtsSem_8c_c745c4595f7e05dbdc4139bfbef5f5fa}{
+\index{dtsSem.c@{dtsSem.c}!dts\_\-semSetVal@{dts\_\-semSetVal}}
+\index{dts\_\-semSetVal@{dts\_\-semSetVal}!dtsSem.c@{dtsSem.c}}
+\subsubsection[{dts\_\-semSetVal}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-semSetVal (int {\em id}, \/  int {\em val})}}
+\label{dtsSem_8c_c745c4595f7e05dbdc4139bfbef5f5fa}
+
+
+Set the value. 
+
+Referenced by dts\_\-Deliver(), dts\_\-Ingest(), dts\_\-pauseQueue(), dts\_\-queueRelease(), dts\_\-semInit(), dts\_\-setQueueCount(), dts\_\-setQueueStat(), dts\_\-shutdownQueue(), dts\_\-startQueue(), and dts\_\-stopQueue().

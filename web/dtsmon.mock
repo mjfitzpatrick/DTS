@@ -1,0 +1,108 @@
+#!/bin/csh -f
+#
+# Break up the query string into a set of keyword-value strings.
+
+setenv HOME  /var/www/
+setenv PATH  /usr/local/bin:${PATH}
+
+chdir /tmp
+  
+# Get the status of the two servers.
+set resp = `/usr/local/bin/dtsh -t decamsrvr01.fnal.gov ping`
+if (`echo $resp | egrep -e "is alive"` != "") then
+    set src_stat = 0
+else
+    set src_stat = 1
+endif
+
+set resp = `/usr/local/bin/dtsh -t desar.cosmology.illinois.edu ping`
+if (`echo $resp | egrep -e "is alive"` != "") then
+    set dest_stat = 0
+else
+    set dest_stat = 1
+endif
+
+set f = `cat /iraf/web/dts/_sf`
+if ("$f" == "fermi") then
+   set filt = "\ fermi]"
+else if ("$f" == "desar") then
+   set filt = "\ desar]"
+else
+   set filt = "."
+endif
+
+
+# Begin page output.
+echo "Content-type: text/html"
+echo ""
+
+echo "<html>"
+echo "<body bgcolor='#333333' >"
+#echo "<META HTTP-EQUIV='REFRESH' CONTENT='3'>"
+
+echo "<table bgcolor='#111111' border='0' width='100%'><tr>"
+echo "<td align='left' valign='bottom'>"
+
+echo "<font size='+2' color='#FFFFFF'><b>Fermi Status:</font>&nbsp;&nbsp;"
+  if ($src_stat == 0) then
+    echo "<font size='+2' color='#00FF00'><b>Online</b></font>"
+  else
+    echo "<font size='+2' color='#FF0000'><b>Offline</b></font>"
+  endif
+  echo "<br><font size='+1' color='#00cccc'>decamsrvr01.fnal.gov</font>"
+echo "</td>"
+
+echo "<td align='left' valign='bottom'>"
+echo "<font size='+2' color='#FFFFFF'><b>NCSA Status:</font>&nbsp;&nbsp;"
+  if ($dest_stat == 0) then
+    echo "<font size='+2' color='#00FF00'><b>Online</b></font>"
+  else
+    echo "<font size='+2' color='#FF0000'><b>Offline</b></font>"
+  endif
+  echo "<br><font size='+1' color='#cccc00'>desar.cosmology.illinois.edu</font>"
+echo "</td>"
+
+echo "<td align='left' valign='bottom'>"
+echo "<form action='http://iraf.noao.edu/scripts/dtsmon.sf' method='get'>"
+echo "<font color='#FFF' size='+2'><b>Log Filter:&nbsp;</b></font>"
+echo "<select name='filt'"
+echo "  OnChange='location.href=this.options[this.selectedIndex].value'>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=none'>Select</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=none'>None</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=fermi'>Fermi</option>"
+echo "    <option value='http://iraf.noao.edu/scripts/dtsmon.sf?opt=desar'>Desar</option>"
+echo "</select>"
+echo "</form>"
+echo "</td>"
+
+echo "<td align='right' valign='middle'>"
+echo "<font size='+1' color='#FFFFFF'><b>"`date`"</font>"
+echo "</td></tr>"
+
+echo "<tr><td bgcolor='#333333' colspan='4' valign='top'>"
+echo "<pre>"
+echo "<font color='#dddd99'>"
+
+egrep "$filt"  /iraf/web/dts/dtsmon.out | \
+  egrep -v "pid\(" | \
+  tail -28 | \
+  sed -e 's:XFER:<b><font color=#dddd99>XFER</font></b>:g' | \
+  sed -e 's:IGST:<b><font color=#dddd99>IGST</font></b>:g' | \
+  sed -e 's:DLVR:<b><font color=#dddd99>DLVR</font></b>:g' | \
+  sed -e 's:PURG:<b><font color=#dddd99>PURG</font></b>:g' | \
+  sed -e 's:completed [a-z0-9\/\.]*:<b><font color=#00DD00>&</font></b>:g' | \
+  sed -e 's:fermi\]:<font color=#00cccc>fermi</font>\]:g' | \
+  sed -e 's:desar\]:<font color=#cccc00>desar</font>\]:g' | \
+  sed -e 's:time=[0-9\.]* sec:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:[0-9\.]* Mb/s:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:[0-9\.]* MB/s:<font color=#FFFF00>&</font>:g' | \
+  sed -e 's:status=OK  --------------:<font color=#00ff00>status=OK  --------------</font>:g' | \
+  sed -e 's:status=ERR  --------------:<font color=#ff0000>status=ERR  --------------</font>:g'
+
+echo "</font>"
+echo "</pre>"
+
+echo "</td></tr></table>"
+
+
+echo "</body></html>"

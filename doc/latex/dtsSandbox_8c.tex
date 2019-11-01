@@ -1,0 +1,91 @@
+\hypertarget{dtsSandbox_8c}{
+\section{dtsSandbox.c File Reference}
+\label{dtsSandbox_8c}\index{dtsSandbox.c@{dtsSandbox.c}}
+}
+\hyperlink{structDTS}{DTS} file system sandbox routines.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsSandbox_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~0}
+\label{dtsSandbox_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\item 
+\#define \hyperlink{dtsSandbox_8c_5db49eeef5c9bb774f02996f684df238}{MAX\_\-DEPTH}~64
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ \hyperlink{dtsSandbox_8c_c83a50612e21cac1c84d5377110b396a}{dts\_\-sandboxPath} (char $\ast$in)
+\begin{CompactList}\small\item\em Return the sandboxed path name. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsSandbox_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsSandbox_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsSandbox_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsSandbox_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} file system sandbox routines. 
+
+DTSSANDBOX.C -- \hyperlink{structDTS}{DTS} file system sandbox routines.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/15/09 \end{Desc}
+
+
+\subsection{Define Documentation}
+\hypertarget{dtsSandbox_8c_5db49eeef5c9bb774f02996f684df238}{
+\index{dtsSandbox.c@{dtsSandbox.c}!MAX\_\-DEPTH@{MAX\_\-DEPTH}}
+\index{MAX\_\-DEPTH@{MAX\_\-DEPTH}!dtsSandbox.c@{dtsSandbox.c}}
+\subsubsection[{MAX\_\-DEPTH}]{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-DEPTH~64}}
+\label{dtsSandbox_8c_5db49eeef5c9bb774f02996f684df238}
+
+
+DTS\_\-PATHFIXUP -- Fix an incoming path with \char`\"{}..\char`\"{} elements so we can't use those to escape the root directory. 
+
+\subsection{Function Documentation}
+\hypertarget{dtsSandbox_8c_c83a50612e21cac1c84d5377110b396a}{
+\index{dtsSandbox.c@{dtsSandbox.c}!dts\_\-sandboxPath@{dts\_\-sandboxPath}}
+\index{dts\_\-sandboxPath@{dts\_\-sandboxPath}!dtsSandbox.c@{dtsSandbox.c}}
+\subsubsection[{dts\_\-sandboxPath}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-sandboxPath (char $\ast$ {\em in})}}
+\label{dtsSandbox_8c_c83a50612e21cac1c84d5377110b396a}
+
+
+Return the sandboxed path name. 
+
+DTS\_\-SANDBOXPATH -- Return the sandboxed path name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]input path name (not chrooted) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]sandboxed path (caller must free ptr) \end{Desc}
+
+
+References dts\_\-getLocalRoot(), dts\_\-isDir(), dts\_\-isLink(), and dts\_\-readLink().
+
+Referenced by dts\_\-Access(), dts\_\-addControlHistory(), dts\_\-Cat(), dts\_\-CheckDir(), dts\_\-Checksum(), dts\_\-Chmod(), dts\_\-Copy(), dts\_\-Delete(), dts\_\-Dir(), dts\_\-DiskFree(), dts\_\-DiskUsed(), dts\_\-endTransfer(), dts\_\-FMode(), dts\_\-FSize(), dts\_\-FTime(), dts\_\-getNextQueueDir(), dts\_\-Mkdir(), dts\_\-nodeStat(), dts\_\-Prealloc(), dts\_\-queueComplete(), dts\_\-queueProcess(), dts\_\-queueSetControl(), dts\_\-Read(), dts\_\-Rename(), dts\_\-SetRoot(), dts\_\-Stat(), dts\_\-Touch(), psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().

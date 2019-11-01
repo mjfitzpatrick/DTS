@@ -1,0 +1,9 @@
+#!/bin/csh 
+
+/bin/rm -f _diff
+
+foreach i ( *.[ch] )
+    echo ------------------------------			>> _diff
+    echo $i 						>> _diff
+    diff -bitw $i ~/dts.travis/libdts/$i		>> _diff
+end

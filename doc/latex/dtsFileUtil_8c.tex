@@ -1,0 +1,605 @@
+\hypertarget{dtsFileUtil_8c}{
+\section{dtsFileUtil.c File Reference}
+\label{dtsFileUtil_8c}\index{dtsFileUtil.c@{dtsFileUtil.c}}
+}
+\hyperlink{structDTS}{DTS} file utilities.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$sys/statvfs.h$>$}\par
+{\tt \#include $<$sys/mman.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsFileUtil_8c_369266c24eacffb87046522897a570d5}{
+\#define \textbf{\_\-GNU\_\-SOURCE}}
+\label{dtsFileUtil_8c_369266c24eacffb87046522897a570d5}
+
+\item 
+\hypertarget{dtsFileUtil_8c_78c99ffd76a7bb3c8c74db76207e9ab4}{
+\#define \textbf{\_\-XOPEN\_\-SOURCE}~600}
+\label{dtsFileUtil_8c_78c99ffd76a7bb3c8c74db76207e9ab4}
+
+\item 
+\hypertarget{dtsFileUtil_8c_e688d728e1acdfe5988c7db45d6f0166}{
+\#define \textbf{PATH\_\-MAX}~4096}
+\label{dtsFileUtil_8c_e688d728e1acdfe5988c7db45d6f0166}
+
+\item 
+\hypertarget{dtsFileUtil_8c_e55dda29c9fe2e3db92bd49d3462ab1c}{
+\#define \textbf{DTS\_\-ALLOC\_\-SIZE}~4096000}
+\label{dtsFileUtil_8c_e55dda29c9fe2e3db92bd49d3462ab1c}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+FILE $\ast$ \hyperlink{dtsFileUtil_8c_bf14eaada8e615b0adbb70e9a62efba2}{dts\_\-fopen} (char $\ast$fname, char $\ast$mode)
+\begin{CompactList}\small\item\em Open the named file and return the file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_864cc21035ed646ef6b97c95d10785e9}{dts\_\-fclose} (FILE $\ast$fp)
+\begin{CompactList}\small\item\em Close the file stream. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_8575fe47f94aeee8af4733626137d5c2}{dts\_\-fileOpen} (char $\ast$fname, int flags)
+\begin{CompactList}\small\item\em Open the named file and return the file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_fd4c6f66e8be7ca19b01716330fde0e8}{dts\_\-fileClose} (int fd)
+\begin{CompactList}\small\item\em Close the file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_84cf80670684ec35c42ab94363f9612d}{dts\_\-fileSync} (int fd)
+\begin{CompactList}\small\item\em Sync the file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_e54fde98930a5ca88266368b5e96597a}{dts\_\-preAlloc} (char $\ast$fname, long fsize)
+\begin{CompactList}\small\item\em Pre-allocate the space for a file. \item\end{CompactList}\item 
+long \hyperlink{dtsFileUtil_8c_0a0f1f6470d1563b32260a11aa7d8b86}{dts\_\-fileSize} (int fd)
+\begin{CompactList}\small\item\em Return the size (in bytes) of the specified file descriptor. \item\end{CompactList}\item 
+long \hyperlink{dtsFileUtil_8c_c503df7da573d1e3e98fe8b7528a767d}{dts\_\-fileMode} (int fd)
+\begin{CompactList}\small\item\em Return the protection mode of the specified file descriptor. \item\end{CompactList}\item 
+long \hyperlink{dtsFileUtil_8c_a59ede4cbf519e39725b71a942b83d1d}{dts\_\-nameSize} (char $\ast$fname)
+\begin{CompactList}\small\item\em Return the size (in bytes) of the specified file descriptor. \item\end{CompactList}\item 
+long \hyperlink{dtsFileUtil_8c_0731e6371d77768b5326d2ccba6e097d}{dts\_\-nameMode} (char $\ast$fname)
+\begin{CompactList}\small\item\em Return the protection mode of the specified file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_e84012cdcc43bced4be60ee815fe6425}{dts\_\-getBuffer} (int fd, unsigned char $\ast$$\ast$buf, long chunkSize, int tnum)
+\begin{CompactList}\small\item\em Get a buffer of the specified size from the file. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_7123a4de6a554530a798ac75b3ac1e00}{dts\_\-fileRead} (int fd, void $\ast$vptr, int nbytes)
+\begin{CompactList}\small\item\em Read exactly \char`\"{}n\char`\"{} bytes from a file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_064f196e158309c7b004502101cecb19}{dts\_\-fileWrite} (int fd, void $\ast$vptr, int nbytes)
+\begin{CompactList}\small\item\em Write exactly \char`\"{}n\char`\"{} bytes to a file descriptor. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_46835b6377391441dbd1eead8b557085}{dts\_\-fileCopy} (char $\ast$in, char $\ast$out)
+\begin{CompactList}\small\item\em Copy and input file to an output file. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_46e546674494cf4383c635fe6bbe7899}{dts\_\-isDir} (char $\ast$path)
+\begin{CompactList}\small\item\em Check whether a path represents a directory. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_fb57d42cc84b850d3d87d23b35675d8f}{dts\_\-isLink} (char $\ast$path)
+\begin{CompactList}\small\item\em Check whether a path represents a symbolic link. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsFileUtil_8c_1e688fd5f1caf8e5bfc62be046096e6a}{dts\_\-readLink} (char $\ast$ipath)
+\begin{CompactList}\small\item\em Read the target of a symlink. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_9eadc8013c2d77e50e5e15adff904ba6}{dts\_\-makePath} (char $\ast$path, int isDir)
+\begin{CompactList}\small\item\em Create the specified path, one directory at a time. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsFileUtil_8c_1cf834ee81a6e3130d03394c456f0754}{dts\_\-pathDir} (char $\ast$path)
+\begin{CompactList}\small\item\em Return the directory portion of a file pathname. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsFileUtil_8c_841d419b96126a1176c58bd158ac59e8}{dts\_\-pathFname} (char $\ast$path)
+\begin{CompactList}\small\item\em Return the filename portion of a file pathname. \item\end{CompactList}\item 
+long \hyperlink{dtsFileUtil_8c_70e3bc74e201bd98d7927bafec7f45cc}{dts\_\-du} (char $\ast$filename)
+\begin{CompactList}\small\item\em Return the size of a file or directory path in bytes. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_55b5216df655c624c5093a6aa8ba063a}{dts\_\-unlink} (char $\ast$dir, int recurse, char $\ast$template)
+\begin{CompactList}\small\item\em Remove all matching file in a directory (tree). \item\end{CompactList}\item 
+long \hyperlink{dtsFileUtil_8c_45fbd935d590df580274fca06b7ab2c4}{dts\_\-dirSize} (char $\ast$dir, char $\ast$template)
+\begin{CompactList}\small\item\em Get the cumulative size of all files in a directory tree. \item\end{CompactList}\item 
+int \hyperlink{dtsFileUtil_8c_e70d394357bcea0e62dc63c33179b4d4}{dts\_\-dirCopy} (char $\ast$in, char $\ast$out)
+\begin{CompactList}\small\item\em Recursively copy a directory to a new location. \item\end{CompactList}\item 
+\hypertarget{dtsFileUtil_8c_80cc076d2fae8b22f565453e7e3daeb2}{
+int \textbf{dts\_\-statvfs} (char $\ast$dir, struct statvfs $\ast$fs)}
+\label{dtsFileUtil_8c_80cc076d2fae8b22f565453e7e3daeb2}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} file utilities. 
+
+\hyperlink{structDTS}{DTS} File Utilities
+
+dts\_\-fileOpen (char $\ast$fname, int flags) dts\_\-fileClose (int fd) dts\_\-preAlloc (char $\ast$fname, long fsize) dts\_\-fileSize (int fd) dts\_\-fileMode (int fd) dts\_\-nameSize (char $\ast$fname) dts\_\-nameMode (char $\ast$fname) dts\_\-getBuffer (int fd, unsigned char $\ast$$\ast$buf, long chunkSize, int tnum) dts\_\-fileRead (int fd, void $\ast$vptr, int nbytes) dts\_\-fileWrite (int fd, void $\ast$vptr, int nbytes) dts\_\-fileCopy (char $\ast$in, char $\ast$out) dts\_\-isDir (char $\ast$path) dts\_\-isLink (char $\ast$path) dts\_\-makePath (char $\ast$path, int isDir) dts\_\-pathDir (char $\ast$path) dts\_\-pathFname (char $\ast$path) dts\_\-du (char $\ast$filename) dts\_\-unlink (char $\ast$dir, int recurse, char $\ast$template) dts\_\-dirSize (char $\ast$dir, char $\ast$template) dts\_\-dirCopy (char $\ast$in, char $\ast$out) dts\_\-statfs (char $\ast$dir, struct statfs $\ast$fs)
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsFileUtil_8c_e70d394357bcea0e62dc63c33179b4d4}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-dirCopy@{dts\_\-dirCopy}}
+\index{dts\_\-dirCopy@{dts\_\-dirCopy}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-dirCopy}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-dirCopy (char $\ast$ {\em in}, \/  char $\ast$ {\em out})}}
+\label{dtsFileUtil_8c_e70d394357bcea0e62dc63c33179b4d4}
+
+
+Recursively copy a directory to a new location. 
+
+DTS\_\-DIRCOPY -- Recursively copy a directory to a new location, preserving symlinks and file permissions.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em in}]input directory to copy \item[{\em out}]output directory path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-fileCopy().
+
+Referenced by dts\_\-fileCopy().\hypertarget{dtsFileUtil_8c_45fbd935d590df580274fca06b7ab2c4}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-dirSize@{dts\_\-dirSize}}
+\index{dts\_\-dirSize@{dts\_\-dirSize}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-dirSize}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-dirSize (char $\ast$ {\em dir}, \/  char $\ast$ {\em template})}}
+\label{dtsFileUtil_8c_45fbd935d590df580274fca06b7ab2c4}
+
+
+Get the cumulative size of all files in a directory tree. 
+
+DTS\_\-DIRSIZE -- Get the cumulative size of all files in a directory tree.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dir}]directory to size \item[{\em template}]file-matching template \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-patMatch().\hypertarget{dtsFileUtil_8c_70e3bc74e201bd98d7927bafec7f45cc}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-du@{dts\_\-du}}
+\index{dts\_\-du@{dts\_\-du}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-du}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-du (char $\ast$ {\em filename})}}
+\label{dtsFileUtil_8c_70e3bc74e201bd98d7927bafec7f45cc}
+
+
+Return the size of a file or directory path in bytes. 
+
+DTS\_\-DU -- A simple 'du' function for a file or directory tree.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em filename}]filename to be checked \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]size of file \end{Desc}
+
+
+References dts\_\-readLink().
+
+Referenced by dts\_\-FSize(), dts\_\-hostInitTransfer(), dts\_\-hostQueueAccept(), dts\_\-hostTo(), and dts\_\-queueInitControl().\hypertarget{dtsFileUtil_8c_864cc21035ed646ef6b97c95d10785e9}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fclose@{dts\_\-fclose}}
+\index{dts\_\-fclose@{dts\_\-fclose}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fclose}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fclose (FILE $\ast$ {\em fp})}}
+\label{dtsFileUtil_8c_864cc21035ed646ef6b97c95d10785e9}
+
+
+Close the file stream. 
+
+DTS\_\-FCLOSE -- Close the file stream.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fp}]file stream to close \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+Referenced by dts\_\-loadControl(), dts\_\-logControl(), dts\_\-queueGetCurrent(), dts\_\-queueGetNext(), dts\_\-queueGetStats(), dts\_\-queueSetCurrent(), dts\_\-queueSetNext(), dts\_\-queueSetStats(), and dts\_\-saveControl().\hypertarget{dtsFileUtil_8c_fd4c6f66e8be7ca19b01716330fde0e8}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileClose@{dts\_\-fileClose}}
+\index{dts\_\-fileClose@{dts\_\-fileClose}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileClose}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fileClose (int {\em fd})}}
+\label{dtsFileUtil_8c_fd4c6f66e8be7ca19b01716330fde0e8}
+
+
+Close the file descriptor. 
+
+DTS\_\-FILECLOSE -- Close the file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor to close \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by psSendFile(), and udtSendFile().\hypertarget{dtsFileUtil_8c_46835b6377391441dbd1eead8b557085}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileCopy@{dts\_\-fileCopy}}
+\index{dts\_\-fileCopy@{dts\_\-fileCopy}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileCopy}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fileCopy (char $\ast$ {\em in}, \/  char $\ast$ {\em out})}}
+\label{dtsFileUtil_8c_46835b6377391441dbd1eead8b557085}
+
+
+Copy and input file to an output file. 
+
+DTS\_\-FILECOPY -- Copy and input file to an output file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em in}]input file path \item[{\em out}]output file path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written\end{Desc}
+define DTS\_\-MMAP\_\-COPY 
+
+References dts\_\-dirCopy(), dts\_\-fileSize(), and dts\_\-isDir().
+
+Referenced by dts\_\-Deliver(), and dts\_\-dirCopy().\hypertarget{dtsFileUtil_8c_c503df7da573d1e3e98fe8b7528a767d}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileMode@{dts\_\-fileMode}}
+\index{dts\_\-fileMode@{dts\_\-fileMode}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileMode}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-fileMode (int {\em fd})}}
+\label{dtsFileUtil_8c_c503df7da573d1e3e98fe8b7528a767d}
+
+
+Return the protection mode of the specified file descriptor. 
+
+DTS\_\-FILEMODE - Return the protection mode of the specified file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]file mode \end{Desc}
+\hypertarget{dtsFileUtil_8c_8575fe47f94aeee8af4733626137d5c2}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileOpen@{dts\_\-fileOpen}}
+\index{dts\_\-fileOpen@{dts\_\-fileOpen}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileOpen}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fileOpen (char $\ast$ {\em fname}, \/  int {\em flags})}}
+\label{dtsFileUtil_8c_8575fe47f94aeee8af4733626137d5c2}
+
+
+Open the named file and return the file descriptor. 
+
+DTS\_\-FILEOPEN -- Open the named file and return the file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]file name to open \item[{\em flags}]file open flags\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]file descriptor \end{Desc}
+
+
+Referenced by psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().\hypertarget{dtsFileUtil_8c_7123a4de6a554530a798ac75b3ac1e00}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileRead@{dts\_\-fileRead}}
+\index{dts\_\-fileRead@{dts\_\-fileRead}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileRead}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fileRead (int {\em fd}, \/  void $\ast$ {\em vptr}, \/  int {\em nbytes})}}
+\label{dtsFileUtil_8c_7123a4de6a554530a798ac75b3ac1e00}
+
+
+Read exactly \char`\"{}n\char`\"{} bytes from a file descriptor. 
+
+DTS\_\-FILEREAD -- Read exactly \char`\"{}n\char`\"{} bytes from a file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em vptr}]data buffer to be written \item[{\em nbytes}]number of bytes to write \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written \end{Desc}
+
+
+Referenced by dts\_\-Cat(), dts\_\-Read(), psSendFile(), and udtSendFile().\hypertarget{dtsFileUtil_8c_0a0f1f6470d1563b32260a11aa7d8b86}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileSize@{dts\_\-fileSize}}
+\index{dts\_\-fileSize@{dts\_\-fileSize}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileSize}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-fileSize (int {\em fd})}}
+\label{dtsFileUtil_8c_0a0f1f6470d1563b32260a11aa7d8b86}
+
+
+Return the size (in bytes) of the specified file descriptor. 
+
+DTS\_\-FILESIZE - Return the size (in bytes) of the specified file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]file size \end{Desc}
+
+
+Referenced by dts\_\-fileCopy(), and dts\_\-loadControl().\hypertarget{dtsFileUtil_8c_84cf80670684ec35c42ab94363f9612d}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileSync@{dts\_\-fileSync}}
+\index{dts\_\-fileSync@{dts\_\-fileSync}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileSync}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fileSync (int {\em fd})}}
+\label{dtsFileUtil_8c_84cf80670684ec35c42ab94363f9612d}
+
+
+Sync the file descriptor. 
+
+DTS\_\-FILESYNC -- Sync the file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor to sync to disk \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+\hypertarget{dtsFileUtil_8c_064f196e158309c7b004502101cecb19}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fileWrite@{dts\_\-fileWrite}}
+\index{dts\_\-fileWrite@{dts\_\-fileWrite}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fileWrite}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-fileWrite (int {\em fd}, \/  void $\ast$ {\em vptr}, \/  int {\em nbytes})}}
+\label{dtsFileUtil_8c_064f196e158309c7b004502101cecb19}
+
+
+Write exactly \char`\"{}n\char`\"{} bytes to a file descriptor. 
+
+DTS\_\-FILEWRITE -- Write exactly \char`\"{}n\char`\"{} bytes to a file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em vptr}]data buffer to be written \item[{\em nbytes}]number of bytes to write \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]number of bytes written \end{Desc}
+
+
+References dts\_\-setNonBlock().
+
+Referenced by dts\_\-hostFGet(), psReceiveFile(), and udtReceiveFile().\hypertarget{dtsFileUtil_8c_bf14eaada8e615b0adbb70e9a62efba2}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-fopen@{dts\_\-fopen}}
+\index{dts\_\-fopen@{dts\_\-fopen}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-fopen}]{\setlength{\rightskip}{0pt plus 5cm}FILE$\ast$ dts\_\-fopen (char $\ast$ {\em fname}, \/  char $\ast$ {\em mode})}}
+\label{dtsFileUtil_8c_bf14eaada8e615b0adbb70e9a62efba2}
+
+
+Open the named file and return the file descriptor. 
+
+DTS\_\-FOPEN -- Open the named file and return the file descriptor.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]file name to open \item[{\em flags}]file open mode\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]FILE $\ast$ descriptor \end{Desc}
+
+
+References dtsErrLog().
+
+Referenced by dts\_\-loadControl(), dts\_\-logControl(), dts\_\-logXFerStats(), dts\_\-queueGetCurrent(), dts\_\-queueGetNext(), dts\_\-queueGetStats(), dts\_\-queueSetCurrent(), dts\_\-queueSetNext(), dts\_\-queueSetStats(), and dts\_\-saveControl().\hypertarget{dtsFileUtil_8c_e84012cdcc43bced4be60ee815fe6425}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-getBuffer@{dts\_\-getBuffer}}
+\index{dts\_\-getBuffer@{dts\_\-getBuffer}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-getBuffer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getBuffer (int {\em fd}, \/  unsigned char $\ast$$\ast$ {\em buf}, \/  long {\em chunkSize}, \/  int {\em tnum})}}
+\label{dtsFileUtil_8c_e84012cdcc43bced4be60ee815fe6425}
+
+
+Get a buffer of the specified size from the file. 
+
+DTS\_\-GETBUFFER -- Get a buffer of the specified size from the file. Return the number of characters read.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fd}]file descriptor \item[{\em buf}]buffer to create \item[{\em chunkSize}]size of transfer chunk (bytes) \item[{\em tnum}]thread number\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]file size \end{Desc}
+\hypertarget{dtsFileUtil_8c_46e546674494cf4383c635fe6bbe7899}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-isDir@{dts\_\-isDir}}
+\index{dts\_\-isDir@{dts\_\-isDir}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-isDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-isDir (char $\ast$ {\em path})}}
+\label{dtsFileUtil_8c_46e546674494cf4383c635fe6bbe7899}
+
+
+Check whether a path represents a directory. 
+
+DTS\_\-ISDIR -- Check whether a path represents a directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]pathname to be checked \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if path is a directory, 0 (zero) otherise \end{Desc}
+
+
+Referenced by dts\_\-CheckDir(), dts\_\-Delete(), dts\_\-fileCopy(), dts\_\-hostTo(), dts\_\-loadConfigDir(), dts\_\-queueInitControl(), dts\_\-sandboxPath(), dts\_\-wtar(), dts\_\-xferDirTo(), dts\_\-xferFile(), and dtsInit().\hypertarget{dtsFileUtil_8c_fb57d42cc84b850d3d87d23b35675d8f}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-isLink@{dts\_\-isLink}}
+\index{dts\_\-isLink@{dts\_\-isLink}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-isLink}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-isLink (char $\ast$ {\em path})}}
+\label{dtsFileUtil_8c_fb57d42cc84b850d3d87d23b35675d8f}
+
+
+Check whether a path represents a symbolic link. 
+
+DTS\_\-ISLINK -- Check whether a path represents a symbolic link.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]pathname to be checked \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if path is a symbolic link, non-zero otherise \end{Desc}
+
+
+Referenced by dts\_\-Ingest(), and dts\_\-sandboxPath().\hypertarget{dtsFileUtil_8c_9eadc8013c2d77e50e5e15adff904ba6}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-makePath@{dts\_\-makePath}}
+\index{dts\_\-makePath@{dts\_\-makePath}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-makePath}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-makePath (char $\ast$ {\em path}, \/  int {\em isDir})}}
+\label{dtsFileUtil_8c_9eadc8013c2d77e50e5e15adff904ba6}
+
+
+Create the specified path, one directory at a time. 
+
+DTS\_\-MAKEPATH -- Create the specified path, one directory at a time.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]Path to create \item[{\em isDir}]Is final element a directory? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]1 (one) if path can be created \end{Desc}
+
+
+Referenced by psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().\hypertarget{dtsFileUtil_8c_0731e6371d77768b5326d2ccba6e097d}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-nameMode@{dts\_\-nameMode}}
+\index{dts\_\-nameMode@{dts\_\-nameMode}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-nameMode}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-nameMode (char $\ast$ {\em fname})}}
+\label{dtsFileUtil_8c_0731e6371d77768b5326d2ccba6e097d}
+
+
+Return the protection mode of the specified file descriptor. 
+
+DTS\_\-NAMEMODE - Return the protection mode of the named file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]file name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]file mode \end{Desc}
+
+
+Referenced by dts\_\-Ingest(), dts\_\-xferDirTo(), and dts\_\-xferFile().\hypertarget{dtsFileUtil_8c_a59ede4cbf519e39725b71a942b83d1d}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-nameSize@{dts\_\-nameSize}}
+\index{dts\_\-nameSize@{dts\_\-nameSize}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-nameSize}]{\setlength{\rightskip}{0pt plus 5cm}long dts\_\-nameSize (char $\ast$ {\em fname})}}
+\label{dtsFileUtil_8c_a59ede4cbf519e39725b71a942b83d1d}
+
+
+Return the size (in bytes) of the specified file descriptor. 
+
+DTS\_\-NAMESIZE - Return the size (in bytes) of the named file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]file name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]file size \end{Desc}
+
+
+Referenced by dts\_\-Ingest(), and dts\_\-xferDirTo().\hypertarget{dtsFileUtil_8c_1cf834ee81a6e3130d03394c456f0754}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-pathDir@{dts\_\-pathDir}}
+\index{dts\_\-pathDir@{dts\_\-pathDir}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-pathDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-pathDir (char $\ast$ {\em path})}}
+\label{dtsFileUtil_8c_1cf834ee81a6e3130d03394c456f0754}
+
+
+Return the directory portion of a file pathname. 
+
+DTS\_\-PATHDIR -- Return the directory portion of a file pathname.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]long path name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]parent directory \end{Desc}
+
+
+Referenced by dts\_\-hostFrom(), dts\_\-hostTo(), dts\_\-queueInitControl(), dts\_\-xferDirFrom(), and dts\_\-xferDirTo().\hypertarget{dtsFileUtil_8c_841d419b96126a1176c58bd158ac59e8}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-pathFname@{dts\_\-pathFname}}
+\index{dts\_\-pathFname@{dts\_\-pathFname}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-pathFname}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-pathFname (char $\ast$ {\em path})}}
+\label{dtsFileUtil_8c_841d419b96126a1176c58bd158ac59e8}
+
+
+Return the filename portion of a file pathname. 
+
+DTS\_\-PATHFNAME -- Return the filename portion of a file pathname.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]long path name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]filename \end{Desc}
+
+
+Referenced by dts\_\-hostFrom(), dts\_\-hostTo(), dts\_\-queueInitControl(), dts\_\-queueProcess(), dts\_\-xferDirFrom(), and dts\_\-xferDirTo().\hypertarget{dtsFileUtil_8c_e54fde98930a5ca88266368b5e96597a}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-preAlloc@{dts\_\-preAlloc}}
+\index{dts\_\-preAlloc@{dts\_\-preAlloc}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-preAlloc}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-preAlloc (char $\ast$ {\em fname}, \/  long {\em fsize})}}
+\label{dtsFileUtil_8c_e54fde98930a5ca88266368b5e96597a}
+
+
+Pre-allocate the space for a file. 
+
+DTS\_\-PREALLOC -- Pre-allocate the space for a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]file name to create \item[{\em fsize}]size of the file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+Referenced by dts\_\-localPrealloc(), dts\_\-Prealloc(), psReceiveFile(), and udtReceiveFile().\hypertarget{dtsFileUtil_8c_1e688fd5f1caf8e5bfc62be046096e6a}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-readLink@{dts\_\-readLink}}
+\index{dts\_\-readLink@{dts\_\-readLink}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-readLink}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-readLink (char $\ast$ {\em ipath})}}
+\label{dtsFileUtil_8c_1e688fd5f1caf8e5bfc62be046096e6a}
+
+
+Read the target of a symlink. 
+
+DTS\_\-READLINK -- Read the target of a symlink.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ipath}]input pathname to link \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]path to target of symlink \end{Desc}
+
+
+Referenced by dts\_\-du(), dts\_\-Ingest(), and dts\_\-sandboxPath().\hypertarget{dtsFileUtil_8c_55b5216df655c624c5093a6aa8ba063a}{
+\index{dtsFileUtil.c@{dtsFileUtil.c}!dts\_\-unlink@{dts\_\-unlink}}
+\index{dts\_\-unlink@{dts\_\-unlink}!dtsFileUtil.c@{dtsFileUtil.c}}
+\subsubsection[{dts\_\-unlink}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-unlink (char $\ast$ {\em dir}, \/  int {\em recurse}, \/  char $\ast$ {\em template})}}
+\label{dtsFileUtil_8c_55b5216df655c624c5093a6aa8ba063a}
+
+
+Remove all matching file in a directory (tree). 
+
+DTS\_\-UNLINK -- Remove all matching files in a directory or directory tree. We chdir to each directory to minimize path searches.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dir}]directory to remove \item[{\em recurse}]descend into subdirs? \item[{\em template}]file-matching template \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-patMatch().
+
+Referenced by dts\_\-Delete(), dts\_\-localDelete(), and dts\_\-queueDelete().

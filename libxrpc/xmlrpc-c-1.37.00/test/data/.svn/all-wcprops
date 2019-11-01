@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/test/data
+END
+req_value_name.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/test/data/req_value_name.xml
+END
+sample_add_call.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/test/data/sample_add_call.xml
+END
+req_no_params.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/test/data/req_no_params.xml
+END
+req_out_of_order.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/test/data/req_out_of_order.xml
+END

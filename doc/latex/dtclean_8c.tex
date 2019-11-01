@@ -1,0 +1,122 @@
+\hypertarget{dtclean_8c}{
+\section{dtclean.c File Reference}
+\label{dtclean_8c}\index{dtclean.c@{dtclean.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \textbf{qmArg}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtclean_8c_17ba00ca77763582777e3252d148dc77}{
+\#define \textbf{\_\-DTS\_\-SRC\_\-}}
+\label{dtclean_8c_17ba00ca77763582777e3252d148dc77}
+
+\item 
+\hypertarget{dtclean_8c_d058945657462717a987d91db0883803}{
+\#define \textbf{DTSD\_\-PAUSE}~5}
+\label{dtclean_8c_d058945657462717a987d91db0883803}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtclean_8c_0292fd97e712b50174f114fbbb73dfcd}{
+typedef struct qmArg $\ast$ \textbf{qmArgP}}
+\label{dtclean_8c_0292fd97e712b50174f114fbbb73dfcd}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtclean_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}{
+void \textbf{dtsFree} (DTS $\ast$dts)}
+\label{dtclean_8c_e5e0e8ffebe0dea8a765f2bd77d4dee7}
+
+\item 
+int \hyperlink{dtclean_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtclean_8c_99390fcf722f24689439904d1b546dce}{
+DTS $\ast$ \textbf{dts} = (DTS $\ast$) NULL}
+\label{dtclean_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtclean_8c_c3e1795766a80ec63b157951b4b9a7d4}{
+int \textbf{debug} = 0}
+\label{dtclean_8c_c3e1795766a80ec63b157951b4b9a7d4}
+
+\item 
+\hypertarget{dtclean_8c_87aa9502a5ba32b171f08eebf78d2c25}{
+int \textbf{trace} = 0}
+\label{dtclean_8c_87aa9502a5ba32b171f08eebf78d2c25}
+
+\item 
+\hypertarget{dtclean_8c_0b2caeb4b6f130be43e5a2f0267dd453}{
+int \textbf{verbose} = 0}
+\label{dtclean_8c_0b2caeb4b6f130be43e5a2f0267dd453}
+
+\item 
+\hypertarget{dtclean_8c_8917660df42c2649f12fdb1eebe0a477}{
+int \textbf{errs} = 0}
+\label{dtclean_8c_8917660df42c2649f12fdb1eebe0a477}
+
+\item 
+\hypertarget{dtclean_8c_795ea50921b36311ffd5e7baa2ef1f7e}{
+int \textbf{init} = 0}
+\label{dtclean_8c_795ea50921b36311ffd5e7baa2ef1f7e}
+
+\item 
+\hypertarget{dtclean_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor} = -1}
+\label{dtclean_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\item 
+\hypertarget{dtclean_8c_9363356bf2974c3226de88c86d7674da}{
+int \textbf{normal\_\-exit} = 0}
+\label{dtclean_8c_9363356bf2974c3226de88c86d7674da}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+DTCLEAN -- Clean the source files or DTS working directory.
+
+Usage: dtclean \mbox{[}options\mbox{]}
+
+Options: -h print help
+
+-c $<$cfg$>$ specify the config file to use -p $<$port$>$ specify server port
+
+-t trace -v verbose
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtclean_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{dtclean.c@{dtclean.c}!main@{main}}
+\index{main@{main}!dtclean.c@{dtclean.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$$\ast$ {\em argv})}}
+\label{dtclean_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+DTS Daemon Entry point. 

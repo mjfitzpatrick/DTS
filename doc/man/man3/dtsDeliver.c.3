@@ -1,0 +1,288 @@
+.TH "dtsDeliver.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsDeliver.c \- \fBDTS\fP procedures to 'deliver' a transfer object.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include <sys/param.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/wait.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   (dts&&dts->debug)"
+.br
+.ti -1c
+.RI "#define \fBVDEBUG\fP   (dts&&dts->debug>2)"
+.br
+.ti -1c
+.RI "#define \fBMAXTRIES\fP   3"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "char * \fBdts_Deliver\fP (\fBdtsQueue\fP *dtsq, Control *ctrl, char *fpath, int *stat)"
+.br
+.RI "\fIDeliver a file at a destination location. \fP"
+.ti -1c
+.RI "char * \fBdts_getDeliveryPath\fP (\fBdtsQueue\fP *dtsq, Control *ctrl)"
+.br
+.RI "\fIGet the delivery path name. \fP"
+.ti -1c
+.RI "void \fBdts_loadDeliveryParams\fP (Control *ctrl, char *pfname)"
+.br
+.RI "\fILoad the delivery app parameters. \fP"
+.ti -1c
+.RI "int \fBdts_testDeliveryDir\fP (char *dpath, int create, char *msg)"
+.br
+.RI "\fITest the delivery directory. \fP"
+.ti -1c
+.RI "int \fBdts_validateDelivery\fP (Control *ctrl, char *dpath)"
+.br
+.RI "\fIVerify the delivered file. \fP"
+.ti -1c
+.RI "int \fBdts_addControlHistory\fP (Control *ctrl, char *msg)"
+.br
+.RI "\fIAdd history record to control file. \fP"
+.ti -1c
+.RI "int \fBdts_sysExec\fP (char *ewd, char *cmd)"
+.br
+.RI "\fIExecute a general UNIX command passed as a string. \fP"
+.ti -1c
+.RI "int \fBdts_Await\fP (int pid)"
+.br
+.RI "\fIWait for an asynchronous child process to terminate. \fP"
+.ti -1c
+.RI "void \fBdts_Interrupt\fP (int value)"
+.br
+.ti -1c
+.RI "void \fBdts_Enbint\fP (SIGFUNC handler)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP procedures to 'deliver' a transfer object. 
+
+DTSDELIVER.C -- \fBDTS\fP procedures to 'deliver' a transfer object.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_addControlHistory (Control * ctrl, char * msg)"
+.PP
+Add history record to control file. 
+.PP
+DTS_ADDCONTROLHISTORY -- Add history record to control file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIctrl\fP transfer control strucure 
+.br
+\fImsg\fP NULL or an error message 
+.RE
+.PP
+
+.PP
+References dts_localTime(), and dts_sandboxPath().
+.PP
+Referenced by dts_Deliver(), and dts_Ingest().
+.SS "int dts_Await (int pid)"
+.PP
+Wait for an asynchronous child process to terminate. 
+.PP
+DTS_AWAIT -- Wait for an asynchronous child process to terminate.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpid\fP process ID 
+.RE
+.PP
+
+.PP
+References dts_Enbint(), dts_Interrupt(), and dtsLog().
+.PP
+Referenced by dts_sysExec().
+.SS "char* dts_Deliver (\fBdtsQueue\fP * dtsq, Control * ctrl, char * fpath, int * stat)"
+.PP
+Deliver a file at a destination location. 
+.PP
+DTS_DELIVER -- Deliver a file at a destination location.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP queue structure 
+.br
+\fIctrl\fP Transfer control structure 
+.br
+\fIfpath\fP path to the file in spool dir 
+.br
+\fIstat\fP delivery application status 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.RE
+.PP
+
+.PP
+References dts_addControlHistory(), dts_fileCopy(), dts_fmtQueueCmd(), dts_getDeliveryPath(), dts_loadDeliveryParams(), dts_localDelete(), dts_qstatDlvrEnd(), dts_qstatDlvrStart(), dts_qstatDlvrStat(), dts_queueNameFmt(), dts_semSetVal(), dts_sysExec(), and dtsLog().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_Enbint (SIGFUNC handler)"
+.PP
+DTS_ENBINT -- Post an exception handler function to be executed if any sort of interrupt occurs. 
+.PP
+Referenced by dts_Await(), and dts_sysExec().
+.SS "char* dts_getDeliveryPath (\fBdtsQueue\fP * dtsq, Control * ctrl)"
+.PP
+Get the delivery path name. 
+.PP
+DTS_GETDELIVERYPATH -- Get the delivery path name.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP queue structure 
+.br
+\fIctrl\fP control structure 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_Deliver(), and dts_fmtQueueCmd().
+.SS "void dts_Interrupt (int value)"
+.PP
+DTS_INTERRUPT -- Exception handler, called if an interrupt is received 
+.PP
+Referenced by dts_Await().
+.SS "void dts_loadDeliveryParams (Control * ctrl, char * pfname)"
+.PP
+Load the delivery app parameters. 
+.PP
+DTS_LOADDELIVERYPARAMS -- Load the delivery app parameters.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIctrl\fP control structure 
+.br
+\fIpfname\fP path to the delivery parameters file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dtsGets().
+.PP
+Referenced by dts_Deliver(), and dts_Ingest().
+.SS "int dts_sysExec (char * ewd, char * cmd)"
+.PP
+Execute a general UNIX command passed as a string. 
+.PP
+DTS_SYSEXEC -- Execute a general UNIX command passed as a string. The command may contain i/o redirection metacharacters. The full path of the command to be executed should be given.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIewd\fP effective working directory 
+.br
+\fIcmd\fP command string to be executed 
+.RE
+.PP
+
+.PP
+References dts_Await(), dts_Enbint(), dtsErrLog(), and dtsLog().
+.PP
+Referenced by dts_Deliver(), dts_execCmd(), and dts_Ingest().
+.SS "int dts_testDeliveryDir (char * dpath, int create, char * msg)"
+.PP
+Test the delivery directory. 
+.PP
+DTS_TESTDELIVERYDIR -- Test the delivery directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdpath\fP path to the delivery directory 
+.br
+\fIcreate\fP create directory if it doesn't exist? 
+.br
+\fImsg\fP return message string 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile().
+.SS "int dts_validateDelivery (Control * ctrl, char * dpath)"
+.PP
+Verify the delivered file. 
+.PP
+DTS_VALIDATEDELIVERY -- Verify the delivered file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIctrl\fP transfer control strucure 
+.br
+\fIdpath\fP path to the delivery directory 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

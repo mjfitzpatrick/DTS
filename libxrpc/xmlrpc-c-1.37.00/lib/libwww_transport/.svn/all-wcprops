@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libwww_transport
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libwww_transport/Makefile
+END
+xmlrpc_libwww_transport.c
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/lib/libwww_transport/xmlrpc_libwww_transport.c
+END

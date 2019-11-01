@@ -1,0 +1,249 @@
+------------------------------
+xrServer.c
+42a43,44
+> 
+> 
+46,50d47
+< /*
+< #define GLOBAL_ABYSS_SERVER     1
+< #define NEW_ABYSS_SERVER        1
+< */
+< #define SINGLE_RUN_SERVER       1
+51a49,52
+> //#define GLOBAL_ABYSS_SERVER   1
+> //#define NEW_ABYSS_SERVER      1
+> 
+> #define SINGLE_RUN_SERVER       1
+306c307,321
+< void
+---
+> void xr_killServer ()
+> {
+>         sigset_t mask;
+>     sigemptyset (&mask);
+>     sigaddset (&mask, SIGUSR1);
+>     sigaddset (&mask, SIGUSR2);
+>          //Unmask the signals before we shut down.
+>         
+>         sleep (3600);
+>     pthread_sigmask (SIG_UNBLOCK, &mask, NULL);
+>     pthread_kill (svr->thread, SIGTERM);
+> 
+> }
+> 
+> int
+312a328
+>     static char firstrun = 1;
+315c331,332
+< 
+---
+>         if (firstrun == 1)
+>         {
+327c344,347
+<     while (! svr->shutdown )
+---
+>     firstrun = 0;
+>     }
+>     
+>     return svr->shutdown;
+331,334d350
+<         sleep (3600);
+<     pthread_sigmask (SIG_UNBLOCK, &mask, NULL);
+< 
+<     pthread_kill (svr->thread, SIGTERM);
+421c437
+< 
+---
+>         char inc_method_stat = 2;
+467a484,485
+>         
+>             xr_setStat (2);
+473,474d490
+< 
+<                 if (paramArrayP)
+476c492
+<                 result = (c->result ? c->result : (xmlrpc_value *) NULL);;
+---
+>                 result = (c->result ? c->result : (xmlrpc_value *) NULL);
+479d494
+<             if (result) 
+819a835
+>         //      ServerRunOnce(&abyssServer);
+------------------------------
+xrStruct.c
+83a84
+>             p->in_use = TRUE;
+89c90
+<             p->in_use = TRUE;
+---
+> 
+101a103
+>             
+103d104
+<     xmlrpc_DECREF (p->val);
+104a106,107
+>     xmlrpc_DECREF (p->val);
+> 
+105a109
+>   
+118d121
+<     xmlrpc_value *v = xmlrpc_int_new (&env, value);
+120c123,124
+<     xmlrpc_struct_set_value (&env, p->val, key, v);
+---
+>      xmlrpc_value *v = xmlrpc_int_new (&env, value);
+>     xmlrpc_struct_set_value (&env, (p->val), key, v);
+121a126
+>     
+133a139,149
+> 
+> void
+> xr_setLongLongInStruct ( int snum, char *key, long long value)
+> {
+>         PStruct *p = &sParams[snum];
+>         xmlrpc_value *v = xmlrpc_i8_new (&env,value);
+>         
+>         xmlrpc_struct_set_value(&env,p->val,key,v);
+>         xmlrpc_DECREF(v);
+> }
+> 
+186a203,220
+> 
+> void
+> xr_getLongLongFromStruct(int snum, char*key, long long value)
+> {
+>         PStruct *p = &sParams[snum];
+>         xmlrpc_value *s = p->val;
+>         xmlrpc_value *v = (xmlrpc_value *) NULL;
+> 
+>     if (xmlrpc_struct_has_key (&env, s, (const char *) key)) {
+>         xmlrpc_struct_find_value (&env, s, (const char *)key, &v);
+>         xmlrpc_read_i8 (&env, v, value);
+>         
+> 
+>         }
+> 
+> 
+> 
+> }
+196a231
+>         
+197a233
+> 
+223a260
+> 
+240a278
+> 
+------------------------------
+xrUtil.c
+27a28,38
+> 
+> //Travis
+> #include <sys/types.h>
+> #include <sys/ipc.h>
+> #include <sys/sem.h>
+> 
+> 
+> #define SHMSZ     27
+> 
+> 
+> 
+34a46,116
+> 
+> pthread_mutex_t stat_mutex = PTHREAD_MUTEX_INITIALIZER;
+> 
+> 
+> 
+> static int xr_stat_sem = 0;
+> 
+> void xr_semSet(int statsem)
+> {
+>         xr_stat_sem = statsem;
+> }
+> 
+> void
+> xr_setStat (char stat)
+> {
+> int lock;
+>          struct sembuf oper0;
+>          
+>  if (xr_stat_sem != 0)
+>  {
+>         if (stat == 1)
+>                 {
+>                 lock = pthread_mutex_lock (&stat_mutex);
+>                 
+>   oper0.sem_op = 1;
+>     oper0.sem_flg = 0;
+>         oper0.sem_num  = 0;
+>     if (semop(xr_stat_sem, &oper0, 1) == -1) {
+>         printf("error incrementing semaphore \n");
+>         exit(1);
+>     }
+>                 lock = pthread_mutex_unlock (&stat_mutex);
+> 
+>                 }
+>                 
+>         if (stat == 2)
+>                 {
+>                 lock = pthread_mutex_lock (&stat_mutex);
+>           oper0.sem_op = 1;
+>     oper0.sem_flg = 0;
+>     oper0.sem_num  = 1;
+>     if (semop(xr_stat_sem, &oper0, 1) == -1) {
+>         printf("error incrementing semaphore \n");
+>         exit(1);
+>     }
+>                 lock = pthread_mutex_unlock (&stat_mutex);
+> 
+>                 }
+>         }
+>         //return
+>                 return;
+> }
+> 
+> void 
+> xr_getStat (xr_dtsstat * passedstat)
+> {
+> int lock;
+> 
+>         //if (mypoint != NULL)
+>         //{     
+>         //Lock
+>         
+>         if (xr_stat_sem != 0)
+>         {
+>         lock = pthread_mutex_lock (&stat_mutex);
+>         passedstat->NumCallSync = semctl(xr_stat_sem, 0, GETVAL, 0);
+>         passedstat->NumMethod = semctl(xr_stat_sem, 1, GETVAL, 0);
+>         lock = pthread_mutex_unlock (&stat_mutex);
+>         }
+>         return;
+> }
+------------------------------
+xrValues.c
+------------------------------
+xrpc.h
+27a28,32
+> typedef struct
+> {
+>         long NumCallSync;
+>         long NumMethod;
+> } xr_dtsstat;
+40d44
+< void   xr_setLongLongInArray (int anum, long long value);
+49d52
+< void   xr_getLongLongFromArray (int anum, int index, long long *value);
+133c136,137
+< void   xr_startServer (void);
+---
+> int   xr_startServer (void);
+> void xr_killServer(void);
+166a171,173
+> void xr_semSet(int statsem);
+> void xr_getStat (xr_dtsstat * passedstat);
+> void xr_setStat (char stat);
+------------------------------
+xrpcP.h
+------------------------------
+zzs.c

@@ -1,0 +1,56 @@
+\hypertarget{dtsASync_8c}{
+\section{dtsASync.c File Reference}
+\label{dtsASync_8c}\index{dtsASync.c@{dtsASync.c}}
+}
+\hyperlink{structDTS}{DTS} asynchronous command methods.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsASync_8c_382ebb0512506fbb6359f569a97bf939}{dts\_\-nullResponse} (void $\ast$data)
+\begin{CompactList}\small\item\em Asyncronous null handler. \item\end{CompactList}\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} asynchronous command methods. 
+
+DTSASYNC.C
+
+Methods used in Asynchronous commands.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsASync_8c_382ebb0512506fbb6359f569a97bf939}{
+\index{dtsASync.c@{dtsASync.c}!dts\_\-nullResponse@{dts\_\-nullResponse}}
+\index{dts\_\-nullResponse@{dts\_\-nullResponse}!dtsASync.c@{dtsASync.c}}
+\subsubsection[{dts\_\-nullResponse}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-nullResponse (void $\ast$ {\em data})}}
+\label{dtsASync_8c_382ebb0512506fbb6359f569a97bf939}
+
+
+Asyncronous null handler. 
+
+DTS\_\-NULLRESPONSE -- Asyncronous null handler.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]xml caller data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code \end{Desc}
+
+
+Referenced by dtsLog(), dtsLogMsg(), and dtsLogStat().

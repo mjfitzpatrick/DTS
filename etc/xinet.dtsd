@@ -1,0 +1,16 @@
+# default: on
+# description: An internal xinetd service, starting DTS daemon.
+
+service dtsd
+{
+	type		= UNLISTED
+	socket_type	= stream
+	protocol	= tcp
+	wait		= no
+        server          = /usr/local/bin/dtsd
+	port		= 3000
+	user		= fitz
+	log_type	= FILE /tmp/dtsd.logfile
+	log_on_success	+= HOST DURATION
+	log_on_failure	+= HOST
+}                                                                               

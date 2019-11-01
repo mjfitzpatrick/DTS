@@ -1,0 +1,40 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/tools/lib/include
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2008-04-21T01:31:16.888076Z
+1437
+giraffedata
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+dumpvalue.h
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+3e7a4315c75773bf4ddb4ae92700f499
+2008-04-21T01:31:16.888076Z
+1437
+giraffedata
+

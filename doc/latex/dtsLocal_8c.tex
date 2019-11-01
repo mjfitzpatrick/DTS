@@ -1,0 +1,292 @@
+\hypertarget{dtsLocal_8c}{
+\section{dtsLocal.c File Reference}
+\label{dtsLocal_8c}\index{dtsLocal.c@{dtsLocal.c}}
+}
+\hyperlink{structDTS}{DTS} Command Interface.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$utime.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$xmlrpc-c/base.h$>$}\par
+{\tt \#include $<$xmlrpc-c/client.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server\_\-abyss.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsLocal_8c_7654136b0f2b5c1f06c9bbe4e5c8f5ed}{dts\_\-localAccess} (char $\ast$path, int mode)
+\begin{CompactList}\small\item\em Check a local file for an access mode. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_acf850564fc5b55a0589d8c32f6f7726}{dts\_\-localCopy} (char $\ast$old, char $\ast$new)
+\begin{CompactList}\small\item\em Copy a local file. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsLocal_8c_cb1546425fc6bfa2d63620069a736340}{dts\_\-localCwd} ()
+\begin{CompactList}\small\item\em Get the current working directory. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_e4d73df8872bc749a556e7f6e02e8ce2}{dts\_\-localDelete} (char $\ast$path, int recurse)
+\begin{CompactList}\small\item\em Delete a local file. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsLocal_8c_4671e6ac815b34c3d6042eb5819b4002}{dts\_\-localDir} (char $\ast$path, int lsLong)
+\begin{CompactList}\small\item\em Get a local directory listing. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_71ea0bdc6d49c5090e801d006ff018df}{dts\_\-localChmod} (char $\ast$path, mode\_\-t mode)
+\begin{CompactList}\small\item\em Change the mode of a local file. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_f57d7f27dd02b4d3cc27597c1b501f69}{dts\_\-localMkdir} (char $\ast$path)
+\begin{CompactList}\small\item\em Make a local directory. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_906353ee1d8fb52c1b58720e4dd651da}{dts\_\-localMtime} (char $\ast$path, long mtime)
+\begin{CompactList}\small\item\em Update file modification time. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_0f80cb849efba2538630ca0bc70d4232}{dts\_\-localRename} (char $\ast$old, char $\ast$new)
+\begin{CompactList}\small\item\em Rename a local file. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_5705f56d5f8d119379a85cda909409bd}{dts\_\-localTouch} (char $\ast$path)
+\begin{CompactList}\small\item\em Touch a local file. \item\end{CompactList}\item 
+int \hyperlink{dtsLocal_8c_f87567a8f874edf3ac80f744794bc657}{dts\_\-localPrealloc} (char $\ast$path, int size)
+\begin{CompactList}\small\item\em Pre-allocate a local file. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsLocal_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsLocal_8c_99390fcf722f24689439904d1b546dce}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} Command Interface. 
+
+\hyperlink{structDTS}{DTS} Local I/O Interface - Local operations
+
+File Operations:
+
+access $<$path$>$ $<$mode$>$ - check file access cwd - get current working directory del $<$pattern$>$ $<$pass$>$ $<$recur$>$ - delete a file dir $<$pattern$>$ - get a directory listing diskFree - how much disk space is available? diskUsed - how much disk space is used? echo $<$str$>$ - simple echo function fsize $<$fname$>$ - get a file size ftime $<$fname$>$ - get a file time mkdir $<$path$>$ - make a directory mtime $<$path$>$ $<$tm$>$ - set file modification time ping - simple aliveness test function prealloc $<$fname$>$ $<$nbytes$>$ - preallocate space for a file rename $<$old$>$ $<$new$>$ - rename a file stat $<$fname$>$ - get file stat() info setroot $<$path$>$ - set the root directory of a \hyperlink{structDTS}{DTS} touch $<$path$>$ - touch a file access time
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsLocal_8c_7654136b0f2b5c1f06c9bbe4e5c8f5ed}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localAccess@{dts\_\-localAccess}}
+\index{dts\_\-localAccess@{dts\_\-localAccess}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localAccess}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localAccess (char $\ast$ {\em path}, \/  int {\em mode})}}
+\label{dtsLocal_8c_7654136b0f2b5c1f06c9bbe4e5c8f5ed}
+
+
+Check a local file for an access mode. 
+
+DTS\_\-LOCALACCESS -- Check a local file for an access mode.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]file path to check \item[{\em mode}]access mode \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsLocal_8c_71ea0bdc6d49c5090e801d006ff018df}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localChmod@{dts\_\-localChmod}}
+\index{dts\_\-localChmod@{dts\_\-localChmod}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localChmod}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localChmod (char $\ast$ {\em path}, \/  mode\_\-t {\em mode})}}
+\label{dtsLocal_8c_71ea0bdc6d49c5090e801d006ff018df}
+
+
+Change the mode of a local file. 
+
+DTS\_\-LOCALCHMOD -- Change the mode of a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]file name \item[{\em mode}]file mode \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsLocal_8c_acf850564fc5b55a0589d8c32f6f7726}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localCopy@{dts\_\-localCopy}}
+\index{dts\_\-localCopy@{dts\_\-localCopy}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localCopy}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localCopy (char $\ast$ {\em old}, \/  char $\ast$ {\em new})}}
+\label{dtsLocal_8c_acf850564fc5b55a0589d8c32f6f7726}
+
+
+Copy a local file. 
+
+DTS\_\-LOCALCOPY -- Copy a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em old}]old filename \item[{\em new}]new filename \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsLocal_8c_cb1546425fc6bfa2d63620069a736340}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localCwd@{dts\_\-localCwd}}
+\index{dts\_\-localCwd@{dts\_\-localCwd}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localCwd}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-localCwd (void)}}
+\label{dtsLocal_8c_cb1546425fc6bfa2d63620069a736340}
+
+
+Get the current working directory. 
+
+DTS\_\-LOCALCWD -- Get the current working directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+Referenced by dts\_\-initCopyMode().\hypertarget{dtsLocal_8c_e4d73df8872bc749a556e7f6e02e8ce2}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localDelete@{dts\_\-localDelete}}
+\index{dts\_\-localDelete@{dts\_\-localDelete}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localDelete}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localDelete (char $\ast$ {\em path}, \/  int {\em recurse})}}
+\label{dtsLocal_8c_e4d73df8872bc749a556e7f6e02e8ce2}
+
+
+Delete a local file. 
+
+DTS\_\-LOCALDELETE -- Delete a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]local file to delete \item[{\em recurse}]recursive delete? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-isTemplate(), and dts\_\-unlink().
+
+Referenced by dts\_\-Deliver().\hypertarget{dtsLocal_8c_4671e6ac815b34c3d6042eb5819b4002}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localDir@{dts\_\-localDir}}
+\index{dts\_\-localDir@{dts\_\-localDir}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-localDir (char $\ast$ {\em path}, \/  int {\em lsLong})}}
+\label{dtsLocal_8c_4671e6ac815b34c3d6042eb5819b4002}
+
+
+Get a local directory listing. 
+
+DTS\_\-LOCALDIR -- Get a local directory listing.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]path to direcory root \item[{\em lsLong}]get long directory listing? \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-fmtMode(), dts\_\-isTemplate(), and dts\_\-patMatch().\hypertarget{dtsLocal_8c_f57d7f27dd02b4d3cc27597c1b501f69}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localMkdir@{dts\_\-localMkdir}}
+\index{dts\_\-localMkdir@{dts\_\-localMkdir}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localMkdir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localMkdir (char $\ast$ {\em path})}}
+\label{dtsLocal_8c_f57d7f27dd02b4d3cc27597c1b501f69}
+
+
+Make a local directory. 
+
+DTS\_\-LOCALMKDIR -- Make a local directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]directory path to create \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+Referenced by dts\_\-hostFrom(), and dts\_\-xferFile().\hypertarget{dtsLocal_8c_906353ee1d8fb52c1b58720e4dd651da}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localMtime@{dts\_\-localMtime}}
+\index{dts\_\-localMtime@{dts\_\-localMtime}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localMtime}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localMtime (char $\ast$ {\em path}, \/  long {\em mtime})}}
+\label{dtsLocal_8c_906353ee1d8fb52c1b58720e4dd651da}
+
+
+Update file modification time. 
+
+DTS\_\-LOCALMtime -- Update file modification time.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]directory path to create \item[{\em mtime}]modification time \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsLocal_8c_f87567a8f874edf3ac80f744794bc657}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localPrealloc@{dts\_\-localPrealloc}}
+\index{dts\_\-localPrealloc@{dts\_\-localPrealloc}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localPrealloc}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localPrealloc (char $\ast$ {\em path}, \/  int {\em size})}}
+\label{dtsLocal_8c_f87567a8f874edf3ac80f744794bc657}
+
+
+Pre-allocate a local file. 
+
+DTS\_\-LOCALPREALLOC -- Pre-allocate a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]filename path to prealloc \item[{\em size}]file size \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-preAlloc().\hypertarget{dtsLocal_8c_0f80cb849efba2538630ca0bc70d4232}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localRename@{dts\_\-localRename}}
+\index{dts\_\-localRename@{dts\_\-localRename}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localRename}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localRename (char $\ast$ {\em old}, \/  char $\ast$ {\em new})}}
+\label{dtsLocal_8c_0f80cb849efba2538630ca0bc70d4232}
+
+
+Rename a local file. 
+
+DTS\_\-LOCALRENAME -- Rename a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em old}]old file name \item[{\em new}]new file name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsLocal_8c_5705f56d5f8d119379a85cda909409bd}{
+\index{dtsLocal.c@{dtsLocal.c}!dts\_\-localTouch@{dts\_\-localTouch}}
+\index{dts\_\-localTouch@{dts\_\-localTouch}!dtsLocal.c@{dtsLocal.c}}
+\subsubsection[{dts\_\-localTouch}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-localTouch (char $\ast$ {\em path})}}
+\label{dtsLocal_8c_5705f56d5f8d119379a85cda909409bd}
+
+
+Touch a local file. 
+
+DTS\_\-LOCALTOUCH -- Touch a local file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]filename path to touch \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+Referenced by dts\_\-xferFile().

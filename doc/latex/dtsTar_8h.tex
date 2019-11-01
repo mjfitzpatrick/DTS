@@ -1,0 +1,132 @@
+\hypertarget{dtsTar_8h}{
+\section{dtsTar.h File Reference}
+\label{dtsTar_8h}\index{dtsTar.h@{dtsTar.h}}
+}
+Include file for the \hyperlink{structDTS}{DTS} tar operations.  
+
+
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+union \hyperlink{unionhblock}{hblock}
+\item 
+struct \textbf{hblock::header}
+\item 
+struct \textbf{fheader}
+\item 
+struct \textbf{\_\-modebits}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsTar_8h_2ba2e2c7b641d30c62aa321b6007132f}{
+\#define \textbf{TBLOCK}~8192}
+\label{dtsTar_8h_2ba2e2c7b641d30c62aa321b6007132f}
+
+\item 
+\hypertarget{dtsTar_8h_322872a0a4a1d2bdfac362b113e467d7}{
+\#define \textbf{NBLOCK}~20}
+\label{dtsTar_8h_322872a0a4a1d2bdfac362b113e467d7}
+
+\item 
+\hypertarget{dtsTar_8h_c6201487e61283a3b0e4246ceac9a6a5}{
+\#define \textbf{NAMSIZ}~100}
+\label{dtsTar_8h_c6201487e61283a3b0e4246ceac9a6a5}
+
+\item 
+\hypertarget{dtsTar_8h_2195c014bb5c5de035f4bcf7df9559fe}{
+\#define \textbf{MAX\_\-ERR}~20}
+\label{dtsTar_8h_2195c014bb5c5de035f4bcf7df9559fe}
+
+\item 
+\hypertarget{dtsTar_8h_7787bf4aefac7aaf88be77c381e65a12}{
+\#define \textbf{MAX\_\-TRYS}~100}
+\label{dtsTar_8h_7787bf4aefac7aaf88be77c381e65a12}
+
+\item 
+\hypertarget{dtsTar_8h_1d1394dad8cb4b0213708082276818b3}{
+\#define \textbf{MAX\_\-LINELEN}~256}
+\label{dtsTar_8h_1d1394dad8cb4b0213708082276818b3}
+
+\item 
+\hypertarget{dtsTar_8h_f141ba855195cb2dfc46b92ec832e51c}{
+\#define \textbf{SZ\_\-PADBUF}~8196}
+\label{dtsTar_8h_f141ba855195cb2dfc46b92ec832e51c}
+
+\item 
+\hypertarget{dtsTar_8h_c7a800cdc62a323b8f36c1ae33cfaee9}{
+\#define \textbf{SZ\_\-TAPEBUFFER}~(TBLOCK $\ast$ NBLOCK)}
+\label{dtsTar_8h_c7a800cdc62a323b8f36c1ae33cfaee9}
+
+\item 
+\hypertarget{dtsTar_8h_adbbc7b02d94a4c18646813ac8d7dec1}{
+\#define \textbf{EOS}~'$\backslash$0'}
+\label{dtsTar_8h_adbbc7b02d94a4c18646813ac8d7dec1}
+
+\item 
+\hypertarget{dtsTar_8h_0237ab4758d3dca02530b3863f1be27b}{
+\#define \textbf{RWXR\_\-XR\_\-X}~0755}
+\label{dtsTar_8h_0237ab4758d3dca02530b3863f1be27b}
+
+\item 
+\hypertarget{dtsTar_8h_cc0c67fbf426e4691aad307a87df4e34}{
+\#define \textbf{ctrlcode}(c)~((c) $>$= '$\backslash$007' \&\& (c) $<$= '$\backslash$017')}
+\label{dtsTar_8h_cc0c67fbf426e4691aad307a87df4e34}
+
+\item 
+\hypertarget{dtsTar_8h_69ce888437ad3970437e6150a5d21ae6}{
+\#define \textbf{LF\_\-LINK}~1}
+\label{dtsTar_8h_69ce888437ad3970437e6150a5d21ae6}
+
+\item 
+\hypertarget{dtsTar_8h_ab1965dbff65e8a835d99527dcc58ec2}{
+\#define \textbf{LF\_\-SYMLINK}~2}
+\label{dtsTar_8h_ab1965dbff65e8a835d99527dcc58ec2}
+
+\item 
+\hypertarget{dtsTar_8h_0ac18add284994be76aca1ea5c500c2d}{
+\#define \textbf{LF\_\-DIR}~5}
+\label{dtsTar_8h_0ac18add284994be76aca1ea5c500c2d}
+
+\item 
+\hypertarget{dtsTar_8h_fbcb0b2f602683f8d3c003e2f794d2ed}{
+\#define \textbf{TY\_\-DIRECTORY}~1}
+\label{dtsTar_8h_fbcb0b2f602683f8d3c003e2f794d2ed}
+
+\item 
+\hypertarget{dtsTar_8h_6b8cf388618a87e2349fdba4bd3494da}{
+\#define \textbf{TY\_\-FILE}~2}
+\label{dtsTar_8h_6b8cf388618a87e2349fdba4bd3494da}
+
+\item 
+\hypertarget{dtsTar_8h_c65ec4b7335edb6a99d04431afe8c002}{
+\#define \textbf{TY\_\-TEXT}~3}
+\label{dtsTar_8h_c65ec4b7335edb6a99d04431afe8c002}
+
+\item 
+\hypertarget{dtsTar_8h_e4363421d1d10f2fb5fe6c6e72469f9e}{
+\#define \textbf{TY\_\-BINARY}~4}
+\label{dtsTar_8h_e4363421d1d10f2fb5fe6c6e72469f9e}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsTar_8h_ee2ac506c5d01293392a0d21e5331ddb}{
+struct \_\-modebits \textbf{modebits} \mbox{[}$\,$\mbox{]}}
+\label{dtsTar_8h_ee2ac506c5d01293392a0d21e5331ddb}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+Include file for the \hyperlink{structDTS}{DTS} tar operations. 
+
+DTSTAR.H -- Include file for the \hyperlink{structDTS}{DTS} tar operations.
+
+\begin{Desc}
+\item[Author:]Mike FItzpatrick \end{Desc}
+\begin{Desc}
+\item[Date:]11/10/09 \end{Desc}

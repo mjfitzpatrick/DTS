@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples
+END
+xmlrpc_sample_add_server_w32httpsys.c
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_sample_add_server_w32httpsys.c
+END
+auth_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/auth_client.c
+END
+gen_sample_add_xml.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/gen_sample_add_xml.c
+END
+interrupted_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/interrupted_client.c
+END
+xmlrpc_socket_server.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_socket_server.c
+END
+xmlrpc_sample_add_server.c
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_sample_add_server.c
+END
+compound_value_server.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/compound_value_server.c
+END
+xmlrpc_asynch_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_asynch_client.c
+END
+json.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/json.c
+END
+xmlrpc_server_validatee.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_server_validatee.c
+END
+xmlrpc_sample_add_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_sample_add_client.c
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/README
+END
+xmlrpc_inetd_server.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_inetd_server.c
+END
+compound_value_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/compound_value_client.c
+END
+synch_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/synch_client.c
+END
+xmlrpc_loop_server.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_loop_server.c
+END
+xmlrpc_sample_add_server_cgi.c
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/xmlrpc_sample_add_server_cgi.c
+END
+parse_xml.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/parse_xml.c
+END
+interrupted_server.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/interrupted_server.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/Makefile
+END

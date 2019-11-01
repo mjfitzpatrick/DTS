@@ -1,0 +1,614 @@
+.TH "dtsUtil.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsUtil.c \- \fBDTS\fP Checksum utility methods.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <netdb.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <netinet/in.h>\fP
+.br
+\fC#include <arpa/inet.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <sys/ipc.h>\fP
+.br
+\fC#include <sys/shm.h>\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBhostTab\fP"
+.br
+.ti -1c
+.RI "struct \fBhostent_wrapper\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUSE_DNS_IP\fP"
+.br
+.ti -1c
+.RI "#define \fBNUM_STR_BUF\fP   1024"
+.br
+.ti -1c
+.RI "#define \fBSZ_BUF_STR\fP   1024"
+.br
+.ti -1c
+.RI "#define \fBSTRBUF_MAX_WAIT\fP   5"
+.br
+.ti -1c
+.RI "#define \fB_DTS_SRC_\fP   1"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct hostTab * \fBhostTabP\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdtsDaemonize\fP (\fBDTS\fP *dts)"
+.br
+.ti -1c
+.RI "void \fBdts_sigHandler\fP (int sig)"
+.br
+.ti -1c
+.RI "void \fBdts_setQueueShutdown\fP (int level)"
+.br
+.ti -1c
+.RI "void \fBdts_pause\fP ()"
+.br
+.ti -1c
+.RI "void \fBdtsShm\fP (\fBDTS\fP *dts)"
+.br
+.ti -1c
+.RI "char * \fBdts_localTime\fP ()"
+.br
+.ti -1c
+.RI "char * \fBdts_UTTime\fP ()"
+.br
+.ti -1c
+.RI "void \fBdts_getPrimaryIP\fP (char *buffer, size_t buflen)"
+.br
+.ti -1c
+.RI "char * \fBdts_getLocalIP\fP ()"
+.br
+.ti -1c
+.RI "char * \fBdts_getLocalHost\fP ()"
+.br
+.ti -1c
+.RI "struct hostent * \fBdts_getHostByName\fP (char *name)"
+.br
+.ti -1c
+.RI "void \fBdts_printHostTable\fP ()"
+.br
+.ti -1c
+.RI "struct hostent * \fBdts_dupHostent\fP (struct hostent *hentry)"
+.br
+.ti -1c
+.RI "char * \fBdts_getAliasHost\fP (char *alias)"
+.br
+.ti -1c
+.RI "int \fBdts_getAliasPort\fP (char *alias)"
+.br
+.ti -1c
+.RI "char * \fBdts_getAliasDest\fP (char *alias)"
+.br
+.ti -1c
+.RI "char * \fBdts_resolveHost\fP (char *hostname)"
+.br
+.ti -1c
+.RI "char * \fBdts_logtime\fP ()"
+.br
+.ti -1c
+.RI "void \fBdts_tstart\fP (struct timeval *tv)"
+.br
+.ti -1c
+.RI "double \fBdts_tstop\fP (struct timeval tv1)"
+.br
+.ti -1c
+.RI "double \fBdts_timediff\fP (struct timeval t1, struct timeval t2)"
+.br
+.ti -1c
+.RI "void \fBmeasure_start\fP (void)"
+.br
+.RI "\fITimer utils. \fP"
+.ti -1c
+.RI "void \fBmeasure_stop\fP (long transferred)"
+.br
+.RI "\fIStop timer and print summary of transfer stats. \fP"
+.ti -1c
+.RI "double \fBtransferMb\fP (long fileSize, int sec, int usec)"
+.br
+.RI "\fIReturn throughput in megabits/s. \fP"
+.ti -1c
+.RI "double \fBtransferMB\fP (long fileSize, int sec, int usec)"
+.br
+.RI "\fIReturn throughput in megabytes/s. \fP"
+.ti -1c
+.RI "char * \fBdts_fmtMode\fP (char *lp, int flags)"
+.br
+.ti -1c
+.RI "int \fBdts_patMatch\fP (char *str, char *pattern)"
+.br
+.ti -1c
+.RI "int \fBdts_isTemplate\fP (char *s)"
+.br
+.ti -1c
+.RI "char * \fBdtsGets\fP (char *s, int len, FILE *fp)"
+.br
+.ti -1c
+.RI "char * \fBdts_strbuf\fP (char *s)"
+.br
+.ti -1c
+.RI "void \fBdtsError\fP (char *msg)"
+.br
+.ti -1c
+.RI "int \fBdts_debugLevel\fP ()"
+.br
+.ti -1c
+.RI "char * \fBdts_printDTS\fP (\fBDTS\fP *dts, FILE *fd)"
+.br
+.ti -1c
+.RI "char * \fBdts_printDTSClient\fP (\fBDTS\fP *dts, FILE *fd)"
+.br
+.ti -1c
+.RI "char * \fBdts_printAllQueues\fP (\fBDTS\fP *dts, FILE *fd)"
+.br
+.ti -1c
+.RI "char * \fBdts_printQueue\fP (\fBdtsQueue\fP *dtsq, FILE *fd)"
+.br
+.ti -1c
+.RI "void \fBdoprnt\fP (char *buf, char *format,...)"
+.br
+.ti -1c
+.RI "int \fBdtsSleep\fP (unsigned int seconds)"
+.br
+.ti -1c
+.RI "int \fBbase64_encode\fP (unsigned char *source, size_t sourcelen, char *target, size_t targetlen)"
+.br
+.ti -1c
+.RI "int \fBbase64_decode\fP (char *source, unsigned char *target, size_t targetlen)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBmeasure_start_tv\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBio_tv\fP = {0, 0}"
+.br
+.ti -1c
+.RI "pthread_mutex_t \fBstr_mut\fP = PTHREAD_MUTEX_INITIALIZER"
+.br
+.ti -1c
+.RI "const char * \fBb64_chars\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP Checksum utility methods. 
+
+\fBDTS\fP Utility methods.
+.PP
+DTSCHECKSUM.C -- Checksum utility routines for the \fBDTS\fP.
+.PP
+md5 = dts_fileMD5 (char *fname) crc = dts_fileCRC32 (char *fname) sum = dts_fileChecksum (char *fname, int do_sysv) sum = dts_fileCRCChecksum (char *fname, unsigned int *crc)
+.PP
+valid = dts_fileValidate (char *fname, uint sum32, uint crc, char *md5)
+.PP
+checksum (uchar *data, int length, ushort *sum16, uint *sum32) sum = addcheck32 (uchar *array, int length)
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09
+.RE
+.PP
+DTSUTIL.C -- Utility routines for the \fBDTS\fP.
+.PP
+dtsDaemonize (\fBDTS\fP *dts) dts_sigHandler (int sig) \fBdts_pause()\fP dts_getLocalIP () dts_getLocalHost () dts_resolveHost (char *hostname) dts_fmtMode (char *lp, int flags) dts_patMatch (char *str, char *pattern) dts_isTemplate (char *s) dts_strbuf (char *s);
+.PP
+dtsGets (char *s, int len, FILE *fp) dtsError (char *msg) dts_debugLevel () dts_printDTS (\fBDTS\fP *dts, FILE *fd) dts_printDTSClient (\fBDTS\fP *dts, FILE *fd) dts_printAllQueues (\fBDTS\fP *dts, FILE *fd) dts_printQueue (\fBdtsQueue\fP *dtsq, FILE *fd)
+.PP
+measure_start (void) measure_stop (long transferred)
+.PP
+base64_encode (uchar *source, size_t sourcelen, char *target, size_t targetlen) base64_decode (char *source, unsigned char *target, size_t targetlen)
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/15/09 
+.RE
+.PP
+
+.SH "Define Documentation"
+.PP 
+.SS "#define _DTS_SRC_   1"
+.PP
+DTSERROR -- Print a fatal error message. 
+.SS "#define NUM_STR_BUF   1024"
+.PP
+DTS_STRBUF -- Return a string from a static buffer. 
+.SH "Function Documentation"
+.PP 
+.SS "int base64_decode (char * source, unsigned char * target, size_t targetlen)"
+.PP
+decode base64 encoded data
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsource\fP the encoded data (zero terminated) 
+.br
+\fItarget\fP pointer to the target buffer 
+.br
+\fItargetlen\fP length of the target buffer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+length of converted data on success, -1 otherwise 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostCat(), dts_hostFGet(), and dts_hostRead().
+.SS "int base64_encode (unsigned char * source, size_t sourcelen, char * target, size_t targetlen)"
+.PP
+encode an array of bytes using Base64 (RFC 3548)
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsource\fP the source buffer 
+.br
+\fIsourcelen\fP the length of the source buffer 
+.br
+\fItarget\fP the target buffer 
+.br
+\fItargetlen\fP the length of the target buffer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+1 on success, 0 otherwise 
+.RE
+.PP
+
+.PP
+Referenced by dts_Cat(), and dts_Read().
+.SS "int dts_debugLevel (void)"
+.PP
+DTS_DEBUGLEVEL -- Return the current debug level to procedures without a \fBDTS\fP pointer. 
+.PP
+Referenced by psReceiveStripe(), psSendStripe(), udtReceiveStripe(), and udtSendStripe().
+.SS "struct hostent* dts_dupHostent (struct hostent * hentry)\fC [read]\fP"
+.PP
+DTS_DUPHOSTENT -- Duplicate a hostent structure via a deep copy. 
+.PP
+Referenced by dts_getHostByName().
+.SS "char* dts_fmtMode (char * lp, int flags)"
+.PP
+DTS_FMTMODE -- Format the file mode permissions as a string. 
+.PP
+Referenced by dts_Dir(), and dts_localDir().
+.SS "char* dts_getAliasDest (char * alias)"
+.PP
+DTS_GETALIASDEST -- Get the destination associated with a node alias.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIalias\fP client alias 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+destination as 'node:port' 
+.RE
+.PP
+
+.PP
+Referenced by dts_queueInitControl(), and dts_queueProcess().
+.SS "char* dts_getAliasHost (char * alias)"
+.PP
+DTS_GETALIASHOST -- Get the host associated with a node alias.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIalias\fP client alias 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+name of host 
+.RE
+.PP
+
+.SS "int dts_getAliasPort (char * alias)"
+.PP
+DTS_GETALIASPORT -- Get the port associated with a node alias.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIalias\fP client alias 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+name of host 
+.RE
+.PP
+
+.SS "struct hostent* dts_getHostByName (char * name)\fC [read]\fP"
+.PP
+DTS_GETHOSTBYNAME -- Get the host entry associated with a (cached) name.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIname\fP host name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+host entry structure pointer 
+.RE
+.PP
+
+.PP
+References dts_dupHostent(), and dtsErrLog().
+.PP
+Referenced by dts_getLocalIP(), dts_openClientSocket(), dts_openUDTClientSocket(), and dts_resolveHost().
+.SS "char* dts_getLocalHost (void)"
+.PP
+DTS_GETLOCALHOST -- Get the local host name as a string.
+.PP
+\fBReturns:\fP
+.RS 4
+name of host 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostPingSleep(), dts_loadDefaultConfig(), dts_newQueue(), and dts_queueInitControl().
+.SS "char* dts_getLocalIP ()"
+.PP
+DTS_GETLOCALIP -- Get the local IP address as a string.
+.PP
+\fBReturns:\fP
+.RS 4
+character string of IP, e.g. '127.0.0.1' 
+.RE
+.PP
+
+.PP
+References dts_getHostByName(), and dts_resolveHost().
+.PP
+Referenced by dts_hostFrom(), dts_hostTo(), dts_initCopyMode(), dts_isLocal(), dts_loadConfigFile(), dts_openClientSocket(), dts_openServerSocket(), dts_openUDTClientSocket(), dts_queueProcess(), dts_resolveHost(), dts_xferParsePaths(), and dts_xferPushFile().
+.SS "int dts_isTemplate (char * s)"
+.PP
+DTS_ISTEMPLATE -- Is a string a pattern template? 
+.PP
+Referenced by dts_Delete(), dts_Dir(), dts_localDelete(), and dts_localDir().
+.SS "char* dts_localTime ()"
+.PP
+DTS_LOCALTIME - Generate a local time string. 
+.PP
+Referenced by dts_addControlHistory().
+.SS "char* dts_logtime (void)"
+.PP
+LOGTIME - Generate a time string for the log.
+.PP
+\fBReturns:\fP
+.RS 4
+a standard logfile timestring 
+.RE
+.PP
+
+.PP
+Referenced by dts_logControl(), and dts_logXFerStats().
+.SS "int dts_patMatch (char * str, char * pattern)"
+.PP
+DTS_PATMATCH -- Match a string against a pattern template. 
+.PP
+Referenced by dts_Dir(), dts_dirSize(), dts_localDir(), and dts_unlink().
+.SS "void dts_pause (void)"
+.PP
+DTS_PAUSE -- Dummy procedure to provide a debugger breakpoint. 
+.SS "void dts_printHostTable (void)"
+.PP
+DTS_PRINTHOSTTAB -- Debug util to print host table. 
+.SS "char* dts_resolveHost (char * hostname)"
+.PP
+DTS_RESOLVEHOST -- Resolve a host name to an IP string.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhostname\fP FQDN hostname 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+character string of IP, e.g. '127.0.0.1' 
+.RE
+.PP
+
+.PP
+References dts_cfgNameToIP(), dts_getHostByName(), dts_getLocalIP(), and dts_nameToHost().
+.PP
+Referenced by dts_getLocalIP(), dts_hostCwd(), dts_hostFrom(), dts_loadConfigFile(), dts_loadDefaultConfig(), dts_nameToIP(), dts_queueProcess(), and dts_xferParsePaths().
+.SS "void dts_sigHandler (int sig)"
+.PP
+DTS_SIGHANDLER -- Signal handler for the \fBDTS\fP daemon.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsig\fP signal number 
+.RE
+.PP
+
+.PP
+References dtsLog().
+.PP
+Referenced by dtsDaemonize().
+.SS "char* dts_UTTime ()"
+.PP
+DTS_UTTIME - Generate a Greenwich Mean time string. 
+.SS "void dtsDaemonize (\fBDTS\fP * dts)"
+.PP
+DTSDAEMONIZE -- Daemonize the \fBDTS\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.RE
+.PP
+
+.PP
+References dts_connectToMonitor(), dts_sigHandler(), and dtsLog().
+.SS "char* dtsGets (char * s, int len, FILE * fp)"
+.PP
+DTSGETS A smart fgets() function
+.PP
+Read the line; unlike fgets(), we read the entire line but dump characters that go past the end of the buffer. We accept CR, LF, or CR LF for the line endings to be 'safe'.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP string buffer 
+.br
+\fIlen\fP length of buffer 
+.br
+\fIfp\fP file descriptor 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+pointer to next string on the stream 
+.RE
+.PP
+
+.PP
+Referenced by dts_loadConfigFile(), dts_loadControl(), dts_loadDeliveryParams(), and dts_queueComplete().
+.SS "void measure_start (void)"
+.PP
+Timer utils. 
+.PP
+Start timer. 
+.PP
+References measure_start_tv.
+.SS "void measure_stop (long transferred)"
+.PP
+Stop timer and print summary of transfer stats. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItransferred\fP number of bytes transferred 
+.RE
+.PP
+
+.PP
+References measure_start_tv.
+.SS "double transferMB (long fileSize, int sec, int usec)"
+.PP
+Return throughput in megabytes/s. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfileSize\fP number of bytes transferred 
+.br
+\fIsec\fP transfer time seconds 
+.br
+\fIusec\fP transfer time micro-seconds 
+.RE
+.PP
+
+.PP
+Referenced by dts_endTransfer(), dts_hostFGet(), dts_xferFile(), dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SS "double transferMb (long fileSize, int sec, int usec)"
+.PP
+Return throughput in megabits/s. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfileSize\fP number of bytes transferred 
+.br
+\fIsec\fP transfer time seconds 
+.br
+\fIusec\fP transfer time micro-seconds 
+.RE
+.PP
+
+.PP
+Referenced by dts_endTransfer(), dts_xferFile(), dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SH "Variable Documentation"
+.PP 
+.SS "const char* \fBb64_chars\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+.fi
+Characters used for Base64 encoding 
+.SS "struct timeval \fBmeasure_start_tv\fP"
+.PP
+Transfer and measurement utilities. 
+.PP
+Referenced by measure_start(), and measure_stop().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

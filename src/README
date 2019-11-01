@@ -1,0 +1,12 @@
+
+This directory contains the source code for the DTS applications:
+
+	DTS		Main DTS Daemon task
+	DTSQ		DTS data queueing task
+	DTSMON		DTS monitor and console
+
+
+Test Applications:
+
+	DTSXFER		Transfer test application
+	XFER		Transfer test application

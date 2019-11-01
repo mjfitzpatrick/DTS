@@ -1,0 +1,149 @@
+.TH "dtsSem.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsSem.c \- \fBDTS\fP utilities to manage semaphores easily.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/ipc.h>\fP
+.br
+\fC#include <sys/sem.h>\fP
+.br
+\fC#include <semaphore.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "union \fBsemun\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSEM_STAT\fP   18"
+.br
+.ti -1c
+.RI "#define \fBSEM_INFO\fP   19"
+.br
+.ti -1c
+.RI "#define \fBIPC_INFO\fP   3"
+.br
+.ti -1c
+.RI "#define \fBUSE_SEMOP\fP   1"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_semInit\fP (int id, int initVal)"
+.br
+.ti -1c
+.RI "int \fBdts_semRemove\fP (int id)"
+.br
+.ti -1c
+.RI "int \fBdts_semSetVal\fP (int id, int val)"
+.br
+.ti -1c
+.RI "int \fBdts_semGetVal\fP (int id)"
+.br
+.ti -1c
+.RI "int \fBdts_semDecr\fP (int id)"
+.br
+.ti -1c
+.RI "int \fBdts_semIncr\fP (int id)"
+.br
+.ti -1c
+.RI "void \fBdts_semInitId\fP (int id)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP utilities to manage semaphores easily. 
+
+DTSSEM.C -- \fBDTS\fP utilities to manage semaphores easily.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_semDecr (int id)"
+.PP
+Decrement the semaphore value. 
+.PP
+References dts_semGetVal().
+.PP
+Referenced by psReceiveFile(), psSendFile(), udtReceiveFile(), and udtSendFile().
+.SS "int dts_semGetVal (int id)"
+.PP
+Get the value. 
+.PP
+Referenced by dts_getQueueCount(), dts_getQueueStat(), dts_initTransfer(), dts_nodeStat(), dts_pauseQueue(), dts_semDecr(), dts_shutdownQueue(), dts_startQueue(), dts_xferPullFile(), and dts_xferPushFile().
+.SS "int dts_semIncr (int id)"
+.PP
+Increment the semaphore value. 
+.PP
+Referenced by dts_endTransfer().
+.SS "int dts_semInit (int id, int initVal)"
+.PP
+Create and/or initialize the semaphore. 
+.PP
+References dts_semSetVal().
+.PP
+Referenced by dts_xferPullFile(), and dts_xferPushFile().
+.SS "void dts_semInitId (int id)"
+.PP
+Initialize the semaphore interface starting ID. 
+.PP
+Referenced by dts_loadConfigFile().
+.SS "int dts_semRemove (int id)"
+.PP
+Destroy the semaphore. 
+.PP
+Referenced by dts_xferPullFile(), and dts_xferPushFile().
+.SS "int dts_semSetVal (int id, int val)"
+.PP
+Set the value. 
+.PP
+Referenced by dts_Deliver(), dts_Ingest(), dts_pauseQueue(), dts_queueRelease(), dts_semInit(), dts_setQueueCount(), dts_setQueueStat(), dts_shutdownQueue(), dts_startQueue(), and dts_stopQueue().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

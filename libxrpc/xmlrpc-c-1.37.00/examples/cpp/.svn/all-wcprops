@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp
+END
+callinfo_abyss_server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/callinfo_abyss_server.cpp
+END
+sample_add_client_complex.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/sample_add_client_complex.cpp
+END
+xmlrpc_inetd_server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/xmlrpc_inetd_server.cpp
+END
+pstream_serial_server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/pstream_serial_server.cpp
+END
+asynch_client.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/asynch_client.cpp
+END
+pstream_inetd_server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/pstream_inetd_server.cpp
+END
+xmlrpc_loop_server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/xmlrpc_loop_server.cpp
+END
+xmlrpc_sample_add_server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/xmlrpc_sample_add_server.cpp
+END
+xmlrpc_sample_add_server_cgi.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/xmlrpc_sample_add_server_cgi.cpp
+END
+pstream_client.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/pstream_client.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/Makefile
+END
+xmlrpc_sample_add_client.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/examples/cpp/xmlrpc_sample_add_client.cpp
+END

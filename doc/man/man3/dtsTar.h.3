@@ -1,0 +1,111 @@
+.TH "dtsTar.h" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsTar.h \- Include file for the \fBDTS\fP tar operations.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "union \fBhblock\fP"
+.br
+.ti -1c
+.RI "struct \fBhblock::header\fP"
+.br
+.ti -1c
+.RI "struct \fBfheader\fP"
+.br
+.ti -1c
+.RI "struct \fB_modebits\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTBLOCK\fP   8192"
+.br
+.ti -1c
+.RI "#define \fBNBLOCK\fP   20"
+.br
+.ti -1c
+.RI "#define \fBNAMSIZ\fP   100"
+.br
+.ti -1c
+.RI "#define \fBMAX_ERR\fP   20"
+.br
+.ti -1c
+.RI "#define \fBMAX_TRYS\fP   100"
+.br
+.ti -1c
+.RI "#define \fBMAX_LINELEN\fP   256"
+.br
+.ti -1c
+.RI "#define \fBSZ_PADBUF\fP   8196"
+.br
+.ti -1c
+.RI "#define \fBSZ_TAPEBUFFER\fP   (TBLOCK * NBLOCK)"
+.br
+.ti -1c
+.RI "#define \fBEOS\fP   '\\0'"
+.br
+.ti -1c
+.RI "#define \fBRWXR_XR_X\fP   0755"
+.br
+.ti -1c
+.RI "#define \fBctrlcode\fP(c)   ((c) >= '\\007' && (c) <= '\\017')"
+.br
+.ti -1c
+.RI "#define \fBLF_LINK\fP   1"
+.br
+.ti -1c
+.RI "#define \fBLF_SYMLINK\fP   2"
+.br
+.ti -1c
+.RI "#define \fBLF_DIR\fP   5"
+.br
+.ti -1c
+.RI "#define \fBTY_DIRECTORY\fP   1"
+.br
+.ti -1c
+.RI "#define \fBTY_FILE\fP   2"
+.br
+.ti -1c
+.RI "#define \fBTY_TEXT\fP   3"
+.br
+.ti -1c
+.RI "#define \fBTY_BINARY\fP   4"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "struct _modebits \fBmodebits\fP []"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Include file for the \fBDTS\fP tar operations. 
+
+DTSTAR.H -- Include file for the \fBDTS\fP tar operations.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike FItzpatrick 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+11/10/09 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

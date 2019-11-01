@@ -1,0 +1,105 @@
+.TH "shmQueueStat" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+shmQueueStat \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <dts.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBnumflushes\fP"
+.br
+.ti -1c
+.RI "int \fBcanceledxfers\fP"
+.br
+.ti -1c
+.RI "int \fBfailedxfers\fP"
+.br
+.ti -1c
+.RI "int \fBnerrs\fP"
+.br
+.ti -1c
+.RI "char \fBmsgs\fP [40][SZ_LINE]"
+.br
+.ti -1c
+.RI "int \fBlin_num\fP"
+.br
+.ti -1c
+.RI "char \fBqname\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "char \fBinfile\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "char \fBoutfile\fP [SZ_PATH]"
+.br
+.ti -1c
+.RI "size_t \fBxfer_size\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBxfer_start\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBxfer_end\fP"
+.br
+.ti -1c
+.RI "float \fBxfer_rate\fP"
+.br
+.ti -1c
+.RI "float \fBxfer_time\fP"
+.br
+.ti -1c
+.RI "int \fBxfer_stat\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBnet_start\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBnet_end\fP"
+.br
+.ti -1c
+.RI "float \fBnet_rate\fP"
+.br
+.ti -1c
+.RI "float \fBnet_time\fP"
+.br
+.ti -1c
+.RI "int \fBnet_stat\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBdisk_start\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBdisk_end\fP"
+.br
+.ti -1c
+.RI "float \fBdisk_rate\fP"
+.br
+.ti -1c
+.RI "float \fBdisk_time\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBdlvr_start\fP"
+.br
+.ti -1c
+.RI "struct timeval \fBdlvr_end\fP"
+.br
+.ti -1c
+.RI "float \fBdlvr_time\fP"
+.br
+.ti -1c
+.RI "int \fBdlvr_stat\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Shared memory queue struct. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

@@ -1,0 +1,8 @@
+
+	This directory contains example configuration files used by the
+various DTS applications.  Comments within the files indicate how they
+should be named and where to put them as well as alternate paths to
+the files.
+
+	The configuration files may be used directly after editing
+the appropriate values and moving the file to the proper place.

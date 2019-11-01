@@ -1,0 +1,52 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/lib/abyss/example/conf
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2001-02-03T00:51:40.000000Z
+41
+emk
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+abyss.conf
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+361d3773a60f0688943d91d381f5e037
+2001-02-03T00:51:40.000000Z
+41
+emk
+
+mime.types
+file
+
+
+
+
+2014-04-10T22:54:27.000000Z
+e7c2ea9a91e8a7204678ca99dfc78fcf
+2001-01-13T01:08:28.000000Z
+5
+emk
+

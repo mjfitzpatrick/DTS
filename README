@@ -1,0 +1,17 @@
+
+
+	This directory contains the sources for the NOAO Data Transport System (DTS).
+Files in this directory include:
+
+    README	This file
+    bin		Application binaries 
+    bits	Save-The-Bits sources.  To be used in development of ingest tools
+    doc		System documentation
+    etc		Sample files for installing DTS as a unix service
+    include	Source include files
+    lib		DTS libraries
+    libdts	Main DTS interface library
+    libxrpc	XMLRPC-C wrapper library providing simplified interface
+    src		Application sources
+    tests	Test / dummy programs
+    web		Experimental web interface 

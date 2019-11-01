@@ -1,0 +1,185 @@
+################################################################################
+#
+#  DTS -- Fermi Test Configuration
+#
+################################################################################
+
+#verbose   0
+#debug     0
+
+# --------------------------  DECAM01  ------------------------------------
+
+dts
+    name      decam01
+    host      decam01.fnal.gov
+    port      3000
+    loPort    3001
+    hiPort    3100
+    root      /home/sispi/dts_mjf/dts01/
+    logfile   /home/sispi/dts_mjf/dts01.log
+
+    # Queue configurations
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	ingest		# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3001		# base transfer port
+        dest            decam02
+	deliveryDir   	spool
+	# deliveryCmd
+
+# --------------------------  DECAM02  ------------------------------------
+
+dts
+    name      decam02
+    host      decam02.fnal.gov
+    port      3000
+    loPort    3001
+    hiPort    3100
+    root      /home/sispi/dts_mjf/dts02/
+    logfile   /home/sispi/dts_mjf/dts02.log
+
+    # Queue configurations
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3001		# base transfer port
+        src		decam01
+        dest            decam03
+	deliveryDir   	/home/sispi/dts_mjf/data02
+	#deliveryCmd
+
+# --------------------------  DECAM03  ------------------------------------
+
+dts
+    name      decam03
+    host      decam03.fnal.gov
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /home/sispi/dts_mjf/dts03/
+    logfile   /home/sispi/dts_mjf/dts03.log
+
+    # Queue configurations
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	transfer	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3001		# base transfer port
+        src		decam02
+        dest		decam04
+	deliveryDir   	/home/sispi/dts_mjf/data03
+	#deliveryCmd
+
+# --------------------------  DECAM04  ------------------------------------
+
+dts
+    name      decam04
+    host      decam04.fnal.gov
+    port      3000
+    loPort    3005
+    hiPort    3100
+    root      /home/sispi/dts_mjf/dts04/
+    logfile   /home/sispi/dts_mjf/dts04.log
+
+    # Queue configurations
+    queue 				# entry point from domes
+	name	      	test		# queue name
+        node          	endpoint	# ingest, transfer, or endpoint
+        type          	normal		# normal, scheduled, priority
+	mode	        push		# push or give
+	method        	dts		# dts or ????
+	nthreads      	4		# No. of outbound threads
+        port	      	3001		# base transfer port
+        src		decam03
+	deliveryDir   	/home/sispi/dts_mjf/data04
+	#deliveryCmd
+
+# -------------------------------------------------------------------------
+
+#
+#  Sample DTS (daemon) configuration file.
+#
+#
+#  The configuration file is made up of one or more entries with the
+#  following structure:
+#
+#     <global values>
+#
+#     dts			# define a new DTS instance
+#       <dts parameters>	#
+#	queue			# define a queue on this DTS
+#         <queue parameters>	#
+#
+#
+#
+#
+#  This example defines a DTS daemon running on machine denali.tuc.noao.edu
+#  at command port 3000.  This DTS is operating two queues: 'denali', which
+#  is used to ingest data into the DTS system (i.e. it is a target point 
+#  for the DTSQ application;  it also runs a 'test.push' queue that is an
+#  intermediate stage in a longer transport route (i.e. data coming into 
+#  this queue normally come from another DTS system and not a user app).
+#
+#
+#  DESCRIPTION:
+#  ===========
+#
+#  An explanation of the fields is as follows:
+#
+#    verbose	  Run the daemon in verbose mode.  When set as a global param-
+#		  eter this affects all DTS instances defined in the file.
+#
+#    debug	  Run the daemon in debug mode.  When set as a global param-
+#		  eter this affects all DTS instances defined in the file.
+#
+#    DTS Parameters:
+#
+#    name	  Name of this DTS instance                               [REQ]
+#    host	  Host machine on which it is running (FQDN or IP addr)   [REQ]
+#    port	  RPC command port to be used                             [REQ]
+#    root	  Root directory of the DTS sandboxed filesystem.         [REQ]
+#    logfile	  Local message logfile (not yet implemented).
+#
+#    Queue Parameters:
+#
+#    name	  Name of queue.
+#    node	  Node type of queue.  May be one of 'ingest', 'transfer'
+#		  or 'endpoint'.
+#    type	  Type of queue.  May be one of 'normal', 'scheduled',
+#		  or 'priority'.
+#    mode         Transport mode.  Defines the direction of transport, a
+#		  'push' means data are moved out of this DTS, a 'pull' 
+# 		  means the operates by pulling data from a remote DTS.
+#    method	  Transport method (NYI).  The only supported value at the
+#		  moment is 'dts', meaning to use internal DTS tranport
+#		  methods (currently parallel sockets).  Later versions will
+#		  allow for alternate bulk transport via scp, fdt, rsync, etc.
+#    nthreads     No. of transport threads.  This parameter defines the 
+#		  number of parallel sockets to run for transport.
+#    port         Base transfer port number.
+#    keepalive    Keep transport connections open?    [NOT YET IMPLEMENTED]
+#    src	  Machine which sends data to this queue
+#    dest	  Machine to which this queue sends data
+#    deliveryDir  Spool or /path/to/delivery/copy
+#    deliveryCmd  Delivery application to be run.
+#
+#
+#  DISCUSSION:
+#  ==========
+#
+# 	TBD
+#
+
+
+

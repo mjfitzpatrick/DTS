@@ -1,0 +1,64 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/lib/expat
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2012-09-10T01:01:42.817908Z
+2393
+giraffedata
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+expat.html
+file
+
+
+
+
+2014-04-10T22:54:28.000000Z
+e734cbc237800d19749040358d140403
+2006-11-02T01:49:58.000000Z
+780
+giraffedata
+
+gennmtab
+dir
+
+xmlparse
+dir
+
+xmlwf
+dir
+
+Makefile
+file
+
+
+
+
+2014-04-10T22:54:28.000000Z
+2c43f2bbc47fa0cfb1aea1951e0c5523
+2011-09-18T18:29:45.588010Z
+2195
+giraffedata
+
+xmltok
+dir
+

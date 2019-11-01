@@ -1,0 +1,369 @@
+
+
+
+Transfer Modes
+
+			A		B
+
+	Push		---------------->   )
+	Pull		<----------------   )
+
+
+	Give	    (	---------------->
+	Take	    (	<----------------
+
+
+
+Push Model:
+  
+         Agent                    Host A                Host B
+  
+     (1)  ---- [xferPush Msg] ------>
+ 
+     (2)                    Socket setup
+ 
+     (3)                       ----[FileRecieve Msg]----->
+ 
+     (4)                       <=====[Data Transfer]=====>
+ 
+     (5)  <----[Status Return]-------
+
+
+
+
+Pull Model:
+   
+          Agent                    Host A                Host B
+   
+     (1)  ---- [xferPull Msg] ----------------------------->
+ 
+     (2)                                             Socket setup
+ 
+     (3)                         <-----[FileSend Msg]------
+ 
+     (4)                         <=====[Data Transfer]=====>
+ 
+     (5)  <----[Status Return]-------
+
+
+
+
+
+// ---------------------------------------------------------------------------
+
+
+DTS Transfer Database
+
+
+DB Tables:
+
+    File:
+	key			primary key (unique) 
+	queue			queue name
+	src			name of src machine
+	dst			name of dst machine
+	hfname			host filename (original <node!/path/file.fits>))
+	qpath			local queue path
+	size			file size (bytes)
+	md5			MD5 checksum
+	nerrs			number of errors
+	status			(-1=failed, 0=pending, 1=active, 2=complete)
+	time_in			ingest time
+	tstart			transfer start time
+	tend			transfer end time
+	time_out		delivery time
+	status			(0=OK, 1=FAILED)
+
+    Message:
+	key			primary key
+	mtime			message timestamp
+	msg			status or message
+
+
+
+
+Interface:
+
+	            dts_dbOpen  (dbfile)
+	           dts_dbClose  ()
+
+	          dts_dbCreate  (dbfile)
+                    dts_dbInit  ()
+                   dts_dbPurge  ()
+
+            key = dts_dbLookup  (fname, queue)
+
+	        dts_dbNewEntry  (queue, src, dst, hfname, qpath, size, nd5)
+	        dts_dbDelEntry  (key)
+
+	          dts_dbSetInt  (key, type, ival)
+	          dts_dbSetStr  (key, type, str)
+           ival = dts_dbGetInt  (key, type)
+            str = dts_dbGetStr  (key, type)
+
+	          dts_dbAddMsg  (key, msg)
+         msg[] = dts_dbGetMsgs  (key)
+
+
+--------------------------------------------------------------------------------
+
+Pseudo:
+
+
+#ifndef OK
+#define	OK		 0
+#endif
+#ifndef ERR
+#define	ERR		-1
+#endif
+
+
+typedef struct {
+    sqlite3       *handle;
+    sqlite3_stmt  *stmt;
+    char          *dbfile,
+} db, *dbP;
+
+
+
+/** 
+ *  DTS_DBOPEN -- Open the named database file and initialize the connection.
+ *  The database will be created if it does not currently exist.
+ *
+ *  @brief	Open the named database file and initialize the connection.
+ *  @fn		int dts_dbOpen (char *dbfile)
+ *
+ *  @param	dbfile		database file name
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbOpen (char *dbfile)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBCLOSE -- Close the connection to the currently open database.
+ *
+ *  @brief	Close the connection to the currently open database.
+ *  @fn		int dts_dbClose (void)
+ *
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbClose (void)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBCREATE -- Create the database in the named file.
+ *
+ *  @brief	Create the database in the named file.
+ *  @fn		int dts_dbCreate (char *dbfile)
+ *
+ *  @param	dbfile		database file name
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbCreate (char *dbfile)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBINIT -- Initialize the database, i.e. delete all existing entries.
+ *
+ *  @brief	Initialize the database, i.e. delete all existing entries.
+ *  @fn		int dts_dbInit (void)
+ *
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbInit (void)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBPURGE -- Purge entries where the ingest time is older than the
+ *  specified date.  The reserved string 'now' may be used to represent
+ *  the current time.  Note the DB stores all times in UTC.
+ *
+ *  @brief	Purge entries older than specified date
+ *  @fn		int dts_dbPurge (long epoch)
+ *
+ *  @param	epoch		unix epoch (seconds since 1/1/70)
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbPurge (long epoch)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBLOOKUP -- Lookup an entry by filename and/or queue name.  A list
+ *  of keys is returned to allow callers to process multiple results.
+ *
+ *  @brief	Lookup an entry by filename and/or queue name.
+ *  @fn		int *dts_dbLookup (char *fname, char *queue)
+ *
+ *  @param	fname		requested file name
+ *  @param	queue		requested queue name
+ *  @return			pointer to list of db keys
+ */
+int *
+dts_dbLookup (char *fname, char *queue)
+{
+    return (NULL);
+}
+
+
+/** 
+ *  DTS_DBNEWENTRY -- Create a new file entry in the DB.
+ *
+ *  @brief	Create a new file entry in the DB.
+ *  @fn		int dts_dbNewEntry (char *queue, char *src, char *dst, 
+ *		    char *hfname, char *qpath, long size, char *md5)
+ *
+ *  @param	queue		queue name
+ *  @param	src		source host name
+ *  @param	dst		destination host name
+ *  @param	hfname		original node!/path/file.fits name
+ *  @param	qpath		path to local queue directory
+ *  @param	size		file size (bytes)
+ *  @param	md5		MD5 checksum
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbNewEntry (char *queue, char *src, char *dst, char *hfname, 
+	char *qpath, long size, char *md5)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBDELENTRY -- Delete the named entry from the database.
+ *
+ *  @brief	Delete the named entry from the database.
+ *  @fn		int dts_dbDelEntry (int key)
+ *
+ *  @param	key		db entry key
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbDelEntry  (int key)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBSETINT -- Set an integer value for the specified entry.
+ *
+ *  @brief	Set an integer value for the specified entry.
+ *  @fn		int dts_dbSetInt (int key, int type, int ival)
+ *
+ *  @param	key		db entry key
+ *  @param	type		field type code
+ *  @param	ival		value
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbSetInt  (int key, int type, int ival)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBSETSTR -- Set a string value for the specified entry.
+ *
+ *  @brief	Set a string value for the specified entry.
+ *  @fn		int dts_dbSetStr (int key, int type char *str)
+ *
+ *  @param	key		db entry key
+ *  @param	type		field type code
+ *  @param	str		value
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbSetStr  (int key, int type, char *str)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBGETINT -- Get an integer field from an entry.
+ *
+ *  @brief	Get an integer field from an entry.
+ *  @fn		int dts_dbGetInt (int key, int type)
+ *
+ *  @param	key		db entry key
+ *  @param	type		field type code
+ *  @return			int value
+ */
+int
+dts_dbGetInt  (int key, int type)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBGETSTR -- Get a string valued field from an entry.
+ *
+ *  @brief	Get a string valued field from an entry.
+ *  @fn		char *dts_dbGetStr (int key, int type)
+ *
+ *  @param	key		db entry key
+ *  @param	type		field type code
+ *  @return			string value
+ */
+char *
+dts_dbGetStr  (int key, int type)
+{
+    return (NULL);
+}
+
+
+/** 
+ *  DTS_DBADDMSG -- Add a message for the name entry key.
+ *
+ *  @brief	Add a message for the name entry key.
+ *  @fn		int dts_dbAddMsg (int key, char *msg)
+ *
+ *  @param	key		db entry key
+ *  @param	type		field type code
+ *  @return			status code (OK or ERR)
+ */
+int
+dts_dbAddMsg  (int key, msg)
+{
+    return (OK);
+}
+
+
+/** 
+ *  DTS_DBGETMSGS -- Get all messages associated with the entry.
+ *
+ *  @brief	Return array of message strings associated with entry.
+ *  @fn		int dts_dbOpen (int key)
+ *
+ *  @param	key		db entry key
+ *  @return			pointer to message strings
+ */
+char **
+dts_dbGetMsgs (int key)
+{
+    return (NULL);
+}
+

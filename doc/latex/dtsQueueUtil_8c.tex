@@ -1,0 +1,622 @@
+\hypertarget{dtsQueueUtil_8c}{
+\section{dtsQueueUtil.c File Reference}
+\label{dtsQueueUtil_8c}\index{dtsQueueUtil.c@{dtsQueueUtil.c}}
+}
+\hyperlink{structDTS}{DTS} queue utilities.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$sys/file.h$>$}\par
+{\tt \#include \char`\"{}dtsPSock.h\char`\"{}}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsQueueUtil_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~(dts\&\&dts $\rightarrow$ debug)}
+\label{dtsQueueUtil_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{structdtsQueue}{dtsQueue} $\ast$ \hyperlink{dtsQueueUtil_8c_0f9767b8cbca5fac22e998b717243f92}{dts\_\-queueLookup} (char $\ast$qname)
+\begin{CompactList}\small\item\em Lookup a \hyperlink{structDTS}{DTS} queue struct by name. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsQueueUtil_8c_0fa4dfe5827097014d659624b1a8ad83}{dts\_\-getQueuePath} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the path to the spool dir for a given queue. \item\end{CompactList}\item 
+\hypertarget{dtsQueueUtil_8c_a389f588ae2b1b5db89b668c42ca600b}{
+char $\ast$ \textbf{dts\_\-getQueueLog} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$qname, char $\ast$logname)}
+\label{dtsQueueUtil_8c_a389f588ae2b1b5db89b668c42ca600b}
+
+\item 
+char $\ast$ \hyperlink{dtsQueueUtil_8c_cb7bc59ae7818ad9ae99daddb010d41f}{dts\_\-getNextQueueDir} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$qname)
+\begin{CompactList}\small\item\em Get the next queue directory name. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_73d52e9f251e4ba8341197cfeaa33220}{dts\_\-queueGetCurrent} (char $\ast$fname)
+\begin{CompactList}\small\item\em Get the number of the currrently active spool. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueUtil_8c_a5be9287fe7d9651d7b6b8c637724f6e}{dts\_\-queueSetCurrent} (char $\ast$fname, int val)
+\begin{CompactList}\small\item\em Set the number of the currrently active spool. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_a50a352c505bf49190e7ce4f3d5269ad}{dts\_\-queueGetNext} (char $\ast$fname)
+\begin{CompactList}\small\item\em Get the number of the next active spool. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueUtil_8c_2394c654772809059d59000c1a78695f}{dts\_\-queueSetNext} (char $\ast$fname, int val)
+\begin{CompactList}\small\item\em Set the number of the next active spool. \item\end{CompactList}\item 
+\hypertarget{dtsQueueUtil_8c_80b00b1a575ccc8bab2fa9a403bd92ea}{
+void \textbf{dts\_\-queueGetInitTime} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, int $\ast$sec, int $\ast$usec)}
+\label{dtsQueueUtil_8c_80b00b1a575ccc8bab2fa9a403bd92ea}
+
+\item 
+\hypertarget{dtsQueueUtil_8c_3f4c810b4bdc773e2100d5e56feb27b9}{
+void \textbf{dts\_\-queueSetInitTime} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, struct timeval t)}
+\label{dtsQueueUtil_8c_3f4c810b4bdc773e2100d5e56feb27b9}
+
+\item 
+void \hyperlink{dtsQueueUtil_8c_3a9487fbe81804ff6222c3d42cafc350}{dts\_\-queueCleanup} (\hyperlink{structDTS}{DTS} $\ast$dts, \hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq)
+\begin{CompactList}\small\item\em Clean up the spool directory before processing. \item\end{CompactList}\item 
+Control $\ast$ \hyperlink{dtsQueueUtil_8c_660007b7fc91e838c43f3c01eef5a69c}{dts\_\-loadControl} (char $\ast$path, Control $\ast$ctrl)
+\begin{CompactList}\small\item\em Load the control file into a struct. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_aa75fb48a927a363fa3229011020947e}{dts\_\-saveControl} (Control $\ast$ctrl, char $\ast$path)
+\begin{CompactList}\small\item\em Save the control struct. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_6d3903336883756dc7f96213ea5ce89f}{dts\_\-logControl} (Control $\ast$ctrl, int stat, char $\ast$path)
+\begin{CompactList}\small\item\em Make a log entry of the Control structure. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueUtil_8c_dfc182bc4015562a62870a100e565d1e}{dts\_\-printControl} (Control $\ast$ctrl, FILE $\ast$fd)
+\begin{CompactList}\small\item\em Print the control struct. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsQueueUtil_8c_e2738cc6c2944e8ec59a49ce2c0589fa}{dts\_\-fmtQueueCmd} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, Control $\ast$ctrl)
+\begin{CompactList}\small\item\em Format a queue delivery command. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsQueueUtil_8c_6fb308e1c21f70d133d45c971ae90187}{dts\_\-verifyDTS} (char $\ast$host, char $\ast$qname, char $\ast$fname)
+\begin{CompactList}\small\item\em Verify a \hyperlink{structDTS}{DTS} queue connection. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_9ee1515f2f3ca249a1304b6ae55b684d}{dts\_\-queueProcess} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, char $\ast$lpath, char $\ast$rpath, char $\ast$fname)
+\begin{CompactList}\small\item\em Process a file to submit it to the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_783947cdd20ef27299d243b1000e2a40}{dts\_\-queueInitControl} (char $\ast$qhost, char $\ast$qname, char $\ast$qpath, char $\ast$opath, char $\ast$lfname, char $\ast$fname, char $\ast$dfname)
+\begin{CompactList}\small\item\em Initialize the control structure. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueUtil_8c_aa543bc0d353e733e8eb4642413deea0}{dts\_\-queueLock} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq)
+\begin{CompactList}\small\item\em Set the mutex lock on the queue. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueUtil_8c_344597f39e8889629794a6affed0aee2}{dts\_\-queueUnlock} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq)
+\begin{CompactList}\small\item\em Unset the mutex lock on the queue. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsQueueUtil_8c_8fb26b6766710c4c885d3b7a4715c609}{dts\_\-queueFromPath} (char $\ast$path)
+\begin{CompactList}\small\item\em Get queue name from a path. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{dtsQueueUtil_8c_1e0d4f7f157413b56f8f88ac2bd15376}{dts\_\-queueNameFmt} (char $\ast$qname)
+\begin{CompactList}\small\item\em Format a queue name to 6 chars. \item\end{CompactList}\item 
+void \hyperlink{dtsQueueUtil_8c_bb4729efee8c2245df6a445c50160a11}{dts\_\-queueDelete} (\hyperlink{structDTS}{DTS} $\ast$dts, char $\ast$qpath)
+\begin{CompactList}\small\item\em Delete the complete spool directory. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_11616a1c01cd8b664130c9799f5a2b29}{dts\_\-logXFerStats} (Control $\ast$ctrl, \hyperlink{structxferStat}{xferStat} $\ast$xfs, int stat, char $\ast$path)
+\begin{CompactList}\small\item\em Make a log entry of the transfer statistics. \item\end{CompactList}\item 
+int \hyperlink{dtsQueueUtil_8c_2b168b445e4cb0bc5b483960b33e8dfb}{dts\_\-queueSetStats} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq, \hyperlink{structxferStat}{xferStat} $\ast$xfs)
+\begin{CompactList}\small\item\em Update the transfer statistics for the queue. \item\end{CompactList}\item 
+\hyperlink{structqueueStat}{queueStat} $\ast$ \hyperlink{dtsQueueUtil_8c_fff347a303e8bd230792419763fc0e7d}{dts\_\-queueGetStats} (\hyperlink{structdtsQueue}{dtsQueue} $\ast$dtsq)
+\begin{CompactList}\small\item\em Get the stats structure from a queue. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsQueueUtil_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsQueueUtil_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsQueueUtil_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsQueueUtil_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} queue utilities. 
+
+DTSQUEUEUTIL.C -- \hyperlink{structDTS}{DTS} queue utilities.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsQueueUtil_8c_e2738cc6c2944e8ec59a49ce2c0589fa}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-fmtQueueCmd@{dts\_\-fmtQueueCmd}}
+\index{dts\_\-fmtQueueCmd@{dts\_\-fmtQueueCmd}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-fmtQueueCmd}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-fmtQueueCmd ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  Control $\ast$ {\em ctrl})}}
+\label{dtsQueueUtil_8c_e2738cc6c2944e8ec59a49ce2c0589fa}
+
+
+Format a queue delivery command. 
+
+DTS\_\-FMTQUEUECMD -- Format a queue delivery command.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue structure \item[{\em ctrl}]transfer control parameters \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]formatted command string \end{Desc}
+
+
+References dts\_\-getDeliveryPath().
+
+Referenced by dts\_\-Deliver(), and dts\_\-Ingest().\hypertarget{dtsQueueUtil_8c_cb7bc59ae7818ad9ae99daddb010d41f}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-getNextQueueDir@{dts\_\-getNextQueueDir}}
+\index{dts\_\-getNextQueueDir@{dts\_\-getNextQueueDir}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-getNextQueueDir}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getNextQueueDir ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em qname})}}
+\label{dtsQueueUtil_8c_cb7bc59ae7818ad9ae99daddb010d41f}
+
+
+Get the next queue directory name. 
+
+DTS\_\-GETNEXTQUEUEDIR -- Get the next queue directory name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]path to next working spool dir \end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-sandboxPath(), and dtsLog().
+
+Referenced by dts\_\-initTransfer(), and dts\_\-queueAccept().\hypertarget{dtsQueueUtil_8c_0fa4dfe5827097014d659624b1a8ad83}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-getQueuePath@{dts\_\-getQueuePath}}
+\index{dts\_\-getQueuePath@{dts\_\-getQueuePath}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-getQueuePath}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-getQueuePath ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em qname})}}
+\label{dtsQueueUtil_8c_0fa4dfe5827097014d659624b1a8ad83}
+
+
+Get the path to the spool dir for a given queue. 
+
+DTS\_\-GETQUEUEPATH -- Get queue path.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]path to queue directory \end{Desc}
+
+
+Referenced by dts\_\-initTransfer(), and dts\_\-queueAccept().\hypertarget{dtsQueueUtil_8c_660007b7fc91e838c43f3c01eef5a69c}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-loadControl@{dts\_\-loadControl}}
+\index{dts\_\-loadControl@{dts\_\-loadControl}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-loadControl}]{\setlength{\rightskip}{0pt plus 5cm}Control$\ast$ dts\_\-loadControl (char $\ast$ {\em path}, \/  Control $\ast$ {\em ctrl})}}
+\label{dtsQueueUtil_8c_660007b7fc91e838c43f3c01eef5a69c}
+
+
+Load the control file into a struct. 
+
+DTS\_\-LOADCONTROL -- Load the control file into a struct.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]path to control file \item[{\em ctrl}]pointer to Control struct \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]loaded Control structure \end{Desc}
+
+
+References dts\_\-fclose(), dts\_\-fileSize(), dts\_\-fopen(), dtsGets(), and dtsLog().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueUtil_8c_6d3903336883756dc7f96213ea5ce89f}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-logControl@{dts\_\-logControl}}
+\index{dts\_\-logControl@{dts\_\-logControl}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-logControl}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-logControl (Control $\ast$ {\em ctrl}, \/  int {\em stat}, \/  char $\ast$ {\em path})}}
+\label{dtsQueueUtil_8c_6d3903336883756dc7f96213ea5ce89f}
+
+
+Make a log entry of the Control structure. 
+
+DTS\_\-LOGCONTROL -- Make a log entry of the Control structure.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctrl}]control structure \item[{\em stat}]status flag \item[{\em path}]path to control file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR code \end{Desc}
+
+
+References dts\_\-fclose(), dts\_\-fopen(), and dts\_\-logtime().\hypertarget{dtsQueueUtil_8c_11616a1c01cd8b664130c9799f5a2b29}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-logXFerStats@{dts\_\-logXFerStats}}
+\index{dts\_\-logXFerStats@{dts\_\-logXFerStats}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-logXFerStats}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-logXFerStats (Control $\ast$ {\em ctrl}, \/  {\bf xferStat} $\ast$ {\em xfs}, \/  int {\em stat}, \/  char $\ast$ {\em path})}}
+\label{dtsQueueUtil_8c_11616a1c01cd8b664130c9799f5a2b29}
+
+
+Make a log entry of the transfer statistics. 
+
+DTS\_\-LOGXFERSTATS -- Make a log entry of the transfer statistics
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctrl}]control structure \item[{\em xfs}]transfer stats structure \item[{\em stat}]status flag \item[{\em path}]path to control file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR code \end{Desc}
+
+
+References dts\_\-fopen(), and dts\_\-logtime().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueUtil_8c_dfc182bc4015562a62870a100e565d1e}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-printControl@{dts\_\-printControl}}
+\index{dts\_\-printControl@{dts\_\-printControl}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-printControl}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-printControl (Control $\ast$ {\em ctrl}, \/  FILE $\ast$ {\em fd})}}
+\label{dtsQueueUtil_8c_dfc182bc4015562a62870a100e565d1e}
+
+
+Print the control struct. 
+
+DTS\_\-PRINTCONTROL -- Print the control struct.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em cpath}]path to control file \item[{\em fd}]file descriptor to which to write \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+Referenced by dts\_\-saveControl().\hypertarget{dtsQueueUtil_8c_3a9487fbe81804ff6222c3d42cafc350}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueCleanup@{dts\_\-queueCleanup}}
+\index{dts\_\-queueCleanup@{dts\_\-queueCleanup}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueCleanup}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-queueCleanup ({\bf DTS} $\ast$ {\em dts}, \/  {\bf dtsQueue} $\ast$ {\em dtsq})}}
+\label{dtsQueueUtil_8c_3a9487fbe81804ff6222c3d42cafc350}
+
+
+Clean up the spool directory before processing. 
+
+DTS\_\-QUEUECLEANUP -- Clean up the spool directory before processing.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} structure \item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue structure \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-queueGetCurrent(), dts\_\-queueGetNext(), and dtsLog().\hypertarget{dtsQueueUtil_8c_bb4729efee8c2245df6a445c50160a11}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueDelete@{dts\_\-queueDelete}}
+\index{dts\_\-queueDelete@{dts\_\-queueDelete}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueDelete}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-queueDelete ({\bf DTS} $\ast$ {\em dts}, \/  char $\ast$ {\em qpath})}}
+\label{dtsQueueUtil_8c_bb4729efee8c2245df6a445c50160a11}
+
+
+Delete the complete spool directory. 
+
+DTS\_\-QUEUEDELETE -- Delete the complete spool directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dts}]\hyperlink{structDTS}{DTS} struct pointer \item[{\em qpath}]spool queue directory path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-queueFromPath(), dts\_\-unlink(), and dtsLog().
+
+Referenced by dts\_\-endTransfer().\hypertarget{dtsQueueUtil_8c_8fb26b6766710c4c885d3b7a4715c609}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueFromPath@{dts\_\-queueFromPath}}
+\index{dts\_\-queueFromPath@{dts\_\-queueFromPath}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueFromPath}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-queueFromPath (char $\ast$ {\em path})}}
+\label{dtsQueueUtil_8c_8fb26b6766710c4c885d3b7a4715c609}
+
+
+Get queue name from a path. 
+
+DTS\_\-QUEUEFROMPATH -- Get queue name from a path.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em path}]spool queue directory path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]queue name \end{Desc}
+
+
+Referenced by dts\_\-hostFrom(), dts\_\-hostTo(), dts\_\-queueDelete(), dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), and dts\_\-xferSendFile().\hypertarget{dtsQueueUtil_8c_73d52e9f251e4ba8341197cfeaa33220}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueGetCurrent@{dts\_\-queueGetCurrent}}
+\index{dts\_\-queueGetCurrent@{dts\_\-queueGetCurrent}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueGetCurrent}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueGetCurrent (char $\ast$ {\em fname})}}
+\label{dtsQueueUtil_8c_73d52e9f251e4ba8341197cfeaa33220}
+
+
+Get the number of the currrently active spool. 
+
+DTS\_\-QUEUEGETCURRENT -- Get the number of the currrently active spool.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]path to 'current' file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]queue current value \end{Desc}
+
+
+References dts\_\-fclose(), and dts\_\-fopen().
+
+Referenced by dts\_\-endTransfer(), dts\_\-flushQueue(), dts\_\-nodeStat(), and dts\_\-queueCleanup().\hypertarget{dtsQueueUtil_8c_a50a352c505bf49190e7ce4f3d5269ad}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueGetNext@{dts\_\-queueGetNext}}
+\index{dts\_\-queueGetNext@{dts\_\-queueGetNext}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueGetNext}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueGetNext (char $\ast$ {\em fname})}}
+\label{dtsQueueUtil_8c_a50a352c505bf49190e7ce4f3d5269ad}
+
+
+Get the number of the next active spool. 
+
+DTS\_\-QUEUEGETNEXT -- Get the number of the next active spool.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]path to 'next' file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]queue next value \end{Desc}
+
+
+References dts\_\-fclose(), and dts\_\-fopen().
+
+Referenced by dts\_\-flushQueue(), dts\_\-nodeStat(), and dts\_\-queueCleanup().\hypertarget{dtsQueueUtil_8c_fff347a303e8bd230792419763fc0e7d}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueGetStats@{dts\_\-queueGetStats}}
+\index{dts\_\-queueGetStats@{dts\_\-queueGetStats}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueGetStats}]{\setlength{\rightskip}{0pt plus 5cm}{\bf queueStat}$\ast$ dts\_\-queueGetStats ({\bf dtsQueue} $\ast$ {\em dtsq})}}
+\label{dtsQueueUtil_8c_fff347a303e8bd230792419763fc0e7d}
+
+
+Get the stats structure from a queue. 
+
+DTS\_\-QUEUEGETSTATS -- Get the stats structure from a queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} Queue structure \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]stats structure \end{Desc}
+
+
+References dts\_\-fclose(), and dts\_\-fopen().
+
+Referenced by dts\_\-nodeStat().\hypertarget{dtsQueueUtil_8c_783947cdd20ef27299d243b1000e2a40}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueInitControl@{dts\_\-queueInitControl}}
+\index{dts\_\-queueInitControl@{dts\_\-queueInitControl}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueInitControl}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueInitControl (char $\ast$ {\em qhost}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em qpath}, \/  char $\ast$ {\em opath}, \/  char $\ast$ {\em lfname}, \/  char $\ast$ {\em fname}, \/  char $\ast$ {\em dfname})}}
+\label{dtsQueueUtil_8c_783947cdd20ef27299d243b1000e2a40}
+
+
+Initialize the control structure. 
+
+DTS\_\-QUEUEINITCONTROL -- Initialize the control structure.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qhost}]\hyperlink{structDTS}{DTS} Queue host name \item[{\em qname}]queue name \item[{\em qpath}]queue path name \item[{\em opath}]output path name \item[{\em lpath}]local path name \item[{\em fname}]filename (no path) \item[{\em dfname}]delivery filename \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status \end{Desc}
+
+
+References dts\_\-du(), dts\_\-getAliasDest(), dts\_\-getLocalHost(), dts\_\-hostSetQueueControl(), dts\_\-isDir(), dts\_\-pathDir(), and dts\_\-pathFname().\hypertarget{dtsQueueUtil_8c_aa543bc0d353e733e8eb4642413deea0}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueLock@{dts\_\-queueLock}}
+\index{dts\_\-queueLock@{dts\_\-queueLock}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueLock}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-queueLock ({\bf dtsQueue} $\ast$ {\em dtsq})}}
+\label{dtsQueueUtil_8c_aa543bc0d353e733e8eb4642413deea0}
+
+
+Set the mutex lock on the queue. 
+
+DTS\_\-QUEUELOCK -- Set the mutex lock on the queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue pointer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+\hypertarget{dtsQueueUtil_8c_0f9767b8cbca5fac22e998b717243f92}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueLookup@{dts\_\-queueLookup}}
+\index{dts\_\-queueLookup@{dts\_\-queueLookup}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueLookup}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dtsQueue}$\ast$ dts\_\-queueLookup (char $\ast$ {\em qname})}}
+\label{dtsQueueUtil_8c_0f9767b8cbca5fac22e998b717243f92}
+
+
+Lookup a \hyperlink{structDTS}{DTS} queue struct by name. 
+
+DTS\_\-QUEUELOOKUP -- Lookup a \hyperlink{structDTS}{DTS} queue struct by name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]name of the queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\hyperlink{structdtsQueue}{dtsQueue} struct corresponding to qname \end{Desc}
+
+
+Referenced by dts\_\-DestDir(), dts\_\-endTransfer(), dts\_\-flushQueue(), dts\_\-Get(), dts\_\-getNextQueueDir(), dts\_\-getQueueCmd(), dts\_\-getQueueCount(), dts\_\-getQueueDir(), dts\_\-getQueueStat(), dts\_\-initTransfer(), dts\_\-pauseQueue(), dts\_\-printQueueCfg(), dts\_\-qstatDiskEnd(), dts\_\-qstatDiskStart(), dts\_\-qstatDlvrEnd(), dts\_\-qstatDlvrStart(), dts\_\-qstatDlvrStat(), dts\_\-qstatEnd(), dts\_\-qstatInit(), dts\_\-qstatNetEnd(), dts\_\-qstatNetStart(), dts\_\-qstatNetStat(), dts\_\-qstatSetFName(), dts\_\-qstatSetSize(), dts\_\-qstatStart(), dts\_\-qstatSummary(), dts\_\-qstatXferStat(), dts\_\-queueRelease(), dts\_\-queueSetControl(), dts\_\-queueUpdateStats(), dts\_\-setQueueCmd(), dts\_\-setQueueCount(), dts\_\-setQueueDir(), dts\_\-setQueueStat(), dts\_\-shutdownQueue(), dts\_\-startQueue(), dts\_\-stopQueue(), and dts\_\-verifyDTS().\hypertarget{dtsQueueUtil_8c_1e0d4f7f157413b56f8f88ac2bd15376}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueNameFmt@{dts\_\-queueNameFmt}}
+\index{dts\_\-queueNameFmt@{dts\_\-queueNameFmt}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueNameFmt}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-queueNameFmt (char $\ast$ {\em qname})}}
+\label{dtsQueueUtil_8c_1e0d4f7f157413b56f8f88ac2bd15376}
+
+
+Format a queue name to 6 chars. 
+
+DTS\_\-QUEUENAMEFMT -- Format a queue name to 6 chars.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em qname}]full-length queue name \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]shortened queue name \end{Desc}
+
+
+Referenced by dts\_\-Deliver(), dts\_\-endTransfer(), dts\_\-initTransfer(), dts\_\-qstatSummary(), dts\_\-queueProcess(), dts\_\-queueSetControl(), dts\_\-xferPullFile(), dts\_\-xferPushFile(), dts\_\-xferReceiveFile(), and dts\_\-xferSendFile().\hypertarget{dtsQueueUtil_8c_9ee1515f2f3ca249a1304b6ae55b684d}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueProcess@{dts\_\-queueProcess}}
+\index{dts\_\-queueProcess@{dts\_\-queueProcess}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueProcess}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueProcess ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  char $\ast$ {\em lpath}, \/  char $\ast$ {\em rpath}, \/  char $\ast$ {\em fname})}}
+\label{dtsQueueUtil_8c_9ee1515f2f3ca249a1304b6ae55b684d}
+
+
+Process a file to submit it to the named queue. 
+
+DTS\_\-QPROCESS -- Process a file to submit it to the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue pointer \item[{\em lpath}]local path \item[{\em rpath}]remote path \item[{\em fname}]filename to transfer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status result \end{Desc}
+
+
+References dts\_\-cfgQMethodStr(), dts\_\-cfgQModeStr(), dts\_\-getAliasDest(), dts\_\-getLocalIP(), dts\_\-hostTo(), dts\_\-hostUpStats(), dts\_\-pathFname(), dts\_\-queueNameFmt(), dts\_\-resolveHost(), dts\_\-sandboxPath(), dtsErrLog(), and dtsLog().\hypertarget{dtsQueueUtil_8c_a5be9287fe7d9651d7b6b8c637724f6e}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueSetCurrent@{dts\_\-queueSetCurrent}}
+\index{dts\_\-queueSetCurrent@{dts\_\-queueSetCurrent}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueSetCurrent}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-queueSetCurrent (char $\ast$ {\em fname}, \/  int {\em val})}}
+\label{dtsQueueUtil_8c_a5be9287fe7d9651d7b6b8c637724f6e}
+
+
+Set the number of the currrently active spool. 
+
+DTS\_\-QUEUESETCURRENT -- Set the number of the currrently active spool.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]path to 'current' file \item[{\em val}]value to set \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-fclose(), and dts\_\-fopen().
+
+Referenced by dts\_\-endTransfer(), dts\_\-flushQueue(), and dts\_\-initServerRoot().\hypertarget{dtsQueueUtil_8c_2394c654772809059d59000c1a78695f}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueSetNext@{dts\_\-queueSetNext}}
+\index{dts\_\-queueSetNext@{dts\_\-queueSetNext}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueSetNext}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-queueSetNext (char $\ast$ {\em fname}, \/  int {\em val})}}
+\label{dtsQueueUtil_8c_2394c654772809059d59000c1a78695f}
+
+
+Set the number of the next active spool. 
+
+DTS\_\-QUEUESETNEXT -- Set the number of the next active spool.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fname}]path to 'Next' file \item[{\em val}]value to set \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-fclose(), and dts\_\-fopen().\hypertarget{dtsQueueUtil_8c_2b168b445e4cb0bc5b483960b33e8dfb}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueSetStats@{dts\_\-queueSetStats}}
+\index{dts\_\-queueSetStats@{dts\_\-queueSetStats}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueSetStats}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueSetStats ({\bf dtsQueue} $\ast$ {\em dtsq}, \/  {\bf xferStat} $\ast$ {\em xfs})}}
+\label{dtsQueueUtil_8c_2b168b445e4cb0bc5b483960b33e8dfb}
+
+
+Update the transfer statistics for the queue. 
+
+DTS\_\-QUEUESETSTATS -- Update the transfer statistics for the queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} Queue struct pointer \item[{\em xfs}]transfer statistics struct \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+
+
+References dts\_\-fclose(), and dts\_\-fopen().
+
+Referenced by dts\_\-queueUpdateStats().\hypertarget{dtsQueueUtil_8c_344597f39e8889629794a6affed0aee2}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-queueUnlock@{dts\_\-queueUnlock}}
+\index{dts\_\-queueUnlock@{dts\_\-queueUnlock}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-queueUnlock}]{\setlength{\rightskip}{0pt plus 5cm}void dts\_\-queueUnlock ({\bf dtsQueue} $\ast$ {\em dtsq})}}
+\label{dtsQueueUtil_8c_344597f39e8889629794a6affed0aee2}
+
+
+Unset the mutex lock on the queue. 
+
+DTS\_\-QUEUEUNLOCK -- Unset the mutex lock on the queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em dtsq}]\hyperlink{structDTS}{DTS} queue pointer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]nothing \end{Desc}
+\hypertarget{dtsQueueUtil_8c_aa75fb48a927a363fa3229011020947e}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-saveControl@{dts\_\-saveControl}}
+\index{dts\_\-saveControl@{dts\_\-saveControl}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-saveControl}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-saveControl (Control $\ast$ {\em ctrl}, \/  char $\ast$ {\em path})}}
+\label{dtsQueueUtil_8c_aa75fb48a927a363fa3229011020947e}
+
+
+Save the control struct. 
+
+DTS\_\-SAVECONTROL -- Save the control struct.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctrl}]control structure \item[{\em cpath}]path to control file \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR code \end{Desc}
+
+
+References dts\_\-fclose(), dts\_\-fopen(), and dts\_\-printControl().
+
+Referenced by dts\_\-Ingest().\hypertarget{dtsQueueUtil_8c_6fb308e1c21f70d133d45c971ae90187}{
+\index{dtsQueueUtil.c@{dtsQueueUtil.c}!dts\_\-verifyDTS@{dts\_\-verifyDTS}}
+\index{dts\_\-verifyDTS@{dts\_\-verifyDTS}!dtsQueueUtil.c@{dtsQueueUtil.c}}
+\subsubsection[{dts\_\-verifyDTS}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dts\_\-verifyDTS (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em fname})}}
+\label{dtsQueueUtil_8c_6fb308e1c21f70d133d45c971ae90187}
+
+
+Verify a \hyperlink{structDTS}{DTS} queue connection. 
+
+DTS\_\-VERIFYDTS -- Verify a \hyperlink{structDTS}{DTS} queue connection.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]\hyperlink{structDTS}{DTS} host name \item[{\em qname}]queue name \item[{\em fname}]file name to transfer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]remote path to queue directory (caller frees ptr) \end{Desc}
+
+
+References dts\_\-hostContact(), dts\_\-hostInitTransfer(), dts\_\-hostPing(), dts\_\-queueLookup(), and dtsLog().

@@ -1,0 +1,19 @@
+#!/bin/csh -f
+
+echo "Command Args:"			 > /tmp/deltest.out
+echo "    F 		=" $1 		>> /tmp/deltest.out
+echo "    D 		=" $2 		>> /tmp/deltest.out
+echo "    S 		=" $3 		>> /tmp/deltest.out
+echo "    Q 		=" $4 		>> /tmp/deltest.out
+echo "    E 		=" $5 		>> /tmp/deltest.out
+echo "    sum32 	=" $6 		>> /tmp/deltest.out
+echo "    crc32 	=" $7 		>> /tmp/deltest.out
+echo "    md5  		=" $8 		>> /tmp/deltest.out
+echo "    ON 		=" $9 		>> /tmp/deltest.out
+echo "    OP 		=" $10 		>> /tmp/deltest.out
+echo "    DN 		=" $11 		>> /tmp/deltest.out
+echo "    DP 		=" $12 		>> /tmp/deltest.out
+echo "    SP 		=" $13 		>> /tmp/deltest.out
+echo "    OH 		=" $14 		>> /tmp/deltest.out
+echo "    FULL  	=" $15		>> /tmp/deltest.out
+echo "

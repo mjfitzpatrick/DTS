@@ -1,0 +1,220 @@
+\hypertarget{dtsQueue_8c}{
+\section{dtsQueue.c File Reference}
+\label{dtsQueue_8c}\index{dtsQueue.c@{dtsQueue.c}}
+}
+\hyperlink{structDTS}{DTS} queue methods.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsQueue_8c_d72dbcf6d0153db1b8d8a58001feed83}{
+\#define \textbf{DEBUG}~(dts\&\&dts $\rightarrow$ debug$>$2)}
+\label{dtsQueue_8c_d72dbcf6d0153db1b8d8a58001feed83}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsQueue_8c_fb6a7eddc8f5295acd7442db33de50fa}{dts\_\-hostInitTransfer} (char $\ast$host, char $\ast$qname, char $\ast$fname, char $\ast$msg)
+\begin{CompactList}\small\item\em See if a queue will accept a new entry. \item\end{CompactList}\item 
+int \hyperlink{dtsQueue_8c_1db53020eef230d9ebda088d24adf4fc}{dts\_\-hostEndTransfer} (char $\ast$host, char $\ast$qname, char $\ast$qpath)
+\begin{CompactList}\small\item\em Terminate the file transfer. \item\end{CompactList}\item 
+int \hyperlink{dtsQueue_8c_75780c06abeb5dd4be842b180deb1d4f}{dts\_\-hostQueueAccept} (char $\ast$host, char $\ast$qname, char $\ast$fname, char $\ast$msg)
+\begin{CompactList}\small\item\em See if a queue will accept a new entry. \item\end{CompactList}\item 
+int \hyperlink{dtsQueue_8c_b12f0a780dd6d60dde018330b1b4a9d4}{dts\_\-hostQueueComplete} (char $\ast$host, char $\ast$qname, char $\ast$qpath)
+\begin{CompactList}\small\item\em Complete a file transfer. \item\end{CompactList}\item 
+int \hyperlink{dtsQueue_8c_6966f9abbe3aea635c9d4707e2e293f2}{dts\_\-hostQueueRelease} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em Release the lock semaphore on a queue. \item\end{CompactList}\item 
+int \hyperlink{dtsQueue_8c_f19a2ffd28b1601f51253b94b6b1b4f2}{dts\_\-hostQueueValid} (char $\ast$host, char $\ast$qname)
+\begin{CompactList}\small\item\em See if a queue name is valid on the host. \item\end{CompactList}\item 
+int \hyperlink{dtsQueue_8c_46961ffd23e344ea1f48583ff9eee8ae}{dts\_\-hostSetQueueControl} (char $\ast$host, char $\ast$qPath, Control $\ast$ctrl)
+\begin{CompactList}\small\item\em Set the control params for the transfer. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsQueue_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsQueue_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsQueue_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}{
+int \textbf{dts\_\-monitor}}
+\label{dtsQueue_8c_d8f21a42bf01c1da76a2fc11f6fb51d6}
+
+\item 
+\hypertarget{dtsQueue_8c_4e3d0548c599124f2df64c499a8b0ee6}{
+int \textbf{queue\_\-delay}}
+\label{dtsQueue_8c_4e3d0548c599124f2df64c499a8b0ee6}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} queue methods. 
+
+DTSQUEUE.C -- \hyperlink{structDTS}{DTS} queue methods.
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsQueue_8c_1db53020eef230d9ebda088d24adf4fc}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostEndTransfer@{dts\_\-hostEndTransfer}}
+\index{dts\_\-hostEndTransfer@{dts\_\-hostEndTransfer}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostEndTransfer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostEndTransfer (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em qpath})}}
+\label{dtsQueue_8c_1db53020eef230d9ebda088d24adf4fc}
+
+
+Terminate the file transfer. 
+
+DTS\_\-HOSTENDTRANSFER -- Terminate the file transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]name of queue \item[{\em qpath}]path to queue directory \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsQueue_8c_fb6a7eddc8f5295acd7442db33de50fa}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostInitTransfer@{dts\_\-hostInitTransfer}}
+\index{dts\_\-hostInitTransfer@{dts\_\-hostInitTransfer}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostInitTransfer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostInitTransfer (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em fname}, \/  char $\ast$ {\em msg})}}
+\label{dtsQueue_8c_fb6a7eddc8f5295acd7442db33de50fa}
+
+
+See if a queue will accept a new entry. 
+
+DTS\_\-HOSTINITTRANSFER -- See if a queue will accept a new entry.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]name of queue \item[{\em fname}]name of queue \item[{\em msg}]returned message/path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-du(), dts\_\-getClient(), and dtsLog().
+
+Referenced by dts\_\-verifyDTS().\hypertarget{dtsQueue_8c_75780c06abeb5dd4be842b180deb1d4f}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostQueueAccept@{dts\_\-hostQueueAccept}}
+\index{dts\_\-hostQueueAccept@{dts\_\-hostQueueAccept}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostQueueAccept}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostQueueAccept (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em fname}, \/  char $\ast$ {\em msg})}}
+\label{dtsQueue_8c_75780c06abeb5dd4be842b180deb1d4f}
+
+
+See if a queue will accept a new entry. 
+
+DTS\_\-HOSTQUEUEACCEPT -- See if a queue will accept a new entry.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]name of queue \item[{\em fname}]name of queue \item[{\em msg}]returned message/path \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), dts\_\-du(), and dts\_\-getClient().\hypertarget{dtsQueue_8c_b12f0a780dd6d60dde018330b1b4a9d4}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostQueueComplete@{dts\_\-hostQueueComplete}}
+\index{dts\_\-hostQueueComplete@{dts\_\-hostQueueComplete}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostQueueComplete}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostQueueComplete (char $\ast$ {\em host}, \/  char $\ast$ {\em qname}, \/  char $\ast$ {\em qpath})}}
+\label{dtsQueue_8c_b12f0a780dd6d60dde018330b1b4a9d4}
+
+
+Complete a file transfer. 
+
+DTS\_\-HOSTQUEUECOMPLETE -- Complete a file transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]name of queue \item[{\em qpath}]path to queue directory \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsQueue_8c_6966f9abbe3aea635c9d4707e2e293f2}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostQueueRelease@{dts\_\-hostQueueRelease}}
+\index{dts\_\-hostQueueRelease@{dts\_\-hostQueueRelease}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostQueueRelease}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostQueueRelease (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsQueue_8c_6966f9abbe3aea635c9d4707e2e293f2}
+
+
+Release the lock semaphore on a queue. 
+
+DTS\_\-HOSTQUEUERELEASE -- Release the lock semaphore on a queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]name of queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsQueue_8c_f19a2ffd28b1601f51253b94b6b1b4f2}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostQueueValid@{dts\_\-hostQueueValid}}
+\index{dts\_\-hostQueueValid@{dts\_\-hostQueueValid}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostQueueValid}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostQueueValid (char $\ast$ {\em host}, \/  char $\ast$ {\em qname})}}
+\label{dtsQueue_8c_f19a2ffd28b1601f51253b94b6b1b4f2}
+
+
+See if a queue name is valid on the host. 
+
+DTS\_\-HOSTQUEUEVALID -- See if a queue name is valid on the host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qname}]name of queue \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().\hypertarget{dtsQueue_8c_46961ffd23e344ea1f48583ff9eee8ae}{
+\index{dtsQueue.c@{dtsQueue.c}!dts\_\-hostSetQueueControl@{dts\_\-hostSetQueueControl}}
+\index{dts\_\-hostSetQueueControl@{dts\_\-hostSetQueueControl}!dtsQueue.c@{dtsQueue.c}}
+\subsubsection[{dts\_\-hostSetQueueControl}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-hostSetQueueControl (char $\ast$ {\em host}, \/  char $\ast$ {\em qPath}, \/  Control $\ast$ {\em ctrl})}}
+\label{dtsQueue_8c_46961ffd23e344ea1f48583ff9eee8ae}
+
+
+Set the control params for the transfer. 
+
+DTS\_\-HOSTSETQUEUECONTROL -- Set the control params for the transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em host}]host machine name (or IP string) \item[{\em qPath}]path to queue directory being used \item[{\em ctrl}]Control data struct \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]OK or ERR \end{Desc}
+
+
+References dts\_\-closeClient(), dts\_\-cmdInit(), and dts\_\-getClient().
+
+Referenced by dts\_\-queueInitControl().

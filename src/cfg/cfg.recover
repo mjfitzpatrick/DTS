@@ -1,0 +1,11 @@
+################################################
+#  DES/DECam Queues
+################################################
+
+queue 
+       name        desar-dir
+       host        desar.cosmology.illinois.edu
+       dir         default
+       method      give
+       port	   3030
+       nthreads    20

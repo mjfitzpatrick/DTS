@@ -1,0 +1,1650 @@
+\hypertarget{dtsMethods_8c}{
+\section{dtsMethods.c File Reference}
+\label{dtsMethods_8c}\index{dtsMethods.c@{dtsMethods.c}}
+}
+\hyperlink{structDTS}{DTS} Command Interface.  
+
+
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$pthread.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$utime.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/statvfs.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/file.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$xmlrpc-c/base.h$>$}\par
+{\tt \#include $<$xmlrpc-c/client.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server.h$>$}\par
+{\tt \#include $<$xmlrpc-c/server\_\-abyss.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsdb.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsMethods.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{dtsMethods_8c_e3ac266317dc39678f3d4602a18bfe2d}{dts\_\-initDTS} (void $\ast$data)
+\begin{CompactList}\small\item\em Initialize the \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_361f4aab939793dfb0569a6c4a44ce6f}{dts\_\-shutdownDTS} (void $\ast$data)
+\begin{CompactList}\small\item\em Shut down the \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_46f5bb11473df0082a2608dfea74da9d}{dts\_\-abortDTS} (void $\ast$data)
+\begin{CompactList}\small\item\em Immediately exit the \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_10dacfed8b9b49a272fefb2e43ea1d46}{dts\_\-nodeStat} (void $\ast$data)
+\begin{CompactList}\small\item\em Return status information for the given node. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6c731a308ed8ef88d681b764138f2cc9}{dts\_\-Access} (void $\ast$data)
+\begin{CompactList}\small\item\em Check a file for an access mode. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_c27001c35620bc9c98e0a8ba78a8cd79}{dts\_\-Cat} (void $\ast$data)
+\begin{CompactList}\small\item\em Cat a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_a499447da9fbe9af644346c5aebb09b4}{dts\_\-Checksum} (void $\ast$data)
+\begin{CompactList}\small\item\em Checksum a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_ec8c588dd2acb08568c7e85c0d7120cf}{dts\_\-Copy} (void $\ast$data)
+\begin{CompactList}\small\item\em Copy a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6d74938420c50b9ad0a1a146c141ba64}{dts\_\-Cfg} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the current configuration table name. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_ac08a0df8bc7496681ab665a2e86cb6d}{dts\_\-Cwd} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the current working directory. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_bf03a38c9cdd60a956dc304834204116}{dts\_\-Delete} (void $\ast$data)
+\begin{CompactList}\small\item\em Delete a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_4a2a3c94ebcffbd68c74aafa737e45d1}{dts\_\-Dir} (void $\ast$data)
+\begin{CompactList}\small\item\em Get a directory listing. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_bc2400d2a531155eafc680ffd365f32a}{dts\_\-DestDir} (void $\ast$data)
+\begin{CompactList}\small\item\em Get a directory listing for a queue's delivery dir. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_5cffbe3779b2ef1dbf04d34b4bac079e}{dts\_\-CheckDir} (void $\ast$data)
+\begin{CompactList}\small\item\em Test whether path is a directory. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_618cc364a651a17fb3483dad361eedbe}{dts\_\-Chmod} (void $\ast$data)
+\begin{CompactList}\small\item\em Change the mode of a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_e04a61c16491099b875b41f4a635e291}{dts\_\-DiskFree} (void $\ast$data)
+\begin{CompactList}\small\item\em Get 1K-block disk space available on specified path. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_732a22478d5f46e5a4e2976249d66d38}{dts\_\-DiskUsed} (void $\ast$data)
+\begin{CompactList}\small\item\em Get 1K-block disk space used on specified path. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_006de305df1e685135b9b977669289df}{dts\_\-Echo} (void $\ast$data)
+\begin{CompactList}\small\item\em Echo the input text. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_4cc6308e659a5c7fa1ab4065bd5ea3f5}{dts\_\-FSize} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the file size for remote file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_cfbd6fcdb4bdfb8d41cffd60f8bcfdf3}{dts\_\-FMode} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the file mode for remote file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_ba95b5a3e2fcfe15ae840aa4ec0b4942}{dts\_\-FTime} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the file times for remote file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_dff653b6ba3ad7cd51490058740861c6}{dts\_\-Mkdir} (void $\ast$data)
+\begin{CompactList}\small\item\em Make a directory. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_19d7db1d5eaccd1e9699555bcfefbc38}{dts\_\-Ping} (void $\ast$data)
+\begin{CompactList}\small\item\em Is host and \hyperlink{structDTS}{DTS} alive. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_2d724c1418a17dd4ee3dcd37247a2a09}{dts\_\-PingSleep} (void $\ast$data)
+\begin{CompactList}\small\item\em Is host and \hyperlink{structDTS}{DTS} alive. \item\end{CompactList}\item 
+\hypertarget{dtsMethods_8c_87f40953098f0589383b7ee501a635be}{
+int \textbf{dts\_\-psHandler} (void $\ast$data)}
+\label{dtsMethods_8c_87f40953098f0589383b7ee501a635be}
+
+\item 
+\hypertarget{dtsMethods_8c_9ddf5c28c3463de772feedd22831c042}{
+int \textbf{dts\_\-nullHandler} (void $\ast$data)}
+\label{dtsMethods_8c_9ddf5c28c3463de772feedd22831c042}
+
+\item 
+int \hyperlink{dtsMethods_8c_cb8aa79a7799b47935955f38e2d77def}{dts\_\-PingStr} (void $\ast$data)
+\begin{CompactList}\small\item\em Is host and \hyperlink{structDTS}{DTS} alive. \item\end{CompactList}\item 
+\hypertarget{dtsMethods_8c_961e8a85514440b9015150a15e8338b2}{
+int \textbf{dts\_\-PingArray} (void $\ast$data)}
+\label{dtsMethods_8c_961e8a85514440b9015150a15e8338b2}
+
+\item 
+int \hyperlink{dtsMethods_8c_a672ed300392a0ed80e5c46ee387d62a}{dts\_\-remotePing} (void $\ast$data)
+\begin{CompactList}\small\item\em Is remote host and \hyperlink{structDTS}{DTS} alive. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_73f7b9ba497da83d67f703cd9dba2c2e}{dts\_\-Rename} (void $\ast$data)
+\begin{CompactList}\small\item\em Rename a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_f7719c48355884fe3d444ed0a09afe3b}{dts\_\-SetRoot} (void $\ast$data)
+\begin{CompactList}\small\item\em Set the root directory of a \hyperlink{structDTS}{DTS}. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b3dea3f45b01e564aa67d89478242343}{dts\_\-SetDbg} (void $\ast$data)
+\begin{CompactList}\small\item\em Set a debug flag on the \hyperlink{structDTS}{DTS} node machine. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6f47ca69bf1eda50d3130682c8244c4b}{dts\_\-UnsetDbg} (void $\ast$data)
+\begin{CompactList}\small\item\em Unset a debug flag on the \hyperlink{structDTS}{DTS} node machine. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_84893304fba31700afdd9cd47b4198b4}{dts\_\-Touch} (void $\ast$data)
+\begin{CompactList}\small\item\em Touch a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_7df7c922efb25da28519029f5144779b}{dts\_\-Read} (void $\ast$data)
+\begin{CompactList}\small\item\em Read from a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b0de9e9b0a1288980c0e59944266e87b}{dts\_\-Write} (void $\ast$data)
+\begin{CompactList}\small\item\em Read from a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_0ab5c061b309cd30c0be596bfdf92a9f}{dts\_\-Prealloc} (void $\ast$data)
+\begin{CompactList}\small\item\em Pre-allocate a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_4f4508b7c6f8874601ab0161d4c2f449}{dts\_\-Stat} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the stat() info for a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6343091c066d10a6e3c7368a7120f0f9}{dts\_\-startQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Start the named \hyperlink{structDTS}{DTS} queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_2ed77c5d8cf18c18fa5d4a5cee9c1c47}{dts\_\-shutdownQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Shut down the named \hyperlink{structDTS}{DTS} queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_878b4d1cad0c53224d13822b6dded0cb}{dts\_\-flushQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Flush the named queue. \item\end{CompactList}\item 
+\hypertarget{dtsMethods_8c_43d84007145b341b29f61eda79f45345}{
+int \textbf{dts\_\-pokeQueue} (void $\ast$data)}
+\label{dtsMethods_8c_43d84007145b341b29f61eda79f45345}
+
+\item 
+int \hyperlink{dtsMethods_8c_5efe2cb027747026d3d9b335aff4b5a6}{dts\_\-pauseQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Poke the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b1ea6fc651fc883c227224631299d10b}{dts\_\-stopQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Stop processing of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_a311f1ea0d3df80994528f4cbf54093f}{dts\_\-getQueueStat} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the status flag of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_5cad71e8597aaf7c7265aa7126d8f729}{dts\_\-setQueueStat} (void $\ast$data)
+\begin{CompactList}\small\item\em Set the status flag of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_1f3bb4bfd9be68b68c52cac1a31becbc}{dts\_\-setQueueCount} (void $\ast$data)
+\begin{CompactList}\small\item\em Set the pending count of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_ecab42624d49bbd1942b4f3bd4d3b091}{dts\_\-getQueueCount} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the pending count of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_4ee901f9c1c5eaaeaa76f719bf80716b}{dts\_\-setQueueDir} (void $\ast$data)
+\begin{CompactList}\small\item\em Set the queue deliveryDirectory. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b2dfedf348b3d1c02549faf26f07ddfe}{dts\_\-getQueueDir} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the queue delivery directory. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_2c88b678f5eaf5ef9299cc3b55a7cded}{dts\_\-setQueueCmd} (void $\ast$data)
+\begin{CompactList}\small\item\em Set the queue deliveryCmd. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_fb2360e076299a72ea8dfb32790fab9a}{dts\_\-getQueueCmd} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the queue deliveryCmd. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6a1ed66f2cd62648206e1848f44895d1}{dts\_\-getCopyDir} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the \hyperlink{structDTS}{DTS} copy directory. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_928a798bbd286046a2766e45b896a824}{dts\_\-execCmd} (void $\ast$data)
+\begin{CompactList}\small\item\em Execute the named command. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b012bd0d3620a402b33380698bac5102}{dts\_\-listQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em List pending queue data. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_67a85d42b3feb2bb53b1ad41a4750539}{dts\_\-restartQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Simply stop, then restart, the queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6c32c0ce373e664501bf5e1797bf6b49}{dts\_\-addToQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Add the named object to the \hyperlink{structDTS}{DTS} queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_0e1eece01f1e536b9533aa76af59dc02}{dts\_\-removeFromQueue} (void $\ast$data)
+\begin{CompactList}\small\item\em Remove the named object from the \hyperlink{structDTS}{DTS} queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b56e9026a75c34afa6029a31c0c99d46}{dts\_\-printQueueCfg} (void $\ast$data)
+\begin{CompactList}\small\item\em Print queue configuration. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_6da21a6bf89b72445afea3e2c37d167f}{dts\_\-List} (void $\ast$data)
+\begin{CompactList}\small\item\em List configuration parameters. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_ce4b0cbb00b63c8112cf083a2645d3b0}{dts\_\-Set} (void $\ast$data)
+\begin{CompactList}\small\item\em Set and option value. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_d05cd3fc1d14305e8c61a1e6ef70e36c}{dts\_\-Get} (void $\ast$data)
+\begin{CompactList}\small\item\em Get and option value. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_c8c5d40e162308d4c43c183848be0416}{dts\_\-queueAccept} (void $\ast$data)
+\begin{CompactList}\small\item\em See if queue will accept a new object. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_beea983d9d3d0f004bd1984370f2036c}{dts\_\-queueValid} (void $\ast$data)
+\begin{CompactList}\small\item\em See if queue name is valid on the host. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_90888d73c6e736ff54cbae4c417c2d00}{dts\_\-queueDest} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the destination of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_f73214def7ca64da0431ae5392c1acd3}{dts\_\-queueSrc} (void $\ast$data)
+\begin{CompactList}\small\item\em Get the source of the named queue. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_652d4338138b96811d1b2c7a6a44b10d}{dts\_\-queueComplete} (void $\ast$data)
+\begin{CompactList}\small\item\em Complete transfer of a file. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_ab34aa718f725560916b5c61fe72991b}{dts\_\-queueRelease} (void $\ast$data)
+\begin{CompactList}\small\item\em Release lock on queue semaphore. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_d80cf0794a768f8fbccdb7395bd6723a}{dts\_\-queueSetControl} (void $\ast$data)
+\begin{CompactList}\small\item\em Create the control file for the transfer. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_2a7adcb7a51b745cb6d6d26e48b6cc9c}{dts\_\-queueUpdateStats} (void $\ast$data)
+\begin{CompactList}\small\item\em Update queue transfer statistics. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_38386aff2ebf38ae5ba61cf88e2bd83e}{dts\_\-initTransfer} (void $\ast$data)
+\begin{CompactList}\small\item\em Initialize a transfer operation. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_a3f5dc3a56d05d3e10d1fc16b4f51b3a}{dts\_\-endTransfer} (void $\ast$data)
+\begin{CompactList}\small\item\em Clean up and terminate a transfer operation. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_8d8e170e92bb4d96d91d1e240f106bb8}{dts\_\-doTransfer} (void $\ast$data)
+\begin{CompactList}\small\item\em Do the actual transfer of an object. \item\end{CompactList}\item 
+int \hyperlink{dtsMethods_8c_b5e37cd3a86ceb23576d368fc83ab777}{dts\_\-cancelTransfer} (void $\ast$data)
+\begin{CompactList}\small\item\em Cancel an active file transfer. \item\end{CompactList}\item 
+\hypertarget{dtsMethods_8c_4365c9c9515692e21a953c844e026cae}{
+int \textbf{dts\_\-testFault} (void $\ast$data)}
+\label{dtsMethods_8c_4365c9c9515692e21a953c844e026cae}
+
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsMethods_8c_99390fcf722f24689439904d1b546dce}{
+\hyperlink{structDTS}{DTS} $\ast$ \textbf{dts}}
+\label{dtsMethods_8c_99390fcf722f24689439904d1b546dce}
+
+\item 
+\hypertarget{dtsMethods_8c_5abc4ea4f598dd77191fb19c3f91395b}{
+char $\ast$ \textbf{build\_\-version}}
+\label{dtsMethods_8c_5abc4ea4f598dd77191fb19c3f91395b}
+
+\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} Command Interface. 
+
+\hyperlink{structDTS}{DTS} Command Interface - These are the methods implemented for he XML-RPC interace. These command are used from a variety of locations during the operation of the \hyperlink{structDTS}{DTS} (i.e. the queueing, logging or interactive environments.
+
+initDTS - reinitialize \hyperlink{structDTS}{DTS} shutdownDTS - shutdown \hyperlink{structDTS}{DTS}, cancel all queues abortDTS - exit \hyperlink{structDTS}{DTS} immediately
+
+File Operations:
+
+access $<$path$>$ $<$mode$>$ - check file access cwd - get current working directory del $<$pattern$>$ $<$pass$>$ $<$recur$>$ - delete a file dir $<$pattern$>$ - get a directory listing diskFree - how much disk space is available? diskUsed - how much disk space is used? echo $<$str$>$ - simple echo function fsize $<$fname$>$ - get a file size ftime $<$fname$>$ - get a file time mkdir $<$path$>$ - make a directory ping - simple aliveness test function sping - simple aliveness test function prealloc $<$fname$>$ $<$nbytes$>$ - preallocate space for a file rename $<$old$>$ $<$new$>$ - rename a file stat $<$fname$>$ - get file stat() info setroot $<$path$>$ - set the root directory of a \hyperlink{structDTS}{DTS} touch $<$path$>$ - touch a file access time
+
+Queue Operations:
+
+startQueue - start the named queue stopQueue - stop the named queue flushQueue - flush the named queue listQueue - list pending queue data restartQueue - restart (stop-then-start) queue addToQueue - add object to queue removeFromQueue - delete object from queue printQueueCfg - print queue configuration
+
+queueAccept - accept new object to queue queueValid - See if queue name is valid queueSetControl - Set control file for transfer queueTrace - trace connectivity through a queue queueUpdateStats - update queue statistics
+
+list $<$option$>$ - list config parameters set $<$option$>$ 
+
+- set a specified option get $<$option$>$ - get value of option
+
+initTransfer $<$method$>$ - initialize an object transfer doTransfer - transfer the actual file endTransfer - end the object transfer cancelTransfer - abort an in-progress transfer
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]6/10/09 \end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{dtsMethods_8c_46f5bb11473df0082a2608dfea74da9d}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-abortDTS@{dts\_\-abortDTS}}
+\index{dts\_\-abortDTS@{dts\_\-abortDTS}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-abortDTS}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-abortDTS (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_46f5bb11473df0082a2608dfea74da9d}
+
+
+Immediately exit the \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-ABORTDTS -- Immediately exit the \hyperlink{structDTS}{DTS} daemon.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-validPasswd().\hypertarget{dtsMethods_8c_6c731a308ed8ef88d681b764138f2cc9}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Access@{dts\_\-Access}}
+\index{dts\_\-Access@{dts\_\-Access}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Access}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Access (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6c731a308ed8ef88d681b764138f2cc9}
+
+
+Check a file for an access mode. 
+
+DTS\_\-ACCESS -- Check a file for an access mode.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_6c32c0ce373e664501bf5e1797bf6b49}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-addToQueue@{dts\_\-addToQueue}}
+\index{dts\_\-addToQueue@{dts\_\-addToQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-addToQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-addToQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6c32c0ce373e664501bf5e1797bf6b49}
+
+
+Add the named object to the \hyperlink{structDTS}{DTS} queue. 
+
+DTS\_\-ADDTOTQUEUE -- Add the named object to the \hyperlink{structDTS}{DTS} queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_b5e37cd3a86ceb23576d368fc83ab777}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-cancelTransfer@{dts\_\-cancelTransfer}}
+\index{dts\_\-cancelTransfer@{dts\_\-cancelTransfer}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-cancelTransfer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-cancelTransfer (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b5e37cd3a86ceb23576d368fc83ab777}
+
+
+Cancel an active file transfer. 
+
+DTS\_\-CANCELTRANSFER -- Cancel an active file transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_c27001c35620bc9c98e0a8ba78a8cd79}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Cat@{dts\_\-Cat}}
+\index{dts\_\-Cat@{dts\_\-Cat}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Cat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Cat (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_c27001c35620bc9c98e0a8ba78a8cd79}
+
+
+Cat a file. 
+
+DTS\_\-CAT -- Cat a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References base64\_\-encode(), dts\_\-fileRead(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_6d74938420c50b9ad0a1a146c141ba64}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Cfg@{dts\_\-Cfg}}
+\index{dts\_\-Cfg@{dts\_\-Cfg}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Cfg}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Cfg (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6d74938420c50b9ad0a1a146c141ba64}
+
+
+Get the current configuration table name. 
+
+DTS\_\-CFG -- Get the current configuration table name.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-fmtConfig(), and dtsLog().\hypertarget{dtsMethods_8c_5cffbe3779b2ef1dbf04d34b4bac079e}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-CheckDir@{dts\_\-CheckDir}}
+\index{dts\_\-CheckDir@{dts\_\-CheckDir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-CheckDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-CheckDir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_5cffbe3779b2ef1dbf04d34b4bac079e}
+
+
+Test whether path is a directory. 
+
+DTS\_\-CHECKDIR -- Test whether path is a directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-isDir(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_a499447da9fbe9af644346c5aebb09b4}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Checksum@{dts\_\-Checksum}}
+\index{dts\_\-Checksum@{dts\_\-Checksum}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Checksum}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Checksum (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_a499447da9fbe9af644346c5aebb09b4}
+
+
+Checksum a file. 
+
+DTS\_\-CHECKSUM -- Checksum a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_618cc364a651a17fb3483dad361eedbe}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Chmod@{dts\_\-Chmod}}
+\index{dts\_\-Chmod@{dts\_\-Chmod}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Chmod}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Chmod (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_618cc364a651a17fb3483dad361eedbe}
+
+
+Change the mode of a file. 
+
+DTS\_\-CHMOD -- Change the mode of a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_ec8c588dd2acb08568c7e85c0d7120cf}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Copy@{dts\_\-Copy}}
+\index{dts\_\-Copy@{dts\_\-Copy}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Copy}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Copy (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_ec8c588dd2acb08568c7e85c0d7120cf}
+
+
+Copy a file. 
+
+DTS\_\-COPY -- Copy a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_ac08a0df8bc7496681ab665a2e86cb6d}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Cwd@{dts\_\-Cwd}}
+\index{dts\_\-Cwd@{dts\_\-Cwd}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Cwd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Cwd (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_ac08a0df8bc7496681ab665a2e86cb6d}
+
+
+Get the current working directory. 
+
+DTS\_\-CWD -- Get the current working directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_bf03a38c9cdd60a956dc304834204116}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Delete@{dts\_\-Delete}}
+\index{dts\_\-Delete@{dts\_\-Delete}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Delete}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Delete (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_bf03a38c9cdd60a956dc304834204116}
+
+
+Delete a file. 
+
+DTS\_\-DEL -- Delete a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-isDir(), dts\_\-isTemplate(), dts\_\-sandboxPath(), dts\_\-unlink(), dts\_\-validPasswd(), and dtsLog().\hypertarget{dtsMethods_8c_bc2400d2a531155eafc680ffd365f32a}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-DestDir@{dts\_\-DestDir}}
+\index{dts\_\-DestDir@{dts\_\-DestDir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-DestDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-DestDir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_bc2400d2a531155eafc680ffd365f32a}
+
+
+Get a directory listing for a queue's delivery dir. 
+
+DTS\_\-DESTDIR -- Get a directory listing for a queue's delivery dir.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dtsLog().\hypertarget{dtsMethods_8c_4a2a3c94ebcffbd68c74aafa737e45d1}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Dir@{dts\_\-Dir}}
+\index{dts\_\-Dir@{dts\_\-Dir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Dir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Dir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_4a2a3c94ebcffbd68c74aafa737e45d1}
+
+
+Get a directory listing. 
+
+DTS\_\-DIR -- Get a directory listing.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-fmtMode(), dts\_\-isTemplate(), dts\_\-patMatch(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_e04a61c16491099b875b41f4a635e291}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-DiskFree@{dts\_\-DiskFree}}
+\index{dts\_\-DiskFree@{dts\_\-DiskFree}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-DiskFree}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-DiskFree (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_e04a61c16491099b875b41f4a635e291}
+
+
+Get 1K-block disk space available on specified path. 
+
+DTS\_\-DISKFREE -- Get disk space available on specified path.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_732a22478d5f46e5a4e2976249d66d38}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-DiskUsed@{dts\_\-DiskUsed}}
+\index{dts\_\-DiskUsed@{dts\_\-DiskUsed}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-DiskUsed}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-DiskUsed (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_732a22478d5f46e5a4e2976249d66d38}
+
+
+Get 1K-block disk space used on specified path. 
+
+DTS\_\-DISKUSED -- Get disk space used on specified path.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_8d8e170e92bb4d96d91d1e240f106bb8}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-doTransfer@{dts\_\-doTransfer}}
+\index{dts\_\-doTransfer@{dts\_\-doTransfer}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-doTransfer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-doTransfer (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_8d8e170e92bb4d96d91d1e240f106bb8}
+
+
+Do the actual transfer of an object. 
+
+DTS\_\-DOTRANSFER -- Do the actual transfer of an object.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_006de305df1e685135b9b977669289df}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Echo@{dts\_\-Echo}}
+\index{dts\_\-Echo@{dts\_\-Echo}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Echo}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Echo (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_006de305df1e685135b9b977669289df}
+
+
+Echo the input text. 
+
+DTS\_\-ECHO -- Simple echo function.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_a3f5dc3a56d05d3e10d1fc16b4f51b3a}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-endTransfer@{dts\_\-endTransfer}}
+\index{dts\_\-endTransfer@{dts\_\-endTransfer}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-endTransfer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-endTransfer (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_a3f5dc3a56d05d3e10d1fc16b4f51b3a}
+
+
+Clean up and terminate a transfer operation. 
+
+DTS\_\-ENDTRANSFER -- Clean up and terminate a transfer operation.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-Deliver(), dts\_\-Ingest(), dts\_\-loadControl(), dts\_\-logXFerStats(), dts\_\-qstatDiskEnd(), dts\_\-qstatDiskStart(), dts\_\-qstatDlvrStat(), dts\_\-qstatEnd(), dts\_\-qstatSetFName(), dts\_\-qstatSummary(), dts\_\-queueDelete(), dts\_\-queueGetCurrent(), dts\_\-queueLookup(), dts\_\-queueNameFmt(), dts\_\-queueSetCurrent(), dts\_\-sandboxPath(), dts\_\-semIncr(), dtsErrLog(), dtsLog(), transferMB(), and transferMb().\hypertarget{dtsMethods_8c_928a798bbd286046a2766e45b896a824}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-execCmd@{dts\_\-execCmd}}
+\index{dts\_\-execCmd@{dts\_\-execCmd}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-execCmd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-execCmd (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_928a798bbd286046a2766e45b896a824}
+
+
+Execute the named command. 
+
+DTS\_\-EXECCMD -- Execute the named command.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sysExec().\hypertarget{dtsMethods_8c_878b4d1cad0c53224d13822b6dded0cb}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-flushQueue@{dts\_\-flushQueue}}
+\index{dts\_\-flushQueue@{dts\_\-flushQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-flushQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-flushQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_878b4d1cad0c53224d13822b6dded0cb}
+
+
+Flush the named queue. 
+
+DTS\_\-FLUSHQUEUE -- Set current to next, which is used to skip over files.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueGetCurrent(), dts\_\-queueGetNext(), dts\_\-queueLookup(), and dts\_\-queueSetCurrent().\hypertarget{dtsMethods_8c_cfbd6fcdb4bdfb8d41cffd60f8bcfdf3}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-FMode@{dts\_\-FMode}}
+\index{dts\_\-FMode@{dts\_\-FMode}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-FMode}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-FMode (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_cfbd6fcdb4bdfb8d41cffd60f8bcfdf3}
+
+
+Get the file mode for remote file. 
+
+DTS\_\-FMODE -- Get the file mode for remote file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_4cc6308e659a5c7fa1ab4065bd5ea3f5}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-FSize@{dts\_\-FSize}}
+\index{dts\_\-FSize@{dts\_\-FSize}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-FSize}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-FSize (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_4cc6308e659a5c7fa1ab4065bd5ea3f5}
+
+
+Get the file size for remote file. 
+
+DTS\_\-FSIZE -- Get the file size for remote file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-du(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_ba95b5a3e2fcfe15ae840aa4ec0b4942}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-FTime@{dts\_\-FTime}}
+\index{dts\_\-FTime@{dts\_\-FTime}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-FTime}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-FTime (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_ba95b5a3e2fcfe15ae840aa4ec0b4942}
+
+
+Get the file times for remote file. 
+
+DTS\_\-FTIME -- Get the file access/create/modify time for remote file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_d05cd3fc1d14305e8c61a1e6ef70e36c}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Get@{dts\_\-Get}}
+\index{dts\_\-Get@{dts\_\-Get}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Get}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Get (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_d05cd3fc1d14305e8c61a1e6ef70e36c}
+
+
+Get and option value. 
+
+DTS\_\-GET - Get an option value.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsMethods_8c_6a1ed66f2cd62648206e1848f44895d1}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-getCopyDir@{dts\_\-getCopyDir}}
+\index{dts\_\-getCopyDir@{dts\_\-getCopyDir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-getCopyDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getCopyDir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6a1ed66f2cd62648206e1848f44895d1}
+
+
+Get the \hyperlink{structDTS}{DTS} copy directory. 
+
+DTS\_\-GETCOPYDIR -- Get the \hyperlink{structDTS}{DTS} copy directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_fb2360e076299a72ea8dfb32790fab9a}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-getQueueCmd@{dts\_\-getQueueCmd}}
+\index{dts\_\-getQueueCmd@{dts\_\-getQueueCmd}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-getQueueCmd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getQueueCmd (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_fb2360e076299a72ea8dfb32790fab9a}
+
+
+Get the queue deliveryCmd. 
+
+DTS\_\-GETQUEUECMD -- Get the queue deliveryCmd.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsMethods_8c_ecab42624d49bbd1942b4f3bd4d3b091}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-getQueueCount@{dts\_\-getQueueCount}}
+\index{dts\_\-getQueueCount@{dts\_\-getQueueCount}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-getQueueCount}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getQueueCount (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_ecab42624d49bbd1942b4f3bd4d3b091}
+
+
+Get the pending count of the named queue. 
+
+DTS\_\-GETQUEUECOUNT -- Get the pending count of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dts\_\-semGetVal().\hypertarget{dtsMethods_8c_b2dfedf348b3d1c02549faf26f07ddfe}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-getQueueDir@{dts\_\-getQueueDir}}
+\index{dts\_\-getQueueDir@{dts\_\-getQueueDir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-getQueueDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getQueueDir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b2dfedf348b3d1c02549faf26f07ddfe}
+
+
+Get the queue delivery directory. 
+
+DTS\_\-GETQUEUEDIR -- Get the queue delivery directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsMethods_8c_a311f1ea0d3df80994528f4cbf54093f}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-getQueueStat@{dts\_\-getQueueStat}}
+\index{dts\_\-getQueueStat@{dts\_\-getQueueStat}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-getQueueStat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-getQueueStat (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_a311f1ea0d3df80994528f4cbf54093f}
+
+
+Get the status flag of the named queue. 
+
+DTS\_\-GETQUEUESTAT -- Get the status flag of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dts\_\-semGetVal().\hypertarget{dtsMethods_8c_e3ac266317dc39678f3d4602a18bfe2d}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-initDTS@{dts\_\-initDTS}}
+\index{dts\_\-initDTS@{dts\_\-initDTS}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-initDTS}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-initDTS (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_e3ac266317dc39678f3d4602a18bfe2d}
+
+
+Initialize the \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-INITDTS -- (Re-)Initialize the \hyperlink{structDTS}{DTS}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_38386aff2ebf38ae5ba61cf88e2bd83e}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-initTransfer@{dts\_\-initTransfer}}
+\index{dts\_\-initTransfer@{dts\_\-initTransfer}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-initTransfer}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-initTransfer (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_38386aff2ebf38ae5ba61cf88e2bd83e}
+
+
+Initialize a transfer operation. 
+
+DTS\_\-INITTRANSFER -- Initialize a transfer operation.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-getNextQueueDir(), dts\_\-getQueuePath(), dts\_\-qstatInit(), dts\_\-qstatStart(), dts\_\-queueLookup(), dts\_\-queueNameFmt(), dts\_\-semGetVal(), and dtsLog().\hypertarget{dtsMethods_8c_6da21a6bf89b72445afea3e2c37d167f}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-List@{dts\_\-List}}
+\index{dts\_\-List@{dts\_\-List}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-List}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-List (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6da21a6bf89b72445afea3e2c37d167f}
+
+
+List configuration parameters. 
+
+DTS\_\-LIST -- List config parameters.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_b012bd0d3620a402b33380698bac5102}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-listQueue@{dts\_\-listQueue}}
+\index{dts\_\-listQueue@{dts\_\-listQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-listQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-listQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b012bd0d3620a402b33380698bac5102}
+
+
+List pending queue data. 
+
+DTS\_\-LISTQUEUE -- List pending queue data.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_dff653b6ba3ad7cd51490058740861c6}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Mkdir@{dts\_\-Mkdir}}
+\index{dts\_\-Mkdir@{dts\_\-Mkdir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Mkdir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Mkdir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_dff653b6ba3ad7cd51490058740861c6}
+
+
+Make a directory. 
+
+DTS\_\-MKDIR -- Make a directory.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_10dacfed8b9b49a272fefb2e43ea1d46}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-nodeStat@{dts\_\-nodeStat}}
+\index{dts\_\-nodeStat@{dts\_\-nodeStat}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-nodeStat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-nodeStat (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_10dacfed8b9b49a272fefb2e43ea1d46}
+
+
+Return status information for the given node. 
+
+DTS\_\-NODESTAT - Return status information for the given node.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-cfgQNodeStr(), dts\_\-queueGetCurrent(), dts\_\-queueGetNext(), dts\_\-queueGetStats(), dts\_\-sandboxPath(), and dts\_\-semGetVal().\hypertarget{dtsMethods_8c_5efe2cb027747026d3d9b335aff4b5a6}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-pauseQueue@{dts\_\-pauseQueue}}
+\index{dts\_\-pauseQueue@{dts\_\-pauseQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-pauseQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-pauseQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_5efe2cb027747026d3d9b335aff4b5a6}
+
+
+Poke the named queue. 
+
+Pause processing of the named queue.
+
+DTS\_\-POKEQUEUE -- Add 1 to current, which is used to skip over files.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno\end{Desc}
+DTS\_\-PAUSEQUEUE -- Stop processing of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-semGetVal(), dts\_\-semSetVal(), and dtsLog().\hypertarget{dtsMethods_8c_19d7db1d5eaccd1e9699555bcfefbc38}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Ping@{dts\_\-Ping}}
+\index{dts\_\-Ping@{dts\_\-Ping}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Ping}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Ping (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_19d7db1d5eaccd1e9699555bcfefbc38}
+
+
+Is host and \hyperlink{structDTS}{DTS} alive. 
+
+DTS\_\-PING -- Simple aliveness test function.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_2d724c1418a17dd4ee3dcd37247a2a09}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-PingSleep@{dts\_\-PingSleep}}
+\index{dts\_\-PingSleep@{dts\_\-PingSleep}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-PingSleep}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-PingSleep (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_2d724c1418a17dd4ee3dcd37247a2a09}
+
+
+Is host and \hyperlink{structDTS}{DTS} alive. 
+
+DTS\_\-PINGSLEEP -- Simple aliveness test function.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno\end{Desc}
+NOTE: This is an ASYNC method. 
+
+References dts\_\-closeClient(), dts\_\-getClient(), and dtsLog().\hypertarget{dtsMethods_8c_cb8aa79a7799b47935955f38e2d77def}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-PingStr@{dts\_\-PingStr}}
+\index{dts\_\-PingStr@{dts\_\-PingStr}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-PingStr}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-PingStr (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_cb8aa79a7799b47935955f38e2d77def}
+
+
+Is host and \hyperlink{structDTS}{DTS} alive. 
+
+DTS\_\-PINGSTR -- Simple aliveness test function, string return
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno\end{Desc}
+DTS\_\-PINGARRAY -- Simple aliveness test function, array return
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_0ab5c061b309cd30c0be596bfdf92a9f}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Prealloc@{dts\_\-Prealloc}}
+\index{dts\_\-Prealloc@{dts\_\-Prealloc}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Prealloc}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Prealloc (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_0ab5c061b309cd30c0be596bfdf92a9f}
+
+
+Pre-allocate a file. 
+
+DTS\_\-PREALLOC -- Pre-allocate a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-preAlloc(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_b56e9026a75c34afa6029a31c0c99d46}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-printQueueCfg@{dts\_\-printQueueCfg}}
+\index{dts\_\-printQueueCfg@{dts\_\-printQueueCfg}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-printQueueCfg}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-printQueueCfg (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b56e9026a75c34afa6029a31c0c99d46}
+
+
+Print queue configuration. 
+
+DTS\_\-PRINTQUEUECFG -- Print queue configuration.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-cfgQMethodStr(), dts\_\-cfgQModeStr(), dts\_\-cfgQTypeStr(), and dts\_\-queueLookup().\hypertarget{dtsMethods_8c_c8c5d40e162308d4c43c183848be0416}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueAccept@{dts\_\-queueAccept}}
+\index{dts\_\-queueAccept@{dts\_\-queueAccept}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueAccept}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueAccept (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_c8c5d40e162308d4c43c183848be0416}
+
+
+See if queue will accept a new object. 
+
+DTS\_\-QUEUEACCEPT - See if queue will accept a new object.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-getNextQueueDir(), dts\_\-getQueuePath(), and dtsLog().\hypertarget{dtsMethods_8c_652d4338138b96811d1b2c7a6a44b10d}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueComplete@{dts\_\-queueComplete}}
+\index{dts\_\-queueComplete@{dts\_\-queueComplete}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueComplete}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueComplete (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_652d4338138b96811d1b2c7a6a44b10d}
+
+
+Complete transfer of a file. 
+
+DTS\_\-QUEUECOMPLETE - Complete transfer of a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), dtsGets(), and dtsLog().\hypertarget{dtsMethods_8c_90888d73c6e736ff54cbae4c417c2d00}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueDest@{dts\_\-queueDest}}
+\index{dts\_\-queueDest@{dts\_\-queueDest}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueDest}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueDest (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_90888d73c6e736ff54cbae4c417c2d00}
+
+
+Get the destination of the named queue. 
+
+DTS\_\-QUEUEDEST -- Get the destination of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_ab34aa718f725560916b5c61fe72991b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueRelease@{dts\_\-queueRelease}}
+\index{dts\_\-queueRelease@{dts\_\-queueRelease}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueRelease}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueRelease (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_ab34aa718f725560916b5c61fe72991b}
+
+
+Release lock on queue semaphore. 
+
+DTS\_\-QUEUERELEASE -- Release lock on queue semaphore.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dts\_\-semSetVal().\hypertarget{dtsMethods_8c_d80cf0794a768f8fbccdb7395bd6723a}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueSetControl@{dts\_\-queueSetControl}}
+\index{dts\_\-queueSetControl@{dts\_\-queueSetControl}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueSetControl}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueSetControl (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_d80cf0794a768f8fbccdb7395bd6723a}
+
+
+Create the control file for the transfer. 
+
+DTS\_\-QUEUESETCONTROL - Create the control file for the transfer.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-queueNameFmt(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_f73214def7ca64da0431ae5392c1acd3}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueSrc@{dts\_\-queueSrc}}
+\index{dts\_\-queueSrc@{dts\_\-queueSrc}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueSrc}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueSrc (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_f73214def7ca64da0431ae5392c1acd3}
+
+
+Get the source of the named queue. 
+
+DTS\_\-QUEUESRC -- Get the source of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_2a7adcb7a51b745cb6d6d26e48b6cc9c}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueUpdateStats@{dts\_\-queueUpdateStats}}
+\index{dts\_\-queueUpdateStats@{dts\_\-queueUpdateStats}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueUpdateStats}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueUpdateStats (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_2a7adcb7a51b745cb6d6d26e48b6cc9c}
+
+
+Update queue transfer statistics. 
+
+DTS\_\-QUEUEUPDATESTATS -- Update queue transfer statistics.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dts\_\-queueSetStats().\hypertarget{dtsMethods_8c_beea983d9d3d0f004bd1984370f2036c}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-queueValid@{dts\_\-queueValid}}
+\index{dts\_\-queueValid@{dts\_\-queueValid}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-queueValid}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-queueValid (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_beea983d9d3d0f004bd1984370f2036c}
+
+
+See if queue name is valid on the host. 
+
+DTS\_\-QUEUEVALID - See if queue name is valid on the host.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_7df7c922efb25da28519029f5144779b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Read@{dts\_\-Read}}
+\index{dts\_\-Read@{dts\_\-Read}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Read}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Read (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_7df7c922efb25da28519029f5144779b}
+
+
+Read from a file. 
+
+DTS\_\-READ -- Read from a file. We read at most 4096 bytes from the file at a time. On input we get the offset into the file and the requested number of bytes. We update the offset on output and return the number of bytes read as a base-64 encoded string.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References base64\_\-encode(), dts\_\-fileRead(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_a672ed300392a0ed80e5c46ee387d62a}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-remotePing@{dts\_\-remotePing}}
+\index{dts\_\-remotePing@{dts\_\-remotePing}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-remotePing}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-remotePing (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_a672ed300392a0ed80e5c46ee387d62a}
+
+
+Is remote host and \hyperlink{structDTS}{DTS} alive. 
+
+DTS\_\-REMOTEPING -- Simple 3rd party aliveness test function.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-hostPing(), and dtsLog().\hypertarget{dtsMethods_8c_0e1eece01f1e536b9533aa76af59dc02}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-removeFromQueue@{dts\_\-removeFromQueue}}
+\index{dts\_\-removeFromQueue@{dts\_\-removeFromQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-removeFromQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-removeFromQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_0e1eece01f1e536b9533aa76af59dc02}
+
+
+Remove the named object from the \hyperlink{structDTS}{DTS} queue. 
+
+DTS\_\-REMOVEFROMQUEUE -- Remove the named object from the \hyperlink{structDTS}{DTS} queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+\hypertarget{dtsMethods_8c_73f7b9ba497da83d67f703cd9dba2c2e}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Rename@{dts\_\-Rename}}
+\index{dts\_\-Rename@{dts\_\-Rename}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Rename}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Rename (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_73f7b9ba497da83d67f703cd9dba2c2e}
+
+
+Rename a file. 
+
+DTS\_\-RENAME -- Rename a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_67a85d42b3feb2bb53b1ad41a4750539}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-restartQueue@{dts\_\-restartQueue}}
+\index{dts\_\-restartQueue@{dts\_\-restartQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-restartQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-restartQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_67a85d42b3feb2bb53b1ad41a4750539}
+
+
+Simply stop, then restart, the queue. 
+
+DTS\_\-RESTARTQUEUE -- Simply stop, then restart, the queue. We pass through the calling params and don't need to interpret them here.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-startQueue(), and dts\_\-stopQueue().\hypertarget{dtsMethods_8c_ce4b0cbb00b63c8112cf083a2645d3b0}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Set@{dts\_\-Set}}
+\index{dts\_\-Set@{dts\_\-Set}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Set}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Set (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_ce4b0cbb00b63c8112cf083a2645d3b0}
+
+
+Set and option value. 
+
+DTS\_\-SET - Set an option value.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_b3dea3f45b01e564aa67d89478242343}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-SetDbg@{dts\_\-SetDbg}}
+\index{dts\_\-SetDbg@{dts\_\-SetDbg}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-SetDbg}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-SetDbg (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b3dea3f45b01e564aa67d89478242343}
+
+
+Set a debug flag on the \hyperlink{structDTS}{DTS} node machine. 
+
+DTS\_\-SETDBG -- Set a debug flag on the \hyperlink{structDTS}{DTS} node machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_2c88b678f5eaf5ef9299cc3b55a7cded}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-setQueueCmd@{dts\_\-setQueueCmd}}
+\index{dts\_\-setQueueCmd@{dts\_\-setQueueCmd}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-setQueueCmd}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-setQueueCmd (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_2c88b678f5eaf5ef9299cc3b55a7cded}
+
+
+Set the queue deliveryCmd. 
+
+DTS\_\-SETQUEUECMD -- Set the queue deliveryCmd
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsMethods_8c_1f3bb4bfd9be68b68c52cac1a31becbc}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-setQueueCount@{dts\_\-setQueueCount}}
+\index{dts\_\-setQueueCount@{dts\_\-setQueueCount}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-setQueueCount}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-setQueueCount (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_1f3bb4bfd9be68b68c52cac1a31becbc}
+
+
+Set the pending count of the named queue. 
+
+DTS\_\-SETQUEUECOUNT -- Set the pending count of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dts\_\-semSetVal().\hypertarget{dtsMethods_8c_4ee901f9c1c5eaaeaa76f719bf80716b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-setQueueDir@{dts\_\-setQueueDir}}
+\index{dts\_\-setQueueDir@{dts\_\-setQueueDir}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-setQueueDir}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-setQueueDir (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_4ee901f9c1c5eaaeaa76f719bf80716b}
+
+
+Set the queue deliveryDirectory. 
+
+DTS\_\-SETQUEUEDIR -- Set the queue deliveryDirectory
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup().\hypertarget{dtsMethods_8c_5cad71e8597aaf7c7265aa7126d8f729}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-setQueueStat@{dts\_\-setQueueStat}}
+\index{dts\_\-setQueueStat@{dts\_\-setQueueStat}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-setQueueStat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-setQueueStat (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_5cad71e8597aaf7c7265aa7126d8f729}
+
+
+Set the status flag of the named queue. 
+
+DTS\_\-SETQUEUESTAT -- Set the status flag of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), and dts\_\-semSetVal().\hypertarget{dtsMethods_8c_f7719c48355884fe3d444ed0a09afe3b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-SetRoot@{dts\_\-SetRoot}}
+\index{dts\_\-SetRoot@{dts\_\-SetRoot}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-SetRoot}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-SetRoot (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_f7719c48355884fe3d444ed0a09afe3b}
+
+
+Set the root directory of a \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-SETROOT -- Set the root directory of a \hyperlink{structDTS}{DTS}.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-initServerRoot(), dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_361f4aab939793dfb0569a6c4a44ce6f}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-shutdownDTS@{dts\_\-shutdownDTS}}
+\index{dts\_\-shutdownDTS@{dts\_\-shutdownDTS}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-shutdownDTS}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-shutdownDTS (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_361f4aab939793dfb0569a6c4a44ce6f}
+
+
+Shut down the \hyperlink{structDTS}{DTS}. 
+
+DTS\_\-SHUTDOWNDTS -- Shut down the \hyperlink{structDTS}{DTS} daemon.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-validPasswd().\hypertarget{dtsMethods_8c_2ed77c5d8cf18c18fa5d4a5cee9c1c47}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-shutdownQueue@{dts\_\-shutdownQueue}}
+\index{dts\_\-shutdownQueue@{dts\_\-shutdownQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-shutdownQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-shutdownQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_2ed77c5d8cf18c18fa5d4a5cee9c1c47}
+
+
+Shut down the named \hyperlink{structDTS}{DTS} queue. 
+
+DTS\_\-SHUTDOWNQUEUE -- Shutdown the named \hyperlink{structDTS}{DTS} queue
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-semGetVal(), dts\_\-semSetVal(), and dtsLog().\hypertarget{dtsMethods_8c_6343091c066d10a6e3c7368a7120f0f9}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-startQueue@{dts\_\-startQueue}}
+\index{dts\_\-startQueue@{dts\_\-startQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-startQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-startQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6343091c066d10a6e3c7368a7120f0f9}
+
+
+Start the named \hyperlink{structDTS}{DTS} queue. 
+
+DTS\_\-STARTQUEUE -- Start the named \hyperlink{structDTS}{DTS} queue
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-semGetVal(), dts\_\-semSetVal(), and dtsLog().
+
+Referenced by dts\_\-restartQueue().\hypertarget{dtsMethods_8c_4f4508b7c6f8874601ab0161d4c2f449}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Stat@{dts\_\-Stat}}
+\index{dts\_\-Stat@{dts\_\-Stat}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Stat}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Stat (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_4f4508b7c6f8874601ab0161d4c2f449}
+
+
+Get the stat() info for a file. 
+
+DTS\_\-STAT -- Get the stat() info for a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_b1ea6fc651fc883c227224631299d10b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-stopQueue@{dts\_\-stopQueue}}
+\index{dts\_\-stopQueue@{dts\_\-stopQueue}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-stopQueue}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-stopQueue (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b1ea6fc651fc883c227224631299d10b}
+
+
+Stop processing of the named queue. 
+
+DTS\_\-STOPQUEUE -- Stop processing of the named queue.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-queueLookup(), dts\_\-semSetVal(), and dtsLog().
+
+Referenced by dts\_\-restartQueue().\hypertarget{dtsMethods_8c_84893304fba31700afdd9cd47b4198b4}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Touch@{dts\_\-Touch}}
+\index{dts\_\-Touch@{dts\_\-Touch}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Touch}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Touch (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_84893304fba31700afdd9cd47b4198b4}
+
+
+Touch a file. 
+
+DTS\_\-TOUCH -- Touch a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dts\_\-sandboxPath(), and dtsLog().\hypertarget{dtsMethods_8c_6f47ca69bf1eda50d3130682c8244c4b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-UnsetDbg@{dts\_\-UnsetDbg}}
+\index{dts\_\-UnsetDbg@{dts\_\-UnsetDbg}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-UnsetDbg}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-UnsetDbg (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_6f47ca69bf1eda50d3130682c8244c4b}
+
+
+Unset a debug flag on the \hyperlink{structDTS}{DTS} node machine. 
+
+DTS\_\-UNSETDBG -- Unset a debug flag on the \hyperlink{structDTS}{DTS} node machine.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}
+
+
+References dtsLog().\hypertarget{dtsMethods_8c_b0de9e9b0a1288980c0e59944266e87b}{
+\index{dtsMethods.c@{dtsMethods.c}!dts\_\-Write@{dts\_\-Write}}
+\index{dts\_\-Write@{dts\_\-Write}!dtsMethods.c@{dtsMethods.c}}
+\subsubsection[{dts\_\-Write}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-Write (void $\ast$ {\em data})}}
+\label{dtsMethods_8c_b0de9e9b0a1288980c0e59944266e87b}
+
+
+Read from a file. 
+
+DTS\_\-WRITE -- Write to a file.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]caller param data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]status code or errno \end{Desc}

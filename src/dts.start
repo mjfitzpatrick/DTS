@@ -1,0 +1,17 @@
+#!/bin/csh -f
+
+limit coredumpsize unlimited
+
+
+# See if a DTSD is already running:
+ps -efw | egrep -v grep | egrep -e "dtsd"		>& /dev/null
+if ($status == 0) then
+    echo "DTSD is already running, type 'dts.stop' to stop it first."
+    exit 1
+endif
+
+# Clean out the working DTS directory so we start with a fresh system.
+./dts.clean
+
+bin/dtsd  -v -v +d +d 		>& dts.log	&
+tail -f dts.log

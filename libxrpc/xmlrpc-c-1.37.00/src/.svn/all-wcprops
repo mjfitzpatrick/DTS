@@ -1,0 +1,233 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src
+END
+xmlrpc_libxml2.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_libxml2.c
+END
+trace.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/trace.c
+END
+xmlrpc_parse.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_parse.c
+END
+xmlrpc_decompose.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_decompose.c
+END
+xmlrpc_client.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_client.c
+END
+parse_value.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/parse_value.c
+END
+xmlrpc_server_info.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_server_info.c
+END
+registry.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/registry.c
+END
+parse_value.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/parse_value.h
+END
+registry.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/registry.h
+END
+method.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/method.c
+END
+xmlrpc_build.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_build.c
+END
+system_method.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/system_method.c
+END
+method.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/method.h
+END
+parse_datetime.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/parse_datetime.c
+END
+resource.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/resource.c
+END
+system_method.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/system_method.h
+END
+base_global.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/base_global.c
+END
+parse_datetime.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/parse_datetime.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/Makefile
+END
+xmlrpc_server_abyss.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_server_abyss.c
+END
+xmlrpc_data.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_data.c
+END
+xmlrpc_array.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_array.c
+END
+xmlrpc_expat.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_expat.c
+END
+json.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/json.c
+END
+xmlrpc_struct.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_struct.c
+END
+double.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/double.c
+END
+xmlrpc_serialize.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_serialize.c
+END
+xmlrpc_server_cgi.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_server_cgi.c
+END
+abyss_handler.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/abyss_handler.c
+END
+double.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/double.h
+END
+xmlrpc_authcookie.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_authcookie.c
+END
+xmlrpc_datetime.c
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_datetime.c
+END
+xmlrpc_client_global.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_client_global.c
+END
+abyss_handler.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/abyss_handler.h
+END
+version.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/version.c
+END
+xmlrpc_server_w32httpsys.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_server_w32httpsys.c
+END
+xmlrpc_string.c
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/p/xmlrpc-c/code/!svn/ver/2566/release_number/01.37.00/src/xmlrpc_string.c
+END

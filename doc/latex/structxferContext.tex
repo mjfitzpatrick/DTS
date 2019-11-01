@@ -1,0 +1,102 @@
+\hypertarget{structxferContext}{
+\section{xferContext Struct Reference}
+\label{structxferContext}\index{xferContext@{xferContext}}
+}
+{\tt \#include $<$dts.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\hypertarget{structxferContext_5a017bea9575bd5243e88beb7a3ac2f8}{
+int \textbf{tmethod}}
+\label{structxferContext_5a017bea9575bd5243e88beb7a3ac2f8}
+
+\item 
+\hypertarget{structxferContext_d830c08108db126995a403863e559658}{
+int \textbf{model}}
+\label{structxferContext_d830c08108db126995a403863e559658}
+
+\item 
+\hypertarget{structxferContext_a846ef06e5823bc61e0213dc85d3f241}{
+int \textbf{endpoint}}
+\label{structxferContext_a846ef06e5823bc61e0213dc85d3f241}
+
+\item 
+\hypertarget{structxferContext_49c3670262a09bbe1d64638bfbd7b16c}{
+void($\ast$ \textbf{init} )(void $\ast$data)}
+\label{structxferContext_49c3670262a09bbe1d64638bfbd7b16c}
+
+\item 
+\hypertarget{structxferContext_6d83baf5b98b1b29d12de31a20a9b93d}{
+void($\ast$ \textbf{xfer} )(void $\ast$data)}
+\label{structxferContext_6d83baf5b98b1b29d12de31a20a9b93d}
+
+\item 
+\hypertarget{structxferContext_9259de4c54fcaf1288286ae3553f69cd}{
+void($\ast$ \textbf{fini} )(void $\ast$data)}
+\label{structxferContext_9259de4c54fcaf1288286ae3553f69cd}
+
+\item 
+\hypertarget{structxferContext_a243018ef2a3093609d5f3b47d7ae33c}{
+void($\ast$ \textbf{preproc} )(void $\ast$data)}
+\label{structxferContext_a243018ef2a3093609d5f3b47d7ae33c}
+
+\item 
+\hypertarget{structxferContext_7d763993603d2df20c36b5af792e4a7f}{
+void($\ast$ \textbf{postproc} )(void $\ast$data)}
+\label{structxferContext_7d763993603d2df20c36b5af792e4a7f}
+
+\item 
+\hypertarget{structxferContext_1cc63ff23a54955fa30a7cfd72aac97c}{
+int \textbf{port}}
+\label{structxferContext_1cc63ff23a54955fa30a7cfd72aac97c}
+
+\item 
+\hypertarget{structxferContext_5899851317a8cfb28d444cc662f7f826}{
+int \textbf{nports}}
+\label{structxferContext_5899851317a8cfb28d444cc662f7f826}
+
+\item 
+\hypertarget{structxferContext_69112348a1f2e39e2019c7ec5535d4c6}{
+int \textbf{status}}
+\label{structxferContext_69112348a1f2e39e2019c7ec5535d4c6}
+
+\item 
+\hypertarget{structxferContext_c1d229b522bd29554ce392aafde64915}{
+long \textbf{fsize}}
+\label{structxferContext_c1d229b522bd29554ce392aafde64915}
+
+\item 
+\hypertarget{structxferContext_377ea97bb6cb826e4e273eaa59c31dbb}{
+long \textbf{transferred}}
+\label{structxferContext_377ea97bb6cb826e4e273eaa59c31dbb}
+
+\item 
+\hypertarget{structxferContext_d8c25ab7186758cc2ef96906c368f083}{
+float \textbf{tput\_\-mb}}
+\label{structxferContext_d8c25ab7186758cc2ef96906c368f083}
+
+\item 
+\hypertarget{structxferContext_eaee482164ef55688b28f06e5bd64c6d}{
+float \textbf{tput\_\-MB}}
+\label{structxferContext_eaee482164ef55688b28f06e5bd64c6d}
+
+\item 
+\hypertarget{structxferContext_05cb87205632daf2647d2a6b5ae591bc}{
+float \textbf{time}}
+\label{structxferContext_05cb87205632daf2647d2a6b5ae591bc}
+
+\item 
+\hypertarget{structxferContext_45bcd546189e40515a4d1e288a90573f}{
+int \textbf{valid}}
+\label{structxferContext_45bcd546189e40515a4d1e288a90573f}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Transfer Context. The context is used to describe the current state of a transfer request, and to hold status information while the transfer is in progress. There is one context per connection, however since 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+dts.h\end{CompactItemize}

@@ -1,0 +1,89 @@
+.\" @(#)dtsq_config.1 1.0 June-2012 MJF
+.TH DTSQ 1 "June 2012" "NOAO Data Transport System"
+.SH NAME
+dtsq_config \- configuration file description for the DTSQ task
+.SH SYNOPSIS
+.TP 0
+\fI$HOME/.dtsq_config\fP
+\fI/<path>/<config_file>\fP
+
+.SH DESCRIPTION
+The \fIdtsq\fP task ......
+.PP
+More descriptions .....
+
+
+
+.SH CONFIGURATION PARAMETERS
+.PP
+The configuration file is a series of entries of the form
+.nf
+
+	queue
+		<param>		<value>
+		<param>		<value>
+		   :		   :
+
+.fi
+The \fIqueue\fP keyword begins a new entry, blank lines and those beginning
+with a '#' are treated as comments and ignored.  There is no limit to the
+number of queues that may be defined in a config file.
+.PP
+The \fIdtsq_config\fP <param> values allowed are:
+
+.TP 8
+\fRname\fR
+The name of the queue to which we will submit the data.
+.TP 8
+\fRhost\fR
+The host name (or IP number) of the machine hosting the named queue.
+.TP 8
+\fRmethod\fR
+The method of transferring the data to the remote DTS daemon.  Valid options
+are \fIgive\fP to indicate that the DTSQ application will open the server
+transport sockets, and \fIpush\fP to indicate that the remote DTS daemon will
+open the server transport sockets.
+.TP 8
+\fRnthreads\fR
+The number of transport threads used to submit the data to the remote
+machine.  In general, we expect good throughput to the remote machine so
+this number is usually low (e.g. 4 or less), more threads may be required
+for desired performance if the remote machine is connected over a slow
+or high-latency network.
+.TP 8
+\fRserverPort\fR
+The XML-RPC server port to be used by DTSQ.
+.TP 8
+\fBport\fR or \fBloPort\fR
+The lower transfer port.
+.TP 8
+\fRhiPort\fR
+The upper transfer port.
+.TP 8
+\fRdir\fR
+The DTSQ working directory.
+
+.SH EXAMPLES
+.PP
+Define an entry for a queue named 'test' on the machine 'dts.noao.edu'
+
+.nf
+    queue 
+           name        test
+           host        dts.noao.edu
+           dir         default
+           method      give
+           port        2025
+           nthreads    4
+.fi
+.PP
+In this entry, 4 transfer threads starting at port 2025 on the local 
+machine will be used to submit the data.  If the 'push' method had been
+used, ports 2025-2028 on the machine dts.noao.edu would be opened and
+the local machine will connect as a client.  The default \fR$HOME/.dtsq\fR
+will be used as the DTSQ working directory.
+
+.SH REVISIONS
+June 2012 - First public release
+.SH "SEE ALSO"
+dtsd(1), dtscp(1), dtsh(1), dtsq(1), dtsmon(1), dtsstat(1)

@@ -1,0 +1,713 @@
+.TH "dtsQueueUtil.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsQueueUtil.c \- \fBDTS\fP queue utilities.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <pthread.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include <sys/file.h>\fP
+.br
+\fC#include 'dtsPSock.h'\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBUG\fP   (dts&&dts->debug)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBdtsQueue\fP * \fBdts_queueLookup\fP (char *qname)"
+.br
+.RI "\fILookup a \fBDTS\fP queue struct by name. \fP"
+.ti -1c
+.RI "char * \fBdts_getQueuePath\fP (\fBDTS\fP *dts, char *qname)"
+.br
+.RI "\fIGet the path to the spool dir for a given queue. \fP"
+.ti -1c
+.RI "char * \fBdts_getQueueLog\fP (\fBDTS\fP *dts, char *qname, char *logname)"
+.br
+.ti -1c
+.RI "char * \fBdts_getNextQueueDir\fP (\fBDTS\fP *dts, char *qname)"
+.br
+.RI "\fIGet the next queue directory name. \fP"
+.ti -1c
+.RI "int \fBdts_queueGetCurrent\fP (char *fname)"
+.br
+.RI "\fIGet the number of the currrently active spool. \fP"
+.ti -1c
+.RI "void \fBdts_queueSetCurrent\fP (char *fname, int val)"
+.br
+.RI "\fISet the number of the currrently active spool. \fP"
+.ti -1c
+.RI "int \fBdts_queueGetNext\fP (char *fname)"
+.br
+.RI "\fIGet the number of the next active spool. \fP"
+.ti -1c
+.RI "void \fBdts_queueSetNext\fP (char *fname, int val)"
+.br
+.RI "\fISet the number of the next active spool. \fP"
+.ti -1c
+.RI "void \fBdts_queueGetInitTime\fP (\fBdtsQueue\fP *dtsq, int *sec, int *usec)"
+.br
+.ti -1c
+.RI "void \fBdts_queueSetInitTime\fP (\fBdtsQueue\fP *dtsq, struct timeval t)"
+.br
+.ti -1c
+.RI "void \fBdts_queueCleanup\fP (\fBDTS\fP *dts, \fBdtsQueue\fP *dtsq)"
+.br
+.RI "\fIClean up the spool directory before processing. \fP"
+.ti -1c
+.RI "Control * \fBdts_loadControl\fP (char *path, Control *ctrl)"
+.br
+.RI "\fILoad the control file into a struct. \fP"
+.ti -1c
+.RI "int \fBdts_saveControl\fP (Control *ctrl, char *path)"
+.br
+.RI "\fISave the control struct. \fP"
+.ti -1c
+.RI "int \fBdts_logControl\fP (Control *ctrl, int stat, char *path)"
+.br
+.RI "\fIMake a log entry of the Control structure. \fP"
+.ti -1c
+.RI "void \fBdts_printControl\fP (Control *ctrl, FILE *fd)"
+.br
+.RI "\fIPrint the control struct. \fP"
+.ti -1c
+.RI "char * \fBdts_fmtQueueCmd\fP (\fBdtsQueue\fP *dtsq, Control *ctrl)"
+.br
+.RI "\fIFormat a queue delivery command. \fP"
+.ti -1c
+.RI "char * \fBdts_verifyDTS\fP (char *host, char *qname, char *fname)"
+.br
+.RI "\fIVerify a \fBDTS\fP queue connection. \fP"
+.ti -1c
+.RI "int \fBdts_queueProcess\fP (\fBdtsQueue\fP *dtsq, char *lpath, char *rpath, char *fname)"
+.br
+.RI "\fIProcess a file to submit it to the named queue. \fP"
+.ti -1c
+.RI "int \fBdts_queueInitControl\fP (char *qhost, char *qname, char *qpath, char *opath, char *lfname, char *fname, char *dfname)"
+.br
+.RI "\fIInitialize the control structure. \fP"
+.ti -1c
+.RI "void \fBdts_queueLock\fP (\fBdtsQueue\fP *dtsq)"
+.br
+.RI "\fISet the mutex lock on the queue. \fP"
+.ti -1c
+.RI "void \fBdts_queueUnlock\fP (\fBdtsQueue\fP *dtsq)"
+.br
+.RI "\fIUnset the mutex lock on the queue. \fP"
+.ti -1c
+.RI "char * \fBdts_queueFromPath\fP (char *path)"
+.br
+.RI "\fIGet queue name from a path. \fP"
+.ti -1c
+.RI "char * \fBdts_queueNameFmt\fP (char *qname)"
+.br
+.RI "\fIFormat a queue name to 6 chars. \fP"
+.ti -1c
+.RI "void \fBdts_queueDelete\fP (\fBDTS\fP *dts, char *qpath)"
+.br
+.RI "\fIDelete the complete spool directory. \fP"
+.ti -1c
+.RI "int \fBdts_logXFerStats\fP (Control *ctrl, \fBxferStat\fP *xfs, int stat, char *path)"
+.br
+.RI "\fIMake a log entry of the transfer statistics. \fP"
+.ti -1c
+.RI "int \fBdts_queueSetStats\fP (\fBdtsQueue\fP *dtsq, \fBxferStat\fP *xfs)"
+.br
+.RI "\fIUpdate the transfer statistics for the queue. \fP"
+.ti -1c
+.RI "\fBqueueStat\fP * \fBdts_queueGetStats\fP (\fBdtsQueue\fP *dtsq)"
+.br
+.RI "\fIGet the stats structure from a queue. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.ti -1c
+.RI "int \fBdts_monitor\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP queue utilities. 
+
+DTSQUEUEUTIL.C -- \fBDTS\fP queue utilities.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "char* dts_fmtQueueCmd (\fBdtsQueue\fP * dtsq, Control * ctrl)"
+.PP
+Format a queue delivery command. 
+.PP
+DTS_FMTQUEUECMD -- Format a queue delivery command.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP queue structure 
+.br
+\fIctrl\fP transfer control parameters 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+formatted command string 
+.RE
+.PP
+
+.PP
+References dts_getDeliveryPath().
+.PP
+Referenced by dts_Deliver(), and dts_Ingest().
+.SS "char* dts_getNextQueueDir (\fBDTS\fP * dts, char * qname)"
+.PP
+Get the next queue directory name. 
+.PP
+DTS_GETNEXTQUEUEDIR -- Get the next queue directory name.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIqname\fP name of the queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+path to next working spool dir 
+.RE
+.PP
+
+.PP
+References dts_queueLookup(), dts_sandboxPath(), and dtsLog().
+.PP
+Referenced by dts_initTransfer(), and dts_queueAccept().
+.SS "char* dts_getQueuePath (\fBDTS\fP * dts, char * qname)"
+.PP
+Get the path to the spool dir for a given queue. 
+.PP
+DTS_GETQUEUEPATH -- Get queue path.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIqname\fP name of the queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+path to queue directory 
+.RE
+.PP
+
+.PP
+Referenced by dts_initTransfer(), and dts_queueAccept().
+.SS "Control* dts_loadControl (char * path, Control * ctrl)"
+.PP
+Load the control file into a struct. 
+.PP
+DTS_LOADCONTROL -- Load the control file into a struct.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP path to control file 
+.br
+\fIctrl\fP pointer to Control struct 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+loaded Control structure 
+.RE
+.PP
+
+.PP
+References dts_fclose(), dts_fileSize(), dts_fopen(), dtsGets(), and dtsLog().
+.PP
+Referenced by dts_endTransfer().
+.SS "int dts_logControl (Control * ctrl, int stat, char * path)"
+.PP
+Make a log entry of the Control structure. 
+.PP
+DTS_LOGCONTROL -- Make a log entry of the Control structure.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIctrl\fP control structure 
+.br
+\fIstat\fP status flag 
+.br
+\fIpath\fP path to control file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR code 
+.RE
+.PP
+
+.PP
+References dts_fclose(), dts_fopen(), and dts_logtime().
+.SS "int dts_logXFerStats (Control * ctrl, \fBxferStat\fP * xfs, int stat, char * path)"
+.PP
+Make a log entry of the transfer statistics. 
+.PP
+DTS_LOGXFERSTATS -- Make a log entry of the transfer statistics
+.PP
+\fBParameters:\fP
+.RS 4
+\fIctrl\fP control structure 
+.br
+\fIxfs\fP transfer stats structure 
+.br
+\fIstat\fP status flag 
+.br
+\fIpath\fP path to control file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR code 
+.RE
+.PP
+
+.PP
+References dts_fopen(), and dts_logtime().
+.PP
+Referenced by dts_endTransfer().
+.SS "void dts_printControl (Control * ctrl, FILE * fd)"
+.PP
+Print the control struct. 
+.PP
+DTS_PRINTCONTROL -- Print the control struct.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcpath\fP path to control file 
+.br
+\fIfd\fP file descriptor to which to write 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+Referenced by dts_saveControl().
+.SS "void dts_queueCleanup (\fBDTS\fP * dts, \fBdtsQueue\fP * dtsq)"
+.PP
+Clean up the spool directory before processing. 
+.PP
+DTS_QUEUECLEANUP -- Clean up the spool directory before processing.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP structure 
+.br
+\fIdtsq\fP \fBDTS\fP queue structure 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_queueGetCurrent(), dts_queueGetNext(), and dtsLog().
+.SS "void dts_queueDelete (\fBDTS\fP * dts, char * qpath)"
+.PP
+Delete the complete spool directory. 
+.PP
+DTS_QUEUEDELETE -- Delete the complete spool directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdts\fP \fBDTS\fP struct pointer 
+.br
+\fIqpath\fP spool queue directory path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_queueFromPath(), dts_unlink(), and dtsLog().
+.PP
+Referenced by dts_endTransfer().
+.SS "char* dts_queueFromPath (char * path)"
+.PP
+Get queue name from a path. 
+.PP
+DTS_QUEUEFROMPATH -- Get queue name from a path.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP spool queue directory path 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queue name 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostFrom(), dts_hostTo(), dts_queueDelete(), dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SS "int dts_queueGetCurrent (char * fname)"
+.PP
+Get the number of the currrently active spool. 
+.PP
+DTS_QUEUEGETCURRENT -- Get the number of the currrently active spool.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP path to 'current' file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queue current value 
+.RE
+.PP
+
+.PP
+References dts_fclose(), and dts_fopen().
+.PP
+Referenced by dts_endTransfer(), dts_flushQueue(), dts_nodeStat(), and dts_queueCleanup().
+.SS "int dts_queueGetNext (char * fname)"
+.PP
+Get the number of the next active spool. 
+.PP
+DTS_QUEUEGETNEXT -- Get the number of the next active spool.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP path to 'next' file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queue next value 
+.RE
+.PP
+
+.PP
+References dts_fclose(), and dts_fopen().
+.PP
+Referenced by dts_flushQueue(), dts_nodeStat(), and dts_queueCleanup().
+.SS "\fBqueueStat\fP* dts_queueGetStats (\fBdtsQueue\fP * dtsq)"
+.PP
+Get the stats structure from a queue. 
+.PP
+DTS_QUEUEGETSTATS -- Get the stats structure from a queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP Queue structure 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+stats structure 
+.RE
+.PP
+
+.PP
+References dts_fclose(), and dts_fopen().
+.PP
+Referenced by dts_nodeStat().
+.SS "int dts_queueInitControl (char * qhost, char * qname, char * qpath, char * opath, char * lfname, char * fname, char * dfname)"
+.PP
+Initialize the control structure. 
+.PP
+DTS_QUEUEINITCONTROL -- Initialize the control structure.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqhost\fP \fBDTS\fP Queue host name 
+.br
+\fIqname\fP queue name 
+.br
+\fIqpath\fP queue path name 
+.br
+\fIopath\fP output path name 
+.br
+\fIlpath\fP local path name 
+.br
+\fIfname\fP filename (no path) 
+.br
+\fIdfname\fP delivery filename 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status 
+.RE
+.PP
+
+.PP
+References dts_du(), dts_getAliasDest(), dts_getLocalHost(), dts_hostSetQueueControl(), dts_isDir(), dts_pathDir(), and dts_pathFname().
+.SS "void dts_queueLock (\fBdtsQueue\fP * dtsq)"
+.PP
+Set the mutex lock on the queue. 
+.PP
+DTS_QUEUELOCK -- Set the mutex lock on the queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP queue pointer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.SS "\fBdtsQueue\fP* dts_queueLookup (char * qname)"
+.PP
+Lookup a \fBDTS\fP queue struct by name. 
+.PP
+DTS_QUEUELOOKUP -- Lookup a \fBDTS\fP queue struct by name.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP name of the queue 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBdtsQueue\fP struct corresponding to qname 
+.RE
+.PP
+
+.PP
+Referenced by dts_DestDir(), dts_endTransfer(), dts_flushQueue(), dts_Get(), dts_getNextQueueDir(), dts_getQueueCmd(), dts_getQueueCount(), dts_getQueueDir(), dts_getQueueStat(), dts_initTransfer(), dts_pauseQueue(), dts_printQueueCfg(), dts_qstatDiskEnd(), dts_qstatDiskStart(), dts_qstatDlvrEnd(), dts_qstatDlvrStart(), dts_qstatDlvrStat(), dts_qstatEnd(), dts_qstatInit(), dts_qstatNetEnd(), dts_qstatNetStart(), dts_qstatNetStat(), dts_qstatSetFName(), dts_qstatSetSize(), dts_qstatStart(), dts_qstatSummary(), dts_qstatXferStat(), dts_queueRelease(), dts_queueSetControl(), dts_queueUpdateStats(), dts_setQueueCmd(), dts_setQueueCount(), dts_setQueueDir(), dts_setQueueStat(), dts_shutdownQueue(), dts_startQueue(), dts_stopQueue(), and dts_verifyDTS().
+.SS "char* dts_queueNameFmt (char * qname)"
+.PP
+Format a queue name to 6 chars. 
+.PP
+DTS_QUEUENAMEFMT -- Format a queue name to 6 chars.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqname\fP full-length queue name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+shortened queue name 
+.RE
+.PP
+
+.PP
+Referenced by dts_Deliver(), dts_endTransfer(), dts_initTransfer(), dts_qstatSummary(), dts_queueProcess(), dts_queueSetControl(), dts_xferPullFile(), dts_xferPushFile(), dts_xferReceiveFile(), and dts_xferSendFile().
+.SS "int dts_queueProcess (\fBdtsQueue\fP * dtsq, char * lpath, char * rpath, char * fname)"
+.PP
+Process a file to submit it to the named queue. 
+.PP
+DTS_QPROCESS -- Process a file to submit it to the named queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP queue pointer 
+.br
+\fIlpath\fP local path 
+.br
+\fIrpath\fP remote path 
+.br
+\fIfname\fP filename to transfer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status result 
+.RE
+.PP
+
+.PP
+References dts_cfgQMethodStr(), dts_cfgQModeStr(), dts_getAliasDest(), dts_getLocalIP(), dts_hostTo(), dts_hostUpStats(), dts_pathFname(), dts_queueNameFmt(), dts_resolveHost(), dts_sandboxPath(), dtsErrLog(), and dtsLog().
+.SS "void dts_queueSetCurrent (char * fname, int val)"
+.PP
+Set the number of the currrently active spool. 
+.PP
+DTS_QUEUESETCURRENT -- Set the number of the currrently active spool.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP path to 'current' file 
+.br
+\fIval\fP value to set 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fclose(), and dts_fopen().
+.PP
+Referenced by dts_endTransfer(), dts_flushQueue(), and dts_initServerRoot().
+.SS "void dts_queueSetNext (char * fname, int val)"
+.PP
+Set the number of the next active spool. 
+.PP
+DTS_QUEUESETNEXT -- Set the number of the next active spool.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfname\fP path to 'Next' file 
+.br
+\fIval\fP value to set 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fclose(), and dts_fopen().
+.SS "int dts_queueSetStats (\fBdtsQueue\fP * dtsq, \fBxferStat\fP * xfs)"
+.PP
+Update the transfer statistics for the queue. 
+.PP
+DTS_QUEUESETSTATS -- Update the transfer statistics for the queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP Queue struct pointer 
+.br
+\fIxfs\fP transfer statistics struct 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.PP
+References dts_fclose(), and dts_fopen().
+.PP
+Referenced by dts_queueUpdateStats().
+.SS "void dts_queueUnlock (\fBdtsQueue\fP * dtsq)"
+.PP
+Unset the mutex lock on the queue. 
+.PP
+DTS_QUEUEUNLOCK -- Unset the mutex lock on the queue.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdtsq\fP \fBDTS\fP queue pointer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.SS "int dts_saveControl (Control * ctrl, char * path)"
+.PP
+Save the control struct. 
+.PP
+DTS_SAVECONTROL -- Save the control struct.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIctrl\fP control structure 
+.br
+\fIcpath\fP path to control file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+OK or ERR code 
+.RE
+.PP
+
+.PP
+References dts_fclose(), dts_fopen(), and dts_printControl().
+.PP
+Referenced by dts_Ingest().
+.SS "char* dts_verifyDTS (char * host, char * qname, char * fname)"
+.PP
+Verify a \fBDTS\fP queue connection. 
+.PP
+DTS_VERIFYDTS -- Verify a \fBDTS\fP queue connection.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhost\fP \fBDTS\fP host name 
+.br
+\fIqname\fP queue name 
+.br
+\fIfname\fP file name to transfer 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+remote path to queue directory (caller frees ptr) 
+.RE
+.PP
+
+.PP
+References dts_hostContact(), dts_hostInitTransfer(), dts_hostPing(), dts_queueLookup(), and dtsLog().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

@@ -1,0 +1,33 @@
+#!/bin/csh -f
+
+
+if ($#argv > 0 && ("$1" == "-H" || "$1" == "-h")) then
+  echo "Shutting down DTS ...."
+  echo -n "desar ...." ; dtsh -t desar.cosmology.illinois.edu  	shutdown xyzzy
+  echo -n "fermi ...." ; dtsh -t decamsrvr01.fnal.gov         	shutdown xyzzy
+  echo -n "dtsct ...." ; dtsh -t dtsct-hs.ctio.noao.edu        	shutdown xyzzy
+  echo -n "dsas3 ...." ; dtsh -t dsas3-hs.ctio.noao.edu        	shutdown xyzzy
+  echo -n "dsan3 ...." ; dtsh -t dsan3.tuc.noao.edu         	shutdown xyzzy
+  if ($#argv > 0 && "$1" == "-H") then
+	exit 0
+  endif
+endif
+
+#set  files = "dtsd dtsq dtsh dtscp dtslog dtsmon"
+set  files = "dtstat"
+
+echo ""
+echo "Updating desar ....";scp ${files} desar.cosmology.illinois.edu:bin/
+
+echo ""
+echo "Updating fermi ....";scp ${files} mjfitz@decamsrvr01.fnal.gov:bin/
+
+echo ""
+echo "Updating dtsct ....";scp ${files} dts@dtsct-hs.ctio.noao.edu:bin/
+
+echo ""
+echo "Updating dsas3 ....";scp ${files} dts@dsas3-hs.ctio.noao.edu:bin/
+
+echo ""
+echo "Updating dsan3 ....";scp ${files} dts@dsan3-hs.tuc.noao.edu:bin/
+

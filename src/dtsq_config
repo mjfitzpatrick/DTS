@@ -1,0 +1,83 @@
+
+queue 
+       name        test
+       host        denali.tuc.noao.edu
+       dir         default
+       method      give
+       port	   3010
+       nthreads    4
+
+queue 
+       name        test2
+       host        denali.tuc.noao.edu
+       dir         default
+       method      give
+       port	   3010
+       nthreads    4
+
+queue 
+       name        test.sched
+       host        denali.tuc.noao.edu
+       dir         default
+       method      give
+       port	   4004
+       nthreads    4
+
+queue 
+       name        tucana
+       host        tucana.tuc.noao.edu
+       dir         default
+       method      give
+       port	   4008
+       nthreads    4
+
+################################################
+#  DES/DECam Queues
+################################################
+
+
+################################################
+#  Test queues that do directly to the node.
+################################################
+
+queue 
+       name        desar-dir
+       host        desar.cosmology.illinois.edu
+       dir         default
+       method      give
+       port	   3010
+       nthreads    4
+
+queue 
+       name        dtsct-dir
+       host        dtsct-hs.ctio.noao.edu
+       dir         default
+       method      give
+       port	   3099
+       nthreads    4
+
+queue 
+       name        dsas3-dir
+       host        dsas3-hs.ctio.noao.edu
+       dir         default
+       method      give
+       port	   3099
+       nthreads    4
+
+queue 
+       name        ctiovg-dir
+       host        ctiovg.ctio.noao.edu
+       dir         default
+       method      give
+       port	   3099
+       nthreads    4
+
+queue 
+       name        tucana-dir
+       host        tucana.tuc.noao.edu
+       dir         default
+       method      give
+       port	   3099
+       nthreads    4
+
+

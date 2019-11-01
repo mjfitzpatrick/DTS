@@ -1,0 +1,40 @@
+8
+
+dir
+2598
+http://svn.code.sf.net/p/xmlrpc-c/code/release_number/01.37.00/tools/perl_packetsocket
+http://svn.code.sf.net/p/xmlrpc-c/code
+
+
+
+2008-03-13T03:04:01.577150Z
+1376
+giraffedata
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+98333e67-4a24-44d7-a75c-e53540dd3050
+
+PacketSocket.pm
+file
+
+
+
+
+2014-04-10T22:54:26.000000Z
+78825f1c26167f3329666b241e34c863
+2008-03-13T03:04:01.577150Z
+1376
+giraffedata
+

@@ -1,0 +1,5 @@
+#!/bin/csh -f
+
+./dtsh -t denali -d give 140.252.1.86:$cwd/test.fits 140.252.26.30:/tmp/foo.fits
+
+

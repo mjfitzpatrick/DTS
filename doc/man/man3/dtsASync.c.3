@@ -1,0 +1,72 @@
+.TH "dtsASync.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsASync.c \- \fBDTS\fP asynchronous command methods.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_nullResponse\fP (void *data)"
+.br
+.RI "\fIAsyncronous null handler. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP asynchronous command methods. 
+
+DTSASYNC.C
+.PP
+Methods used in Asynchronous commands.
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_nullResponse (void * data)"
+.PP
+Asyncronous null handler. 
+.PP
+DTS_NULLRESPONSE -- Asyncronous null handler.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP xml caller data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code 
+.RE
+.PP
+
+.PP
+Referenced by dtsLog(), dtsLogMsg(), and dtsLogStat().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

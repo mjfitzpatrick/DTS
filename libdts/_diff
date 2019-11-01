@@ -1,0 +1,1419 @@
+------------------------------
+dts.c
+320c320
+<     dtsLog (dts, "^bConnecting to monitor from host '%s'^r", 
+---
+>     dtsLog (dts, "^bConnecting to monitor on %s from host '%s'^r",dts->mon_url,
+------------------------------
+dts.h
+224d223
+< /*  defined in $dts/include/udtc.h
+226d224
+< */
+392,393d389
+<     char        infile[SZ_PATH];        /* current incoming file name     */
+<     char        outfile[SZ_PATH];       /* current outgoing file name     */
+783c779
+< void    dtsLogStat (DTS *dts, char *msg);
+---
+> void    dtsLogStat (DTS *dts, char *msg, ...);
+------------------------------
+dtsASync.c
+------------------------------
+dtsChecksum.c
+------------------------------
+dtsClient.c
+------------------------------
+dtsCommands.c
+109d108
+<  *      stopQueue                                       dts_hostStopQueue
+336a336
+> 
+344d343
+<  *  @param  quiet       suppress output?
+351d349
+< 
+360a359
+>     
+361a361
+>     
+1105a1106
+> 
+1454,1460c1455,1456
+<     int  client = dts_getClient (host), res = OK, ival;
+< #ifdef USE_STAT_STRUCT
+<     int  snum;
+< #else
+<     int  anum;
+<     long long  lval;
+< #endif
+---
+>     int client = dts_getClient (host), res = OK, rnum, ival;
+>      long long myval;
+1472a1469
+>             
+1474,1506c1471,1491
+< #ifdef USE_STAT_STRUCT
+<         xr_getStructFromResult (client, &snum);
+<           xr_getIntFromStruct (snum, "device",  &ival); st->st_dev     = ival;
+<           xr_getIntFromStruct (snum, "inode",   &ival); st->st_ino     = ival;
+<           xr_getIntFromStruct (snum, "mode",    &ival); st->st_mode    = ival;
+<           xr_getIntFromStruct (snum, "nlink",   &ival); st->st_nlink   = ival;
+<           xr_getIntFromStruct (snum, "uid",     &ival); st->st_uid     = ival;
+<           xr_getIntFromStruct (snum, "gid",     &ival); st->st_gid     = ival;
+<           xr_getIntFromStruct (snum, "rdev",    &ival); st->st_rdev    = ival;
+<           xr_getIntFromStruct (snum, "size",    &ival); st->st_size    = ival;
+<           xr_getIntFromStruct (snum, "blksize", &ival); st->st_blksize = ival;
+<           xr_getIntFromStruct (snum, "blocks",  &ival); st->st_blocks  = ival;
+<           xr_getIntFromStruct (snum, "atime",   &ival); st->st_atime   = ival;
+<           xr_getIntFromStruct (snum, "mtime",   &ival); st->st_mtime   = ival;
+<           xr_getIntFromStruct (snum, "ctime",   &ival); st->st_ctime   = ival;
+<         xr_freeStruct (snum);
+< #else
+<         xr_getArrayFromResult (client, &anum);
+<           xr_getIntFromArray (anum, 0,  &ival);    st->st_dev     = ival; //0
+<           xr_getIntFromArray (anum, 1,  &ival);    st->st_ino     = ival; //1
+<           xr_getIntFromArray (anum, 2,  &ival);    st->st_mode    = ival; //2
+<           xr_getIntFromArray (anum, 3,  &ival);    st->st_nlink   = ival; //3
+<           xr_getIntFromArray (anum, 4,  &ival);    st->st_uid     = ival; //4
+<           xr_getIntFromArray (anum, 5,  &ival);    st->st_gid     = ival; //5
+<           xr_getIntFromArray (anum, 6,  &ival);    st->st_rdev    = ival; //6
+<           xr_getLongLongFromArray (anum,7, &lval); st->st_size    = lval; //7
+<           xr_getIntFromArray (anum, 8,  &ival);    st->st_blksize = ival; //8
+<           xr_getIntFromArray (anum, 9,  &ival);    st->st_blocks  = ival; //9
+<           xr_getIntFromArray (anum, 10, &ival);    st->st_atime   = ival; //10
+<           xr_getIntFromArray (anum, 11, &ival);    st->st_mtime   = ival; //11
+<           xr_getIntFromArray (anum, 12, &ival);    st->st_ctime   = ival; //12
+<         xr_freeArray (anum);
+< #endif
+---
+>         xr_getArrayFromResult (client, &rnum);
+>         
+>           xr_getIntFromArray(rnum, 0, &ival); st->st_dev     = ival; //0
+>           xr_getIntFromArray (rnum,1,    &ival); st->st_ino     = ival; //1 
+>           xr_getIntFromArray (rnum,2,     &ival); st->st_mode    = ival;//2
+>           xr_getIntFromArray (rnum,3,   &ival); st->st_nlink   = ival; //3
+>           xr_getIntFromArray (rnum,4,    &ival); st->st_uid     = ival;//4
+>           xr_getIntFromArray (rnum,5,    &ival); st->st_gid     = ival;//5
+>           xr_getIntFromArray (rnum,6,     &ival); st->st_rdev    = ival;//6
+>          xr_getLongLongFromArray (rnum,7,   &myval); st->st_size    =  myval;//7
+>           xr_getIntFromArray (rnum,8, &ival); st->st_blksize = ival;//8
+>           xr_getIntFromArray (rnum,9, &ival); st->st_blocks  = ival;//9
+>           xr_getIntFromArray (rnum,10,  &ival); st->st_atime   = ival;//10
+>           xr_getIntFromArray (rnum,11,   &ival); st->st_mtime   = ival;//11
+>           xr_getIntFromArray (rnum,12,   &ival); st->st_ctime   = ival;//12
+> 
+> 
+>         
+> 
+>         xr_freeArray (rnum);
+> 
+1776c1761
+<  *      stopQueue                                       dts_hostStopQueue
+---
+>  *      shutdownQueue                                   dts_hostShutdownQueue
+1892d1876
+< 
+1894c1878
+<  *  DTS_HOSTSHUTDOWNQUEUE -- Shutdown the named queue.
+---
+>  *  DTS_HOSTSHUTDOWNQUEUE -- Start the named queue.
+1921d1904
+< 
+2213,2242d2195
+< 
+< /**
+<  *  DTS_HOSTSTOPQUEUE -- Stop the named queue.
+<  *
+<  *  @brief  Stop the named queue.
+<  *  @fn     cwd = dts_hostStopQueue (char *host, char *qname)
+<  *
+<  *  @param  host        host machine name (or IP string)
+<  *  @param  qname       queue name
+<  *  @return             status
+<  */
+< int
+< dts_hostStopQueue (char *host, char *qname)
+< {
+<     int   res, client = dts_getClient (host);
+< 
+<     dts_cmdInit();                      /* initialize static variables  */
+<     if (DEBUG) fprintf (stderr, "dts_hostStopQueue: %s\n", qname);
+< 
+<     /* Make the service call.
+<     */
+<     xr_setStringInParam (client, (qname ? qname : "default"));
+<     if (xr_callSync (client, "stopQueue") == OK)
+<         xr_getIntFromResult (client, &res);
+< 
+<     dts_closeClient (client);
+<     return ( OK );
+< }
+< 
+< 
+2270a2224
+> 
+2328a2283
+> 
+2749,2750c2704
+<             sscanf (sres, "%s %d %d %s %s %s %d %g %g %g %g %s %s %d %d", 
+<                 qs->name,
+---
+>             sscanf (sres, "%s %d %d %s %s %s %d %g %g %g %g %s %s %d %d", qs->name,
+------------------------------
+dtsConfig.c
+455,456d454
+<                 else if (strcasecmp (key, "hb_time") == 0)
+<                     dts->stat_period = atoi (val);
+668c666
+<             memset (p1, 0, SZ_PATH); memset (p2, 0, SZ_PATH);
+---
+>             memset (p1, 0, SZ_LINE); memset (p2, 0, SZ_LINE);
+802,803c800
+<     sprintf (dtsq->infile,  "%s", "none");
+<     sprintf (dtsq->outfile, "%s", "none");
+---
+>     
+1472a1470,1471
+>       hiPort:   %d\n\
+>       loPort:   %d\n\
+1479a1479,1480
+>            copyMode:    %d\n\
+>            startTime:   %d\n\
+1490a1492,1493
+>                 dts->hiPort,
+>                 dts->loPort,
+1497a1501,1502
+>                 dts->copyMode,
+>                 dts->start_time,
+------------------------------
+dtsConsole.c
+------------------------------
+dtsDeliver.c
+------------------------------
+dtsFileUtil.c
+46a47
+> #include <sys/vfs.h>
+48,54d48
+<  #include <sys/statvfs.h>
+< #include <sys/mman.h>           
+< 
+< /* needed for posix_fadvise()
+< */
+< #define  _GNU_SOURCE
+< #define  _XOPEN_SOURCE 600
+57,60d50
+< #ifndef PATH_MAX
+< #define PATH_MAX        4096
+< #endif
+< 
+66d55
+< #ifdef LINUX
+68,70d56
+< #else
+< static struct statvfs sf;
+< #endif
+204a191
+>     register long nleft=0, nbytes=DTS_ALLOC_SIZE;
+209,210c196,197
+<         /*  Truncate an existing file.  Note that in this case the file
+<          *  is not zero-filled.
+---
+>         /*  Delete an existing file.  We should probably check whether
+>         **  it already exists at the requested size or return an error.
+212c199,200
+<         truncate (fname, fsize);
+---
+>         unlink (fname);
+>     }
+214,217c202,208
+<     } else if ((fd = open (fname, O_RDWR|O_CREAT, DTS_FILE_MODE)) > 0) {
+<         if (ftruncate (fd, (off_t) fsize) < 0) {
+<             close (fd);
+<             return (ERR);
+---
+>     if ((fd = open (fname, O_RDWR|O_CREAT, DTS_FILE_MODE)) > 0) {
+> #ifdef USE_DTS_PREALLOC
+>         char *buf = (char *) calloc (1, DTS_ALLOC_SIZE);
+> 
+>         for (nleft=fsize; nleft > 0; nleft -= nbytes) {
+>             nbytes = nleft > 4096 ? 4096 : nleft;
+>             dts_fileWrite (fd, buf, nbytes);
+218a210,211
+>         free ((void *) buf);
+> #endif
+399,403d391
+<     dts_setNonBlock (fd);
+< #ifdef LINUX
+<     posix_fadvise (fd, (off_t) 0, (off_t) nbytes, POSIX_FADV_SEQUENTIAL);
+< #endif
+< 
+410a399
+> 
+415a405
+>     /* fsync (fd); */
+429,430d418
+<  *
+< #define DTS_MMAP_COPY
+432d419
+< 
+436,443d422
+<     int     i, ifd, ofd;
+<     char    ip[SZ_LINE], op[SZ_LINE], *cp;
+<     struct  timeval t1 = {0, 0};
+<     size_t  sz;
+< #ifdef DTS_MMAP_COPY
+<     void   *src, *dest;
+< #else
+<     char    buf[SZ_LINE];
+445c424,425
+< #endif
+---
+>     int     i, ifd, ofd;
+>     char    buf[SZ_LINE], ip[SZ_LINE], op[SZ_LINE], *cp;
+472c452
+<     if ((ifd = open (in, O_RDONLY)) < 0)
+---
+>     if ((ifd = dts_fileOpen (in, O_RDONLY)) < 0)
+474c454
+<     if ((ofd = open (out, O_RDWR|O_TRUNC|O_CREAT, 0666)) < 0)
+---
+>     if ((ofd = dts_fileOpen (out, O_WRONLY|O_TRUNC|O_CREAT)) < 0)
+477,478d456
+<     sz = dts_fileSize (ifd);
+<     lseek (ifd, 0, SEEK_SET);
+480,488d457
+< 
+<     dts_tstart (&t1);
+< 
+< #ifndef DTS_MMAP_COPY
+< #ifdef LINUX
+<     posix_fadvise (ifd, (off_t) 0, (off_t) sz, POSIX_FADV_SEQUENTIAL);
+<     posix_fadvise (ofd, (off_t) 0, (off_t) sz, POSIX_FADV_SEQUENTIAL);
+< #endif
+< 
+492,513d460
+< #else
+<     ftruncate (ofd, sz);
+<     if ((src = mmap (0, sz, PROT_READ, MAP_SHARED, ifd, 0)) == (void *) -1) {
+<         fprintf (stderr, "Error mapping input file: %s: %s\n", 
+<             in, strerror (errno)); 
+<         return (ERR);
+<     }
+<     if ((dest = mmap (0, sz, PROT_WRITE, MAP_SHARED, ofd, 0)) == (void *) -1) {
+<         fprintf (stderr, "Error mapping ouput file: %s: %s\n", 
+<             out, strerror (errno)); 
+<         return (ERR);
+<     }
+< 
+<     memcpy (dest, src, sz);
+< 
+<     munmap (src, sz);
+<     munmap (dest, sz);
+< #endif
+< 
+<     if (TIME_DEBUG)
+<         fprintf (stderr, "fileCopy time  = %g sec\n", dts_tstop (t1));
+< 
+515,516c462,464
+<     close (ifd);
+<     close (ofd);
+---
+> 
+>     dts_fileClose (ifd);
+>     dts_fileClose (ofd);
+781a730,731
+>     char  cwd[SZ_PATH];
+>         strcpy (cwd, dts_localCwd ());
+785c735
+<         return (ERR);
+---
+>        fprintf(stderr,"Fail\n" ); // return (ERR);
+793a744
+>                fprintf(stderr,"Fail chdir\n" );
+800a752
+>            fprintf(stderr,"b4 while\n" ); 
+801a754
+>         
+810a764
+>         
+819a774
+>             {
+821c776
+< 
+---
+>                         }
+824a780
+> 
+835,837c791
+<     /*  Finished now remove the root directory.
+<      */
+<     closedir (dp);                      /* clean up     */
+---
+>         //Finished now remove the root directory.
+840a795,797
+>     closedir (dp);                      /* clean up     */
+>     
+>     chdir (cwd); //Preserve the CWD.
+988d944
+< #ifdef LINUX
+990,992d945
+< #else
+< dts_statvfs (char *dir, struct statvfs *fs)
+< #endif
+999d951
+< #ifdef LINUX
+1001,1003d952
+< #else
+<         statvfs (dir, &sf);
+< #endif
+1010d958
+< #ifdef LINUX
+1012,1014d959
+< #else
+<             statvfs (dir, fs);
+< #endif
+1016d960
+< #ifdef LINUX
+1018,1020d961
+< #else
+<             memcpy (fs, &sf, sizeof (struct statvfs));
+< #endif
+------------------------------
+dtsIngest.c
+------------------------------
+dtsLocal.c
+------------------------------
+dtsLog.c
+119a120
+>             
+201a203
+> 
+231c233
+< dtsLogStat (DTS *dts, char *msg)
+---
+> dtsLogStat (DTS *dts, char *msg, ...)
+261c263
+<         xr_callASync (async, "dtslog", dts_nullResponse);
+---
+>         xr_callASync (async, "dtstat", dts_nullResponse);
+269a272
+> 
+281,282c284,286
+<     if (dts->debug)
+<         fprintf (stderr, "%s [%s] %s", logtime(), dts->whoAmI, msg);
+---
+>    // if (dts->debug)
+>       //  fprintf (stderr, "%s [%s] %s", logtime(), dts->whoAmI, msg);
+>  
+317,319d320
+<     /*  FIXME --Don't allocate since the fork breaks the message logging
+<      *          and we never actually use the space.
+<      */
+321,323c322,325
+<     if (dtsq) {
+<         sprintf (dts->emsgs[nerr], "%s: %s", dtsq->name, buf);
+<         //dtsq->nerrs++;                        // FIXME
+---
+>     if (dtsq)
+>     {
+>         //sprintf (dts->emsgs[nerr], "%s: %s", dtsq->name, buf);
+>         //dtsq->nerrs++;
+325a328,337
+>     }
+>     else
+>         sprintf (dts->emsgs[nerr], "(null): %s", buf); //currently useless.
+>         
+> 
+>     
+>  
+>     
+>  //  sprintf (err, "ERR: %d  transfers: %d \n ", dts->error_detect, dts->errored_transfers);
+>  //dtsLog(dts,err);
+327,329d338
+<     } else
+<         sprintf (dts->emsgs[nerr], "(null): %s", buf);
+<     dts->nerrs++;
+332c341
+<      *  shift the list.
+---
+>      *  shift the list. NOT WORKING because of fork.
+334,335c343
+<     /*  FIXME -- Because of the fork this doesn't update the global struct.
+<     if (dts->nerrs == MAX_EMSGS) {
+---
+>    /* if (dts->nerrs == MAX_EMSGS) {
+341,342c349
+<     }
+<      */
+---
+>     }*/
+------------------------------
+dtsMethods.c
+34c34
+<  *      stopQueue                    - stop the named queue
+---
+>  *      pauseQueue                   - stop the named queue
+78a79
+> #include <signal.h>
+206d206
+< #ifdef Linux
+208,210d207
+< #else
+<     struct statvfs fs;
+< #endif
+238d234
+< #ifdef Linux
+240,242d235
+< #else
+<     res = statvfs (rdir, &fs);          /* get disk usage       */
+< #endif
+252a246,247
+> //Not sure what this code below is doing. 
+> //DTSQ isn't even pointing at anything rgith now.
+306,308c301
+<                                 (semval == QUEUE_SHUTDOWN ? "shutdown" :
+<                                 (semval == QUEUE_RESPAWN  ? "respawn" :
+<                                 (semval == QUEUE_KILLED   ? "killed" :
+---
+>                                 (semval == QUEUE_SHUTDOWN ? "closing" : (semval == QUEUE_RESPAWN ? "respawn" :  (semval == QUEUE_KILLED ? "killed" :
+315c308
+<                 dtsShm (dts);                   // FIXME ???
+---
+>                 dtsShm(dts);
+321,324c314
+<                     qs->tot_xfer, dtsq->infile, dtsq->outfile,
+<                     dtsq->ShmQueueStat->numflushes, 
+<                     dtsq->ShmQueueStat->canceledxfers
+<                 );
+---
+>                     qs->tot_xfer, dtsq->ShmQueueStat->infile, dtsq->ShmQueueStat->outfile,dtsq->ShmQueueStat->numflushes, dtsq->ShmQueueStat->canceledxfers);
+563,564c553,561
+<     char  *buf = NULL;
+<     int  quiet = (int) xr_getIntFromParam (data, 0);
+---
+> 
+> 
+>     /*  DELETE_ME
+>     static char  buf[SZ_CONFIG];
+>     */
+>   //char  buf[SZ_CONFIG]; //DONT USE THIS IT WILL CRASH
+>    char * buf;
+>         int quiet = 1;
+>    quiet = (int) xr_getIntFromParam (data, 0);
+569,570c566,570
+<     buf = (char *) calloc (1, SZ_CONFIG);
+<     strcpy (buf, dts_fmtConfig (dts));
+---
+> 
+>     buf = (char *) calloc (SZ_CONFIG,sizeof(char));
+>     
+>     sprintf (buf, "%s", dts_fmtConfig (dts));
+> 
+574a575
+>     
+578c579
+<         free ((void *) buf);
+---
+>         free(buf);
+583d583
+< 
+636,637c636
+<     if (dts->verbose) 
+<         dtsLog (dts, "DEL: %s %s %s %d", in, path, passwd, recurse);
+---
+>      if (dts->verbose) dtsLog (dts, "DEL: %s %s %s %d", in, path,passwd, recurse);
+642a642
+>          dtsLog (dts, "PASS \n");
+651,655c651
+<             xr_setIntInResult (data, (int) ERR);
+<             goto err_ret;
+<         } else if ( dts_isDir (path) ) {
+<             /* An error opening the directory is also bad.
+<              */
+---
+>             dtsLog (dts, "ACCESS\n"); 
+675a672
+>                  dtsLog (dts, "DIR2 \n");
+685a683,685
+>     
+> 
+> 
+687c687,690
+<         res = dts_unlink ((char *) path, recurse, template);
+---
+>         {
+>                   dtsLog (dts, "local_DEL: %s = %d", path, recurse);
+>          res = dts_unlink (path, 1,"*");
+>          }
+1306c1309
+<     xr_setIntInResult (data, (int) OK);
+---
+>     xr_setIntInResult (data, (int) OK); //was OK
+1871,1872d1873
+<     char  *arg  = xr_getStringFromParam (data, 0);
+<     char  *path = dts_sandboxPath (arg);
+1873a1875,1879
+>     int   res, snum;
+>     char  *arg ;
+>     arg = xr_getStringFromParam (data, 0);
+>     char  *path; 
+>     path = dts_sandboxPath (arg);
+1875,1876c1881,1882
+<     int   res, anum;
+< 
+---
+>         int val;
+>          long long valLL;
+1880,1883d1885
+<     if ((res = stat ("/", p)) < 0) {
+<         xr_setIntInResult (data, ERR);          // method is an ERR
+<         goto ret_;
+<     }
+1884a1887
+>     if ((res = stat ("/", p)) != -1) {
+1886,1900c1889
+<     anum = xr_newArray ();
+<         xr_setIntInArray (anum,      (int) st.st_dev);
+<         xr_setIntInArray (anum,      (int) st.st_ino);
+<         xr_setIntInArray (anum,      (int) st.st_mode);
+<         xr_setIntInArray (anum,      (int) st.st_nlink);
+<         xr_setIntInArray (anum,      (int) st.st_uid);
+<         xr_setIntInArray (anum,      (int) st.st_gid);
+<         xr_setIntInArray (anum,      (int) st.st_rdev);
+<         xr_setLongLongInArray (anum, (long long) st.st_size);
+<         xr_setIntInArray (anum,      (int) st.st_blksize);
+<         xr_setIntInArray (anum,      (int) st.st_blocks);
+<         xr_setIntInArray (anum,      (int) st.st_atime);
+<         xr_setIntInArray (anum,      (int) st.st_mtime);
+<         xr_setIntInArray (anum,      (int) st.st_ctime);
+< 
+---
+>      snum = xr_newArray ();                     /* Get result array     */
+1902,1903c1891,1907
+<     xr_setArrayInResult (data, anum);
+<     xr_freeArray (anum);
+---
+> 
+>      // Don't use structs and you won't have problems.
+>      val = (int) st.st_dev;     xr_setIntInArray (snum,  (int)val);      // 0
+>      val = (int) st.st_ino;     xr_setIntInArray (snum,  (int)val);      // 1 
+>      val =  (int) st.st_mode;   xr_setIntInArray (snum,  (int)val );     // 2 
+>      val = (int) st.st_nlink;   xr_setIntInArray (snum,  (int)val);      // 3 
+>      val = (int) st.st_uid;     xr_setIntInArray (snum,  (int)val);      // 4
+>      val = (int) st.st_gid;     xr_setIntInArray (snum,  (int)val );     // 5
+>      val = (int) st.st_rdev;    xr_setIntInArray (snum,  (int)val) ;     // 6
+>      valLL = (long long) st.st_size; xr_setLongLongInArray (snum, valLL);  // 7 
+>      val = (int) st.st_blksize; xr_setIntInArray(snum,   (int)val );     // 8 
+>      val =  (int) st.st_blocks; xr_setIntInArray (snum,  (int) val );    // 9
+>      val =(int) st.st_atime;    xr_setIntInArray (snum,  (int)val );     // 10
+>      val =  (int) st.st_mtime;  xr_setIntInArray (snum,  (int) val );    // 11
+>      val = (int) st.st_ctime;   xr_setIntInArray (snum,  (int) val );    // 12
+> 
+>      xr_setArrayInResult (data, snum); 
+1908,1910c1912,1913
+< ret_:
+<     if (arg)  free ((char *) arg);
+<     if (path) free ((char *) path);
+---
+>     if (arg)  free ( arg);
+>     if (path) free ( path);
+1912a1916,1922
+> 
+>     } else {
+> 
+>         if (arg)  free ( arg);
+>         if (path) free ( path);
+>         return(ERR);
+>     }
+1918d1927
+<  *      startQueue              - start the named queue
+1920,1922c1929,1931
+<  *      pauseQueue              - pause the named queue
+<  *      pokeQueue               - poke the named queue
+<  *      stopQueue               - stop the named queue
+---
+>  *      startQueue              - start the named queue
+>  *      pauseQueue              - stop the named queue
+>  * pokeQueue     - poke or nudge the named queue
+1928a1938
+>  *
+1931d1940
+< 
+1933c1942
+<  *  DTS_STARTQUEUE --  Start the named DTS queue
+---
+>  *  DTS_SHUTDOWNQUEUE -- Shutdown the named DTS queue
+1936c1945
+<  *  @fn         int dts_startQueue (void *data)
+---
+>  *  @fn         int dts_shutdownQueue (void *data)
+1942c1951
+< dts_startQueue (void *data)
+---
+>  dts_shutdownQueue(void *data)
+1943a1953,1955
+>  
+>  // signal (SIGTERM, SIG_IGN); ignore this signal
+> 
+1944a1957
+>  
+1946d1958
+<     int semval = -1;
+1948a1961,1962
+>     int semval = -1;
+>     
+1951c1965,1968
+<     switch(semval) {
+---
+>         switch(semval)
+>         {
+>         
+>         case QUEUE_RUNNING:
+1955,1956c1972,1974
+<         dtsLog (dts, "{%s}: startQueue: setting val=%d  sem=%d\n",
+<                 qname, QUEUE_ACTIVE, dtsq->activeSem);
+---
+> 
+>         dtsLog (dts, "{%s}: shutdownQueue:  setting val=%d  sem=%d\n",
+>             qname, QUEUE_SHUTDOWN, dtsq->activeSem);
+1959,1960c1977,1978
+<         dts_semSetVal (dtsq->activeSem, QUEUE_ACTIVE);
+<         dtsq->status = QUEUE_ACTIVE;
+---
+>     dts_semSetVal (dtsq->activeSem, QUEUE_SHUTDOWN);
+>     dtsq->status = QUEUE_SHUTDOWN;
+1963,1966c1981
+<         xr_setIntInResult (data, OK);       /* No useful result returned .... */
+<         if (qname) 
+<             free ((void *) qname);
+<         return (OK);
+---
+>                 //dtsLog (dts, "{%s}: shutdownQueue: killing=(%d) thread. \n", qname,dtsq->qm_tid);
+1968,1974d1982
+<     case QUEUE_KILLED:
+<         //Generate new thread.
+<         pthread_mutex_lock (&dtsq->mutex);
+<         dts_semSetVal (dtsq->activeSem, QUEUE_RESPAWN);
+<         dtsq->status = QUEUE_RESPAWN;
+<         pthread_mutex_unlock (&dtsq->mutex);
+<         dtsLog (dts, "{%s}: startQueue:  RESPAWNING THREAD\n",qname);
+1976,1977d1983
+<     case QUEUE_RESPAWN:
+<     case QUEUE_RUNNING:
+1978a1985,1986
+>          case QUEUE_RESPAWN:
+>          case QUEUE_SHUTDOWN:
+1982a1991
+>      
+1986a1996
+>  
+1988c1998
+<  *  DTS_SHUTDOWNQUEUE -- Shutdown the named DTS queue
+---
+>  *  DTS_STARTQUEUE --  Start the named DTS queue
+1990,1991c2000,2001
+<  *  @brief      Shut down the named DTS queue
+<  *  @fn         int dts_shutdownQueue (void *data)
+---
+>  *  @brief      Start the named DTS queue
+>  *  @fn         int dts_startQueue (void *data)
+1997c2007
+< dts_shutdownQueue(void *data)
+---
+> dts_startQueue (void *data)
+1998a2009
+>     int   i = 0;
+2004,2006d2014
+<     /* signal (SIGTERM, SIG_IGN); ignore this signal
+<      */
+< 
+2010d2017
+<     case QUEUE_RUNNING:
+2014,2015c2021,2023
+<         dtsLog (dts, "{%s}: shutdownQueue:  setting val=%d  sem=%d\n",
+<             qname, QUEUE_SHUTDOWN, dtsq->activeSem);
+---
+>         dtsLog (dts, "{%s}: startQueue: setting val=%d  sem=%d\n",
+>                 qname, QUEUE_ACTIVE, dtsq->activeSem);
+>         
+2017,2018c2025,2026
+<         dts_semSetVal (dtsq->activeSem, QUEUE_SHUTDOWN);
+<         dtsq->status = QUEUE_SHUTDOWN;
+---
+>         dts_semSetVal (dtsq->activeSem, QUEUE_ACTIVE);
+>         dtsq->status = QUEUE_ACTIVE;
+2021,2022c2029,2040
+<         // dtsLog (dts, "{%s}: shutdownQueue: killing=(%d) thread.\n",
+<         //        qname, dtsq->qm_tid);
+---
+>         xr_setIntInResult (data, OK);       /* No useful result returned .... */
+>         if (qname)
+>             free ((void *) qname);
+>         return (OK);
+>         
+>     case QUEUE_KILLED:
+>         //Generate new thread.
+>         pthread_mutex_lock (&dtsq->mutex);
+>         dts_semSetVal (dtsq->activeSem, QUEUE_RESPAWN);
+>         dtsq->status = QUEUE_RESPAWN;
+>         pthread_mutex_unlock (&dtsq->mutex);
+>         dtsLog (dts, "{%s}: startQueue:  RESPAWNING THREAD\n",qname);
+2024d2041
+<         /* FALL-THROUGH */
+2026c2043
+<     case QUEUE_SHUTDOWN:
+---
+>     case QUEUE_RUNNING:
+2028,2030d2044
+<         ;
+<     }
+< 
+2035a2050,2051
+> }
+> 
+2055d2070
+< 
+2061a2077,2078
+>     
+>     
+2063a2081,2082
+> 
+>         
+2067c2086,2087
+<     if (current < next) {
+---
+>         if (current < next)
+>         {
+2076,2077c2096,2098
+<     //  dtsLog (dts, "{%s}: flushQueue current was=%d current is now=%d\n",
+<     //      qname,current,next);
+---
+>                         
+>         dtsLog (dts, "{%s}: flushQueue current was=%d current is now=%d\n",
+>             qname,current,next);
+2085d2105
+< 
+2105a2126
+>         current = dts_queueGetCurrent (curfil);
+2109,2113d2129
+< 
+<     if (current < next) {
+<         pthread_mutex_lock (&dtsq->mutex);
+< 
+<         current = dts_queueGetCurrent (curfil);
+2115a2132,2134
+>         if (current < next)
+>         {
+>         pthread_mutex_lock (&dtsq->mutex);
+2120d2138
+< 
+2124,2125c2142,2143
+<     // if (dts->verbose)
+<     //    dtsLog (dts, "{%s}: pokeQueue: current now=%d\n", qname, current);
+---
+>         dtsLog (dts, "{%s}: pokeQueue: current now=%d\n",
+>             qname,current);
+2133d2150
+< 
+2147a2165
+> 
+2148a2167
+>                 semval = dts_semGetVal (dtsq->activeSem);
+2149a2169,2170
+>         switch(semval)
+>         {
+2151,2152d2171
+<     semval = dts_semGetVal (dtsq->activeSem);
+<     switch (semval) {
+2155a2175
+> 
+2163,2164d2182
+<         /*  FALL-THROUGH  */
+< 
+2174,2200d2191
+<         //Generate new thread.
+<         dtsLog (dts, "pauseQueue (%s): Ignored queue is shutdown or invalid\n",
+<             qname);
+< 
+<         xr_setIntInResult (data, OK);     /* No useful result returned .... */
+<         if (qname)
+<                 free ((void *) qname);
+<         return (OK);
+<     }
+< }
+< 
+< 
+< /**
+<  *  DTS_STOPQUEUE --  Stop processing of the named queue.
+<  *
+<  *  @brief      Stop processing of the named queue
+<  *  @fn         int dts_stopQueue (void *data)
+<  *
+<  *  @param  data        caller param data
+<  *  @return             status code or errno
+<  */
+< int 
+< dts_stopQueue (void *data)
+< {
+<     char *qname   = xr_getStringFromParam (data, 0); /* queue name      */
+<     dtsQueue *dtsq = dts_queueLookup (qname);
+< 
+2202,2204c2193
+<     if (dts->verbose)
+<         dtsLog (dts, "stopQueue (%s):  setting val=%d  sem=%d\n",
+<             qname, QUEUE_PAUSED, dtsq->activeSem);
+---
+>                 //Generate new thread.
+2206,2209c2195
+<     pthread_mutex_lock (&dtsq->mutex);
+<     dts_semSetVal (dtsq->activeSem, QUEUE_PAUSED);
+<     dtsq->status = QUEUE_PAUSED;
+<     pthread_mutex_unlock (&dtsq->mutex);
+---
+>                 dtsLog (dts, "pauseQueue (%s):  Ignored queue is shutdown or invalid\n",qname);
+2215a2202
+> }
+2520c2507
+<     if (dts_stopQueue (data) == ERR || dts_startQueue (data) == ERR)
+---
+>     if (dts_pauseQueue (data) == ERR || dts_startQueue (data) == ERR)
+2592d2578
+<     dtsShm (dtsq->dts);
+2599a2586,2587
+>         doprnt (buf, "   node:  %s\n", dts_cfgQNodeStr (dtsq->node));
+> 
+2605a2594,2596
+> 
+>         dtsShm(dtsq->dts);
+>         
+2607a2599
+> 
+2769d2760
+< 
+2795c2786
+<         ;
+---
+>         
+3332d3322
+<     int   semval = -1;
+3341d3330
+<     semval = dts_semGetVal (dtsq->activeSem);
+3344c3333
+<     /* Check that this is a valid queue name and status.
+---
+>     /* Check that this is a valid queue name and a valid status.
+3345a3335,3339
+>     
+>     int semval = -1;
+>     semval = dts_semGetVal (dtsq->activeSem);
+>     
+>     
+3347c3341
+<         if (strcmp (qname, dts->queues[i]->name) == 0 &&
+---
+>         if ((strcmp (qname, dts->queues[i]->name) == 0)  && 
+3350,3351c3344,3345
+<             (semval == QUEUE_PAUSED)) ) {
+<                 //  FIXME -- Possible bug didn't get all the correct statuses?
+---
+>         (semval == QUEUE_PAUSED))) //Possible bug didn't get all the correct statuses?
+>          {
+------------------------------
+dtsMethods.h
+13d12
+< int dts_stopQueue (void *data);
+------------------------------
+dtsPSock.c
+49a50,51
+> //extern char first_write; // To keep track of if a thread has written or not.
+>     
+52c54,55
+< extern char   first_write;      /* keep track of whether thread has written   */
+---
+> extern char first_write;
+> 
+56a60,159
+> /**
+>  *  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+>  *  !!!!!!!!!!!!!!!  NOT USED IN CURRENT CODE BASE  !!!!!!!!!!!!!!!!!!!!!!!!
+>  *  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+>  *
+>  *  PSSPAWNWORKER -- Spawn a worker thread for the transfer.  All we do here
+>  *  is start a thread to run the function passed in.  This may be used to
+>  *  either read or write the data.
+>  *
+>  *  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+>  *  !!!!!!!!!!!!!!!  NOT USED IN CURRENT CODE BASE  !!!!!!!!!!!!!!!!!!!!!!!!
+>  *  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+>  *
+>  *  @brief  Spawn a worker thread for the transfer.
+>  *  @fn     int psSpawnWorker (void *worker, int nthreads, char *dir, 
+>  *              char *fname,  long fsize, int mode, int port, char *host, 
+>  *              int verbose)
+>  *
+>  *  @param  worker      worker function 
+>  *  @param  nthreads    number of threads to create
+>  *  @param  dir         directory path
+>  *  @param  fname       file name
+>  *  @param  fsize       file size
+>  *  @param  mode        transfer mode (push or pull)
+>  *  @param  port        client base port number
+>  *  @param  host        client host name
+>  *  @param  verbose     verbose output flag
+>  *
+>  *  @return             status code
+>  */
+> int
+> psSpawnWorker (void *worker, int nthreads, char *dir, char *fname, long fsize, 
+>         int mode, int port, char *host, int verbose)
+> {
+>     int    t, rc = 0, *tstat;
+>     long   start, end, stripeSize;
+>     psArg  arg[MAX_THREADS];
+> 
+>     pthread_t  tids[MAX_THREADS];               /* thread attributes    */
+>     pthread_attr_t  attr;
+> 
+> 
+>     /* Initialize the service processing thread attribute.
+>     */
+>     pthread_attr_init (&attr);
+>     pthread_attr_setdetachstate (&attr, PTHREAD_CREATE_JOINABLE);
+> 
+>     /* Do the actual file transfer.
+>     */
+>     measure_start ();
+>     for (t=0; t < nthreads; t++) {
+> 
+>         psComputeStripe (fsize, nthreads, t, &stripeSize, &start, &end);
+> 
+>         arg[t].tnum   = t;              /* setup thread argument        */
+>         arg[t].port   = port + t;
+>         arg[t].mode   = mode;
+>         /*
+>         arg[t].host   = host;
+>         arg[t].fname  = fname;
+>         */
+>         strcpy (arg[t].host, host);
+>         strcpy (arg[t].dir, dir);
+>         strcpy (arg[t].fname, fname);
+>         arg[t].fsize  = fsize;
+>         arg[t].nbytes = stripeSize;
+>         arg[t].start  = start;
+>         arg[t].end    = end;
+> 
+>         if (verbose)
+>             dtsErrLog (NULL, "Spawning thread %2d ...%10ld to %10ld\n", 
+>                 t, arg[t].start, arg[t].end);
+>         if ((rc = pthread_create (&tids[t], &attr, (void *)worker, 
+>                 (void *)&arg[t]))) {
+>                     dtsErrLog (NULL, 
+>                         "ERROR: pthread_create() fails, code: %d\n", rc);
+>                     exit (1);           /*    FIXME     */
+>         }
+>     }
+> 
+>     /* Free attribute and wait for the threads to complete.
+>     */
+>     pthread_attr_destroy (&attr);
+>     if ((tstat = psCollectThreads (nthreads, tids))) {
+>         for (t=0; t < nthreads; t++) {
+>             if ( tstat[t] )
+>                 dtsErrLog (NULL, 
+>                     "ERROR: thread %d join fails, code: %d\n", t, rc);
+>         }
+>     }
+> 
+>     if (verbose)
+>         dtsErrLog (NULL, "\nTransfer complete ......\n");
+> 
+>     measure_stop (fsize);
+> 
+>     return (OK);
+> }
+> 
+> 
+169c272
+<     memset (stat, 0, (sizeof(int) * MAX_THREADS));
+---
+>     memset (stat, 0, MAX_THREADS);
+287,288c390
+<     if ((fd = dts_fileOpen ((fp=dts_sandboxPath(arg->fname)),
+<         O_RDONLY|O_NONBLOCK )) > 0) {
+---
+>     if ((fd = dts_fileOpen ( (fp=dts_sandboxPath(arg->fname)),O_RDONLY|O_NONBLOCK )) > 0) {
+294c396
+<             dtsErrLog (NULL, "psSendFile: cannot alloc %d bytes, quitting\n", 
+---
+>             dtsErrLog (dts, "psSendFile: cannot alloc %d bytes, quitting\n", 
+295a398,399
+>                 //was log
+>                 
+308,309c412,413
+<         dtsErrLog (NULL, "psSendFile:  cannot open '%s' (%s), quitting\n", 
+<             dts_sandboxPath(arg->fname), arg->fname);
+---
+>         dtsErrLog (dts, "psSendFile:  cannot open '%s' (%s), quitting\n", 
+>             dts_sandboxPath(arg->fname), arg->fname); //was log
+497d600
+<             ;
+506c609
+<             fd = dts_fileOpen ( arg->fname, O_WRONLY|O_CREAT|O_NONBLOCK);
+---
+>                 fd =dts_fileOpen ( arg->fname, O_WRONLY|O_CREAT);
+510d612
+<             extern DTS *dts;
+513c615,616
+<             lseek (fd, (off_t) arg->start, SEEK_SET); /* write data stripe */
+---
+>             fprintf (stderr, "argstart %d nbytes %d \n", 
+>                 arg->start, arg->nbytes);
+515,517c618
+<             if (dts->debug > 1)
+<                 dtsLog (dts, "psRcvFile:  tnum=%d  off=%d  nbytes=%d\n",
+<                     arg->tnum, arg->start, arg->nbytes);
+---
+>             lseek (fd, (off_t) arg->start, SEEK_SET); /* write data stripe */
+559a661,662
+> 
+>         
+------------------------------
+dtsPSock.h
+------------------------------
+dtsPull.c
+------------------------------
+dtsPush.c
+75c75
+< extern  int   first_write;
+---
+> extern char first_write;
+------------------------------
+dtsQueue.c
+105,106c105
+<         dtsLog (dts, "{%s}: InitTransfer call failed: %s:%s", 
+<             qname, host, fname);
+---
+>         dtsLog (dts, "{%s}: InitTransfer call failed: %s:%s", qname, host, fname);
+------------------------------
+dtsQueueUtil.c
+32a33
+> #define USE_MUTEX 1
+974,975c975
+<     fprintf (fd, "%d %g %g %g %g %g\n", nfiles + 1, rate, time, size, xfer,
+<         xfs->tput_mb);
+---
+>     fprintf (fd, "%d %g %g %g %g %g\n", nfiles + 1, rate, time, size, xfer,xfs->tput_mb);
+------------------------------
+dtsSandbox.c
+------------------------------
+dtsSem.c
+60d59
+< #ifndef Darwin
+69d67
+< #endif
+------------------------------
+dtsSockUtil.c
+357a358
+>     {
+359a361
+>         }
+------------------------------
+dtsTar.c
+------------------------------
+dtsTar.h
+------------------------------
+dtsUDT.c
+2,3d1
+<  *  DTSUDT.C -- DTS UDT transfer routines.
+<  *
+5,6c3,4
+<  *  @author     Mike Fitzpatrick, Travis Semple, NOAO
+<  *  @date       3/10/13
+---
+>  *  @author     Mike Fitzpatrick, NOAO
+>  *  @date       6/10/09
+8a7,8
+>  *
+>  *
+10a11
+> 
+55d55
+< 
+59d58
+< 
+187c186
+<     ;
+---
+> 
+193a193
+> 
+410a411
+>         char code = 0;
+524,527c525,527
+<         if (first_write) {
+<             /*  First write gets rid of existing file.
+<              */
+<             fd = dts_fileOpen ( arg->fname, O_WRONLY|O_CREAT|O_TRUNC); 
+---
+>                 if (first_write) 
+>                 {
+>                 fd = dts_fileOpen ( arg->fname, O_WRONLY|O_CREAT|O_TRUNC); //First write gets rid of existing file.
+529c529,530
+<         } else
+---
+>                 }
+>                 else
+------------------------------
+dtsUDT.h
+------------------------------
+dtsUtil.c
+54,55d53
+< #include <sys/ipc.h>
+< #include <sys/shm.h>
+58a57,61
+> 
+> #include <sys/types.h>
+> #include <sys/ipc.h>
+> #include <sys/shm.h>
+> 
+64a68,139
+> /* Locates a segment, attaches our dtsq->ShmQueueStat to the shared memory */
+> 
+> 
+> /*
+> void dtsShm_message(dtsQueue * mydtsq, char * format, ...)
+> {
+>         int len;
+>     char    *buf;
+>     va_list argp;
+>     
+>         /* Format our string */
+>         /*va_start (argp, format);              /* encode as a single string    */
+>    /* buf = calloc (1, (4 * SZ_LINE) );
+>     (void) dts_encodeString (buf, format, &argp);
+>     va_end (argp);
+> 
+>         len = strlen (buf);                     /* ensure a newline             */
+>     /*if (strcmp ("\n", &buf[len-1]))
+>         strcat (buf, "\n");
+>        
+>         /* Check where we are inside of the buffer, if we are at the bottom shift down 29 times. (30 sized array, 40 just in case lin_num incremented same time */
+>         /*if((mydtsq->ShmQueueStat->lin_num) >= 29) //0 -> 29 = 30
+>         {
+>         //shift down
+>         
+>         
+>         }
+>         else
+>         {
+>                 strcpy(&mydtsq->ShmQueueStat->msgs[mydtsq->ShmQueueStat->lin_num], buf);
+>                 mydtsq->ShmQueueStat->lin_num++;        
+>         }
+>         
+>         
+> 
+> 
+> }
+> */
+> 
+>   void dtsShm(DTS * mydts)
+>   {
+>         int shmid;
+>     key_t key;
+>     char *shm, *s;
+>   
+>     key = 5678;
+> 
+>         if (mydts == NULL)
+>         return;
+> 
+>     if ((shmid = shmget(key, mydts->nqueues * sizeof(shmQueueStat),0666)) < 0) {
+>         perror("shmget");
+>         exit(1);
+>     }
+> 
+> 
+>                         shmQueueStat *shmQstat;
+>                             if ((shmQstat = (shmQueueStat *) shmat(shmid, NULL, 0)) == (char *) -1) {
+>                                 perror("shmat");
+>                                 exit(1);
+>                                 }
+>                         //              *shmDTSQptr = *mydtsq;
+>                 int k = 0;
+>                                     dtsQueue   *dtsq = (dtsQueue *) NULL;       
+>                                          for (k=0; k < mydts->nqueues; k++) 
+>                                 {
+>                                                 dtsq = mydts->queues[k];
+>                                                 dtsq->ShmQueueStat = (shmQstat+k);
+>                                         }       
+>                 
+>   }  
+> 
+222,257d296
+< 
+< /* Locates a segment, attaches our dtsq->ShmQueueStat to the shared memory */
+< 
+< /**
+<  *
+<  */
+< void
+< dtsShm (DTS *dts)
+< {
+<     int   shmid, k=0;
+<     key_t key = 5678;
+<     dtsQueue   *dtsq = (dtsQueue *) NULL;       
+<     shmQueueStat *shmQstat;
+<   
+< 
+<     if (dts == NULL)
+<         return;
+< 
+<     if ((shmid = shmget (key, dts->nqueues * sizeof(shmQueueStat),0666)) < 0) {
+<         perror("shmget");
+<         exit(1);
+<     }
+<     if ((shmQstat = (shmQueueStat *) shmat (shmid, NULL, 0)) == (void *) -1) {
+<         perror("shmat");
+<         exit(1);
+<     }
+< 
+< 
+<     for (k=0; k < dts->nqueues; k++) {
+<         dtsq = dts->queues[k];
+<         dtsq->ShmQueueStat = (shmQstat+k);
+<     }   
+< }  
+< 
+< 
+< 
+459c498
+<     struct hostent *hp = (struct hostent *) NULL;
+---
+>     struct hostent *hp = (struct hostent *) NULL, hostbuf;
+461,464c500
+<     int    i, len;
+< #ifdef LINUX
+<     struct hostent hostbuf;
+<     int    hres, herr, tmplen = SZ_LINE;
+---
+>     int    i, len, herr, hres, tmplen = SZ_LINE;
+466d501
+< #endif
+471d505
+< #ifdef LINUX
+473,475d506
+< #else
+<     hp = gethostbyname (name);
+< #endif
+497d527
+< #ifdef LINUX
+499,501d528
+< #else
+<         hp = gethostbyname (name);
+< #endif
+507d533
+< #ifdef LINUX
+509,511d534
+< #else
+<     hp = gethostbyname (name);
+< #endif
+1267c1290
+<     // dts->nerrs++;
+---
+>     //dts->nerrs++; //Travis added for fatal errors.
+------------------------------
+dtsXfer.c
+82a83,84
+>     int   res, fsize, fmode;
+>     int   srcLocal = 1, dstLocal = 0, isDir = 0, verbose = 0;
+85,87d86
+<     char *localIP = dts_getLocalIP();
+<     int   res, fsize, fmode, len = strlen (localIP);
+<     int   srcLocal = 1, dstLocal = 0, isDir = 0, verbose = 0;
+137,138c136,137
+<     if (strncmp (localIP, src_host, len) != 0 && 
+<         strncmp (localIP, dest_host, len) != 0)
+---
+>     if (strncmp (dts_getLocalIP(), src_host, strlen(dts_getLocalIP())  ) != 0 && 
+>         strncmp (dts_getLocalIP(), dest_host,strlen(dts_getLocalIP())) != 0)
+285,287c284
+<     char  *func = NULL, *path = NULL, *path_A = NULL, *path_B = NULL;
+<     char  *localIP = dts_getLocalIP();
+<     int   res, fsize, fmode, len = strlen (localIP);
+---
+>     int   res, fsize, fmode;
+289a287,290
+>     char  *shost = src_host, *dhost = dest_host, *mhost = msg_host;
+> 
+>     char  *func = NULL, *path = NULL, *path_A = NULL, *path_B = NULL;
+> 
+316a318
+>     */
+319d320
+<     */
+328,331c329,333
+<     srcLocal = (strncmp (localIP, src_host, len) == 0);
+<     dstLocal = (strncmp (localIP, dest_host, len) == 0);
+<     if (strncmp (localIP, src_host, len) != 0 && 
+<         strncmp (localIP, dest_host, len) != 0)
+---
+>     srcLocal = (strncmp (dts_getLocalIP(), src_host, strlen(dts_getLocalIP())) == 0);
+>     dstLocal = (strncmp (dts_getLocalIP(), dest_host,strlen(dts_getLocalIP())) == 0);
+>    
+>     if (strncmp (dts_getLocalIP(), src_host, strlen(dts_getLocalIP())  ) != 0 && 
+>         strncmp (dts_getLocalIP(), dest_host,strlen(dts_getLocalIP())) != 0)
+332a335
+>             
+386a390
+>     
+387a392
+>         
+394a400
+>     
+400d405
+< 
+409,410c414
+<         // sprintf (dest_host, "%s:%d", dts_getLocalIP(), port );  FIXME -
+<         // for remote->remote xfers
+---
+>         //sprintf (dest_host, "%s:%d", dts_getLocalIP(), port ); Travis what if we do remote -> remote? 
+429c433
+<             strcpy (prefix, s_dir);           /* save static copy of prefix */
+---
+>             //strcpy (prefix, s_dir);           /* save static copy of prefix */ //Travis took out
+634,636c638,647
+<             if (dts_xferFile (
+<                 ((strcmp (func, "xferPushFile") == 0) ? srcHost : dstHost),
+<                 func, method, rate, newfile, 
+---
+>             
+>             if (func == "xferPushFile") {
+>                 if (dts_xferFile(srcHost, func, method, rate, newfile, 
+>                     fsize, fmode, xs) == ERR) {
+>                         if (list) free (list);
+>                         return (ERR);
+>                 }
+>             
+>             } else {
+>                 if (dts_xferFile(dstHost, func, method, rate, newfile, 
+640a652
+>             }
+679d690
+<     // FIXME -- should not hardwire the port number
+690,691c701,702
+<                 /*  FIXME -- MKDIR WONT WORK UNLESS IT HAS A ./
+<                  */
+---
+>                 //MKDIR WONT WORK UNLESS IT HAS A ./
+>                 //FIX THIS!!
+------------------------------
+zzchecksum.c
+------------------------------
+zzexec.c
+------------------------------
+zzfcopy.c
+------------------------------
+zzfile.c
+------------------------------
+zzstatfs.c

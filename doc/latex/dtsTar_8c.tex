@@ -1,0 +1,65 @@
+\hypertarget{dtsTar_8c}{
+\section{dtsTar.c File Reference}
+\label{dtsTar_8c}\index{dtsTar.c@{dtsTar.c}}
+}
+\hyperlink{structDTS}{DTS} interface for reading tar files (e.g. bundles).  
+
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$strings.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include \char`\"{}dts.h\char`\"{}}\par
+{\tt \#include \char`\"{}dtsTar.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hypertarget{dtsTar_8c_a8e36de375e3a16af0551271bb50197b}{
+int \textbf{dts\_\-rtar} (int argc, char $\ast$$\ast$argv)}
+\label{dtsTar_8c_a8e36de375e3a16af0551271bb50197b}
+
+\item 
+int \hyperlink{dtsTar_8c_e61bee83d367a96d6d9d9aad54c09bcd}{dts\_\-wtar} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{CompactList}\small\item\em \hyperlink{structDTS}{DTS} interface for writing tar files (e.g. bundles). \item\end{CompactList}\end{CompactItemize}
+
+
+\label{_details}
+\hypertarget{_details}{}
+\subsection{Detailed Description}
+\hyperlink{structDTS}{DTS} interface for reading tar files (e.g. bundles). 
+
+DTSTAR.C -- Unpack or list a UNIX tar format file containing .....
+
+\begin{Desc}
+\item[Author:]Mike Fitzpatrick, NOAO \end{Desc}
+\begin{Desc}
+\item[Date:]11/10/09\end{Desc}
+Switches: b generate only C style binary byte stream output files (default is to write a text file when the input stream is text). d print debug messages e exclude, rather than include, listed files f read from named file rather than stdin l do not try to resolve links by a file copy m do not restore file modify times n do not strip tailing blank lines from text files o omit binary files (e.g. when foreign host has incompatible binary file format) p omit the given pathname prefix when creating files r replace existing file at extraction t print name of each file matched u do not attempt to restore user id v verbose; print full description of each file x extract files (extract everything if no files listed or if -e is set)
+
+Switches must be given in a group, in any order, e.g.:
+
+rtar -xetvf tarfile sys/osb sys/os lib/config.h\$
+
+would extract all files from tarfile with names not beginning with sys/os or sys/osb or with names not equal to lib/config.h, printing a verbose description of each file extracted. If an exclude filename does not end with a \$ all files with the given string as a prefix are excluded. 
+
+\subsection{Function Documentation}
+\hypertarget{dtsTar_8c_e61bee83d367a96d6d9d9aad54c09bcd}{
+\index{dtsTar.c@{dtsTar.c}!dts\_\-wtar@{dts\_\-wtar}}
+\index{dts\_\-wtar@{dts\_\-wtar}!dtsTar.c@{dtsTar.c}}
+\subsubsection[{dts\_\-wtar}]{\setlength{\rightskip}{0pt plus 5cm}int dts\_\-wtar (int {\em argc}, \/  char $\ast$ {\em argv}\mbox{[}$\,$\mbox{]})}}
+\label{dtsTar_8c_e61bee83d367a96d6d9d9aad54c09bcd}
+
+
+\hyperlink{structDTS}{DTS} interface for writing tar files (e.g. bundles). 
+
+DTSWWTAR -- Write a UNIX tar format file (on disk or to stdout)
+
+Switches: f write to named file, otherwise write to stdout t print name of each file written v verbose; print full description of each file d print debug messages o omit binary files (e.g. when foreign host has incompatible binary file format) 
+
+References dts\_\-isDir().

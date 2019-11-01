@@ -1,0 +1,347 @@
+.TH "dtsLocal.c" 3 "11 Apr 2014" "Version v1.0" "DTS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dtsLocal.c \- \fBDTS\fP Command Interface.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <dirent.h>\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <utime.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <xmlrpc-c/base.h>\fP
+.br
+\fC#include <xmlrpc-c/client.h>\fP
+.br
+\fC#include <xmlrpc-c/server.h>\fP
+.br
+\fC#include <xmlrpc-c/server_abyss.h>\fP
+.br
+\fC#include 'dts.h'\fP
+.br
+\fC#include 'dtsMethods.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdts_localAccess\fP (char *path, int mode)"
+.br
+.RI "\fICheck a local file for an access mode. \fP"
+.ti -1c
+.RI "int \fBdts_localCopy\fP (char *old, char *new)"
+.br
+.RI "\fICopy a local file. \fP"
+.ti -1c
+.RI "char * \fBdts_localCwd\fP ()"
+.br
+.RI "\fIGet the current working directory. \fP"
+.ti -1c
+.RI "int \fBdts_localDelete\fP (char *path, int recurse)"
+.br
+.RI "\fIDelete a local file. \fP"
+.ti -1c
+.RI "char * \fBdts_localDir\fP (char *path, int lsLong)"
+.br
+.RI "\fIGet a local directory listing. \fP"
+.ti -1c
+.RI "int \fBdts_localChmod\fP (char *path, mode_t mode)"
+.br
+.RI "\fIChange the mode of a local file. \fP"
+.ti -1c
+.RI "int \fBdts_localMkdir\fP (char *path)"
+.br
+.RI "\fIMake a local directory. \fP"
+.ti -1c
+.RI "int \fBdts_localMtime\fP (char *path, long mtime)"
+.br
+.RI "\fIUpdate file modification time. \fP"
+.ti -1c
+.RI "int \fBdts_localRename\fP (char *old, char *new)"
+.br
+.RI "\fIRename a local file. \fP"
+.ti -1c
+.RI "int \fBdts_localTouch\fP (char *path)"
+.br
+.RI "\fITouch a local file. \fP"
+.ti -1c
+.RI "int \fBdts_localPrealloc\fP (char *path, int size)"
+.br
+.RI "\fIPre-allocate a local file. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBDTS\fP * \fBdts\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBDTS\fP Command Interface. 
+
+\fBDTS\fP Local I/O Interface - Local operations
+.PP
+File Operations:
+.PP
+access <path> <mode> - check file access cwd - get current working directory del <pattern> <pass> <recur> - delete a file dir <pattern> - get a directory listing diskFree - how much disk space is available? diskUsed - how much disk space is used? echo <str> - simple echo function fsize <fname> - get a file size ftime <fname> - get a file time mkdir <path> - make a directory mtime <path> <tm> - set file modification time ping - simple aliveness test function prealloc <fname> <nbytes> - preallocate space for a file rename <old> <new> - rename a file stat <fname> - get file stat() info setroot <path> - set the root directory of a \fBDTS\fP touch <path> - touch a file access time
+.PP
+\fBAuthor:\fP
+.RS 4
+Mike Fitzpatrick, NOAO 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+6/10/09 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int dts_localAccess (char * path, int mode)"
+.PP
+Check a local file for an access mode. 
+.PP
+DTS_LOCALACCESS -- Check a local file for an access mode.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP file path to check 
+.br
+\fImode\fP access mode 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_localChmod (char * path, mode_t mode)"
+.PP
+Change the mode of a local file. 
+.PP
+DTS_LOCALCHMOD -- Change the mode of a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP file name 
+.br
+\fImode\fP file mode 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_localCopy (char * old, char * new)"
+.PP
+Copy a local file. 
+.PP
+DTS_LOCALCOPY -- Copy a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIold\fP old filename 
+.br
+\fInew\fP new filename 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "char* dts_localCwd (void)"
+.PP
+Get the current working directory. 
+.PP
+DTS_LOCALCWD -- Get the current working directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP caller param data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+Referenced by dts_initCopyMode().
+.SS "int dts_localDelete (char * path, int recurse)"
+.PP
+Delete a local file. 
+.PP
+DTS_LOCALDELETE -- Delete a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP local file to delete 
+.br
+\fIrecurse\fP recursive delete? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_isTemplate(), and dts_unlink().
+.PP
+Referenced by dts_Deliver().
+.SS "char* dts_localDir (char * path, int lsLong)"
+.PP
+Get a local directory listing. 
+.PP
+DTS_LOCALDIR -- Get a local directory listing.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP path to direcory root 
+.br
+\fIlsLong\fP get long directory listing? 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_fmtMode(), dts_isTemplate(), and dts_patMatch().
+.SS "int dts_localMkdir (char * path)"
+.PP
+Make a local directory. 
+.PP
+DTS_LOCALMKDIR -- Make a local directory.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP directory path to create 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+Referenced by dts_hostFrom(), and dts_xferFile().
+.SS "int dts_localMtime (char * path, long mtime)"
+.PP
+Update file modification time. 
+.PP
+DTS_LOCALMtime -- Update file modification time.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP directory path to create 
+.br
+\fImtime\fP modification time 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_localPrealloc (char * path, int size)"
+.PP
+Pre-allocate a local file. 
+.PP
+DTS_LOCALPREALLOC -- Pre-allocate a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP filename path to prealloc 
+.br
+\fIsize\fP file size 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+References dts_preAlloc().
+.SS "int dts_localRename (char * old, char * new)"
+.PP
+Rename a local file. 
+.PP
+DTS_LOCALRENAME -- Rename a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIold\fP old file name 
+.br
+\fInew\fP new file name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.SS "int dts_localTouch (char * path)"
+.PP
+Touch a local file. 
+.PP
+DTS_LOCALTOUCH -- Touch a local file.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP filename path to touch 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+status code or errno 
+.RE
+.PP
+
+.PP
+Referenced by dts_xferFile().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DTS from the source code.

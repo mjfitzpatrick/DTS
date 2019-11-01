@@ -1,0 +1,5 @@
+scp dts[dq] dts@dts-tu-podi.tuc.noao.edu:bin/
+scp dts[dq] dtsuser@incoming-test2.odi.iu.edu:bin/
+scp dts[dq] dtsuser@incoming-dev.odi.iu.edu:bin/
+scp dts[dq] dts@odiserv.kpno.noao.edu:bin/
+#scp dts[dq] dtsuser@incoming2.odi.iu.edu:bin/

@@ -1,0 +1,36 @@
+#!/bin/csh -f
+
+onintr shutdown
+
+clear
+echo "Rebuilding DTS ...."
+(chdir /home/fitz/dts/libdts ; make |& egrep -i error);
+(chdir /home/fitz/dts/src    ; make |& egrep -i error);
+
+echo "Initializing DTS ...."		# initialize DTSQ directory
+/bin/rm -rf ~/.dtsq/* /tmp/dts.tuc /tmp/foo.tuc
+#scp ~/.dts_config tucana2:
+scp cfg.test tucana2:
+scp dtsd     tucana2:dts/src/
+ cp cfg.test ~
+
+exit 0
+
+echo "Starting tucana2 ...."
+csh -fc "(ssh -XY tucana2 xgterm -bg wheat3 -fg black -T tucana2 -fn 6x13 -geom 80x18+50+00 -e /home/fitz/dts.run ) &"    >&  /tmp/_j
+
+echo "Starting tucana ...."
+csh -fc "(               xgterm -bg wheat3 -fg black -T tucana -fn 6x13 -geom 80x18+50+530 -e /home/fitz/dts.run ) &"   >>& /tmp/_j
+
+echo "Starting tucana test ...."
+csh -fc "(chdir zzdata ; xgterm -bg wheat3 -fg black -T tucana -fn 6x13 -geom 80x10+50+790) &" 				  >& /tmp/_j2
+
+
+echo "Waiting ...."
+set junk = "$<"
+
+shutdown:
+    /home/fitz/dts/src/dtsh -t tucana2 shutdown dtsPass
+    /home/fitz/dts/src/dtsh -t tucana  shutdown dtsPass
+    kill -9 `cat /tmp/_j2 |& awk '{print ($2)}'`
+    /bin/rm -rf /tmp/_j /tmp/_j2

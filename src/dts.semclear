@@ -1,0 +1,8 @@
+#!/bin/csh -f
+
+foreach s ( `ipcs -st | awk '{print($1)}' |& egrep -v -e "--" -e "shmid" -e "semid"` )
+    sudo ipcrm -s $s
+end
+foreach m ( `ipcs -mt | awk '{print($1)}' |& egrep -v -e "--" -e "shmid" -e "semid"` )
+    sudo ipcrm -m $m
+end
